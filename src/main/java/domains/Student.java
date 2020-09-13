@@ -1,5 +1,9 @@
 package domains;
 
+import domains.operations.InformationOperations;
+import domains.operations.InternshipOperations;
+import domains.operations.RelationshipOperations;
+import domains.operations.VisitOperations;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +17,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Student implements VisitOperations, RelationshipOperations, InformationOperations, InternshipOperations {
     @Id
     private String id;
     private String name;

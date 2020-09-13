@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Visit {
     @Id
-    private long id;
+    private Long id;
     private String Date;
     @ElementCollection
     private List<Staff> visitors;

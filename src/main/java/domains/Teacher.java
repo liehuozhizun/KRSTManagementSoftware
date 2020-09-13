@@ -1,5 +1,8 @@
 package domains;
 
+import domains.operations.InformationOperations;
+import domains.operations.RelationshipOperations;
+import domains.operations.VisitOperations;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +20,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Teacher {
+public class Teacher implements VisitOperations, RelationshipOperations, InformationOperations {
     @Id
     private String id;
     private String name;

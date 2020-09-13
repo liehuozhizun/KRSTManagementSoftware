@@ -1,9 +1,13 @@
 package domains;
 
+import domains.operations.InformationOperations;
+import domains.operations.RelationshipOperations;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -17,13 +21,15 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Staff {
+public class Staff implements RelationshipOperations, InformationOperations {
     @Id
     private String id;
     private String name;
     private String baptismalName;
     private String gender;
     private String birthday;
+    @Type(type = "yes_no")
+    private Boolean isGregorianCalendar;
     private String baptismalDate;
     private String confirmationDate;
     private String marriageDate;

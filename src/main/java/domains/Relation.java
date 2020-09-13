@@ -1,5 +1,7 @@
 package domains;
 
+import domains.operations.InformationOperations;
+import domains.operations.RelationshipOperations;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +15,10 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Relation {
+public class Relation implements RelationshipOperations, InformationOperations {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private String baptismalName;
     private String gender;
