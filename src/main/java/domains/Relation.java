@@ -6,6 +6,8 @@ import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import utils.database.DatabaseType;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -23,6 +25,8 @@ public class Relation implements RelationshipOperations, InformationOperations {
     private String baptismalName;
     private String gender;
     private String birthday;
+    @Type(type = "yes_no")
+    private Boolean isGregorianCalendar;
     private String baptismalDate;
     private String confirmationDate;
     private String marriageDate;
@@ -33,5 +37,5 @@ public class Relation implements RelationshipOperations, InformationOperations {
     private String talent;
     private String resources;
     @ElementCollection
-    private Map<Pair<String, String>, Pair<String, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+    private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }

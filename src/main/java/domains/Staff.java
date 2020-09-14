@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.hibernate.annotations.Type;
+import utils.database.DatabaseType;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -46,5 +47,5 @@ public class Staff implements RelationshipOperations, InformationOperations {
     @ElementCollection
     private List<Evaluation> evaluations;
     @ElementCollection
-    private Map<Pair<String, String>, Pair<String, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+    private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }

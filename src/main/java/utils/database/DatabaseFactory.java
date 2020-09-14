@@ -29,15 +29,15 @@ public class DatabaseFactory {
 
     public static Database getDatabase(DatabaseType databaseType) {
         switch (databaseType) {
-            case admin: return adminDatabase;
-            case student: return studentDatabase;
-            case teacher: return teacherDatabase;
-            case course: return courseDatabase;
-            case courseTemplate: return courseTemplateDatabase;
-            case grade: return gradeDatabase;
-            case staff: return staffDatabase;
-            case evaluation: return evaluationDatabase;
-            case relation: return relationDatabase;
+            case ADMIN: return adminDatabase;
+            case STUDENT: return studentDatabase;
+            case TEACHER: return teacherDatabase;
+            case COURSE: return courseDatabase;
+            case COURSE_TEMPLATE: return courseTemplateDatabase;
+            case GRADE: return gradeDatabase;
+            case STAFF: return staffDatabase;
+            case EVALUATION: return evaluationDatabase;
+            case RELATION: return relationDatabase;
 //            case reminder: return reminderDatabase;
             default: throw new RuntimeException("The database instance you requested  does not exist: "+databaseType);
         }
