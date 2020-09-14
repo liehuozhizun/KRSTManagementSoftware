@@ -10,5 +10,6 @@ public class Constants {
     public static final String EVALUATION_DATABASE = "Evaluation";
     public static final String RELATION_DATABASE = "Relation";
     public static final String GRADE_DATABASE = "Grade";
+    public static final String PATRON_SAINT_DATE_DATABASE = "PatronSaintDate";
     public static final String REMAINDER_DATABASE = "Remainder";
 }

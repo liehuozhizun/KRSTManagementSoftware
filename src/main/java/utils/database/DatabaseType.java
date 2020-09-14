@@ -10,5 +10,6 @@ public enum DatabaseType {
     STAFF,
     EVALUATION,
     RELATION,
+    PATRON_SAINT_DATE,
     REMAINDER
 }

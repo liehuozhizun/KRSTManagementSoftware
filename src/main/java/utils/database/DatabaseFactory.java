@@ -13,6 +13,7 @@ public class DatabaseFactory {
     private static Database<Staff> staffDatabase;
     private static Database<Evaluation> evaluationDatabase;
     private static Database<Relation> relationDatabase;
+    private static Database<PatronSaintDate> patronSaintDateDatabase;
 //    private static Database reminderDatabase;
 
     static {
@@ -25,6 +26,7 @@ public class DatabaseFactory {
         staffDatabase = new StaffDatabase();
         evaluationDatabase = new EvaluationDatabase();
         relationDatabase = new RelationDatabase();
+        patronSaintDateDatabase = new PatronSaintDateDatabase();
     }
 
     public static Database getDatabase(DatabaseType databaseType) {
@@ -38,6 +40,7 @@ public class DatabaseFactory {
             case STAFF: return staffDatabase;
             case EVALUATION: return evaluationDatabase;
             case RELATION: return relationDatabase;
+            case PATRON_SAINT_DATE: return patronSaintDateDatabase;
 //            case reminder: return reminderDatabase;
             default: throw new RuntimeException("The database instance you requested  does not exist: "+databaseType);
         }
