@@ -1,8 +1,10 @@
 package repositories;
 
+import domains.Log;
 import org.hibernate.Session;
 import utils.HibernateUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public abstract class Database<T> {
         try (Session session = HibernateUtils.openSession()) {
             return session.createQuery("from "+databaseName).list(); // Lazy initialization
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -24,6 +27,7 @@ public abstract class Database<T> {
             result.toString(); // Avoid lazy initialization
             return result;
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return null;
         }
     }
@@ -34,6 +38,7 @@ public abstract class Database<T> {
             result.toString(); // Avoid lazy initialization
             return result;
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return null;
         }
     }
@@ -44,6 +49,7 @@ public abstract class Database<T> {
             session.save(object);
             session.getTransaction().commit();
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return null;
         }
         return object;
@@ -55,6 +61,7 @@ public abstract class Database<T> {
             session.update(object);
             session.getTransaction().commit();
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return null;
         }
         return object;
@@ -66,6 +73,7 @@ public abstract class Database<T> {
             session.delete(object);
             session.getTransaction().commit();
         } catch (Exception e) {
+            Logger.log(this.getClass().toString(), e.getMessage());
             return null;
         }
         return object;

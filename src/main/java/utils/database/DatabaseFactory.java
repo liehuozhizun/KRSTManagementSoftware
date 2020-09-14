@@ -14,7 +14,6 @@ public class DatabaseFactory {
     private static Database<Evaluation> evaluationDatabase;
     private static Database<Relation> relationDatabase;
     private static Database<PatronSaintDate> patronSaintDateDatabase;
-//    private static Database reminderDatabase;
 
     static {
         adminDatabase = new AdminDatabase();
@@ -41,8 +40,9 @@ public class DatabaseFactory {
             case EVALUATION: return evaluationDatabase;
             case RELATION: return relationDatabase;
             case PATRON_SAINT_DATE: return patronSaintDateDatabase;
-//            case reminder: return reminderDatabase;
-            default: throw new RuntimeException("The database instance you requested  does not exist: "+databaseType);
+            default:
+                Logger.log("java.utils.database.DatabaseFactory", "The database instance you requested does not exist: "+databaseType);
+                throw new RuntimeException("The database instance you requested does not exist: "+databaseType);
         }
     }
 }
