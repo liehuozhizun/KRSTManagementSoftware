@@ -6,7 +6,6 @@ import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 import org.hibernate.annotations.Type;
 import utils.database.DatabaseType;
 
