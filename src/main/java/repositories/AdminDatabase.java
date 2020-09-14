@@ -10,27 +10,27 @@ public class AdminDatabase extends Database<Login> {
     }
 
     @Override
-    public <T> T findById(Class c, String id) {
+    public Login findById(Class c, String id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T findById(Class c, Long id) {
+    public Login findById(Class c, Long id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T save(T object) {
+    public Login save(Login object) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T update(T object) {
+    public Login update(Login object) {
         return super.update(object);
     }
 
     @Override
-    public <T> T delete(T object) {
+    public Login delete(Login object) {
         throw new UnsupportedOperationException();
     }
 }
