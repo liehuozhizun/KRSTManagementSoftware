@@ -1,8 +1,12 @@
 package domains.operations;
 
+import java.time.LocalDate;
+
 public interface InformationOperations {
-    <T> T getId();
-//  <T> void setId(T id);
     String getName();
-    void setName(String name);
+    LocalDate getBirthday();
+    LocalDate getBaptismalDate();
+    LocalDate getConfirmationDate();
+    LocalDate getMarriageDate();
+    LocalDate getDeathDate();
 }

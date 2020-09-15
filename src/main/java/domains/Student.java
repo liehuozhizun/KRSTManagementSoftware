@@ -12,6 +12,8 @@ import org.hibernate.annotations.Type;
 import utils.database.DatabaseType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -25,13 +27,13 @@ public class Student implements VisitOperations, RelationshipOperations, Informa
     private String name;
     private String baptismalName;
     private String gender;
-    private String birthday;
+    private LocalDate birthday;
     @Type(type = "yes_no")
     private Boolean isGregorianCalendar;
-    private String baptismalDate;
-    private String confirmationDate;
-    private String marriageDate;
-    private String deathDate;
+    private LocalDate baptismalDate;
+    private LocalDate confirmationDate;
+    private LocalDate marriageDate;
+    private LocalDate deathDate;
     private String attribute;
     private String leader;
     private String leaderPhone;

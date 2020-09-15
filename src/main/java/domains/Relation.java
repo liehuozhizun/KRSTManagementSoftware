@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 import utils.database.DatabaseType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Entity
@@ -24,13 +25,13 @@ public class Relation implements RelationshipOperations, InformationOperations {
     private String name;
     private String baptismalName;
     private String gender;
-    private String birthday;
+    private LocalDate birthday;
     @Type(type = "yes_no")
     private Boolean isGregorianCalendar;
-    private String baptismalDate;
-    private String confirmationDate;
-    private String marriageDate;
-    private String deathDate;
+    private LocalDate baptismalDate;
+    private LocalDate confirmationDate;
+    private LocalDate marriageDate;
+    private LocalDate deathDate;
     private String phone;
     private String address;
     private String job;
