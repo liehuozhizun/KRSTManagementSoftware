@@ -10,9 +10,9 @@ import utils.database.DatabaseFactory;
 import utils.database.DatabaseType;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 public class RemainderService {
     private Database<Student> studentDatabase = DatabaseFactory.getDatabase(DatabaseType.STUDENT);
@@ -25,9 +25,9 @@ public class RemainderService {
     private int day = LocalDate.now().getDayOfMonth();
     private int daysInMonth = getDaysInMonth(month, LocalDate.now().isLeapYear());
 
-    private static Map<RemainderDateType, List<Remainder>> remainderCache = new HashMap<>();
+    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private static Map<RemainderDateType, List<Remainder>> remainderCache = new ConcurrentHashMap<>();
     private static boolean isRemainderReady = false;
-
 
     public static Map<RemainderDateType, List<Remainder>> getRemainder() {
         if (!isRemainderReady) {
@@ -41,8 +41,11 @@ public class RemainderService {
     }
 
     private void prepareRemainder() {
-        preparePersonDateRemainder();
-        preparePatronSaintDateRemainder();
+        executorService.submit(this::preparePatronSaintDateRemainder);
+        executorService.submit(() -> preparePersonDateRemainder(studentDatabase));
+        executorService.submit(() -> preparePersonDateRemainder(teacherDatabase));
+        executorService.submit(() -> preparePersonDateRemainder(staffDatabase));
+        executorService.submit(() -> preparePersonDateRemainder(relationDatabase));
         isRemainderReady = true;
     }
 
@@ -54,13 +57,6 @@ public class RemainderService {
                 remainderCache.get(type).add(new Remainder(patronSaintDate.getDate(), RemainderEventType.PATRON_SAINT, patronSaintDate.getName()));
             }
         }
-    }
-
-    private void preparePersonDateRemainder() {
-        preparePersonDateRemainder(studentDatabase);
-        preparePersonDateRemainder(teacherDatabase);
-        preparePersonDateRemainder(staffDatabase);
-        preparePersonDateRemainder(relationDatabase);
     }
 
     private void preparePersonDateRemainder(Database database) {
