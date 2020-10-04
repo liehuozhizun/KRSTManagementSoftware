@@ -4,7 +4,7 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
         <property name="format_sql">true</property>
         <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
@@ -14,19 +14,18 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="domains.Student"/>
-        <mapping class="domains.Course"/>
-        <mapping class="domains.CourseTemplate"/>
-        <mapping class="domains.Evaluation"/>
-        <mapping class="domains.Grade"/>
-        <mapping class="domains.Internship"/>
-        <mapping class="domains.Login"/>
-        <mapping class="domains.Practice"/>
-        <mapping class="domains.Relation"/>
-        <mapping class="domains.Staff"/>
-        <mapping class="domains.Teacher"/>
-        <mapping class="domains.Visit"/>
-        <mapping class="domains.PatronSaintDate"/>
+        <mapping class="org.krst.app.domains.Student"/>
+        <mapping class="org.krst.app.domains.Course"/>
+        <mapping class="org.krst.app.domains.CourseTemplate"/>
+        <mapping class="org.krst.app.domains.Evaluation"/>
+        <mapping class="org.krst.app.domains.Grade"/>
+        <mapping class="org.krst.app.domains.Internship"/>
+        <mapping class="org.krst.app.domains.Login"/>
+        <mapping class="org.krst.app.domains.Relation"/>
+        <mapping class="org.krst.app.domains.Staff"/>
+        <mapping class="org.krst.app.domains.Teacher"/>
+        <mapping class="org.krst.app.domains.Visit"/>
+        <mapping class="org.krst.app.domains.PatronSaintDate"/>
 
     </session-factory>
 </hibernate-configuration>
