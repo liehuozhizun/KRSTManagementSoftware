@@ -26,6 +26,7 @@
         <mapping class="org.krst.app.domains.Teacher"/>
         <mapping class="org.krst.app.domains.Visit"/>
         <mapping class="org.krst.app.domains.PatronSaintDate"/>
+        <mapping class="org.krst.app.domains.Attribute"/>
 
     </session-factory>
 </hibernate-configuration>

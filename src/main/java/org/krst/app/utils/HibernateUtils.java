@@ -14,7 +14,6 @@ public class HibernateUtils {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
             Logger.logFetal("java.utils.HibernateUtils", ex.getMessage());
-            System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError("Connection to database error!");
         }
     }

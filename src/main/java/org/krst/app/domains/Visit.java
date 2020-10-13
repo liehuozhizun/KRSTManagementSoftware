@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,10 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Visit {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Date;
-    @ElementCollection
-    private List<Staff> visitors;
+    private LocalDate Date;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> visitors;
     private String content;
     private String summary;
     private String comment;

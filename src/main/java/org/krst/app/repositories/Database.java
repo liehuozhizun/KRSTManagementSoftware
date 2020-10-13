@@ -1,10 +1,13 @@
 package org.krst.app.repositories;
 
 import org.hibernate.Session;
+import org.krst.app.models.Status;
 import org.krst.app.utils.HibernateUtils;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 public abstract class Database<T> {
@@ -19,62 +22,67 @@ public abstract class Database<T> {
         }
     }
 
-    public T findById(Class c, String id) {
+    public Optional findById(Class c, String id) {
         try (Session session = HibernateUtils.openSession()) {
             T result = (T) session.get(c, id);
             result.toString(); // Avoid lazy initialization
-            return result;
+            return Optional.ofNullable(result);
         } catch (Exception e) {
             Logger.logError(this.getClass().toString(), e.getMessage());
-            return null;
+            return Optional.empty();
         }
     }
 
-    public T findById(Class c, Long id) {
+    public Optional findById(Class c, Long id) {
         try (Session session = HibernateUtils.openSession()) {
             T result = (T) session.get(c, id);
             result.toString(); // Avoid lazy initialization
-            return result;
+            return Optional.ofNullable(result);
         } catch (Exception e) {
             Logger.logError(this.getClass().toString(), e.getMessage());
-            return null;
+            return Optional.empty();
         }
     }
 
-    public T save(T object) {
+    public Status save(T object) {
         try (Session session = HibernateUtils.openSession()) {
             session.getTransaction().begin();
             session.save(object);
             session.getTransaction().commit();
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             Logger.logError(this.getClass().toString(), e.getMessage());
-            return null;
+            return Status.CONSTRAINT_VIOLATION;
+        } catch (Exception e) {
+            System.out.println(e);
+            Logger.logError(this.getClass().toString(), e.getMessage());
+            return Status.ERROR;
         }
-        return object;
+        return Status.SUCCESS;
     }
 
-    public T update(T object) {
+    public Status update(T object) {
         try (Session session = HibernateUtils.openSession()) {
             session.getTransaction().begin();
             session.update(object);
             session.getTransaction().commit();
         } catch (Exception e) {
+            e.printStackTrace();
             Logger.logError(this.getClass().toString(), e.getMessage());
-            return null;
+            return Status.ERROR;
         }
-        return object;
+        return Status.SUCCESS;
     }
 
-    public T delete(T object) {
+    public Status delete(T object) {
         try (Session session = HibernateUtils.openSession()) {
             session.getTransaction().begin();
             session.delete(object);
             session.getTransaction().commit();
         } catch (Exception e) {
             Logger.logError(this.getClass().toString(), e.getMessage());
-            return null;
+            return Status.ERROR;
         }
-        return object;
+        return Status.SUCCESS;
     }
 
 }

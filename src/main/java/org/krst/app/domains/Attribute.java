@@ -11,9 +11,9 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Login {
+public class Attribute {
     @Id
-    private Integer id;
-    private String password;
-    private Integer retryRemainingTimes;
+    private String attribute;
+    private String leader;
+    private String leaderPhone;
 }

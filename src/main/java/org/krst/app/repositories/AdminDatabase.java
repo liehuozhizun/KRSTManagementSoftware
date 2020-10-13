@@ -1,9 +1,11 @@
 package org.krst.app.repositories;
 
+import org.jetbrains.annotations.NotNull;
 import org.krst.app.domains.Login;
+import org.krst.app.models.Status;
 import org.krst.app.utils.Constants;
 
-import java.util.List;
+import java.util.Optional;
 
 public class AdminDatabase extends Database<Login> {
 
@@ -12,52 +14,52 @@ public class AdminDatabase extends Database<Login> {
     }
 
     @Override
-    public Login findById(Class c, String id) {
+    public Optional findById(Class c, String id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Login findById(Class c, Long id) {
+    public Optional<Login> findById(Class c, Long id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Login save(Login object) {
+    public Status save(Login object) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Login update(Login object) {
-        return super.update(object);
-    }
-
-    @Override
-    public Login delete(Login object) {
+    public Status delete(Login object) {
         throw new UnsupportedOperationException();
     }
 
-    public boolean verify(String password) {
+    public Status verify(@NotNull String password) {
         Login login = findAll().get(0);
         if (login.getRetryRemainingTimes() <= 0) {
-            return false;
+            return Status.CONSTRAINT_VIOLATION;
         }
 
-        boolean passwordMatch = login.getPassword().equals(password);
+        boolean passwordMatch = password.equals(login.getPassword());
         if (passwordMatch) {
             login.setRetryRemainingTimes(3);
             remainingRetryTimes = 3;
         } else {
             login.setRetryRemainingTimes(login.getRetryRemainingTimes() - 1);
             remainingRetryTimes = login.getRetryRemainingTimes();
-            passwordMatch = false;
         }
         update(login);
-        return passwordMatch;
+        return passwordMatch ? Status.SUCCESS : Status.ERROR;
     }
 
     private int remainingRetryTimes = 0;
 
     public int getRemainingRetryTimes() {
         return remainingRetryTimes;
+    }
+
+    public boolean changePassword(@NotNull String newPassword) {
+        Login login = findAll().get(0);
+        login.setPassword(newPassword);
+        return Status.SUCCESS == update(login);
     }
 }

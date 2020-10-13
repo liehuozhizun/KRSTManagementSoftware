@@ -2,9 +2,9 @@ package org.krst.app.domains.operations;
 
 import org.krst.app.domains.Visit;
 
-import java.util.List;
+import java.util.Set;
 
 public interface VisitOperations {
-    List<Visit> getVisits();
-    void setVisits(List<Visit> visits);
+    Set<Visit> getVisits();
+    void setVisits(Set<Visit> visits);
 }

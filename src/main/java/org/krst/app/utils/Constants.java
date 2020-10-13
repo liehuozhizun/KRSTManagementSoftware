@@ -11,4 +11,6 @@ public class Constants {
     public static final String RELATION_DATABASE = "Relation";
     public static final String GRADE_DATABASE = "Grade";
     public static final String PATRON_SAINT_DATE_DATABASE = "PatronSaintDate";
+
+    public static final Integer MOST_RETRY_LOGIN_TIMES = 3;
 }

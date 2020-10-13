@@ -11,4 +11,5 @@ public enum DatabaseType {
     EVALUATION,
     RELATION,
     PATRON_SAINT_DATE,
+    ATTRIBUTE
 }

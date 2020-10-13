@@ -6,19 +6,17 @@ import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import org.krst.app.utils.database.DatabaseType;
 
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
-@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,7 +27,6 @@ public class Staff implements RelationshipOperations, InformationOperations {
     private String baptismalName;
     private String gender;
     private LocalDate birthday;
-    @Type(type = "yes_no")
     private Boolean isGregorianCalendar;
     private LocalDate baptismalDate;
     private LocalDate confirmationDate;
@@ -44,8 +41,8 @@ public class Staff implements RelationshipOperations, InformationOperations {
     private String experience;
     private String talent;
     private String resource;
-    @ElementCollection
-    private List<Evaluation> evaluations;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Evaluation> evaluations;
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }

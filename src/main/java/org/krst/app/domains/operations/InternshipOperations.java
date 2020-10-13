@@ -2,9 +2,9 @@ package org.krst.app.domains.operations;
 
 import org.krst.app.domains.Internship;
 
-import java.util.List;
+import java.util.Set;
 
 public interface InternshipOperations {
-    List<Internship> getInternships();
-    void setInternships(List<Internship> internships);
+    Set<Internship> getInternships();
+    void setInternships(Set<Internship> internships);
 }

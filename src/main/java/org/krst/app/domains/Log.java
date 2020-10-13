@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Log {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Type type;
     private String time;

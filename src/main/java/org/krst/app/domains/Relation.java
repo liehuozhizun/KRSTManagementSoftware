@@ -14,19 +14,17 @@ import java.time.LocalDate;
 import java.util.Map;
 
 @Entity
-@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Relation implements RelationshipOperations, InformationOperations {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String baptismalName;
     private String gender;
     private LocalDate birthday;
-    @Type(type = "yes_no")
     private Boolean isGregorianCalendar;
     private LocalDate baptismalDate;
     private LocalDate confirmationDate;
@@ -37,6 +35,6 @@ public class Relation implements RelationshipOperations, InformationOperations {
     private String job;
     private String talent;
     private String resources;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }
