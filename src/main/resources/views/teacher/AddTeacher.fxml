@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="848.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.student.AddStudent">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="848.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.teacher.AddTeacher">
    <children>
-      <Label layoutX="264.0" layoutY="24.0" text="添加学生">
+      <Label layoutX="264.0" layoutY="24.0" text="添加教师">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="71.0" text="学生编号" />
-      <Label layoutX="31.0" layoutY="119.0" text="学生姓名" />
+      <Label layoutX="31.0" layoutY="71.0" text="教师编号" />
+      <Label layoutX="31.0" layoutY="119.0" text="教师姓名" />
       <Label layoutX="61.0" layoutY="168.0" text="圣名" />
       <Label layoutX="334.0" layoutY="119.0" text="性别" />
       <Label layoutX="29.0" layoutY="217.0" text="出生日期" />
@@ -51,24 +48,12 @@
       <DatePicker fx:id="marriageDate" layoutX="103.0" layoutY="313.0" prefHeight="31.0" prefWidth="190.0" />
       <DatePicker fx:id="deathDate" layoutX="406.0" layoutY="313.0" prefHeight="31.0" prefWidth="172.0" />
       <ComboBox fx:id="attribute" editable="true" layoutX="103.0" layoutY="362.0" prefHeight="31.0" prefWidth="190.0" />
-      <TextField fx:id="leader" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0">
-         <effect>
-            <ColorAdjust brightness="-0.05" />
-         </effect></TextField>
-      <TextField fx:id="leaderPhone" editable="false" layoutX="408.0" layoutY="409.0" prefHeight="31.0" prefWidth="172.0">
-         <effect>
-            <ColorAdjust brightness="-0.05" />
-         </effect></TextField>
-      <TextField fx:id="altLeader" editable="false" layoutX="105.0" layoutY="453.0" prefHeight="31.0" prefWidth="190.0">
-         <effect>
-            <ColorAdjust brightness="-0.05" />
-         </effect></TextField>
-      <TextField fx:id="altLeaderPhone" editable="false" layoutX="408.0" layoutY="453.0" prefHeight="31.0" prefWidth="172.0">
-         <effect>
-            <ColorAdjust brightness="-0.05" />
-         </effect></TextField>
-      <TextField fx:id="phone" editable="false" layoutX="104.0" layoutY="495.0" prefHeight="31.0" prefWidth="190.0" />
-      <TextField fx:id="altPhone" editable="false" layoutX="409.0" layoutY="495.0" prefHeight="31.0" prefWidth="172.0" />
+      <TextField fx:id="leader" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0" />
+      <TextField fx:id="leaderPhone" layoutX="408.0" layoutY="409.0" prefHeight="31.0" prefWidth="172.0" />
+      <TextField fx:id="altLeader" layoutX="105.0" layoutY="453.0" prefHeight="31.0" prefWidth="190.0" />
+      <TextField fx:id="altLeaderPhone" layoutX="408.0" layoutY="453.0" prefHeight="31.0" prefWidth="172.0" />
+      <TextField fx:id="phone" layoutX="104.0" layoutY="495.0" prefHeight="31.0" prefWidth="190.0" />
+      <TextField fx:id="altPhone" layoutX="409.0" layoutY="495.0" prefHeight="31.0" prefWidth="172.0" />
       <TextArea fx:id="address" layoutX="103.0" layoutY="537.0" prefHeight="64.0" prefWidth="480.0" />
       <TextArea fx:id="experience" layoutX="104.0" layoutY="614.0" prefHeight="64.0" prefWidth="190.0" />
       <TextArea fx:id="talent" layoutX="409.0" layoutY="614.0" prefHeight="64.0" prefWidth="172.0" />

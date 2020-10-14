@@ -20,7 +20,7 @@ import java.util.Map;
 public class Relation implements RelationshipOperations, InformationOperations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String baptismalName;
     private String gender;

@@ -16,8 +16,8 @@ import java.util.List;
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDate Date;
+    private Integer id;
+    private LocalDate date;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> visitors;
     private String content;

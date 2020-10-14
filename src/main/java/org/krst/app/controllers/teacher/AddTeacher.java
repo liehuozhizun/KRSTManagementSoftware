@@ -1,4 +1,4 @@
-package org.krst.app.controllers.student;
+package org.krst.app.controllers.teacher;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +13,7 @@ import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Student;
+import org.krst.app.domains.Teacher;
 import org.krst.app.models.Status;
 import org.krst.app.repositories.Logger;
 import org.krst.app.services.CacheService;
@@ -24,7 +25,7 @@ import org.krst.app.utils.database.DatabaseType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddStudent implements Initializable {
+public class AddTeacher implements Initializable {
     @FXML
     private TextField id;
     @FXML
@@ -199,24 +200,24 @@ public class AddStudent implements Initializable {
     }
 
     public void approve() {
-        Student student = new Student();
-        student.setId(id.getText());
+        Teacher teacher = new Teacher();
+        teacher.setId(id.getText());
         if (id.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("添加学生失败");
-            alert.setHeaderText("失败原因：未填入学生编号");
-            alert.setContentText("解决方法：请输入学生编号");
+            alert.setTitle("添加教师失败");
+            alert.setHeaderText("失败原因：未填入教师编号");
+            alert.setContentText("解决方法：请输入教师编号");
             alert.showAndWait();
         }
-        student.setName(name.getText());
-        student.setBaptismalName(baptismalName.getText());
-        student.setGender(gender_male.isSelected() ? "男" : "女");
-        student.setBirthday(birthday.getValue());
-        student.setIsGregorianCalendar(isGregorianCalendar.isSelected());
-        student.setBaptismalDate(baptismalDate.getValue());
-        student.setConfirmationDate(confirmationDate.getValue());
-        student.setMarriageDate(marriageDate.getValue());
-        student.setDeathDate(deathDate.getValue());
+        teacher.setName(name.getText());
+        teacher.setBaptismalName(baptismalName.getText());
+        teacher.setGender(gender_male.isSelected() ? "男" : "女");
+        teacher.setBirthday(birthday.getValue());
+        teacher.setIsGregorianCalendar(isGregorianCalendar.isSelected());
+        teacher.setBaptismalDate(baptismalDate.getValue());
+        teacher.setConfirmationDate(confirmationDate.getValue());
+        teacher.setMarriageDate(marriageDate.getValue());
+        teacher.setDeathDate(deathDate.getValue());
         Object attributeValue = attribute.getValue();
         String attributeStringValue;
         if (attributeValue instanceof Attribute) {
@@ -224,35 +225,35 @@ public class AddStudent implements Initializable {
         } else {
             attributeStringValue = attribute.getEditor().getText();
         }
-        student.setAttribute(new Attribute(
+        teacher.setAttribute(new Attribute(
                 attributeStringValue,
                 leader.getText(),
                 leaderPhone.getText(),
                 altLeader.getText(),
                 altLeaderPhone.getText()
         ));
-        student.setPhone(phone.getText());
-        student.setAltPhone(altPhone.getText());
-        student.setAddress(address.getText());
-        student.setExperience(experience.getText());
-        student.setResource(resource.getText());
-        student.setTalent(talent.getText());
-        student.setStaffId(staffId);
-        student.setStaffName(staffName);
+        teacher.setPhone(phone.getText());
+        teacher.setAltPhone(altPhone.getText());
+        teacher.setAddress(address.getText());
+        teacher.setExperience(experience.getText());
+        teacher.setResource(resource.getText());
+        teacher.setTalent(talent.getText());
+        teacher.setStaffId(staffId);
+        teacher.setStaffName(staffName);
 
-        Status status = DatabaseFactory.getDatabase(DatabaseType.STUDENT).save(student);
+        Status status = DatabaseFactory.getDatabase(DatabaseType.TEACHER).save(teacher);
         if (status == Status.CONSTRAINT_VIOLATION) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("添加学生错误");
-            alert.setHeaderText("错误原因：使用已存在的学生编号");
-            alert.setContentText("解决方法：请输入不同的学生编号");
+            alert.setTitle("添加教师错误");
+            alert.setHeaderText("错误原因：使用已存在的教师编号");
+            alert.setContentText("解决方法：请输入不同的教师编号");
             alert.showAndWait();
         } else if (status == Status.ERROR) {
-            Logger.logError(getClass().toString(), "添加学生失败，编号：" + id.getText() + "，姓名：" + name.getText());
-            CommonUtils.alertOperationError("添加学生操作");
+            Logger.logError(getClass().toString(), "添加教师失败，编号：" + id.getText() + "，姓名：" + name.getText());
+            CommonUtils.alertOperationError("添加教师操作");
             KRSTManagementSoftware.closeNewWindow();
         } else {
-            Logger.logInfo(getClass().toString(), "添加学生成功，编号：" + id.getText() + "，姓名：" + name.getText());
+            Logger.logInfo(getClass().toString(), "添加教师成功，编号：" + id.getText() + "，姓名：" + name.getText());
             KRSTManagementSoftware.closeNewWindow();
         }
     }

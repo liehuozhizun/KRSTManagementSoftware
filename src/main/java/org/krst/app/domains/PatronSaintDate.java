@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class PatronSaintDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private LocalDate date;
 }

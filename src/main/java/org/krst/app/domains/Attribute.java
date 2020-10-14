@@ -16,4 +16,6 @@ public class Attribute {
     private String attribute;
     private String leader;
     private String leaderPhone;
+    private String altLeader;
+    private String altLeaderPhone;
 }

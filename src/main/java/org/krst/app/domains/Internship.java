@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Internship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
     private LocalDate startDate;
     private LocalDate endDate;
     private String purpose;

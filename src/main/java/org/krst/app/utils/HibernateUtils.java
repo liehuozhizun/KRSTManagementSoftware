@@ -14,7 +14,7 @@ public class HibernateUtils {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
             Logger.logFetal("java.utils.HibernateUtils", ex.getMessage());
-            throw new ExceptionInInitializerError("Connection to database error!");
+            throw new ExceptionInInitializerError("Connection to database error! " + ex.getMessage());
         }
     }
 

@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private Type type;
     private String time;
     private String path;

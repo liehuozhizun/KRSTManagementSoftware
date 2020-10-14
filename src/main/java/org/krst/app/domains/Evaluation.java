@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private Integer year;
     private String title;
     private String responsibility;

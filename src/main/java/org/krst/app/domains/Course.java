@@ -16,7 +16,7 @@ import java.util.Set;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private LocalDate startDate;
     private LocalDate endDate;
     private String location;

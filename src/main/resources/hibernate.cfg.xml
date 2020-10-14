@@ -12,7 +12,7 @@
         <!--<property name="connection.username"></property>
         <property name="connection.password"></property>-->
 
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <mapping class="org.krst.app.domains.Student"/>
         <mapping class="org.krst.app.domains.Course"/>
