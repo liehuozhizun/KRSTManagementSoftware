@@ -1,38 +1,34 @@
 package org.krst.app.controllers.share;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import org.krst.app.KRSTManagementSoftware;
-import org.krst.app.domains.Staff;
-import org.krst.app.domains.Visit;
+import org.krst.app.domains.Internship;
 import org.krst.app.services.DataPassService;
 
-import java.util.stream.Collectors;
-
-public class AddVisit {
+public class AddInternship {
 
     @FXML
-    private DatePicker date;
+    private DatePicker startDate;
     @FXML
-    private ComboBox visitor;
+    private DatePicker endDate;
     @FXML
-    private ListView<String> visitors;
-    @FXML
-    private TextArea content;
+    private TextArea purpose;
     @FXML
     private TextArea summary;
     @FXML
     private TextArea comment;
 
     public void approve() {
-        Visit visit = new Visit(
+        Internship internship = new Internship(
                 null,
-                date.getValue(),
-                visitors.getItems().stream().collect(Collectors.toList()),
-                content.getText(),
+                startDate.getValue(),
+                endDate.getValue(),
+                purpose.getText(),
                 summary.getText(),
                 comment.getText());
-        DataPassService.setValue(visit);
+        DataPassService.setValue(internship);
         KRSTManagementSoftware.closeNewWindow();
     }
 

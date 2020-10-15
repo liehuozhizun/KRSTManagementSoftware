@@ -21,6 +21,7 @@ public class Course {
     private LocalDate endDate;
     private String location;
     private String className; // 授课班级
+    @ManyToOne
     private CourseTemplate courseTemplate; // 授课内容（选择课程编号和课程名称）
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> offer; // 赠予

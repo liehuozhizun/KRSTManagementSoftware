@@ -13,6 +13,8 @@ public class KRSTManagementSoftware extends Application {
     private static Stage primaryStage;
     private static Stage secondaryStage;
     private static Stage thirdStage;
+    private static Stage forthStage;
+    private static Stage fifthStage;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,19 +44,37 @@ public class KRSTManagementSoftware extends Application {
             secondaryStage.setScene(scene);
             secondaryStage.setResizable(resizable);
             secondaryStage.showAndWait();
-        } else {
+        } else if (thirdStage == null || !thirdStage.isShowing()){
             thirdStage = new Stage();
             Scene scene = new Scene(root);
             thirdStage.setTitle(title);
             thirdStage.setScene(scene);
             thirdStage.setResizable(resizable);
             thirdStage.showAndWait();
+        } else if (forthStage == null || !forthStage.isShowing()){
+            forthStage = new Stage();
+            Scene scene = new Scene(root);
+            forthStage.setTitle(title);
+            forthStage.setScene(scene);
+            forthStage.setResizable(resizable);
+            forthStage.showAndWait();
+        } else {
+            fifthStage = new Stage();
+            Scene scene = new Scene(root);
+            fifthStage.setTitle(title);
+            fifthStage.setScene(scene);
+            fifthStage.setResizable(resizable);
+            fifthStage.showAndWait();
         }
 
     }
 
     public static void closeNewWindow() {
-        if (thirdStage != null && thirdStage.isShowing()){
+        if (fifthStage != null && fifthStage.isShowing()) {
+            fifthStage.close();
+        } else if (forthStage != null && forthStage.isShowing()) {
+            forthStage.close();
+        } else if (thirdStage != null && thirdStage.isShowing()){
             thirdStage.close();
         } else if (secondaryStage != null && secondaryStage.isShowing()) {
             secondaryStage.close();

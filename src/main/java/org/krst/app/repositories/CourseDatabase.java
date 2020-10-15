@@ -1,17 +1,29 @@
 package org.krst.app.repositories;
 
+import org.hibernate.Session;
 import org.krst.app.domains.Course;
 import org.krst.app.domains.Grade;
 import org.krst.app.domains.Teacher;
 import org.krst.app.models.Status;
 import org.krst.app.utils.Constants;
+import org.krst.app.utils.HibernateUtils;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 public class CourseDatabase extends Database<Course> {
 
     public CourseDatabase() {
         databaseName = Constants.COURSE_DATABASE;
+    }
+
+    public Optional<Course> findById(String id) {
+        try (Session session = HibernateUtils.openSession()) {
+            return Optional.ofNullable(session.get(Course.class, id));
+        } catch (Exception e) {
+            Logger.logError(this.getClass().toString(), e.getMessage());
+            return Optional.empty();
+        }
     }
 
     public Status addTeacher(Course course, Teacher teacher) {

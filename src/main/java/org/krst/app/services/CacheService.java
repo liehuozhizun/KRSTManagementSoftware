@@ -1,6 +1,7 @@
 package org.krst.app.services;
 
 import org.krst.app.domains.Attribute;
+import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Staff;
 import org.krst.app.utils.database.DatabaseFactory;
 import org.krst.app.utils.database.DatabaseType;
@@ -12,6 +13,7 @@ public class CacheService {
     private static CacheService cacheService;
     private List<Staff> staffs;
     private List<Attribute> attributes;
+    private List<CourseTemplate> courseTemplates;
 
     private CacheService () {
 
@@ -19,10 +21,6 @@ public class CacheService {
 
     public static CacheService get() {
         return cacheService == null ? (cacheService = new CacheService()) : cacheService;
-    }
-
-    public void refreshAllCache() {
-        refreshStaffCache();
     }
 
     public List<Staff> getStaffCache() {
@@ -46,6 +44,18 @@ public class CacheService {
 
     public CacheService refreshAttributeCache() {
         attributes = DatabaseFactory.getDatabase(DatabaseType.ATTRIBUTE).findAll();
+        return cacheService;
+    }
+
+    public List<CourseTemplate> getCourseTemplates() {
+        if (courseTemplates == null) {
+            refreshCourseTemplateCache();
+        }
+        return courseTemplates;
+    }
+
+    public CacheService refreshCourseTemplateCache() {
+        courseTemplates = DatabaseFactory.getDatabase(DatabaseType.COURSE_TEMPLATE).findAll();
         return cacheService;
     }
 }

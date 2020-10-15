@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.staff.AddEvaluation">
+   <children>
+      <Label layoutX="186.0" layoutY="26.0" text="添加员工评定">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="82.0" text="员工姓名" />
+      <Label layoutX="277.0" layoutY="82.0" text="年份" />
+      <Label layoutX="24.0" layoutY="130.0" text="工作职务" />
+      <Label layoutX="24.0" layoutY="183.0" text="负责内容" />
+      <Label layoutX="24.0" layoutY="253.0" text="评定内容" />
+      <TextField fx:id="name" editable="false" layoutX="107.0" layoutY="77.0" prefHeight="31.0" prefWidth="146.0">
+         <effect>
+            <ColorAdjust brightness="-0.05" />
+         </effect>
+      </TextField>
+      <TextField fx:id="year" layoutX="322.0" layoutY="77.0" prefHeight="31.0" prefWidth="124.0" />
+      <TextField fx:id="title" editable="false" layoutX="106.0" layoutY="125.0" prefHeight="31.0" prefWidth="339.0">
+         <effect>
+            <ColorAdjust brightness="-0.05" />
+         </effect>
+      </TextField>
+      <TextArea fx:id="responsibility" editable="false" layoutX="105.0" layoutY="169.0" prefHeight="67.0" prefWidth="339.0">
+         <effect>
+            <ColorAdjust brightness="-0.05" />
+         </effect></TextArea>
+      <TextArea fx:id="comment" layoutX="105.0" layoutY="253.0" prefHeight="163.0" prefWidth="339.0" />
+      <Button fx:id="approve" layoutX="122.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="39.0" prefWidth="68.0" text="确认" />
+      <Button fx:id="cancel" layoutX="290.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="39.0" prefWidth="68.0" text="取消" />
+   </children>
+</Pane>

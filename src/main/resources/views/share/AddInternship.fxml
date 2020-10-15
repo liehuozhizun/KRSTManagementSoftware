@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.share.AddInternship">
+   <children>
+      <Label layoutX="267.0" layoutY="24.0" text="新增实践记录">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="75.0" text="开始日期" />
+      <Label layoutX="321.0" layoutY="75.0" prefHeight="21.0" prefWidth="60.0" text="结束日期" />
+      <Label layoutX="23.0" layoutY="123.0" text="实践目的" />
+      <Label layoutX="23.0" layoutY="238.0" text="实践总结" />
+      <Label layoutX="23.0" layoutY="365.0" text="实践评价" />
+      <DatePicker fx:id="startDate" layoutX="113.0" layoutY="70.0" prefHeight="31.0" prefWidth="172.0" />
+      <DatePicker fx:id="endDate" layoutX="411.0" layoutY="70.0" prefHeight="31.0" prefWidth="172.0" />
+      <TextArea fx:id="purpose" layoutX="112.0" layoutY="116.0" prefHeight="106.0" prefWidth="473.0" />
+      <TextArea fx:id="summary" layoutX="112.0" layoutY="235.0" prefHeight="106.0" prefWidth="473.0" />
+      <TextArea fx:id="comment" layoutX="112.0" layoutY="357.0" prefHeight="106.0" prefWidth="473.0" />
+      <Button fx:id="approve" layoutX="200.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="38.0" prefWidth="67.0" text="确认" />
+      <Button fx:id="cancel" layoutX="376.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="38.0" prefWidth="67.0" text="取消" />
+   </children>
+</Pane>

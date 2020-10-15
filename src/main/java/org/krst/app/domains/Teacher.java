@@ -40,8 +40,8 @@ public class Teacher implements VisitOperations, RelationshipOperations, Informa
     private String resource;
     private String staffId;
     private String staffName;
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private Set<Visit> visits; // 探访记录
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }

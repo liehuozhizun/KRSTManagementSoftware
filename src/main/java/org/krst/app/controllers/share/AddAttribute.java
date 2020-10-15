@@ -33,10 +33,10 @@ public class AddAttribute {
                 altLeaderPhone.getText()));
         if (status == Status.SUCCESS) {
             CacheService.get().refreshAttributeCache();
-            KRSTManagementSoftware.closeNewWindow();
         } else {
             CommonUtils.alertOperationError("添加所属堂区操作");
         }
+        KRSTManagementSoftware.closeNewWindow();
     }
 
     public void cancel() {
