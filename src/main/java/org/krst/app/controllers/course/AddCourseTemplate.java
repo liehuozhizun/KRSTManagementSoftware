@@ -11,6 +11,8 @@ import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.database.DatabaseFactory;
 import org.krst.app.utils.database.DatabaseType;
 
+import java.util.HashSet;
+
 public class AddCourseTemplate {
 
     @FXML
@@ -24,7 +26,8 @@ public class AddCourseTemplate {
         CourseTemplate courseTemplate = new CourseTemplate(
                 id.getText(),
                 name.getText(),
-                topic.getText());
+                topic.getText(),
+                new HashSet<>());
         Status status = DatabaseFactory.getDatabase(DatabaseType.COURSE_TEMPLATE).save(courseTemplate);
         if (status == Status.SUCCESS) {
             CacheService.get().refreshCourseTemplateCache();

@@ -26,17 +26,17 @@ public class CourseDatabase extends Database<Course> {
         }
     }
 
-    public Status addTeacher(Course course, Teacher teacher) {
-        if (course.getTeachers() == null) course.setTeachers(new HashSet<>());
-        course.getTeachers().add(teacher);
-        return update(course);
-    }
-
-    public Status deleteTeacher(Course course, Teacher teacher) {
-        if (course.getTeachers() == null) return Status.SUCCESS;
-        course.getTeachers().removeIf(x -> x.getId().equals(teacher.getId()));
-        return update(course);
-    }
+//    public Status addTeacher(Course course, Teacher teacher) {
+//        if (course.getTeachers() == null) course.setTeachers(new HashSet<>());
+//        course.getTeachers().add(teacher);
+//        return update(course);
+//    }
+//
+//    public Status deleteTeacher(Course course, Teacher teacher) {
+//        if (course.getTeachers() == null) return Status.SUCCESS;
+//        course.getTeachers().removeIf(x -> x.getId().equals(teacher.getId()));
+//        return update(course);
+//    }
 
     public Status addGrade(Course course, Grade grade) {
         if (course.getGrades() == null) course.setGrades(new HashSet<>());

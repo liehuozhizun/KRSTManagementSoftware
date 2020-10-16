@@ -30,7 +30,7 @@ public class Teacher implements VisitOperations, RelationshipOperations, Informa
     private LocalDate confirmationDate;
     private LocalDate marriageDate;
     private LocalDate deathDate;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Attribute attribute;
     private String phone;
     private String altPhone;

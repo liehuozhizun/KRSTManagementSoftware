@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,11 +14,11 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String studentId;
-    private String studentName;
-    private String courseId;
-    private String courseName;
-    private Integer score;
-    private String courseFeedback;
-    private String teacherFeedback;
+    @ManyToOne
+    private Student student;
+    @OneToOne
+    private Course course;
+    private Integer score; // 成绩
+    private String courseFeedback; // 课程评价
+    private String teacherFeedback; // 教师评价
 }

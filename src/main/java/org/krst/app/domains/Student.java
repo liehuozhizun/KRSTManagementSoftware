@@ -31,7 +31,7 @@ public class Student implements VisitOperations, RelationshipOperations, Informa
     private LocalDate confirmationDate;
     private LocalDate marriageDate;
     private LocalDate deathDate;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Attribute attribute;
     private String phone;
     private String altPhone;
@@ -44,7 +44,9 @@ public class Student implements VisitOperations, RelationshipOperations, Informa
     @ElementCollection
     private Set<Visit> visits; // 探访记录
     @ElementCollection
-    private Set<Internship> internships; // 实习记录
+    private Set<Internship> internships; // 实践记录
     @ElementCollection
     private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+    @OneToMany
+    private Set<Grade> grades;
 }

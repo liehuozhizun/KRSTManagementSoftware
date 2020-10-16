@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -15,18 +17,20 @@ import java.util.Set;
 @NoArgsConstructor
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
     private LocalDate startDate;
     private LocalDate endDate;
     private String location;
     private String className; // 授课班级
-    @ManyToOne
-    private CourseTemplate courseTemplate; // 授课内容（选择课程编号和课程名称）
+    @OneToOne
+    private CourseTemplate courseTemplate; // 课程模板
+    @OneToOne
+    private Teacher primaryTeacher; // 主课教师
+    @OneToOne
+    private Teacher secondaryTeacher; // 副课教师
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> offer; // 赠予
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Teacher> teachers;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Grade> grades;
+    private Set<String> offers; // 赠予
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Grade> grades; // 成绩
+
 }
