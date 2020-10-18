@@ -3,59 +3,52 @@ package org.krst.app.services;
 import org.krst.app.domains.Attribute;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Staff;
-import org.krst.app.utils.database.DatabaseFactory;
-import org.krst.app.utils.database.DatabaseType;
+import org.krst.app.repositories.AttributeRepository;
+import org.krst.app.repositories.CourseTemplateRepository;
+import org.krst.app.repositories.StaffRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CacheService {
 
-    private static CacheService cacheService;
+    @Autowired
+    private StaffRepository staffRepository;
+    @Autowired
+    private AttributeRepository attributeRepository;
+    @Autowired
+    private CourseTemplateRepository courseTemplateRepository;
+
     private List<Staff> staffs;
     private List<Attribute> attributes;
     private List<CourseTemplate> courseTemplates;
 
-    private CacheService () {
-
-    }
-
-    public static CacheService get() {
-        return cacheService == null ? (cacheService = new CacheService()) : cacheService;
-    }
-
-    public List<Staff> getStaffCache() {
-        if (staffs == null) {
-            refreshStaffCache();
-        }
+    public List<Staff> getStaffs() {
+        if (staffs == null) refreshStaffCache();
         return staffs;
     }
 
-    public CacheService refreshStaffCache() {
-        staffs = DatabaseFactory.getDatabase(DatabaseType.STAFF).findAll();
-        return cacheService;
+    public void refreshStaffCache() {
+        staffs = staffRepository.findAll();
     }
 
-    public List<Attribute> getAttributeCache() {
-        if (attributes == null) {
-            refreshAttributeCache();
-        }
+    public List<Attribute> getAttributes() {
+        if (attributes == null) refreshAttributeCache();
         return attributes;
     }
 
-    public CacheService refreshAttributeCache() {
-        attributes = DatabaseFactory.getDatabase(DatabaseType.ATTRIBUTE).findAll();
-        return cacheService;
+    public void refreshAttributeCache() {
+        attributes = attributeRepository.findAll();
     }
 
     public List<CourseTemplate> getCourseTemplates() {
-        if (courseTemplates == null) {
-            refreshCourseTemplateCache();
-        }
+        if (courseTemplates == null) refreshCourseTemplateCache();
         return courseTemplates;
     }
 
-    public CacheService refreshCourseTemplateCache() {
-        courseTemplates = DatabaseFactory.getDatabase(DatabaseType.COURSE_TEMPLATE).findAll();
-        return cacheService;
+    public void refreshCourseTemplateCache() {
+        courseTemplates = courseTemplateRepository.findAll();
     }
 }

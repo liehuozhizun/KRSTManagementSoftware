@@ -1,16 +1,19 @@
 package org.krst.app.services;
 
-public class DataPassService {
-    private static Object value;
-    private static Boolean ready = false;
+import org.springframework.stereotype.Service;
 
-    public static Object getValue() {
+@Service
+public class DataPassService {
+    private Object value;
+    private Boolean ready = false;
+
+    public Object getValue() {
         if (!ready) return null;
         ready = false;
         return value;
     }
 
-    public static void setValue(Object object) {
+    public void setValue(Object object) {
         value = object;
         ready = true;
     }
