@@ -18,8 +18,8 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate date;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> visitors;
+    @OneToMany
+    private List<Staff> visitors;
     private String content;
     private String summary;
     private String comment;
