@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.krst.app.repositories.Logger;
+import org.krst.app.configurations.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.Field;
@@ -14,6 +14,8 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 
 public abstract class AbstractJavaFxApplicationSupportExtension extends AbstractJavaFxApplicationSupport {
+
+    private static Logger logger;
 
     private static LinkedList<Stage> stages = new LinkedList<>();
 
@@ -41,7 +43,7 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
             privateStringMethod.setAccessible(true);
             defaultTitle = (String) privateStringMethod.invoke(view);
         } catch (Exception e) {
-            Logger.logError("KRSTManagementSoftware - Starter Class", "无法获取defualtStyle： e - " + e.getMessage());
+            logger.logError("KRSTManagementSoftware - Starter Class", "无法获取defualtStyle： e - " + e.getMessage());
         }
         newStage.setTitle(defaultTitle);
 
@@ -51,7 +53,7 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
             privateStringMethod.setAccessible(true);
             defaultStyle = (StageStyle) privateStringMethod.invoke(view);
         } catch (Exception e) {
-            Logger.logError("KRSTManagementSoftware - Starter Class", "无法获取defualtStyle： e - " + e.getMessage());
+            logger.logError("KRSTManagementSoftware - Starter Class", "无法获取defualtStyle： e - " + e.getMessage());
         }
         newStage.initStyle(defaultStyle);
 
@@ -80,9 +82,11 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
                 Field field = AbstractJavaFxApplicationSupport.class.getDeclaredField("applicationContext");
                 field.setAccessible(true);
                 context = (ConfigurableApplicationContext) field.get(null);
+                logger = context.getBean(Logger.class);
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                Logger.logFetal("KRSTManagementSoftware - Starter Class", "无法加载ConfigurableApplicationContext： e - " + e.getMessage());
+                logger.logFetal("KRSTManagementSoftware - Starter Class", "无法加载ConfigurableApplicationContext： e - " + e.getMessage());
             }
         }
     }
+
 }
