@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="848.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.teacher.AddTeacherController">
-   <Label layoutX="264.0" layoutY="24.0" text="添加教师">
+   <Label layoutX="264.0" layoutY="24.0" text="新建教师档案">
       <font>
          <Font name="System Bold" size="20.0" />
       </font>

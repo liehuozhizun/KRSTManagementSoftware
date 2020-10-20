@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.krst.app.models.Status;
-import org.krst.app.repositories.Logger;
+import org.krst.app.configurations.Logger;
 import org.krst.app.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +24,8 @@ public class ChangePasswordController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private Logger logger;
 
     public void pressEnterEvent(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -44,7 +46,7 @@ public class ChangePasswordController {
         if (newPassword.getText().equals(repeatNewPassword.getText())) {
             if (Status.SUCCESS == loginService.verify(oldPassword.getText())) {
                 loginService.changePassword(newPassword.getText());
-                Logger.logInfo(getClass().toString(), "重置密码");
+                logger.logInfo(getClass().toString(), "重置密码");
             } else {
                 oldPassword.clear();
                 newPassword.clear();

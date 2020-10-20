@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Staff;
-import org.krst.app.repositories.Logger;
+import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,6 +53,8 @@ public class AddStaffController {
 
     @Autowired
     private StaffRepository staffRepository;
+    @Autowired
+    private Logger logger;
 
     public void approve() {
         Staff staff = new Staff();
@@ -91,7 +93,7 @@ public class AddStaffController {
             alert.showAndWait();
         } else {
             staffRepository.save(staff);
-            Logger.logInfo(getClass().toString(), "新建员工档案，编号：{}，姓名：{}", id.getText(), name.getText());
+            logger.logInfo(getClass().toString(), "新建员工档案，编号：{}，姓名：{}", id.getText(), name.getText());
             KRSTManagementSoftware.closeWindow();
         }
     }
