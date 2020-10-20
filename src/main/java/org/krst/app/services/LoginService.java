@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.krst.app.domains.Login;
 import org.krst.app.models.Status;
 import org.krst.app.repositories.AdminRepository;
+import org.krst.app.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,7 @@ public class LoginService {
     public void changePassword(@NotNull String newPassword) {
         Login login = adminRepository.findAll().get(0);
         login.setPassword(newPassword);
+        login.setRetryRemainingTimes(Constants.MOST_RETRY_LOGIN_TIMES);
+        adminRepository.saveAndFlush(login);
     }
 }

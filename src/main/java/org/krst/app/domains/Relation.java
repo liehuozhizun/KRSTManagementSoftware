@@ -1,13 +1,10 @@
 package org.krst.app.domains;
 
-import org.krst.app.domains.operations.InformationOperations;
-import org.krst.app.domains.operations.RelationshipOperations;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.krst.app.utils.database.DatabaseType;
+import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,7 +14,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Relation implements RelationshipOperations, InformationOperations {
+public class Relation implements InformationOperations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,5 +33,5 @@ public class Relation implements RelationshipOperations, InformationOperations {
     private String talent;
     private String resources;
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<Pair<String, String>, Pair<DatabaseType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+    private Map<Pair<String, String>, Pair<PersonType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
 }
