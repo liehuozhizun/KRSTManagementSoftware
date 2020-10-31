@@ -16,8 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class Relation implements InformationOperations {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
     private String name;
     private String baptismalName;
     private String gender;

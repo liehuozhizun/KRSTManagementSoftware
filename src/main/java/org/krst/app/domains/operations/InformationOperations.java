@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public interface InformationOperations {
     String getId();
     String getName();
+    String getBaptismalName();
     LocalDate getBirthday();
     Boolean getIsGregorianCalendar();
     LocalDate getBaptismalDate();

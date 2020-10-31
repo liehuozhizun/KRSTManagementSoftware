@@ -99,7 +99,7 @@ public class AddTeacherController implements Initializable {
         staff.setConverter(new StringConverter<Staff>() {
             @Override
             public String toString(Staff staff) {
-                return staff.getName() + " [" + staff.getId() + "]";
+                return staff == null ? null : staff.getName() + " [" + staff.getId() + "]";
             }
 
             @Override

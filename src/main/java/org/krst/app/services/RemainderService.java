@@ -3,54 +3,75 @@ package org.krst.app.services;
 import org.krst.app.domains.*;
 import org.krst.app.domains.operations.InformationOperations;
 import org.krst.app.models.Remainder;
-import org.krst.app.repositories.Database;
-import org.krst.app.utils.database.DatabaseFactory;
-import org.krst.app.utils.database.DatabaseType;
+import org.krst.app.repositories.*;
+import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.RemainderDateType;
 import org.krst.app.utils.RemainderEventType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
+@Service
 public class RemainderService {
-    private Database<Student> studentDatabase = DatabaseFactory.getDatabase(DatabaseType.STUDENT);
-    private Database<Teacher> teacherDatabase = DatabaseFactory.getDatabase(DatabaseType.TEACHER);
-    private Database<Staff> staffDatabase = DatabaseFactory.getDatabase(DatabaseType.STAFF);
-    private Database<Relation> relationDatabase = DatabaseFactory.getDatabase(DatabaseType.RELATION);
-    private Database<PatronSaintDate> patronSaintDateDatabase = DatabaseFactory.getDatabase(DatabaseType.PATRON_SAINT_DATE);
 
-    private int month = LocalDate.now().getMonthValue();
-    private int day = LocalDate.now().getDayOfMonth();
-    private int daysInMonth = getDaysInMonth(month, LocalDate.now().isLeapYear());
+    @Autowired
+    private StudentRepository studentRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private StaffRepository staffRepository;
+    @Autowired
+    private RelationRepository relationRepository;
+    @Autowired
+    private PatronSaintDateRepository patronSaintDateRepository;
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-    private static Map<RemainderDateType, List<Remainder>> remainderCache = new ConcurrentHashMap<>();
-    private static boolean isRemainderReady = false;
+    private final int month = CommonUtils.getCurrentZonedTime().getMonthValue();
+    private final int day = CommonUtils.getCurrentZonedTime().getDayOfMonth();
+    private final int daysInMonth = getDaysInMonth(month, CommonUtils.getCurrentZonedTime().toLocalDate().isLeapYear());
 
-    public static Map<RemainderDateType, List<Remainder>> getRemainder() {
-        if (!isRemainderReady) {
-            new RemainderService().prepareRemainder();
-        }
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final Map<RemainderDateType, List<Remainder>> remainderCache = new ConcurrentHashMap<>();
+    private boolean isRemainderReady = false;
+
+    @PostConstruct
+    public void init() {
+        refresh();
+    }
+
+    public Map<RemainderDateType, List<Remainder>> getRemainder() {
+        if (!isRemainderReady) prepareRemainder();
         return remainderCache;
     }
 
-    public static void refresh() {
-        new RemainderService().prepareRemainder();
+    public void refresh() {
+        isRemainderReady = false;
+        remainderCache.clear();
+        remainderCache.put(RemainderDateType.TODAY, new ArrayList<>());
+        remainderCache.put(RemainderDateType.ONE_DAY, new ArrayList<>());
+        remainderCache.put(RemainderDateType.ONE_WEEK, new ArrayList<>());
+        remainderCache.put(RemainderDateType.HALF_MONTH, new ArrayList<>());
+        remainderCache.put(RemainderDateType.ONE_MONTH, new ArrayList<>());
+        prepareRemainder();
     }
 
     private void prepareRemainder() {
         executorService.submit(this::preparePatronSaintDateRemainder);
-        executorService.submit(() -> preparePersonDateRemainder(studentDatabase));
-        executorService.submit(() -> preparePersonDateRemainder(teacherDatabase));
-        executorService.submit(() -> preparePersonDateRemainder(staffDatabase));
-        executorService.submit(() -> preparePersonDateRemainder(relationDatabase));
+        executorService.submit(() -> preparePersonDateRemainder(studentRepository));
+        executorService.submit(() -> preparePersonDateRemainder(teacherRepository));
+        executorService.submit(() -> preparePersonDateRemainder(staffRepository));
+        executorService.submit(() -> preparePersonDateRemainder(relationRepository));
         isRemainderReady = true;
     }
 
     private void preparePatronSaintDateRemainder() {
-        List<PatronSaintDate> list = patronSaintDateDatabase.findAll();
+        List<PatronSaintDate> list = patronSaintDateRepository.findAll();
         for (PatronSaintDate patronSaintDate : list) {
             RemainderDateType type = calculateDifferenceInDays(patronSaintDate.getDate());
             if (type != RemainderDateType.NONE) {
@@ -59,33 +80,37 @@ public class RemainderService {
         }
     }
 
-    private void preparePersonDateRemainder(Database database) {
-        List<InformationOperations> list = database.findAll();
+    private void preparePersonDateRemainder(JpaRepository repository) {
+        List<InformationOperations> list = repository.findAll();
         for (InformationOperations info : list) {
             compareDifferentDatesInPersonDomain(info);
         }
     }
 
     private void compareDifferentDatesInPersonDomain(InformationOperations info) {
-        RemainderDateType type = calculateDifferenceInDays(info.getBirthday());
+        RemainderDateType type;
+        if (info.getIsGregorianCalendar())
+            type = RemainderDateType.NONE;
+        else
+            type = calculateDifferenceInDays(info.getBirthday());
         if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getBirthday(), RemainderEventType.BIRTHDAY, info.getName()));
+            remainderCache.get(type).add(new Remainder(info.getBirthday(), RemainderEventType.BIRTHDAY, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
         }
         type = calculateDifferenceInDays(info.getBaptismalDate());
         if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getBaptismalDate(), RemainderEventType.BAPTISMAL, info.getName()));
+            remainderCache.get(type).add(new Remainder(info.getBaptismalDate(), RemainderEventType.BAPTISMAL, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
         }
         type = calculateDifferenceInDays(info.getConfirmationDate());
         if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getConfirmationDate(), RemainderEventType.CONFIRMATION, info.getName()));
+            remainderCache.get(type).add(new Remainder(info.getConfirmationDate(), RemainderEventType.CONFIRMATION, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
         }
         type = calculateDifferenceInDays(info.getMarriageDate());
         if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getConfirmationDate(), RemainderEventType.MARRIAGE, info.getName()));
+            remainderCache.get(type).add(new Remainder(info.getMarriageDate(), RemainderEventType.MARRIAGE, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
         }
         type = calculateDifferenceInDays(info.getDeathDate());
         if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getDeathDate(), RemainderEventType.DEATH, info.getName()));
+            remainderCache.get(type).add(new Remainder(info.getDeathDate(), RemainderEventType.DEATH, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
         }
     }
 
@@ -95,34 +120,38 @@ public class RemainderService {
         return month % 2 == 0 ? 31 : 30;
     }
 
-    private RemainderDateType calculateDifferenceInDays(LocalDate date) {
+    private RemainderDateType calculateDifferenceInDays(final LocalDate date) {
         if (date == null) return RemainderDateType.NONE;
         int m = date.getMonthValue();
         int d = date.getDayOfMonth();
         if (m == month) {
             int diff = d - day;
-            if (d == day) {
+            if (diff < 0) {
+                return RemainderDateType.NONE;
+            } else if (d == day) {
                 return RemainderDateType.TODAY;
             } else if (diff == 1) {
                 return RemainderDateType.ONE_DAY;
-            } else if (diff == 7) {
+            } else if (diff <= 7) {
                 return RemainderDateType.ONE_WEEK;
-            } else if (diff == 15 || diff == 14) {
+            } else if (diff == 14 || diff == 15) {
                 return RemainderDateType.HALF_MONTH;
             } else if (diff == 29 || diff == 30) {
                 return RemainderDateType.ONE_MONTH;
             }
         } else if (m - month == 1) {
             int diff = d - day;
-            if (diff == 0) {
+            if (diff == 0 || diff == -1) {
                 return RemainderDateType.ONE_MONTH;
             } else if (diff < 0) {
                 diff += daysInMonth;
-                if (diff == 1) {
+                if (diff < 0) {
+                    return RemainderDateType.NONE;
+                } else if (diff == 1) {
                     return RemainderDateType.ONE_DAY;
-                } else if (diff == 7) {
+                } else if (diff <= 7) {
                     return RemainderDateType.ONE_WEEK;
-                } else if (diff == 15) {
+                } else if (diff == 14 || diff == 15) {
                     return RemainderDateType.HALF_MONTH;
                 }
             }

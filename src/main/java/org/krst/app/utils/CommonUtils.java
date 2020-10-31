@@ -14,6 +14,10 @@ public class CommonUtils {
         return ZonedDateTime.now(zoneId).format(dateTimeFormatter);
     }
 
+    public static ZonedDateTime getCurrentZonedTime() {
+        return ZonedDateTime.now(zoneId);
+    }
+
     public static void alertSystemError(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("系统错误");

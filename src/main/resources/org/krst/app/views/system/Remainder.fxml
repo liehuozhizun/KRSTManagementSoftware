@@ -4,65 +4,78 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="729.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.RemainderController">
-  <Label layoutX="390.0" layoutY="24.0" text="日期提醒">
-   <font>
-      <Font name="System Bold" size="18.0" />
-   </font>
-  </Label>
-  <Label layoutX="27.0" layoutY="69.0" text="今天">
-   <font>
-      <Font name="System Bold" size="15.0" />
-   </font>
-  </Label>
-  <Label layoutX="27.0" layoutY="283.0" text="明天">
-   <font>
-      <Font name="System Bold" size="15.0" />
-   </font>
-  </Label>
-  <Label layoutX="426.0" layoutY="70.0" text="一周">
-   <font>
-      <Font name="System Bold" size="15.0" />
-   </font>
-  </Label>
-  <Label layoutX="27.0" layoutY="501.0" text="半月">
-   <font>
-      <Font name="System Bold" size="15.0" />
-   </font>
-  </Label>
-  <Label layoutX="426.0" layoutY="500.0" text="一月">
-   <font>
-      <Font name="System Bold" size="15.0" />
-   </font>
-  </Label>
-  <TableView fx:id="today" layoutX="72.0" layoutY="69.0" prefHeight="200.0" prefWidth="337.0">
-    <columns>
-      <TableColumn prefWidth="75.0" text="C1" />
-      <TableColumn prefWidth="75.0" text="C2" />
-    </columns>
-  </TableView>
-  <TableView fx:id="oneDay" layoutX="72.0" layoutY="283.0" prefHeight="200.0" prefWidth="337.0">
-    <columns>
-      <TableColumn prefWidth="75.0" text="C1" />
-      <TableColumn prefWidth="75.0" text="C2" />
-    </columns>
-  </TableView>
-  <TableView fx:id="oneWeek" layoutX="471.0" layoutY="70.0" prefHeight="414.0" prefWidth="337.0">
-    <columns>
-      <TableColumn prefWidth="75.0" text="C1" />
-      <TableColumn prefWidth="75.0" text="C2" />
-    </columns>
-  </TableView>
-  <TableView fx:id="halfMonth" layoutX="72.0" layoutY="500.0" prefHeight="200.0" prefWidth="337.0">
-    <columns>
-      <TableColumn prefWidth="75.0" text="C1" />
-      <TableColumn prefWidth="75.0" text="C2" />
-    </columns>
-  </TableView>
-  <TableView fx:id="oneMonth" layoutX="471.0" layoutY="500.0" prefHeight="200.0" prefWidth="337.0">
-    <columns>
-      <TableColumn prefWidth="75.0" text="C1" />
-      <TableColumn prefWidth="75.0" text="C2" />
-    </columns>
-  </TableView>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="777.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.RemainderController">
+     <Label layoutX="390.0" layoutY="24.0" text="日期提醒">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font>
+     </Label>
+     <Label layoutX="27.0" layoutY="69.0" text="今天">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+     </Label>
+     <Label layoutX="27.0" layoutY="283.0" text="明天">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+     </Label>
+     <Label layoutX="426.0" layoutY="70.0" text="一周">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+     </Label>
+     <Label layoutX="27.0" layoutY="501.0" text="半月">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+     </Label>
+     <Label layoutX="426.0" layoutY="500.0" text="一月">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+     </Label>
+     <TableView fx:id="today" layoutX="72.0" layoutY="69.0" prefHeight="200.0" prefWidth="337.0">
+       <columns>
+         <TableColumn fx:id="today_date" prefWidth="93.0" text="日期" />
+         <TableColumn fx:id="today_type" prefWidth="86.0" text="类型" />
+            <TableColumn fx:id="today_name" prefWidth="156.0" text="姓名" />
+       </columns>
+     </TableView>
+     <TableView fx:id="oneDay" layoutX="72.0" layoutY="283.0" prefHeight="200.0" prefWidth="337.0">
+       <columns>
+            <TableColumn fx:id="oneDay_date" prefWidth="94.0" text="日期" />
+            <TableColumn fx:id="oneDay_type" prefWidth="85.0" text="类型" />
+            <TableColumn fx:id="oneDay_name" prefWidth="156.0" text="姓名" />
+       </columns>
+     </TableView>
+     <TableView fx:id="oneWeek" layoutX="471.0" layoutY="70.0" prefHeight="414.0" prefWidth="337.0">
+       <columns>
+            <TableColumn fx:id="oneWeek_date" prefWidth="95.0" text="日期" />
+            <TableColumn fx:id="oneWeek_type" prefWidth="89.0" text="类型" />
+            <TableColumn fx:id="oneWeek_name" prefWidth="151.0" text="姓名" />
+       </columns>
+     </TableView>
+     <TableView fx:id="halfMonth" layoutX="72.0" layoutY="500.0" prefHeight="200.0" prefWidth="337.0">
+       <columns>
+            <TableColumn fx:id="halfMonth_date" prefWidth="94.0" text="日期" />
+            <TableColumn fx:id="halfMonth_type" prefWidth="86.0" text="类型" />
+            <TableColumn fx:id="halfMonth_name" prefWidth="155.0" text="姓名" />
+       </columns>
+     </TableView>
+     <TableView fx:id="oneMonth" layoutX="471.0" layoutY="500.0" prefHeight="200.0" prefWidth="337.0">
+       <columns>
+            <TableColumn fx:id="oneMonth_date" prefWidth="95.0" text="日期" />
+            <TableColumn fx:id="oneMonth_type" prefWidth="89.0" text="类型" />
+            <TableColumn fx:id="oneMonth_name" prefWidth="151.0" text="姓名" />
+       </columns>
+     </TableView>
+       <Button fx:id="close" layoutX="405.0" layoutY="720.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="72.0" text="关闭" />
+        <Text fx:id="TODAY_DATE" fill="#2a8d1d" layoutX="187.0" layoutY="745.0" strokeType="OUTSIDE" strokeWidth="0.0" text="年月日" underline="true">
+           <font>
+              <Font name="System Bold" size="18.0" />
+           </font>
+        </Text>
+     <Button fx:id="refresh" layoutX="758.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#refresh" text="刷新" />
+  <Text layoutX="72.0" layoutY="744.0" strokeType="OUTSIDE" strokeWidth="0.0" text="当前/刷新时间：" />
 </Pane>
