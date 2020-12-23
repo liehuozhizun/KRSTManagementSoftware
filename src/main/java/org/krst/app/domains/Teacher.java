@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
@@ -41,4 +42,9 @@ public class Teacher implements InformationOperations {
     private Set<Visit> visits; // 探访记录
     @ElementCollection
     private Map<Pair<String, String>, Pair<PersonType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+
+    @Override
+    public String toString() {
+        return name + " [" + id + "]";
+    }
 }

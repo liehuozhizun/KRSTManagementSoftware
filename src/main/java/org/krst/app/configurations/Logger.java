@@ -3,6 +3,7 @@ package org.krst.app.configurations;
 import org.krst.app.domains.Log;
 import org.krst.app.repositories.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -33,5 +34,10 @@ public class Logger {
     public void logWarn(String path, String message, String... args) {
         Arrays.stream(args).forEach(arg -> message.replace(placeholder, arg));
         logRepository.save(new Log(Log.Type.WARN, path, message));
+    }
+
+    @Bean
+    public Integer getI() {
+        return new Integer(1);
     }
 }

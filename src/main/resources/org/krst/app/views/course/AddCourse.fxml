@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="532.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.course.AddCourseController">
+   <Label layoutX="212.0" layoutY="24.0" text="新建课程档案">
+   <font>
+      <Font name="System Bold" size="18.0" />
+   </font>
+   </Label>
+   <Label layoutX="60.0" layoutY="74.0" text="课程编号" />
+   <Label layoutX="60.0" layoutY="116.0" text="开始日期" />
+   <Label layoutX="60.0" layoutY="158.0" text="结束日期" />
+   <Label layoutX="60.0" layoutY="201.0" text="课程地点" />
+   <Label layoutX="60.0" layoutY="242.0" text="课程名称" />
+   <Label layoutX="30.0" layoutY="288.0" text="选择课程模板" />
+   <Label layoutX="60.0" layoutY="330.0" text="课程名称" />
+   <Label layoutX="60.0" layoutY="374.0" text="课程主题" />
+   <Label layoutX="60.0" layoutY="446.0" text="主课教师" />
+   <Label layoutX="60.0" layoutY="487.0" text="副课教师" />
+   <TextField fx:id="id" layoutX="141.0" layoutY="69.0" />
+   <DatePicker fx:id="startDate" layoutX="141.0" layoutY="111.0" />
+   <DatePicker fx:id="endDate" layoutX="141.0" layoutY="153.0" />
+   <TextField fx:id="location" layoutX="141.0" layoutY="196.0" prefHeight="31.0" prefWidth="358.0" />
+   <TextField fx:id="name" layoutX="141.0" layoutY="237.0" prefHeight="31.0" prefWidth="358.0" />
+   <ComboBox fx:id="courseTemplate" editable="true" layoutX="141.0" layoutY="283.0" prefHeight="31.0" prefWidth="358.0" />
+  <TextField fx:id="templateName" editable="false" layoutX="141.0" layoutY="325.0" prefHeight="31.0" prefWidth="358.0">
+     <effect>
+        <ColorAdjust brightness="-0.05" />
+     </effect>
+  </TextField>
+   <TextArea fx:id="templateTopic" editable="false" layoutX="141.0" layoutY="367.0" prefHeight="62.0" prefWidth="358.0">
+    <effect>
+       <ColorAdjust brightness="-0.05" />
+    </effect>
+   </TextArea>
+   <ComboBox fx:id="primaryTeacher" layoutX="141.0" layoutY="441.0" prefHeight="31.0" prefWidth="217.0" />
+   <ComboBox fx:id="secondaryTeacher" layoutX="141.0" layoutY="482.0" prefHeight="31.0" prefWidth="217.0" />
+   <Button layoutX="141.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="39.0" prefWidth="69.0" text="确认" />
+   <Button layoutX="322.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="39.0" prefWidth="69.0" text="取消" />
+</Pane>

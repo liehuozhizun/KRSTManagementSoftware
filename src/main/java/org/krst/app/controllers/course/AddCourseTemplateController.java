@@ -1,15 +1,18 @@
 package org.krst.app.controllers.course;
 
 import de.felixroske.jfxsupport.FXMLController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.util.Callback;
+import javafx.scene.text.Text;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.CourseTemplateRepository;
-import org.krst.app.repositories.Logger;
+import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,64 +41,64 @@ public class AddCourseTemplateController implements Initializable {
     private CourseTemplateRepository courseTemplateRepository;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private Logger logger;
+
+    private ObservableList<Teacher> observableTeachers = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        teacherSelector.getItems().addAll(teacherRepository.findAll());
+        observableTeachers.addAll(teacherRepository.findAll());
+        teacherSelector.setItems(observableTeachers);
 
-        teacherSelector.setCellFactory(new Callback<ListView<Teacher>, ListCell<Teacher>>() {
-            @Override
-            public ListCell<Teacher> call(ListView<Teacher> param) {
-                return new ListCell<Teacher>() {
-                    @Override
-                    protected void updateItem(Teacher item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName() + " [" + item.getId() + "]");
-                        }
-                    }
-                };
+        teacherSelector.setPlaceholder(new Text("无可选教师"));
+
+        teachers.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Teacher t = teachers.getSelectionModel().getSelectedItem();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!"+t);
+                try {
+                teacherSelector.getSelectionModel().clearSelection();
+                }catch(Exception e) {
+                    System.out.println("4");
+                }
+                try {
+                teacherSelector.getItems().add(t);
+                }catch(Exception e) {
+                    System.out.println("5");
+                }
+                try {
+                teachers.getSelectionModel().clearSelection();
+                }catch(Exception e) {
+                    System.out.println("6");
+                }
+                try {
+                teachers.getItems().remove(t);
+                }catch(Exception e) {
+                    System.out.println("7");
+                }
             }
         });
 
         teacherSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!1  " + newValue);
             if (newValue != null) {
-                addTeacherToTeachers(newValue);
-            }
-            teacherSelector.getSelectionModel().clearSelection();
-        });
-
-        teachers.setCache(false);
-        teachers.setCellFactory(new Callback<ListView<Teacher>, ListCell<Teacher>>() {
-            @Override
-            public ListCell<Teacher> call(ListView<Teacher> param) {
-                return new ListCell<Teacher>() {
-                    @Override
-                    protected void updateItem(Teacher item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName() + " [" + item.getId() + "]");
-                        }
-                    }
-                };
+                teachers.getItems().add(newValue);
+                teacherSelector.getSelectionModel().clearSelection();
+                teacherSelector.getItems().remove(newValue);
+                teacherSelector.setVisibleRowCount(Math.min(observableTeachers.size(), 5));
             }
         });
 
-        teachers.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                teachers.getItems().remove(teachers.getSelectionModel().getSelectedIndex());
+        teacherSelector.editorProperty().get().textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("---------------------" + newValue);
+            teacherSelector.show();
+            if (newValue != null) {
+                FilteredList<Teacher> filteredList = observableTeachers.filtered(teacher -> teacher.getName().contains(newValue) || teacher.getId().contains(newValue));
+                teacherSelector.setItems(filteredList);
+                teacherSelector.setVisibleRowCount(Math.min(filteredList.size(), 5));
             }
         });
-    }
-
-    private void addTeacherToTeachers(Teacher teacher) {
-        if (!teachers.getItems().contains(teacher)) {
-            teachers.getItems().add(teacher);
-        }
     }
 
     public void approve() {
@@ -113,7 +116,7 @@ public class AddCourseTemplateController implements Initializable {
             alert.showAndWait();
         } else {
             courseTemplateRepository.save(courseTemplate);
-            Logger.logInfo(getClass().toString(), "新建课程模板，编号：{}，名称：{}", courseTemplate.getId(), courseTemplate.getName());
+            logger.logInfo(getClass().toString(), "新建课程模板，编号：{}，名称：{}", courseTemplate.getId(), courseTemplate.getName());
             cacheService.refreshCourseTemplateCache();
             KRSTManagementSoftware.closeWindow();
         }
