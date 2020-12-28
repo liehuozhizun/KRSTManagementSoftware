@@ -6,10 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import org.krst.app.KRSTManagementSoftware;
+import org.krst.app.configurations.Logger;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.CourseTemplateRepository;
-import org.krst.app.repositories.Logger;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,8 @@ public class AddCourseTemplateController implements Initializable {
     private CourseTemplateRepository courseTemplateRepository;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private Logger logger;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,7 +115,7 @@ public class AddCourseTemplateController implements Initializable {
             alert.showAndWait();
         } else {
             courseTemplateRepository.save(courseTemplate);
-            Logger.logInfo(getClass().toString(), "新建课程模板，编号：{}，名称：{}", courseTemplate.getId(), courseTemplate.getName());
+            logger.logInfo(getClass().toString(), "新建课程模板，编号：{}，名称：{}", courseTemplate.getId(), courseTemplate.getName());
             cacheService.refreshCourseTemplateCache();
             KRSTManagementSoftware.closeWindow();
         }
