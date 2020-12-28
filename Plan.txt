@@ -15,9 +15,9 @@ In Progress
     KRST-1 [BE] Logics between ComboBox and ListView Z
     KRST-2 [FE] StudentInfoPage C
     KRST-3 [BE] StudentInfoPage controller C
-    KRST-4 [BE] Add Test engine Y
 
 Done
+    KRST-4 [BE] Add Test engine Y
     [BE] Log repositoryssss
     [BE] Remainder service
     [FE] Main window - login
