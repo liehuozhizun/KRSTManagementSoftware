@@ -44,6 +44,8 @@ public class AddCourseTemplateController implements Initializable {
     private CourseTemplateRepository courseTemplateRepository;
     @Autowired
     private CacheService cacheService;
+    private int biggestIndex=-1;
+    private  boolean triggerByRemove=false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,35 +54,58 @@ public class AddCourseTemplateController implements Initializable {
         flushonetime();
 
 
+
         teacherSelector.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             //Teacher selectedItem=teacherSelector.getSelectionModel().getSelectedItem();
             // teacherSelector.getSelectionModel().clearSelection();
-            System.out.println("newvalue:"+newValue);
-            System.out.println("oldvalue:"+oldValue);
+            System.out.println("newValue:"+newValue);
+            System.out.println("oldValue:"+oldValue);
             System.out.println("observe:"+observable);
             System.out.println(Thread.currentThread().getId());
-            int bigestindex=0;
-            if((int)newValue>bigestindex)
-            {bigestindex=(int)newValue;}
-            Teacher selectedItem=teacherSelector.getItems().get(bigestindex);
-            System.out.println("saveindex="+bigestindex);
+
+            if((int)newValue>biggestIndex)
+            {biggestIndex=(int)newValue;}
+            //Teacher selectedItem=teacherSelector.getItems().get(biggestIndex);
+            System.out.println("saveIndex="+biggestIndex);
             //System.out.println("index: "+teacherSelector.getSelectionModel().getSelectedIndex());
-            if (selectedItem!= null) {
-
-                //System.out.println("1"+teacherSelector.getSelectionModel().getSelectedItem());
-
-                addTeacherToTeachers(selectedItem);
-
-                teacherSelector.getItems().remove(selectedItem);
-                //teacherSelector.getSelectionModel().clearSelection(teacherSelector.getSelectionModel().getSelectedIndex());
+            if (biggestIndex!= -1&&triggerByRemove==false) {
+                addTeacherToTeachers(biggestIndex);
+                triggerByRemove=true;
                 teacherSelector.getSelectionModel().clearSelection();
 
-                System.out.println("2"+teacherSelector.getSelectionModel().getSelectedItem());
+
                 flushonetime();
-
             }
-            System.out.println("reach end");
+//            if (selectedItem!= null) {
+//
+//                //System.out.println("1"+teacherSelector.getSelectionModel().getSelectedItem());
+//
+//                addTeacherToTeachers(selectedItem);
+//
+//                teacherSelector.getItems().remove(selectedItem);
+//                //teacherSelector.getSelectionModel().clearSelection(teacherSelector.getSelectionModel().getSelectedIndex());
+//                teacherSelector.getSelectionModel().clearSelection();
+//
+//                System.out.println("2"+teacherSelector.getSelectionModel().getSelectedItem());
+//                flushonetime();
+//
+//            }
+            System.out.println("reach end { index="+biggestIndex+" trigger="+triggerByRemove+" }");
 
+//            if(triggerByRemove==true&&biggestIndex==-1&&((int)oldValue-(int)newValue==-1)){
+//                triggerByRemove=false;
+//            }
+        });
+
+
+        teacherSelector.setOnMousePressed(event -> {
+            flushonetime();
+            if (triggerByRemove==true) {
+                teacherSelector.getItems().remove(biggestIndex);
+                biggestIndex=-1;
+            triggerByRemove=false;
+            System.out.println("trigger renew to false");
+            }
         });
         teachers.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -92,25 +117,14 @@ public class AddCourseTemplateController implements Initializable {
                 }
             }
         });
-        flushonetime();
     }
-//    teacherSelector.setOnMouseClicked(event -> {
-//        if (event.getClickCount() == 1) {
-//            Teacher selectedItem=teacherSelector.getSelectionModel().getSelectedItem();
-//            if (selectedItem != null) {
-//                //System.out.println(selectedItem);
-//                addTeacherToTeachers(selectedItem);
-//
-//                teacherSelector.getSelectionModel().clearSelection();
-//
-//                //    oldValue=newValue;
-//            }}
-//
-//    });
-    private void addTeacherToTeachers(Teacher teacher) {
-        if (!teachers.getItems().contains(teacher)) {
-            teachers.getItems().add(teacher);
-            teachers.getItems().stream().sorted().distinct();
+
+    private void addTeacherToTeachers(int index) {
+        System.out.println("4:"+teacherSelector.getItems().get(index));
+        if (!teachers.getItems().contains(teacherSelector.getItems().get(index))) {
+            System.out.println("getInAdd");
+            teachers.getItems().add(teacherSelector.getItems().get(index));
+
 
         //    teacherSelector.getItems().addAll(teacherRepository.findAll());
         }
