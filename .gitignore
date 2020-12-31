@@ -6,7 +6,6 @@ target/
 
 *.db
 mvnw*
-*.txt
 out/*
 .mvn/*
 

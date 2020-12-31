@@ -1,0 +1,57 @@
+Sprint Backlog
+    KRST-5 [BE] Revise Remainder Pop up window
+    KRST-6 [BE] Revise AddCourseTemplateController
+    KRST-7 [BE] Revise ChangePasswordController
+    KRST-8 [BE] Revise AddAttributeController
+    KRST-9 [BE] Revise AddInternshipController
+    KRST-10 [BE] Revise AddVisitController
+    KRST-11 [BE] Revise AddEvaluationController
+    KRST-12 [BE] Revise AddStaffController
+    KRST-13 [BE] Revise AddStudentController
+    KRST-14 [BE] Bugfix RemainderController
+    KRST-15 [BE] Revise AddTeacherController
+
+In Progress
+    KRST-1 [BE] Logics between ComboBox and ListView Z
+    KRST-2 [FE] StudentInfoPage C
+    KRST-3 [BE] StudentInfoPage controller C
+
+Done
+    KRST-4 [BE] Add Test engine Y
+    [BE] Log repositoryssss
+    [BE] Remainder service
+    [FE] Main window - login
+    [FE] System Change Password Page
+    [BE] Cache service
+    [FE] Student Add Page
+    [FE] Teacher Add Page
+    [FE] Course Template Add Page
+    [FE] Staff Add Page
+    [BE] Remainder Service : 一周内的提醒都显示，而不是只显示整7天
+    [FE] Remainder Page : 设置TableView的customized display
+
+Backlog
+    KRST-16 [FE] Main window - System
+    KRST-17 [BE] Main window controller - System
+    KRST-18 [FE] Main window - Student
+    KRST-19 [BE] Main window controller - Student
+    KRST-20 [FE] Main window - Teacher
+    KRST-21 [BE] Main window controller - Teacher
+    KRST-22 [FE] Main window - Course
+    KRST-23 [BE] Main window controller - Course
+    KRST-24 [FE] Main window - Staff
+    KRST-25 [BE] Main window controller - Staff
+    KRST-26 [FE] Main window - Other
+    KRST-27 [BE] Main window controller - Other
+    KRST-28 [FE] Teacher Info Page
+    KRST-29 [BE] Teacher Info Page Controller
+    KRST-30 [FE] Course Info Page
+    KRST-31 [BE] Course Info Page Controller
+    KRST-32 [FE] Course Template Info Page
+    KRST-33 [BE] Course Template Info Page Controller
+    KRST-34 [FE] Staff Info Page
+    KRST-35 [BE] Staff Info Page Controller
+    KRST-36 [FE] Relation Info Page
+    KRST-37 [BE] Relation Info Page Controller
+    KRST-38 [FE] Relation Add Page
+    KRST-39 [BE] Relation Add Page Controller
