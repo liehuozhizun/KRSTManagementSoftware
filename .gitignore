@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 
 *.db
+*.txt
 mvnw*
 out/*
 .mvn/*
