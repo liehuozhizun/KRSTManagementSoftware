@@ -5,7 +5,6 @@ Sprint Backlog
     KRST-8 [BE] Revise AddAttributeController
     KRST-9 [BE] Revise AddInternshipController
     KRST-10 [BE] Revise AddVisitController
-    KRST-11 [BE] Revise AddEvaluationController
     KRST-12 [BE] Revise AddStaffController
     KRST-13 [BE] Revise AddStudentController
     KRST-14 [BE] Bugfix RemainderController
@@ -15,8 +14,10 @@ In Progress
     KRST-1 [BE] Logics between ComboBox and ListView Z
     KRST-2 [FE] StudentInfoPage C
     KRST-3 [BE] StudentInfoPage controller C
+    KRST-11 [BE] Revise AddEvaluationController
 
 Done
+    KRST-40 [BE] Fix bug in Logger and Login regarding logging format
     KRST-4 [BE] Add Test engine Y
     [BE] Log repositoryssss
     [BE] Remainder service
@@ -55,3 +56,4 @@ Backlog
     KRST-37 [BE] Relation Info Page Controller
     KRST-38 [FE] Relation Add Page
     KRST-39 [BE] Relation Add Page Controller
+    KRST-41 [BE] Remove AbstractJavaFxApplicationSupportExtension's closeWindow() & stageList. Adjust method openWindow()
