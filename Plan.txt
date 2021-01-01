@@ -1,7 +1,6 @@
 Sprint Backlog
     KRST-5 [BE] Revise Remainder Pop up window
     KRST-6 [BE] Revise AddCourseTemplateController
-    KRST-9 [BE] Revise AddInternshipController
     KRST-10 [BE] Revise AddVisitController
     KRST-12 [BE] Revise AddStaffController
     KRST-13 [BE] Revise AddStudentController
@@ -14,6 +13,7 @@ In Progress
     KRST-3 [BE] StudentInfoPage controller C
 
 Done
+    KRST-9 [BE] Revise AddInternshipController Y 1/1
     KRST-8 [BE] Revise AddAttributeController Y 1/1
     KRST-7 [BE] Revise ChangePasswordController Y 12/31
     KRST-11 [BE] Revise AddEvaluationController Y 12/31
