@@ -2,8 +2,8 @@ package org.krst.app.controllers.student;
 
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
@@ -17,11 +17,8 @@ import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 @FXMLController
-public class AddStudentController implements Initializable {
+public class AddStudentController {
 
     @FXML
     private TextField id;
@@ -75,8 +72,8 @@ public class AddStudentController implements Initializable {
     @Autowired
     private Logger logger;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         staff.getItems().addAll(cacheService.getStaffs());
 
         staff.setCellFactory(new Callback<ListView<Staff>, ListCell<Staff>>() {
@@ -176,8 +173,17 @@ public class AddStudentController implements Initializable {
             alert.setTitle("新建学生档案失败");
             alert.setHeaderText("失败原因：未填入学生编号");
             alert.setContentText("解决方法：请输入学生编号");
-            alert.showAndWait();
+            alert.show();
+            return;
+        } else if (studentRepository.existsById(id.getText())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("新建学生档案错误");
+            alert.setHeaderText("错误原因：使用已存在的学生编号");
+            alert.setContentText("解决方法：请输入不同的学生编号");
+            alert.show();
+            return;
         }
+
         student.setName(name.getText());
         student.setBaptismalName(baptismalName.getText());
         student.setGender(gender_male.isSelected() ? "男" : "女");
@@ -196,21 +202,13 @@ public class AddStudentController implements Initializable {
         student.setTalent(talent.getText());
         student.setStaff(staff.getValue());
 
-        if (studentRepository.existsById(student.getId())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("新建学生档案错误");
-            alert.setHeaderText("错误原因：使用已存在的学生编号");
-            alert.setContentText("解决方法：请输入不同的学生编号");
-            alert.showAndWait();
-        } else {
-            studentRepository.save(student);
-            logger.logInfo(getClass().toString(), "新建学生档案，编号：{}，姓名：{}", id.getText(), name.getText());
-            KRSTManagementSoftware.closeWindow();
-        }
+        studentRepository.save(student);
+        logger.logInfo(getClass().toString(), "新建学生档案，编号：{}，姓名：{}", id.getText(), name.getText());
+        close();
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)id.getScene().getWindow()).close();
     }
 
 }
