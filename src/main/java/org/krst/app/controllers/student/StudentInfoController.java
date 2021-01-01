@@ -2,25 +2,27 @@ package org.krst.app.controllers.student;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
-import org.krst.app.domains.Student;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.krst.app.domains.Student;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Student;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.StudentRepository;
+import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.*;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 @FXMLController
-public class StudentInfoController {
+public class StudentInfoController implements Initializable {
     private String studentid;
     @FXML
     private TextField leader;
@@ -70,7 +72,8 @@ public class StudentInfoController {
     @Autowired
     private StudentRepository studentRepository;
 
-
+    @Autowired
+    private DataPassService dataPassService;
 
 
 //    studentid=0001
@@ -84,33 +87,25 @@ public class StudentInfoController {
     public void back(){
         System.out.println("Back Button Clicked");
     }
-//    Student student = student.equals()；
-//    student.getid();
-//    StudentRepository a = studentRepository;
-//    public void findStudent(){
-//        studentid="0001";
-//        studentRepository.getOne(studentid);
-//        System.out.println("Back Button Clicked");
-//    }
-//
-//    public void main(String[] args){
-//        studentid="0001";
-//        studentRepository.getOne(studentid);
-//    }
-//    System.out.println(student.id)
+//dataPassService.getValue()
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        dataPassService.getValue();
+        System.out.println( dataPassService.getValue());
+        studentid=id.getText();
+        Student student;
+        Optional<Student> studentOptional = studentRepository.findById((studentid));
+//        Student student;
+//        if (studentOptional.isPresent()) {
+//            student = studentOptional.get();
+//            System.out.println(student.getName());
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.showAndWait();
+//        }
 
-//    public
-//    public void leader(){
-//        System.out.println("leader");
-//    }
+
+    }
+
+
 }
-
-//public class Wordid{
-//    public void main (String[] args){
-//        System.out.print(id);
-//    }
-//}
-//public void change(){
-//
-
-//
