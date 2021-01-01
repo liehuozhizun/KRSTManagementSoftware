@@ -33,5 +33,5 @@
       </effect></TextArea>
    <TextArea fx:id="comment" layoutX="105.0" layoutY="253.0" prefHeight="163.0" prefWidth="339.0" />
    <Button fx:id="approve" layoutX="122.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="39.0" prefWidth="68.0" text="确认" />
-   <Button fx:id="cancel" layoutX="290.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="39.0" prefWidth="68.0" text="取消" />
+   <Button fx:id="close" layoutX="290.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="39.0" prefWidth="68.0" text="取消" />
 </Pane>
