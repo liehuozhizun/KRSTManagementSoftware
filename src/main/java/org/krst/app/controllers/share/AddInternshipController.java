@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Internship;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
