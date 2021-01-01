@@ -24,7 +24,7 @@
       <font>
          <Font name="System Bold" size="15.0" />
       </font></Button>
-   <Button fx:id="cancel" layoutX="217.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="64.0" text="取消">
+   <Button fx:id="close" layoutX="217.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="64.0" text="取消">
       <font>
          <Font name="System Bold" size="15.0" />
       </font></Button>

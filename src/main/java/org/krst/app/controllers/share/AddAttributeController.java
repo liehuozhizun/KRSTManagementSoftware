@@ -4,12 +4,10 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import org.krst.app.KRSTManagementSoftware;
+import javafx.stage.Stage;
 import org.krst.app.domains.Attribute;
-import org.krst.app.models.Status;
 import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.services.CacheService;
-import org.krst.app.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
@@ -46,11 +44,11 @@ public class AddAttributeController {
                     altLeader.getText(),
                     altLeaderPhone.getText()));
             cacheService.refreshAttributeCache();
-            KRSTManagementSoftware.closeWindow();
+            close();
         }
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)attribute.getScene().getWindow()).close();
     }
 }
