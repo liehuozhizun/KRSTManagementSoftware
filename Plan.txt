@@ -16,9 +16,9 @@ In Progress
     KRST-3 [BE] StudentInfoPage controller C
 
 Done
-    KRST-7 [BE] Revise ChangePasswordController
-    KRST-11 [BE] Revise AddEvaluationController
-    KRST-40 [BE] Fix bug in Logger and Login regarding logging format
+    KRST-7 [BE] Revise ChangePasswordController Y 12/31
+    KRST-11 [BE] Revise AddEvaluationController Y 12/31
+    KRST-40 [BE] Fix bug in Logger and Login regarding logging format Y 12/31
     KRST-4 [BE] Add Test engine Y
     [BE] Log repositoryssss
     [BE] Remainder service
