@@ -29,8 +29,8 @@ public class Log {
 
     public enum Type {
         INFO,
+        WARN,
         ERROR,
-        FETAL,
-        WARN
+        FETAL
     }
 }

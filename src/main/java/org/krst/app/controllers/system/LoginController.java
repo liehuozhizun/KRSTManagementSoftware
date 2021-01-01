@@ -32,7 +32,7 @@ public class LoginController {
     }
 
     public void login() {
-        logger.logInfo(getClass().toString(), "USER LOGIN");
+        logger.logInfo(getClass().toString(), "用户成功登录");
         String password = textField_password.getText();
         if (password == null || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

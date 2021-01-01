@@ -53,5 +53,5 @@
    <TextArea fx:id="resource" layoutX="106.0" layoutY="673.0" prefHeight="64.0" prefWidth="190.0" />
    <TextArea fx:id="education" layoutX="410.0" layoutY="673.0" prefHeight="64.0" prefWidth="172.0" />
    <Button fx:id="approve" layoutX="192.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="37.0" prefWidth="69.0" text="确认" />
-   <Button fx:id="cancel" layoutX="352.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" />
+   <Button fx:id="close" layoutX="352.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="69.0" text="取消" />
 </Pane>
