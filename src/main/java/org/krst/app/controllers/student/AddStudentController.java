@@ -133,7 +133,7 @@ public class AddStudentController {
                 altLeaderPhone.setText("");
             } else {
                 if (Constants.CREATE_PROMPT.equals(newValue.getAttribute())) {
-                    KRSTManagementSoftware.openWindow(AddAttribute.class, true);
+                    KRSTManagementSoftware.openWindow(AddAttribute.class);
                     refreshAttributeComboBoxContent();
                     attribute.getSelectionModel().selectLast();
                 } else {
