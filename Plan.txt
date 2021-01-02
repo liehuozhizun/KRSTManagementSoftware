@@ -1,7 +1,6 @@
 Sprint Backlog
     KRST-5 [BE] Revise Remainder Pop up window
     KRST-14 [BE] Bugfix RemainderController
-    KRST-15 [BE] Revise AddTeacherController
 
 In Progress
     KRST-1 [BE] Logics between ComboBox and ListView Z
@@ -9,6 +8,7 @@ In Progress
     KRST-3 [BE] StudentInfoPage controller C
 
 Done
+    KRST-15 [BE] Revise AddTeacherController Y 1/2
     KRST-6 [BE] Revise AddCourseTemplateController Y 1/2
     KRST-13 [BE] Revise AddStudentController Y 1/2
     KRST-12 [BE] Revise AddStaffController Y 1/1
