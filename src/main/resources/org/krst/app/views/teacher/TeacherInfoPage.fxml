@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -35,12 +36,6 @@
          <Label layoutX="339.0" layoutY="716.0" text="负责员工" />
          <TextField fx:id="name" disable="true" editable="false" layoutX="103.0" layoutY="114.0" prefHeight="31.0" prefWidth="190.0" />
          <TextField fx:id="baptismalName" disable="true" editable="false" layoutX="104.0" layoutY="163.0" prefHeight="31.0" prefWidth="190.0" />
-         <RadioButton fx:id="gender_male" disable="true" layoutX="408.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="男">
-            <toggleGroup>
-               <ToggleGroup fx:id="gender" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton disable="true" layoutX="480.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="女" toggleGroup="$gender" />
          <DatePicker fx:id="birthday" disable="true" editable="false" layoutX="103.0" layoutY="212.0" prefHeight="31.0" prefWidth="190.0" />
          <CheckBox fx:id="isGregorianCalendar" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历" />
          <DatePicker fx:id="baptismalDate" disable="true" editable="false" layoutX="103.0" layoutY="262.0" prefHeight="31.0" prefWidth="190.0" />
@@ -57,9 +52,14 @@
          <TextArea fx:id="experience" disable="true" editable="false" layoutX="104.0" layoutY="614.0" prefHeight="64.0" prefWidth="190.0" />
          <TextArea fx:id="talent" disable="true" editable="false" layoutX="409.0" layoutY="614.0" prefHeight="64.0" prefWidth="172.0" />
          <TextArea fx:id="resource" disable="true" editable="false" layoutX="105.0" layoutY="695.0" prefHeight="64.0" prefWidth="190.0" />
-         <ComboBox fx:id="teacherSelectors" layoutX="103.0" layoutY="63.0" prefHeight="31.0" prefWidth="190.0" />
-      <TextField fx:id="attribute" disable="true" editable="false" layoutX="103.0" layoutY="359.0" prefHeight="31.0" prefWidth="190.0" />
-      <TextField fx:id="staff" disable="true" editable="false" layoutX="402.0" layoutY="708.0" prefHeight="31.0" prefWidth="190.0" />
-      <Button fx:id="close" layoutX="277.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="95.0" text="关闭" textAlignment="JUSTIFY" underline="true" />
+      <Button fx:id="delete" layoutX="277.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="95.0" text="删除" textAlignment="JUSTIFY" underline="true" />
+      <Button fx:id="change" layoutX="123.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="37.0" prefWidth="95.0" text="更改" textAlignment="JUSTIFY" underline="true" />
+      <Button fx:id="close" layoutX="425.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="95.0" text="关闭" textAlignment="JUSTIFY" underline="true" />
+      <Button fx:id="confirm" disable="true" layoutX="209.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="95.0" text="确定" textAlignment="JUSTIFY" underline="true" visible="false" />
+      <Button fx:id="cancel" disable="true" layoutX="346.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="95.0" text="取消" textAlignment="JUSTIFY" underline="true" visible="false" />
+      <TextField fx:id="id" disable="true" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="31.0" prefWidth="190.0" />
+      <ComboBox fx:id="gender" disable="true" layoutX="372.0" layoutY="115.0" prefHeight="23.0" prefWidth="24.0" />
+      <ComboBox fx:id="changeableAttribute" cache="true" disable="true" layoutX="103.0" layoutY="359.0"  prefHeight="31.0" prefWidth="190.0" />
+      <ComboBox fx:id="changeableStaff" disable="true" layoutX="402.0" layoutY="708.0" prefHeight="31.0" prefWidth="190.0" />
    </children>
 </Pane>
