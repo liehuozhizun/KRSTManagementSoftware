@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0"
+      prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.system.TestEngineController">
+    <Text layoutX="156.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="测试界面">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Text>
+    <Text layoutX="36.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="选择你要直接打开的窗口：">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Text>
+    <ListView fx:id="windowList" layoutX="65.0" layoutY="112.0" prefHeight="223.0" prefWidth="278.0"/>
+    <CheckBox fx:id="openAndWaitFlag" layoutX="176.0" layoutY="343.0" mnemonicParsing="false" selected="true"
+              text="以OpenAndWait打开"/>
+</Pane>

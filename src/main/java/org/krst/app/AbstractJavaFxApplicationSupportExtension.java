@@ -11,13 +11,14 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
 
 public abstract class AbstractJavaFxApplicationSupportExtension extends AbstractJavaFxApplicationSupport {
 
     private static Logger logger;
 
-    private static LinkedList<Stage> stages = new LinkedList<>();
+    public static void openWindow(final Class<? extends AbstractFxmlView> window) {
+        openWindow(window, true);
+    }
 
     public static void openWindow(final Class<? extends AbstractFxmlView> window, boolean OpenAndWait) {
         initContext();
@@ -59,7 +60,6 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
 
         if (OpenAndWait) {
             newStage.showAndWait();
-            stages.add(newStage);
         } else {
             newStage.show();
         }
@@ -70,9 +70,6 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
     }
 
     public static void closeWindow() {
-        if (stages.isEmpty()) return;
-        stages.getLast().close();
-        stages.removeLast();
     }
 
     private static ConfigurableApplicationContext context = null;

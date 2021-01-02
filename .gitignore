@@ -4,9 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/note.txt
 *.db
 mvnw*
-*.txt
 out/*
 .mvn/*
 

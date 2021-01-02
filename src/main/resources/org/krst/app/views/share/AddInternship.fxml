@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.share.AddInternshipController">
    <Label layoutX="267.0" layoutY="24.0" text="新增实践记录">
       <font>
@@ -22,5 +21,5 @@
    <TextArea fx:id="summary" layoutX="112.0" layoutY="235.0" prefHeight="106.0" prefWidth="473.0" />
    <TextArea fx:id="comment" layoutX="112.0" layoutY="357.0" prefHeight="106.0" prefWidth="473.0" />
    <Button fx:id="approve" layoutX="200.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="38.0" prefWidth="67.0" text="确认" />
-   <Button fx:id="cancel" layoutX="376.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="38.0" prefWidth="67.0" text="取消" />
+   <Button fx:id="close" layoutX="376.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="38.0" prefWidth="67.0" text="取消" />
 </Pane>

@@ -1,27 +1,20 @@
 package org.krst.app.controllers.share;
 
 import de.felixroske.jfxsupport.FXMLController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Visit;
-import org.krst.app.repositories.StaffRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @FXMLController
-public class AddVisitController implements Initializable {
+public class AddVisitController {
 
     @FXML
     private DatePicker date;
@@ -41,8 +34,8 @@ public class AddVisitController implements Initializable {
     @Autowired
     private CacheService cacheService;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         visitor.getItems().addAll(cacheService.getStaffs());
 
         visitor.setCellFactory(new Callback<ListView<Staff>, ListCell<Staff>>() {
@@ -84,11 +77,11 @@ public class AddVisitController implements Initializable {
                 summary.getText(),
                 comment.getText());
         dataPassService.setValue(visit);
-        KRSTManagementSoftware.closeWindow();
+        close();
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)comment.getScene().getWindow()).close();
     }
 
 }

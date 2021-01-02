@@ -4,7 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
-import org.krst.app.KRSTManagementSoftware;
+import javafx.stage.Stage;
 import org.krst.app.domains.Internship;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +35,10 @@ public class AddInternshipController {
                 summary.getText(),
                 comment.getText());
         dataPassService.setValue(internship);
-        KRSTManagementSoftware.closeWindow();
+        close();
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)comment.getScene().getWindow()).close();
     }
 }
