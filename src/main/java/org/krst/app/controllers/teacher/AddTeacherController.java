@@ -148,7 +148,7 @@ public class AddTeacherController {
         attribute.setConverter(new StringConverter<Attribute>() {
             @Override
             public String toString(Attribute attribute) {
-                return attribute.getAttribute();
+                return attribute == null ? null : attribute.getAttribute();
             }
 
             @Override
