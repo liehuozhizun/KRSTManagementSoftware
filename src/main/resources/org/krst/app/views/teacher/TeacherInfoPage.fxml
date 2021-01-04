@@ -58,7 +58,7 @@
       <Button fx:id="confirm" disable="true" layoutX="209.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="95.0" text="确定" textAlignment="JUSTIFY" underline="true" visible="false" />
       <Button fx:id="cancel" disable="true" layoutX="346.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="95.0" text="取消" textAlignment="JUSTIFY" underline="true" visible="false" />
       <TextField fx:id="id" disable="true" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="31.0" prefWidth="190.0" />
-      <ComboBox fx:id="gender" disable="true" layoutX="372.0" layoutY="115.0" prefHeight="23.0" prefWidth="24.0" />
+      <ComboBox fx:id="gender" disable="true" editable="true" layoutX="372.0" layoutY="115.0" prefHeight="23.0" prefWidth="24.0" />
       <ComboBox fx:id="changeableAttribute" cache="true" disable="true" layoutX="103.0" layoutY="359.0" prefHeight="31.0" prefWidth="190.0" />
       <ComboBox fx:id="changeableStaff" disable="true" layoutX="402.0" layoutY="708.0" prefHeight="31.0" prefWidth="190.0" />
    </children>

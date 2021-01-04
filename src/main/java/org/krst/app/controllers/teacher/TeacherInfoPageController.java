@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
+import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Teacher;
@@ -15,6 +17,8 @@ import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
+import org.krst.app.utils.Constants;
+import org.krst.app.views.share.AddAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
@@ -60,18 +64,70 @@ public class TeacherInfoPageController {
 
         start(selectedOne);
         gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
-            gender.setPromptText( gender.getSelectionModel().getSelectedItem());
+            //gender.setPromptText( gender.getSelectionModel().getSelectedItem());
+            gender.setConverter(new StringConverter<String>() {
+                @Override
+                public String toString(String gender) {
+                    return gender;
+                }
+
+                @Override
+                public String fromString(String string) {
+                    return gender.getItems().stream().filter(gender->
+                            gender.equals(string)).findFirst().orElse(null);
+                }
+            });
         });
         changeableAttribute.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (Constants.CREATE_PROMPT.equals(changeableAttribute.getSelectionModel().getSelectedItem().getAttribute())) {
+                KRSTManagementSoftware.openWindow(AddAttribute.class, true);
+                refreshAttributeComboBoxContent();
+
+            }
             changeableAttribute.setPromptText((changeableAttribute.getSelectionModel().getSelectedItem().getAttribute()));
+            leader.setText(changeableAttribute.getSelectionModel().getSelectedItem().getLeader());
+            leaderPhone.setText(changeableAttribute.getSelectionModel().getSelectedItem().getLeaderPhone());
+            altLeader.setText(changeableAttribute.getSelectionModel().getSelectedItem().getAltLeader());
+            changeableAttribute.setPromptText(changeableAttribute.getSelectionModel().getSelectedItem().getAttribute());
+            altLeaderPhone.setText(changeableAttribute.getSelectionModel().getSelectedItem().getAltLeaderPhone());
+            changeableAttribute.setConverter(new StringConverter<Attribute>() {
+                @Override
+                public String toString(Attribute attribute) {
+                    return attribute == null ? null : attribute.getAttribute();
+                }
+
+                @Override
+                public Attribute fromString(String string) {
+                    return changeableAttribute.getItems().stream().filter(attribute ->
+                            attribute.getAttribute().equals(string)).findFirst().orElse(null);
+                }
+            });
         });
         changeableStaff.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             changeableStaff.setPromptText(changeableStaff.getSelectionModel().getSelectedItem().getName());
+            changeableStaff.setConverter(new StringConverter<Staff>() {
+                @Override
+                public String toString(Staff staff) {
+                    return staff == null ? null : staff.getName();
+                }
 
+                @Override
+                public Staff fromString(String string) {
+                    return changeableStaff.getItems().stream().filter(staff ->
+                            staff.getName().equals(string)).findFirst().orElse(null);
+                }
+            });
         });
 
 //
     }
+    private void refreshAttributeComboBoxContent() {
+
+        changeableAttribute.getItems().clear();
+        changeableAttribute.getItems().add(new Attribute(Constants.CREATE_PROMPT, null, null, null, null));
+        changeableAttribute.getItems().addAll(cacheService.getAttributes());
+    }
+
 
         public void close() {
             ((Stage)id.getScene().getWindow()).close();
@@ -94,19 +150,23 @@ public class TeacherInfoPageController {
                 changeableAttribute.setPromptText(selectedOne.getAttribute().getAttribute());
                 altLeaderPhone.setText(selectedOne.getAttribute().getAltLeaderPhone());
             }
+            //System.out.println(selectedOne.getPhone());
             phone.setText(selectedOne.getPhone());
             altPhone.setText(selectedOne.getAltPhone());
             address.setText(selectedOne.getAddress());
             experience.setText(selectedOne.getExperience());
             talent.setText(selectedOne.getTalent());
             resource.setText(selectedOne.getResource());
-            System.out.println("reach end");
+            gender.getItems().addAll("男","女");
             gender.setPromptText(selectedOne.getGender());
+            System.out.println(selectedOne.getGender());
             if (selectedOne.getStaff() != null) {
                 changeableStaff.setPromptText(selectedOne.getStaff().getName());
             }
-            gender.getItems().addAll("男","女");
             if(cacheService!=null) {
+                Attribute newOne=new Attribute();
+                newOne.setAttribute(Constants.CREATE_PROMPT);
+                changeableAttribute.getItems().add(newOne);
                 changeableAttribute.getItems().addAll(cacheService.getAttributes());
                 changeableStaff.getItems().addAll(cacheService.getStaffs());
             }
@@ -144,6 +204,30 @@ public class TeacherInfoPageController {
                     };
                 }
             });
+            changeableStaff.setConverter(new StringConverter<Staff>() {
+                @Override
+                public String toString(Staff staff) {
+                    return staff == null ? null : staff.getName();
+                }
+
+                @Override
+                public Staff fromString(String string) {
+                    return changeableStaff.getItems().stream().filter(staff ->
+                            staff.getName().equals(string)).findFirst().orElse(null);
+                }
+            });
+//            gender.setConverter(new StringConverter<String>() {
+//                @Override
+//                public String toString(String gender) {
+//                    return gender==null?null : gender;
+//                }
+//
+//                @Override
+//                public String fromString(String string) {
+//                    return gender.getItems().stream().filter(gender ->
+//                            gender.equals(string)).findFirst().orElse(null);
+//                }
+//            });
 
         }
 
@@ -175,7 +259,7 @@ public class TeacherInfoPageController {
         changeSet(name,false);
         changeSet(baptismalName,false);
         changeSet(phone,false);
-            changeSet(altPhone,false);
+        changeSet(altPhone,false);
         changeSet(id,false);
         changeAreaSet(address,false);
         changeAreaSet(experience,false);
@@ -199,6 +283,7 @@ public class TeacherInfoPageController {
         public void delete() {
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
             teacherRepository.delete(selectedOne);
+            close();
         }
 
         public void confirm() {
@@ -245,23 +330,19 @@ public class TeacherInfoPageController {
         private void changeSet(TextField textField, boolean status) {
 
             textField.setDisable(!status);
-            textField.setVisible(status);
             textField.setEditable(status);
         }
         private void changeAreaSet(TextArea textArea, boolean status) {
             textArea.setDisable(!status);
-            textArea.setVisible(status);
             textArea.setEditable(status);
         }
         private void changeDateSet(DatePicker datePicker, boolean status) {
             datePicker.setDisable(!status);
-            datePicker.setVisible(status);
             datePicker.setEditable(status);
         }
         private void changeComboboxSet(ComboBox comboBox, boolean status) {
             comboBox.setDisable(!status);
-            comboBox.setVisible(status);
-            comboBox.setEditable(status);
+            //comboBox.setEditable(status);
         }
         private void buttonHide(Button button, boolean status) {
             button.setDisable(status);
