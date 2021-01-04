@@ -1,161 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="848.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.krst.app.controllers.student.StudentInfoController">
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="848.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.student.StudentInfoController">
+   <children>
+   
+          <Label layoutX="264.0" layoutY="24.0" text="学生信息">
+              <font>
+                     <Font name="System Bold" size="20.0" />
+              </font>
+          </Label>
+          <Label layoutX="38.0" layoutY="77.0" text="学生编号" />
+          <Label layoutX="37.0" layoutY="127.0" text="学生姓名" />
+          <Label layoutX="45.0" layoutY="169.0" text="   圣名" />
+          <Label layoutX="334.0" layoutY="119.0" text="性别" />
+          <Label layoutX="29.0" layoutY="217.0" text="出生日期" />
+          <Label layoutX="29.0" layoutY="266.0" text="领洗日期" />
+          <Label layoutX="334.0" layoutY="266.0" text="坚振日期" />
+          <Label layoutX="31.0" layoutY="318.0" text="结婚日期" />
+          <Label layoutX="334.0" layoutY="318.0" text="死亡日期" />
+          <Label layoutX="29.0" layoutY="367.0" text="所属教区" />
+          <Label layoutX="43.0" layoutY="414.0" text="负责人" />
+          <Label layoutX="340.0" layoutY="417.0" text="负责人电话" />
+          <Label layoutX="25.0" layoutY="458.0" text="第二负责人" />
+          <Label layoutX="340.0" layoutY="458.0" text="负责人电话" />
+          <Label layoutX="49.0" layoutY="500.0" text="电话" />
+          <Label layoutX="344.0" layoutY="500.0" text="备用电话" />
+          <Label layoutX="50.0" layoutY="555.0" text="地址" />
+          <Label layoutX="50.0" layoutY="621.0" text="经历" />
+          <Label layoutX="346.0" layoutY="621.0" text="特长" />
+          <Label layoutX="43.0" layoutY="701.0" text="资源" />
+          <Label layoutX="346.0" layoutY="701.0" text="负责员工" />
+          <Button fx:id="change" layoutX="72.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="37.0" prefWidth="69.0" text="更改" />
+          <Button fx:id="delete" layoutX="259.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="69.0" text="删除" />
+          <Button fx:id="close" layoutX="450.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="69.0" text="退出" />
+          <Button fx:id="confirm" disable="true" layoutX="259.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
+          <Button fx:id="cancel" disable="true" layoutX="450.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
 
-       <Label layoutX="264.0" layoutY="24.0" text="学生信息">
-           <font>
-                  <Font name="System Bold" size="20.0"/>
-           </font>
-       </Label>
-       <Label layoutX="38.0" layoutY="77.0" text="学生编号"/>
-       <Label layoutX="37.0" layoutY="127.0" text="学生姓名"/>
-       <Label layoutX="45.0" layoutY="169.0" text="   圣名"/>
-       <Label layoutX="334.0" layoutY="119.0" text="性别"/>
-       <Label layoutX="29.0" layoutY="217.0" text="出生日期"/>
-       <Label layoutX="29.0" layoutY="266.0" text="领洗日期"/>
-       <Label layoutX="334.0" layoutY="266.0" text="坚振日期"/>
-       <Label layoutX="31.0" layoutY="318.0" text="结婚日期"/>
-       <Label layoutX="334.0" layoutY="318.0" text="死亡日期"/>
-       <Label layoutX="29.0" layoutY="367.0" text="所属教区"/>
-       <Label layoutX="43.0" layoutY="414.0" text="负责人"/>
-       <Label layoutX="340.0" layoutY="417.0" text="负责人电话"/>
-       <Label layoutX="25.0" layoutY="458.0" text="第二负责人"/>
-       <Label layoutX="340.0" layoutY="458.0" text="负责人电话"/>
-       <Label layoutX="49.0" layoutY="500.0" text="电话"/>
-       <Label layoutX="344.0" layoutY="500.0" text="备用电话"/>
-       <Label layoutX="50.0" layoutY="555.0" text="地址"/>
-       <Label layoutX="50.0" layoutY="621.0" text="经历"/>
-       <Label layoutX="346.0" layoutY="621.0" text="特长"/>
-       <Label layoutX="43.0" layoutY="701.0" text="资源"/>
-       <Label layoutX="346.0" layoutY="701.0" text="负责员工"/>
-       <Button fx:id="change" layoutX="150.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#change"
-               prefHeight="37.0" prefWidth="69.0" text="更改"/>
-       <Button fx:id="delate" layoutX="400.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#delate"
-               prefHeight="37.0" prefWidth="69.0" text="删除"/>
-       <Button fx:id="back" layoutX="500.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#back"
-               prefHeight="37.0" prefWidth="69.0" text="后退"/>
-       <TextField fx:id="leader" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0"
-                  text="leader">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="id" editable="false" layoutX="103.0" layoutY="77.0" prefHeight="31.0" prefWidth="190.0"
-                  text="id">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="name" editable="false" layoutX="103.0" layoutY="119.0" prefHeight="31.0" prefWidth="190.0"
-                  text="name">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="baptismalName" editable="false" layoutX="103.0" layoutY="161.0" prefHeight="31.0"
-                  prefWidth="190.0" text="baptismalName">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="leaderPhone" editable="false" layoutX="418.0" layoutY="409.0" prefHeight="31.0"
-                  prefWidth="182.0" text="leaderPhone">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="altLeader" editable="false" layoutX="103.0" layoutY="450.0" prefHeight="31.0" prefWidth="190.0"
-                  text="altLeader">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="altLeaderPhone" editable="false" layoutX="103.0" layoutY="492.0" prefHeight="31.0"
-                  prefWidth="190.0" text="altLeaderPhone">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="phone" editable="false" layoutX="418.0" layoutY="450.0" prefHeight="31.0" prefWidth="182.0"
-                  text="phone">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="altPhone" editable="false" layoutX="418.0" layoutY="492.0" prefHeight="31.0" prefWidth="182.0"
-                  text="altPhone">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <!--/**
-       点击更改需要改换界面的
-       */-->
-       <TextField fx:id="gender" editable="false" layoutX="374.0" layoutY="112.0" prefHeight="31.0" prefWidth="48.0"
-                  text="G">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="birthday" editable="false" layoutX="103.0" layoutY="209.0" prefHeight="31.0" prefWidth="190.0"
-                  text="BD">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="isGregorianCalendar" editable="false" layoutX="358.0" layoutY="217.0" prefHeight="31.0"
-                  prefWidth="190.0" text="公历">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="baptismalDate" editable="false" layoutX="103.0" layoutY="266.0" prefHeight="31.0"
-                  prefWidth="190.0" text="baptismaldate">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="confirmationDate" editable="false" layoutX="400.0" layoutY="266.0" prefHeight="31.0"
-                  prefWidth="182.0" text="confirmationDate">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="marriageDate" editable="false" layoutX="100.0" layoutY="318.0" prefHeight="31.0"
-                  prefWidth="190.0" text="marriageDate">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="deathDate" editable="false" layoutX="400.0" layoutY="318.0" prefHeight="31.0" prefWidth="182.0"
-                  text="deathDate">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <TextField fx:id="arrtibute" editable="false" layoutX="100.0" layoutY="367.0" prefHeight="31.0" prefWidth="190.0"
-                  text="arrtibute">
-              <effect>
-                     <ColorAdjust brightness="-0.05"/>
-              </effect>
-       </TextField>
-       <!--/**
-      点击更改需要改换界面的
-      */-->
-       <TextArea fx:id="address" editable="false" layoutX="100.0" layoutY="539.0" prefHeight="62.0" prefWidth="480.0"
-                 text="address"/>
-       <TextArea fx:id="experience" editable="false" layoutX="106.0" layoutY="621.0" prefHeight="62.0" prefWidth="220.0"
-                 text="experience"/>
-       <TextArea fx:id="talent" editable="false" layoutX="374.0" layoutY="621.0" prefHeight="62.0" prefWidth="220.0"
-                 text="talent"/>
-       <TextArea fx:id="resource" editable="false" layoutX="106.0" layoutY="701.0" prefHeight="62.0" prefWidth="220.0"
-                 text="resource"/>
+          <TextField fx:id="leader" disable="true" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0" />
+          <TextField fx:id="id" layoutX="103.0" layoutY="77.0" prefHeight="31.0" prefWidth="190.0" />
+          <TextField fx:id="name" disable="true" editable="false" layoutX="103.0" layoutY="119.0" prefHeight="31.0" prefWidth="190.0" />
+          <TextField fx:id="baptismalName" disable="true" editable="false" layoutX="103.0" layoutY="161.0" prefHeight="31.0" prefWidth="190.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <TextField fx:id="leaderPhone" disable="true" editable="false" layoutX="418.0" layoutY="409.0" prefHeight="31.0" prefWidth="182.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <TextField fx:id="altLeader" disable="true" editable="false" layoutX="103.0" layoutY="450.0" prefHeight="31.0" prefWidth="190.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <TextField fx:id="altLeaderPhone" disable="true" editable="false" layoutX="103.0" layoutY="492.0" prefHeight="31.0" prefWidth="190.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <TextField fx:id="phone" disable="true" editable="false" layoutX="418.0" layoutY="450.0" prefHeight="31.0" prefWidth="182.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <TextField fx:id="altPhone" disable="true" editable="false" layoutX="418.0" layoutY="492.0" prefHeight="31.0" prefWidth="182.0">
+                 <effect>
+                        <ColorAdjust brightness="-0.05" />
+                 </effect>
+          </TextField>
+          <!--/**
+          点击更改需要改换界面的
+          */-->
+<!--          <TextField fx:id="gender" editable="false" layoutX="374.0" layoutY="112.0" prefHeight="31.0" prefWidth="48.0" text="G">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <DatePicker fx:id="birthday" disable="true" layoutX="103.0" layoutY="209.0" prefHeight="31.0" prefWidth="190.0" />
+          <ComboBox fx:id="gender" layoutX="408.0" layoutY="119.0" prefHeight="31.0" prefWidth="60.0" />
+<!--          <RadioButton fx:id="gender_male" layoutX="408.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="男">-->
+<!--                 <toggleGroup>-->
+<!--                        <ToggleGroup fx:id="gender" />-->
+<!--                 </toggleGroup>-->
+<!--          </RadioButton>-->
+<!--          <RadioButton layoutX="480.0" layoutY="119.0" mnemonicParsing="false" text="女" toggleGroup="$gender" />-->
+          <ComboBox fx:id="staff" layoutX="409.0" layoutY="711.0" prefHeight="31.0" prefWidth="172.0" />
+          <CheckBox fx:id="isGregorianCalendar" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历" />
+          <DatePicker fx:id="baptismalDate" disable="true" layoutX="103.0" layoutY="266.0" prefHeight="31.0" prefWidth="190.0" />
+<!--          <TextField fx:id="baptismalDate" editable="false" layoutX="103.0" layoutY="266.0" prefHeight="31.0" prefWidth="190.0" text="baptismaldate">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <DatePicker fx:id="confirmationDate" disable="true" layoutX="400.0" layoutY="266.0" prefHeight="31.0" prefWidth="190.0" />
+<!--          <TextField fx:id="confirmationDate" editable="false" layoutX="400.0" layoutY="266.0" prefHeight="31.0" prefWidth="182.0" text="confirmationDate">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <DatePicker fx:id="marriageDate" disable="true" layoutX="100.0" layoutY="318.0" prefHeight="31.0" prefWidth="190.0" />
+<!--          <TextField fx:id="marriageDate" editable="false" layoutX="100.0" layoutY="318.0" prefHeight="31.0" prefWidth="190.0" text="marriageDate">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <DatePicker fx:id="deathDate" disable="true" layoutX="400.0" layoutY="318.0" prefHeight="31.0" prefWidth="190.0" />
+<!--          <TextField fx:id="deathDate" editable="false" layoutX="400.0" layoutY="318.0" prefHeight="31.0" prefWidth="182.0" text="deathDate">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <ComboBox fx:id="attribute" disable="true" editable="true" layoutX="100.0" layoutY="367.0" prefHeight="31.0" prefWidth="190.0" />
+<!--          <TextField fx:id="arrtibute" editable="false" layoutX="100.0" layoutY="367.0" prefHeight="31.0" prefWidth="190.0" text="arrtibute">-->
+<!--                 <effect>-->
+<!--                        <ColorAdjust brightness="-0.05" />-->
+<!--                 </effect>-->
+<!--          </TextField>-->
+          <!--/**
+         点击更改需要改换界面的
+         */-->
+          <TextArea fx:id="address" disable="true" editable="false" layoutX="100.0" layoutY="539.0" prefHeight="62.0" prefWidth="480.0" />
+          <TextArea fx:id="experience" disable="true" editable="false" layoutX="106.0" layoutY="621.0" prefHeight="62.0" prefWidth="220.0" />
+          <TextArea fx:id="talent" disable="true" editable="false" layoutX="374.0" layoutY="621.0" prefHeight="62.0" prefWidth="220.0" />
+          <TextArea fx:id="resource" disable="true" editable="false" layoutX="106.0" layoutY="701.0" prefHeight="62.0" prefWidth="220.0" />
+   </children>
 
 </Pane>
