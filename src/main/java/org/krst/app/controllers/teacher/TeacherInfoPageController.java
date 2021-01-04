@@ -53,10 +53,10 @@ public class TeacherInfoPageController {
     @Autowired
     private DataPassService dataPassService;
 
-
+    Teacher selectedOne;
     @FXML
     public void initialize() {
-        Teacher selectedOne =(Teacher) dataPassService.getValue();
+        selectedOne =(Teacher) dataPassService.getValue();
 
         start(selectedOne);
         gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
@@ -81,7 +81,8 @@ public class TeacherInfoPageController {
             name.setText(selectedOne.getName());
             baptismalName.setText(selectedOne.getBaptismalName());
             birthday.setValue(selectedOne.getBirthday());
-            isGregorianCalendar.setSelected(selectedOne.getIsGregorianCalendar());
+            if(selectedOne.getIsGregorianCalendar()!=null){
+            isGregorianCalendar.setSelected(selectedOne.getIsGregorianCalendar());}
             baptismalDate.setValue(selectedOne.getBaptismalDate());
             confirmationDate.setValue(selectedOne.getConfirmationDate());
             marriageDate.setValue(selectedOne.getMarriageDate());
@@ -147,44 +148,64 @@ public class TeacherInfoPageController {
         }
 
         public void change() {
-            changeSet(name);
-            changeSet(baptismalName);
-            //changeSet(leader);
-            //changeSet(leaderPhone);
-            //changeSet(altLeader);
-            //changeSet(altLeaderPhone);
-            changeSet(phone);
-            changeSet(altPhone);
-            changeSet(id);
-            changeAreaSet(address);
-            changeAreaSet(experience);
-            changeAreaSet(talent);
-            changeAreaSet(resource);
-            changeDateSet(birthday);
-            changeDateSet(baptismalDate);
-            changeDateSet(confirmationDate);
-            changeDateSet(marriageDate);
-            changeDateSet(deathDate);
-            changeComboboxSet(gender);
-            changeComboboxSet(changeableAttribute);
-            changeComboboxSet(changeableStaff);
-            buttonHide(change);
-            buttonHide(delete);
-            buttonHide(close);
-            buttonShow(confirm);
-            buttonShow(cancel);
+            changeSet(name,true);
+            changeSet(baptismalName,true);
+            changeSet(phone,true);
+            changeSet(altPhone,true);
+            changeSet(id,true);
+            changeAreaSet(address,true);
+            changeAreaSet(experience,true);
+            changeAreaSet(talent,true);
+            changeAreaSet(resource,true);
+            changeDateSet(birthday,true);
+            changeDateSet(baptismalDate,true);
+            changeDateSet(confirmationDate,true);
+            changeDateSet(marriageDate,true);
+            changeDateSet(deathDate,true);
+            changeComboboxSet(gender,true);
+            changeComboboxSet(changeableAttribute,true);
+            changeComboboxSet(changeableStaff,true);
+            buttonHide(change,true);
+            buttonHide(delete,true);
+            buttonHide(close,true);
+            buttonShow(confirm,true);
+            buttonShow(cancel,true);
         }
+    public void changeFalse() {
+        changeSet(name,false);
+        changeSet(baptismalName,false);
+        changeSet(phone,false);
+            changeSet(altPhone,false);
+        changeSet(id,false);
+        changeAreaSet(address,false);
+        changeAreaSet(experience,false);
+        changeAreaSet(talent,false);
+        changeAreaSet(resource,false);
+        changeDateSet(birthday,false);
+        changeDateSet(baptismalDate,false);
+        changeDateSet(confirmationDate,false);
+        changeDateSet(marriageDate,false);
+        changeDateSet(deathDate,false);
+        changeComboboxSet(gender,false);
+        changeComboboxSet(changeableAttribute,false);
+        changeComboboxSet(changeableStaff,false);
+        buttonHide(change,false);
+        buttonHide(delete,false);
+        buttonHide(close,false);
+        buttonShow(confirm,false);
+        buttonShow(cancel,false);
+    }
 
         public void delete() {
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
-            teacherRepository.delete((Teacher) dataPassService.getValue());
+            teacherRepository.delete(selectedOne);
         }
 
         public void confirm() {
-            Teacher selectedOne =(Teacher) dataPassService.getValue();
             if(!id.getText().equals(selectedOne.getId())
-                    &&teacherRepository.existsById(id.getId())
+                    &&teacherRepository.existsById(id.getText())
             ) {
+                System.out.println("test1");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("更新教师档案错误");
                 alert.setHeaderText("错误原因：使用已存在的教师编号");
@@ -193,7 +214,7 @@ public class TeacherInfoPageController {
             }
             else{
                 if(!id.getText().equals(selectedOne.getId())) {
-                    teacherRepository.delete((Teacher) dataPassService.getValue());
+                    teacherRepository.delete(selectedOne);
                 }
                 Teacher teacher = new Teacher();
                 teacher.setId(id.getText());
@@ -215,38 +236,40 @@ public class TeacherInfoPageController {
                 teacher.setStaff(changeableStaff.getSelectionModel().getSelectedItem());
                 teacher.setGender(gender.getPromptText());
                 teacherRepository.save(teacher);
-                close();}
+                changeFalse();
+                }
         }
         public void cancel() {
         close();
         }
-        private void changeSet(TextField textField) {
-            textField.setDisable(false);
-            textField.setVisible(true);
-            textField.setEditable(true);
+        private void changeSet(TextField textField, boolean status) {
+
+            textField.setDisable(!status);
+            textField.setVisible(status);
+            textField.setEditable(status);
         }
-        private void changeAreaSet(TextArea textArea) {
-            textArea.setDisable(false);
-            textArea.setVisible(true);
-            textArea.setEditable(true);
+        private void changeAreaSet(TextArea textArea, boolean status) {
+            textArea.setDisable(!status);
+            textArea.setVisible(status);
+            textArea.setEditable(status);
         }
-        private void changeDateSet(DatePicker datePicker) {
-            datePicker.setDisable(false);
-            datePicker.setVisible(true);
-            datePicker.setEditable(true);
+        private void changeDateSet(DatePicker datePicker, boolean status) {
+            datePicker.setDisable(!status);
+            datePicker.setVisible(status);
+            datePicker.setEditable(status);
         }
-        private void changeComboboxSet(ComboBox comboBox) {
-            comboBox.setDisable(false);
-            comboBox.setVisible(true);
-            comboBox.setEditable(true);
+        private void changeComboboxSet(ComboBox comboBox, boolean status) {
+            comboBox.setDisable(!status);
+            comboBox.setVisible(status);
+            comboBox.setEditable(status);
         }
-        private void buttonHide(Button button) {
-            button.setDisable(true);
-            button.setVisible(false);
+        private void buttonHide(Button button, boolean status) {
+            button.setDisable(status);
+            button.setVisible(!status);
         }
-        private void buttonShow(Button button){
-            button.setDisable(false);
-            button.setVisible(true);
+        private void buttonShow(Button button, boolean status){
+            button.setDisable(!status);
+            button.setVisible(status);
 
         }
 
