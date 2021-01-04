@@ -2,8 +2,8 @@ package org.krst.app.controllers.teacher;
 
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
@@ -17,11 +17,8 @@ import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 @FXMLController
-public class AddTeacherController implements Initializable {
+public class AddTeacherController {
 
     @FXML
     private TextField id;
@@ -75,8 +72,8 @@ public class AddTeacherController implements Initializable {
     @Autowired
     private Logger logger;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         staff.getItems().addAll(cacheService.getStaffs());
 
         staff.setCellFactory(new Callback<ListView<Staff>, ListCell<Staff>>() {
@@ -136,7 +133,7 @@ public class AddTeacherController implements Initializable {
                 altLeaderPhone.setText("");
             } else {
                 if (Constants.CREATE_PROMPT.equals(newValue.getAttribute())) {
-                    KRSTManagementSoftware.openWindow(AddAttribute.class, true);
+                    KRSTManagementSoftware.openWindow(AddAttribute.class);
                     refreshAttributeComboBoxContent();
                     attribute.getSelectionModel().selectLast();
                 } else {
@@ -151,7 +148,7 @@ public class AddTeacherController implements Initializable {
         attribute.setConverter(new StringConverter<Attribute>() {
             @Override
             public String toString(Attribute attribute) {
-                return attribute.getAttribute();
+                return attribute == null ? null : attribute.getAttribute();
             }
 
             @Override
@@ -169,15 +166,24 @@ public class AddTeacherController implements Initializable {
     }
 
     public void approve() {
-        Teacher teacher = new Teacher();
-        teacher.setId(id.getText());
         if (id.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("新建教师档案失败");
             alert.setHeaderText("失败原因：未填入教师编号");
             alert.setContentText("解决方法：请输入教师编号");
-            alert.showAndWait();
+            alert.show();
+            return;
+        } else if (teacherRepository.existsById(id.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("新建教师档案错误");
+            alert.setHeaderText("错误原因：使用已存在的教师编号");
+            alert.setContentText("解决方法：请输入不同的教师编号");
+            alert.show();
+            return;
         }
+
+        Teacher teacher = new Teacher();
+        teacher.setId(id.getText());
         teacher.setName(name.getText());
         teacher.setBaptismalName(baptismalName.getText());
         teacher.setGender(gender_male.isSelected() ? "男" : "女");
@@ -196,21 +202,13 @@ public class AddTeacherController implements Initializable {
         teacher.setTalent(talent.getText());
         teacher.setStaff(staff.getValue());
 
-        if (teacherRepository.existsById(teacher.getId())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("新建教师档案错误");
-            alert.setHeaderText("错误原因：使用已存在的教师编号");
-            alert.setContentText("解决方法：请输入不同的教师编号");
-            alert.showAndWait();
-        } else {
-            teacherRepository.save(teacher);
-            logger.logInfo(getClass().toString(), "新建教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
-            KRSTManagementSoftware.closeWindow();
-        }
+        teacherRepository.save(teacher);
+        logger.logInfo(getClass().toString(), "新建教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
+        close();
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)id.getScene().getWindow()).close();
     }
 
 }

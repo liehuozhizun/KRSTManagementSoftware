@@ -12,4 +12,8 @@ public interface InformationOperations {
     LocalDate getConfirmationDate();
     LocalDate getMarriageDate();
     LocalDate getDeathDate();
+
+    default String getNameAndId() {
+        return getName() + " [" + getId() + "]";
+    }
 }
