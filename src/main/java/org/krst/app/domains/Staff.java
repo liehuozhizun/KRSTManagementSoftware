@@ -1,6 +1,5 @@
 package org.krst.app.domains;
 
-import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -45,5 +43,5 @@ public class Staff implements InformationOperations {
     @ElementCollection
     private Set<Evaluation> evaluations; // 员工评定
     @ElementCollection
-    private Map<Pair<String, String>, Pair<PersonType, String>> relationships; // 亲属关系 <<关系, 姓名>, <所属表, Id>>
+    private Set<Relation> relationships; // 亲属关系 <关系, 姓名, 人员类型, 人员id>
 }
