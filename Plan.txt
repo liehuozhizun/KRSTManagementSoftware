@@ -5,10 +5,11 @@ Sprint Backlog
 
 In Progress
     KRST-23 [FE/BE] Staff Info Page w/ Controller Y
-    KRST-26 [FE] Teacher Info Page w/ Controller Z
+    KRST-3 [FE] Teacher Info Page w/ Controller Z
     KRST-2 [FE] StudentInfoPage w/ Controller C
 
 Done
+    KRST-27 [BE] Revise Relationship mapping and relative logics Y 1/4
     KRST-1 [BE] Logics between ComboBox and ListView Z Y 1/2
     KRST-5 [BE] Revise Remainder Pop up window Y 1/2
     KRST-14 [BE] Bugfix RemainderController Y 1/2
