@@ -6,9 +6,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.40737893927747887" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="922.0" prefWidth="1303.0" xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.staff.StaffInfoPageController">
+<SplitPane fx:id="splitPane" dividerPositions="0.40737893927747887" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="922.0" prefWidth="1303.0"
+           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.krst.app.controllers.staff.StaffInfoPageController">
    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="846.0" prefWidth="564.0">
       <Text layoutX="223.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工信息">
          <font>

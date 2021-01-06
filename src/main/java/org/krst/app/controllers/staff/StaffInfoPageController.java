@@ -3,6 +3,9 @@ package org.krst.app.controllers.staff;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
 public class StaffInfoPageController extends InfoPageControllerTemplate {
+    @FXML private SplitPane splitPane;
     @FXML private TextField id;
     @FXML private TextField name;
     @FXML private TextField baptismalName;
@@ -77,6 +81,8 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
         refreshAll(staff);
         initDefaultComponents();
         setEditableMode(false);
+        splitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.4074));
     }
 
     private void initDefaultComponents() {
@@ -306,7 +312,7 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
                 phone, altPhone, address, experience, talent, resource, education);
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
         isGregorianCalendar.setDisable(!state);
-        gender.setDisable(!state);
+        gender.setMouseTransparent(!state);
     }
 
     @Override
@@ -314,6 +320,7 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
     protected void setButtonMode(boolean state) {
         change.setVisible(!state);
         accept.setVisible(state);
+        accept.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
         delete.setVisible(!state);
         cancel.setVisible(state);
         close.setVisible(!state);
