@@ -6,6 +6,7 @@ target/
 
 /note.txt
 *.db
+*.txt
 mvnw*
 out/*
 .mvn/*

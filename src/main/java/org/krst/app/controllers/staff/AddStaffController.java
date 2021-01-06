@@ -67,14 +67,14 @@ public class AddStaffController {
             alert.setTitle("新建员工档案失败");
             alert.setHeaderText("失败原因：未填入员工编号");
             alert.setContentText("解决方法：请输入员工编号");
-            alert.showAndWait();
+            alert.show();
             return;
         } else if (staffRepository.existsById(id.getText())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("新建员工档案错误");
             alert.setHeaderText("错误原因：使用已存在的员工编号");
             alert.setContentText("解决方法：请输入不同的员工编号");
-            alert.showAndWait();
+            alert.show();
             return;
         }
 

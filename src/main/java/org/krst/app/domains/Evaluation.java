@@ -6,15 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Evaluation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private Integer year;
     private String title;
     private String responsibility;

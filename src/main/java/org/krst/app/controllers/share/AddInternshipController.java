@@ -28,13 +28,13 @@ public class AddInternshipController {
 
     public void approve() {
         Internship internship = new Internship(
-                null,
                 startDate.getValue(),
                 endDate.getValue(),
                 purpose.getText(),
                 summary.getText(),
                 comment.getText());
-        dataPassService.setValue(internship);
+        if (!internship.equals(new Internship()))
+            dataPassService.setValue(internship);
         close();
     }
 

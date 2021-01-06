@@ -28,8 +28,8 @@ public class LoginService {
 
         boolean passwordMatch = password.equals(login.getPassword());
         if (passwordMatch) {
-            login.setRetryRemainingTimes(3);
-            remainingRetryTimes = 3;
+            login.setRetryRemainingTimes(Constants.MOST_RETRY_LOGIN_TIMES);
+            remainingRetryTimes = Constants.MOST_RETRY_LOGIN_TIMES;
         } else {
             login.setRetryRemainingTimes(login.getRetryRemainingTimes() - 1);
             remainingRetryTimes = login.getRetryRemainingTimes();

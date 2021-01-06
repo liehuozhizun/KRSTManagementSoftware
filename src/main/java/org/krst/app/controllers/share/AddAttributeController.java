@@ -37,13 +37,16 @@ public class AddAttributeController {
             alert.setContentText("解决方法：更换所属堂区");
             alert.showAndWait();
         } else {
-            attributeRepository.save(new Attribute(
+            Attribute attr = new Attribute(
                     attribute.getText(),
                     leader.getText(),
                     leaderPhone.getText(),
                     altLeader.getText(),
-                    altLeaderPhone.getText()));
-            cacheService.refreshAttributeCache();
+                    altLeaderPhone.getText());
+            if (!attr.equals(new Attribute())) {
+                attributeRepository.save(attr);
+                cacheService.refreshAttributeCache();
+            }
             close();
         }
     }

@@ -72,5 +72,5 @@
    <TextArea fx:id="resource" layoutX="105.0" layoutY="695.0" prefHeight="64.0" prefWidth="190.0" />
    <ComboBox fx:id="staff" layoutX="409.0" layoutY="711.0" prefHeight="31.0" prefWidth="172.0" />
    <Button fx:id="approve" layoutX="191.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="37.0" prefWidth="69.0" text="确认" />
-   <Button fx:id="cancel" layoutX="351.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" />
+   <Button fx:id="close" layoutX="351.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="69.0" text="取消" />
 </Pane>

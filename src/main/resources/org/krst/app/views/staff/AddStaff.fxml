@@ -4,54 +4,58 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.staff.AddStaffController">
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="857.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.staff.AddStaffController">
    <Label layoutX="264.0" layoutY="24.0" text="新建员工档案">
       <font>
-         <Font name="System Bold" size="20.0" />
+         <Font name="System Bold" size="20.0"/>
       </font>
    </Label>
-   <Label layoutX="31.0" layoutY="71.0" text="员工编号" />
-   <Label layoutX="31.0" layoutY="119.0" text="员工姓名" />
-   <Label layoutX="61.0" layoutY="168.0" text="圣名" />
-   <Label layoutX="334.0" layoutY="119.0" text="性别" />
-   <Label layoutX="29.0" layoutY="217.0" text="出生日期" />
-   <Label layoutX="29.0" layoutY="266.0" text="领洗日期" />
-   <Label layoutX="334.0" layoutY="266.0" text="坚振日期" />
-   <Label layoutX="31.0" layoutY="318.0" text="结婚日期" />
-   <Label layoutX="334.0" layoutY="318.0" text="死亡日期" />
-   <Label layoutX="32.0" layoutY="363.0" text="工作职务" />
-   <Label layoutX="33.0" layoutY="403.0" text="负责内容" />
-   <Label layoutX="64.0" layoutY="478.0" text="电话" />
-   <Label layoutX="339.0" layoutY="478.0" text="备用电话" />
-   <Label layoutX="63.0" layoutY="523.0" text="地址" />
-   <Label layoutX="61.0" layoutY="599.0" text="经历" />
-   <Label layoutX="370.0" layoutY="599.0" text="特长" />
-   <Label layoutX="61.0" layoutY="679.0" text="资源" />
-   <Label layoutX="370.0" layoutY="679.0" text="教育" />
-   <TextField fx:id="id" layoutX="103.0" layoutY="66.0" prefHeight="31.0" prefWidth="190.0" />
-   <TextField fx:id="name" layoutX="103.0" layoutY="114.0" prefHeight="31.0" prefWidth="190.0" />
-   <TextField fx:id="baptismalName" layoutX="104.0" layoutY="163.0" prefHeight="31.0" prefWidth="190.0" />
+   <Label layoutX="31.0" layoutY="71.0" text="员工编号"/>
+   <Label layoutX="31.0" layoutY="119.0" text="员工姓名"/>
+   <Label layoutX="61.0" layoutY="168.0" text="圣名"/>
+   <Label layoutX="334.0" layoutY="119.0" text="性别"/>
+   <Label layoutX="29.0" layoutY="217.0" text="出生日期"/>
+   <Label layoutX="29.0" layoutY="266.0" text="领洗日期"/>
+   <Label layoutX="334.0" layoutY="266.0" text="坚振日期"/>
+   <Label layoutX="31.0" layoutY="318.0" text="结婚日期"/>
+   <Label layoutX="334.0" layoutY="318.0" text="死亡日期"/>
+   <Label layoutX="32.0" layoutY="363.0" text="工作职务"/>
+   <Label layoutX="33.0" layoutY="403.0" text="负责内容"/>
+   <Label layoutX="64.0" layoutY="492.0" text="电话"/>
+   <Label layoutX="339.0" layoutY="492.0" text="备用电话"/>
+   <Label layoutX="63.0" layoutY="537.0" text="地址"/>
+   <Label layoutX="61.0" layoutY="620.0" text="经历"/>
+   <Label layoutX="370.0" layoutY="620.0" text="特长"/>
+   <Label layoutX="61.0" layoutY="711.0" text="资源"/>
+   <Label layoutX="370.0" layoutY="711.0" text="教育"/>
+   <TextField fx:id="id" layoutX="103.0" layoutY="66.0" prefHeight="31.0" prefWidth="190.0"/>
+   <TextField fx:id="name" layoutX="103.0" layoutY="114.0" prefHeight="31.0" prefWidth="190.0"/>
+   <TextField fx:id="baptismalName" layoutX="104.0" layoutY="163.0" prefHeight="31.0" prefWidth="190.0"/>
    <RadioButton fx:id="gender_male" layoutX="408.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="男">
       <toggleGroup>
-         <ToggleGroup fx:id="gender" />
+         <ToggleGroup fx:id="gender"/>
       </toggleGroup>
    </RadioButton>
-   <RadioButton layoutX="480.0" layoutY="119.0" mnemonicParsing="false" text="女" toggleGroup="$gender" />
-   <DatePicker fx:id="birthday" layoutX="103.0" layoutY="212.0" prefHeight="31.0" prefWidth="190.0" />
-   <CheckBox fx:id="isGregorianCalendar" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历" />
-   <DatePicker fx:id="baptismalDate" layoutX="103.0" layoutY="262.0" prefHeight="31.0" prefWidth="190.0" />
-   <DatePicker fx:id="confirmationDate" layoutX="406.0" layoutY="261.0" prefHeight="31.0" prefWidth="172.0" />
-   <DatePicker fx:id="marriageDate" layoutX="103.0" layoutY="313.0" prefHeight="31.0" prefWidth="190.0" />
-   <DatePicker fx:id="deathDate" layoutX="406.0" layoutY="313.0" prefHeight="31.0" prefWidth="172.0" />
-   <TextField fx:id="title" layoutX="105.0" layoutY="358.0" prefHeight="31.0" prefWidth="474.0" />
-   <TextArea fx:id="responsibility" layoutX="105.0" layoutY="400.0" prefHeight="64.0" prefWidth="474.0" />
-   <TextField fx:id="phone" editable="false" layoutX="105.0" layoutY="473.0" prefHeight="31.0" prefWidth="190.0" />
-   <TextField fx:id="altPhone" editable="false" layoutX="410.0" layoutY="473.0" prefHeight="31.0" prefWidth="172.0" />
-   <TextArea fx:id="address" layoutX="104.0" layoutY="515.0" prefHeight="64.0" prefWidth="480.0" />
-   <TextArea fx:id="experience" layoutX="105.0" layoutY="592.0" prefHeight="64.0" prefWidth="190.0" />
-   <TextArea fx:id="talent" layoutX="410.0" layoutY="592.0" prefHeight="64.0" prefWidth="172.0" />
-   <TextArea fx:id="resource" layoutX="106.0" layoutY="673.0" prefHeight="64.0" prefWidth="190.0" />
-   <TextArea fx:id="education" layoutX="410.0" layoutY="673.0" prefHeight="64.0" prefWidth="172.0" />
-   <Button fx:id="approve" layoutX="192.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="37.0" prefWidth="69.0" text="确认" />
-   <Button fx:id="close" layoutX="352.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="69.0" text="取消" />
+   <RadioButton layoutX="480.0" layoutY="119.0" mnemonicParsing="false" text="女" toggleGroup="$gender"/>
+   <DatePicker fx:id="birthday" layoutX="103.0" layoutY="212.0" prefHeight="31.0" prefWidth="190.0"/>
+   <CheckBox fx:id="isGregorianCalendar" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历"/>
+   <DatePicker fx:id="baptismalDate" layoutX="103.0" layoutY="262.0" prefHeight="31.0" prefWidth="190.0"/>
+   <DatePicker fx:id="confirmationDate" layoutX="406.0" layoutY="261.0" prefHeight="31.0" prefWidth="172.0"/>
+   <DatePicker fx:id="marriageDate" layoutX="103.0" layoutY="313.0" prefHeight="31.0" prefWidth="190.0"/>
+   <DatePicker fx:id="deathDate" layoutX="406.0" layoutY="313.0" prefHeight="31.0" prefWidth="172.0"/>
+   <TextField fx:id="title" layoutX="105.0" layoutY="358.0" prefHeight="31.0" prefWidth="474.0"/>
+   <TextArea fx:id="responsibility" layoutX="105.0" layoutY="400.0" prefHeight="76.0" prefWidth="474.0"/>
+   <TextField fx:id="phone" layoutX="105.0" layoutY="487.0" prefHeight="31.0" prefWidth="190.0"/>
+   <TextField fx:id="altPhone" layoutX="410.0" layoutY="487.0" prefHeight="31.0" prefWidth="172.0"/>
+   <TextArea fx:id="address" layoutX="104.0" layoutY="529.0" prefHeight="76.0" prefWidth="480.0"/>
+   <TextArea fx:id="experience" layoutX="105.0" layoutY="618.0" prefHeight="76.0" prefWidth="190.0"/>
+   <TextArea fx:id="talent" layoutX="410.0" layoutY="618.0" prefHeight="76.0" prefWidth="172.0"/>
+   <TextArea fx:id="resource" layoutX="106.0" layoutY="705.0" prefHeight="76.0" prefWidth="190.0"/>
+   <TextArea fx:id="education" layoutX="410.0" layoutY="705.0" prefHeight="76.0" prefWidth="172.0"/>
+   <Button fx:id="approve" layoutX="192.0" layoutY="797.0" mnemonicParsing="false" onMouseClicked="#approve"
+           prefHeight="37.0" prefWidth="69.0" text="确认"/>
+   <Button fx:id="close" layoutX="352.0" layoutY="797.0" mnemonicParsing="false" onMouseClicked="#close"
+           prefHeight="37.0" prefWidth="69.0" text="取消"/>
 </Pane>

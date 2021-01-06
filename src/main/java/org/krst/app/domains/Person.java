@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Teacher implements InformationOperations {
+public class Person implements InformationOperations {
     @Id
     private String id;
     private String name;
@@ -21,22 +21,29 @@ public class Teacher implements InformationOperations {
     private String gender;
     private LocalDate birthday;
     private Boolean isGregorianCalendar;
-    private LocalDate baptismalDate;
-    private LocalDate confirmationDate;
-    private LocalDate marriageDate;
-    private LocalDate deathDate;
-    @OneToOne
-    private Attribute attribute;
     private String phone;
-    private String altPhone;
     private String address;
-    private String experience;
-    private String talent;
-    private String resource;
-    @OneToOne
-    private Staff staff;
-    @ElementCollection
-    private Set<Visit> visits; // 探访记录
+    private String job;
     @ElementCollection
     private Set<Relation> relationships; // 亲属关系 <关系, 姓名, 人员类型, 人员id>
+
+    @Override
+    public LocalDate getBaptismalDate() {
+        return null;
+    }
+
+    @Override
+    public LocalDate getConfirmationDate() {
+        return null;
+    }
+
+    @Override
+    public LocalDate getMarriageDate() {
+        return null;
+    }
+
+    @Override
+    public LocalDate getDeathDate() {
+        return null;
+    }
 }

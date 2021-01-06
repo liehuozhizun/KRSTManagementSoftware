@@ -8,14 +8,11 @@ import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.RemainderDateType;
 import org.krst.app.utils.RemainderEventType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 @Service
@@ -28,7 +25,7 @@ public class RemainderService {
     @Autowired
     private StaffRepository staffRepository;
     @Autowired
-    private RelationRepository relationRepository;
+    private PersonRepository personRepository;
     @Autowired
     private PatronSaintDateRepository patronSaintDateRepository;
 
@@ -36,8 +33,7 @@ public class RemainderService {
     private final int day = CommonUtils.getCurrentZonedTime().getDayOfMonth();
     private final int daysInMonth = getDaysInMonth(month, CommonUtils.getCurrentZonedTime().toLocalDate().isLeapYear());
 
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-    private final Map<RemainderDateType, List<Remainder>> remainderCache = new ConcurrentHashMap<>();
+    private final Map<RemainderDateType, List<Remainder>> remainderCache = new HashMap<>(5);
     private boolean isRemainderReady = false;
 
     @PostConstruct
@@ -59,58 +55,117 @@ public class RemainderService {
         remainderCache.put(RemainderDateType.HALF_MONTH, new ArrayList<>());
         remainderCache.put(RemainderDateType.ONE_MONTH, new ArrayList<>());
         prepareRemainder();
+        sortRemainderCache();
+    }
+
+    private void sortRemainderCache() {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        executorService.execute(() -> Collections.sort(remainderCache.get(RemainderDateType.TODAY)));
+        executorService.execute(() -> Collections.sort(remainderCache.get(RemainderDateType.ONE_DAY)));
+        executorService.execute(() -> Collections.sort(remainderCache.get(RemainderDateType.ONE_WEEK)));
+        executorService.execute(() -> Collections.sort(remainderCache.get(RemainderDateType.HALF_MONTH)));
+        executorService.execute(() -> Collections.sort(remainderCache.get(RemainderDateType.ONE_MONTH)));
+        try {
+            executorService.shutdown();
+            executorService.awaitTermination(60, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void prepareRemainder() {
-        executorService.submit(this::preparePatronSaintDateRemainder);
-        executorService.submit(() -> preparePersonDateRemainder(studentRepository));
-        executorService.submit(() -> preparePersonDateRemainder(teacherRepository));
-        executorService.submit(() -> preparePersonDateRemainder(staffRepository));
-        executorService.submit(() -> preparePersonDateRemainder(relationRepository));
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        executorService.execute(new PreparePatronSaintDateRemainder());
+        executorService.execute(new PreparePeopleDateRemainder<>(studentRepository.findAll()));
+        executorService.execute(new PreparePeopleDateRemainder<>(teacherRepository.findAll()));
+        executorService.execute(new PreparePeopleDateRemainder<>(staffRepository.findAll()));
+        executorService.execute(new PreparePersonDateRemainder<>(personRepository.findAll()));
         isRemainderReady = true;
+        try {
+            executorService.shutdown();
+            executorService.awaitTermination(60, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void preparePatronSaintDateRemainder() {
-        List<PatronSaintDate> list = patronSaintDateRepository.findAll();
-        for (PatronSaintDate patronSaintDate : list) {
-            RemainderDateType type = calculateDifferenceInDays(patronSaintDate.getDate());
+    private class PreparePatronSaintDateRemainder implements Runnable {
+        private final List<PatronSaintDate> list;
+        public PreparePatronSaintDateRemainder() {
+            this.list = patronSaintDateRepository.findAll();
+        }
+
+        @Override
+        public void run() {
+            list.forEach(patronSaintDate -> {
+                RemainderDateType type = calculateDifferenceInDays(patronSaintDate.getDate());
+                if (type != RemainderDateType.NONE) {
+                    remainderCache.get(type).add(new Remainder(patronSaintDate.getDate(), RemainderEventType.PATRON_SAINT, patronSaintDate.getName()));
+                }
+            });
+        }
+    }
+
+    private class PreparePeopleDateRemainder<T> implements Runnable {
+        private final List<T> list;
+
+        public PreparePeopleDateRemainder(List<T> list) {
+            this.list = list;
+        }
+
+        @Override
+        public void run() {
+            list.forEach(info -> compareDifferentDatesInPersonDomain((InformationOperations)info));
+        }
+
+        private void compareDifferentDatesInPersonDomain(InformationOperations info) {
+            RemainderDateType type;
+            if (info.getIsGregorianCalendar() == null || info.getIsGregorianCalendar())
+                type = RemainderDateType.NONE;
+            else
+                type = calculateDifferenceInDays(info.getBirthday());
             if (type != RemainderDateType.NONE) {
-                remainderCache.get(type).add(new Remainder(patronSaintDate.getDate(), RemainderEventType.PATRON_SAINT, patronSaintDate.getName()));
+                remainderCache.get(type).add(new Remainder(info.getBirthday(), RemainderEventType.BIRTHDAY, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+            }
+            type = calculateDifferenceInDays(info.getBaptismalDate());
+            if (type != RemainderDateType.NONE) {
+                remainderCache.get(type).add(new Remainder(info.getBaptismalDate(), RemainderEventType.BAPTISMAL, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+            }
+            type = calculateDifferenceInDays(info.getConfirmationDate());
+            if (type != RemainderDateType.NONE) {
+                remainderCache.get(type).add(new Remainder(info.getConfirmationDate(), RemainderEventType.CONFIRMATION, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+            }
+            type = calculateDifferenceInDays(info.getMarriageDate());
+            if (type != RemainderDateType.NONE) {
+                remainderCache.get(type).add(new Remainder(info.getMarriageDate(), RemainderEventType.MARRIAGE, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+            }
+            type = calculateDifferenceInDays(info.getDeathDate());
+            if (type != RemainderDateType.NONE) {
+                remainderCache.get(type).add(new Remainder(info.getDeathDate(), RemainderEventType.DEATH, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
             }
         }
     }
 
-    private void preparePersonDateRemainder(JpaRepository repository) {
-        List<InformationOperations> list = repository.findAll();
-        for (InformationOperations info : list) {
-            compareDifferentDatesInPersonDomain(info);
-        }
-    }
+    private class PreparePersonDateRemainder<T> implements Runnable {
+        private final List<T> list;
 
-    private void compareDifferentDatesInPersonDomain(InformationOperations info) {
-        RemainderDateType type;
-        if (info.getIsGregorianCalendar())
-            type = RemainderDateType.NONE;
-        else
-            type = calculateDifferenceInDays(info.getBirthday());
-        if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getBirthday(), RemainderEventType.BIRTHDAY, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+        public PreparePersonDateRemainder(List<T> list) {
+            this.list = list;
         }
-        type = calculateDifferenceInDays(info.getBaptismalDate());
-        if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getBaptismalDate(), RemainderEventType.BAPTISMAL, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
-        }
-        type = calculateDifferenceInDays(info.getConfirmationDate());
-        if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getConfirmationDate(), RemainderEventType.CONFIRMATION, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
-        }
-        type = calculateDifferenceInDays(info.getMarriageDate());
-        if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getMarriageDate(), RemainderEventType.MARRIAGE, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
-        }
-        type = calculateDifferenceInDays(info.getDeathDate());
-        if (type != RemainderDateType.NONE) {
-            remainderCache.get(type).add(new Remainder(info.getDeathDate(), RemainderEventType.DEATH, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
+
+        @Override
+        public void run() {
+            list.forEach(info -> {
+                Person person = (Person)info;
+                RemainderDateType type;
+                if (person.getIsGregorianCalendar() == null || person.getIsGregorianCalendar())
+                    type = RemainderDateType.NONE;
+                else
+                    type = calculateDifferenceInDays(person.getBirthday());
+                if (type != RemainderDateType.NONE) {
+                    remainderCache.get(type).add(new Remainder(person.getBirthday(), RemainderEventType.BIRTHDAY, person.getName() + " [" + person.getBaptismalName() + "-" + person.getId() +"]"));
+                }
+            });
         }
     }
 
