@@ -25,7 +25,7 @@ public class RemainderService {
     @Autowired
     private StaffRepository staffRepository;
     @Autowired
-    private RelationRepository relationRepository;
+    private PersonRepository personRepository;
     @Autowired
     private PatronSaintDateRepository patronSaintDateRepository;
 
@@ -47,7 +47,6 @@ public class RemainderService {
     }
 
     public void refresh() {
-        System.out.println(CommonUtils.getCurrentTime());
         isRemainderReady = false;
         remainderCache.clear();
         remainderCache.put(RemainderDateType.TODAY, new ArrayList<>());
@@ -57,7 +56,6 @@ public class RemainderService {
         remainderCache.put(RemainderDateType.ONE_MONTH, new ArrayList<>());
         prepareRemainder();
         sortRemainderCache();
-        System.out.println(CommonUtils.getCurrentTime());
     }
 
     private void sortRemainderCache() {
@@ -78,10 +76,10 @@ public class RemainderService {
     private void prepareRemainder() {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.execute(new PreparePatronSaintDateRemainder());
-        executorService.execute(new PreparePersonDateRemainder<>(studentRepository.findAll()));
-        executorService.execute(new PreparePersonDateRemainder<>(teacherRepository.findAll()));
-        executorService.execute(new PreparePersonDateRemainder<>(staffRepository.findAll()));
-        executorService.execute(new PreparePersonDateRemainder<>(relationRepository.findAll()));
+        executorService.execute(new PreparePeopleDateRemainder<>(studentRepository.findAll()));
+        executorService.execute(new PreparePeopleDateRemainder<>(teacherRepository.findAll()));
+        executorService.execute(new PreparePeopleDateRemainder<>(staffRepository.findAll()));
+        executorService.execute(new PreparePersonDateRemainder<>(personRepository.findAll()));
         isRemainderReady = true;
         try {
             executorService.shutdown();
@@ -108,10 +106,10 @@ public class RemainderService {
         }
     }
 
-    private class PreparePersonDateRemainder<T> implements Runnable {
+    private class PreparePeopleDateRemainder<T> implements Runnable {
         private final List<T> list;
 
-        public PreparePersonDateRemainder(List<T> list) {
+        public PreparePeopleDateRemainder(List<T> list) {
             this.list = list;
         }
 
@@ -145,6 +143,29 @@ public class RemainderService {
             if (type != RemainderDateType.NONE) {
                 remainderCache.get(type).add(new Remainder(info.getDeathDate(), RemainderEventType.DEATH, info.getName() + " [" + info.getBaptismalName() + "-" + info.getId() +"]"));
             }
+        }
+    }
+
+    private class PreparePersonDateRemainder<T> implements Runnable {
+        private final List<T> list;
+
+        public PreparePersonDateRemainder(List<T> list) {
+            this.list = list;
+        }
+
+        @Override
+        public void run() {
+            list.forEach(info -> {
+                Person person = (Person)info;
+                RemainderDateType type;
+                if (person.getIsGregorianCalendar() == null || person.getIsGregorianCalendar())
+                    type = RemainderDateType.NONE;
+                else
+                    type = calculateDifferenceInDays(person.getBirthday());
+                if (type != RemainderDateType.NONE) {
+                    remainderCache.get(type).add(new Remainder(person.getBirthday(), RemainderEventType.BIRTHDAY, person.getName() + " [" + person.getBaptismalName() + "-" + person.getId() +"]"));
+                }
+            });
         }
     }
 

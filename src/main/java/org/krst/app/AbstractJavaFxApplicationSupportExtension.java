@@ -35,6 +35,7 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         }
 
         newStage.setScene(newScene);
+        newStage.setResizable(false);
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.initOwner(getStage());
 

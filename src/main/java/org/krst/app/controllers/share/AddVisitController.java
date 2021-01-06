@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Visit;
+import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class AddVisitController {
     @FXML
     private TextArea comment;
 
+    @Autowired
+    private VisitRepository visitRepository;
     @Autowired
     private DataPassService dataPassService;
     @Autowired
@@ -76,7 +79,8 @@ public class AddVisitController {
                 content.getText(),
                 summary.getText(),
                 comment.getText());
-        dataPassService.setValue(visit);
+        if (!visit.equals(new Visit()))
+            dataPassService.setValue(visitRepository.save(visit));
         close();
     }
 
