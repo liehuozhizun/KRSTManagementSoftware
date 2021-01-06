@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.val;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
 
 @FXMLController
 public class StudentInfoController {
+    private Student student;
+
     private String originalStudentId;
     @FXML
     private TextField leader;
@@ -85,6 +88,8 @@ public class StudentInfoController {
     @FXML
     private Button cancel;
     @FXML
+    private Button change;
+    @FXML
     private Button close;
     @Autowired
     private StudentRepository studentRepository;
@@ -98,22 +103,22 @@ public class StudentInfoController {
 
     public void change(){
         System.out.println("change");
-        allEditable();
-        buttonShow(confirm);
-        buttonShow(cancel);
-        buttonDisappera(delete);
-        buttonDisappera(close);
+        isEditable(true);
+        isInChangePage(true);
+        attribute.setValue(student.getAttribute());
     }
 
     public void delete(){
-        System.out.println("Delate Button Clicked");
+        studentRepository.deleteById(originalStudentId);//我觉得这里要有alart，不然失手删掉了很难找回来
+        turnOff();
     }
 
     public void close(){
-        System.out.println("Back Button Clicked");
+        turnOff();
     }
 
     public void confirm(){
+        isEditable(false);
         Student student = new Student();
         student.setId(id.getText());
         System.out.println(id.getText());
@@ -128,7 +133,7 @@ public class StudentInfoController {
         }
         student.setName(name.getText());
         student.setBaptismalName(baptismalName.getText());
-//        student.setGender(gender.isSelected() ? "男" : "女"); ComboBox 储存要改
+        student.setGender(gender.getValue());
         student.setBirthday(birthday.getValue());
         student.setIsGregorianCalendar(isGregorianCalendar.isSelected());
         student.setBaptismalDate(baptismalDate.getValue());
@@ -154,31 +159,34 @@ public class StudentInfoController {
             System.out.println(originalStudentId);
             System.out.println("不存在的");
             studentRepository.deleteById(originalStudentId);
-            studentRepository.save(student);//删除旧学生还不会做
+            studentRepository.save(student);
             logger.logInfo(getClass().toString(), "新建学生档案，编号：{}，姓名：{}", id.getText(), name.getText());
             KRSTManagementSoftware.closeWindow();
         }
     }
 
     public void cancel(){
-        System.out.println("Cancel");
+        isInChangePage(false);
+        isEditable(false);
+        postStudentInfo();
     }
 
     @FXML
     public void initialize() {
+        student = (Student) dataPassService.getValue();
+        gender.getItems().addAll("男","女");
         postStudentInfo();
     }
 
 
     private void postStudentInfo(){
-        Student student = (Student) dataPassService.getValue();
         originalStudentId=student.getId();
         id.setText(student.getId());
         name.setText(student.getName());
         baptismalName.setText(student.getBaptismalName());
         birthday.setValue(student.getBirthday());
         isGregorianCalendar.setSelected(student.getIsGregorianCalendar());
-//        gender_male.setSelected(student.getGender().equals("男"));
+        gender.setValue(student.getGender());
         baptismalDate.setValue(student.getBaptismalDate());
         confirmationDate.setValue(student.getConfirmationDate());
         marriageDate.setValue(student.getMarriageDate());
@@ -187,8 +195,6 @@ public class StudentInfoController {
         experience.setText(student.getExperience());
         talent.setText(student.getTalent());
         resource.setText(student.getResource());
-        System.out.println(student.getAttribute().getAttribute());
-        gender.getItems().addAll("男","女");
         gender.getSelectionModel().select(student.getGender());
         refreshAttributeComboBoxContent();
         attribute.setCellFactory(new Callback<ListView<Attribute>, ListCell<Attribute>>() {
@@ -232,51 +238,53 @@ public class StudentInfoController {
         attribute.getItems().addAll(cacheService.getAttributes());
     }
 
-    private void allEditable(){
-        attribute.setEditable(true);
-        attribute.setDisable(false);
-        textFieldEditable(name);
-        textFieldEditable(baptismalName);
-//        textFieldEditable(leader);
-//        textFieldEditable(leaderPhone);
-//        textFieldEditable(altLeader);
-//        textFieldEditable(altLeaderPhone);
-//        textFieldEditable(phone);
-//        textFieldEditable(altPhone);
-        textFieldEditable(experience);
-        textFieldEditable(address);
-        textFieldEditable(talent);
-        textFieldEditable(resource);
-        textFieldEditable(birthday);
-        textFieldEditable(baptismalDate);
-        textFieldEditable(confirmationDate);
-        textFieldEditable(marriageDate);
-        textFieldEditable(deathDate);
+    private void isEditable(boolean editable){
+//        attribute.setEditable(editable);
+        attribute.setDisable(!editable);
+        gender.setDisable(!editable);
+        textFieldEditable(id,editable);
+        textFieldEditable(name,editable);
+        textFieldEditable(baptismalName,editable);
+        textFieldEditable(experience,editable);
+        textFieldEditable(address,editable);
+        textFieldEditable(talent,editable);
+        textFieldEditable(resource,editable);
+        textFieldEditable(birthday,editable);
+        textFieldEditable(baptismalDate,editable);
+        textFieldEditable(confirmationDate,editable);
+        textFieldEditable(marriageDate,editable);
+        textFieldEditable(deathDate,editable);
     }
 
-    private void textFieldEditable(TextField textField){
-        textField.setEditable(true);
-        textField.setDisable(false);
+    private void textFieldEditable(TextField textField, Boolean isEditable){
+        textField.setEditable(isEditable);
+        textField.setDisable(!isEditable);
     }
 
-    private void textFieldEditable(TextArea textArea){
-        textArea.setEditable(true);
-        textArea.setDisable(false);
+    private void textFieldEditable(TextArea textArea, Boolean isEditable){
+        textArea.setEditable(isEditable);
+        textArea.setDisable(!isEditable);
     }
 
-    private void textFieldEditable(DatePicker datePicker){
-        datePicker.setEditable(true);
-        datePicker.setDisable(false);
+    private void textFieldEditable(DatePicker datePicker, Boolean isEditable){
+        datePicker.setEditable(isEditable);
+        datePicker.setDisable(!isEditable);
     }
 
-    private void buttonShow(Button button){
-        button.setDisable(false);
-        button.setVisible(true);
+    private void isButtonShow(Button button, Boolean show){
+        button.setDisable(!show);
+        button.setVisible(show);
     }
 
-    private void buttonDisappera(Button button){
-        button.setDisable(true);
-        button.setVisible(true);
+    private void isInChangePage(Boolean boo){
+        isButtonShow(confirm,boo);
+        isButtonShow(cancel,boo);
+        isButtonShow(delete,!boo);
+        isButtonShow(close,!boo);
+        isButtonShow(change,!boo);
     }
 
+    public void turnOff() {
+        ((Stage)id.getScene().getWindow()).close();
+    }
 }

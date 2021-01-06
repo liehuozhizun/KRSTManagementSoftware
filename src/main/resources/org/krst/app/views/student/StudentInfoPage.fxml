@@ -36,13 +36,13 @@
           <Label layoutX="43.0" layoutY="701.0" text="资源" />
           <Label layoutX="346.0" layoutY="701.0" text="负责员工" />
           <Button fx:id="change" layoutX="72.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="37.0" prefWidth="69.0" text="更改" />
-          <Button fx:id="delete" layoutX="259.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="69.0" text="删除" />
+          <Button fx:id="delete" layoutX="256.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="69.0" text="删除" />
           <Button fx:id="close" layoutX="450.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="69.0" text="退出" />
-          <Button fx:id="confirm" disable="true" layoutX="259.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
-          <Button fx:id="cancel" disable="true" layoutX="450.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
+          <Button fx:id="confirm" disable="true" layoutX="161.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
+          <Button fx:id="cancel" disable="true" layoutX="360.0" layoutY="785.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
 
           <TextField fx:id="leader" disable="true" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0" />
-          <TextField fx:id="id" layoutX="103.0" layoutY="77.0" prefHeight="31.0" prefWidth="190.0" />
+          <TextField fx:id="id" disable="true" editable="false" layoutX="103.0" layoutY="77.0" prefHeight="31.0" prefWidth="190.0" />
           <TextField fx:id="name" disable="true" editable="false" layoutX="103.0" layoutY="119.0" prefHeight="31.0" prefWidth="190.0" />
           <TextField fx:id="baptismalName" disable="true" editable="false" layoutX="103.0" layoutY="161.0" prefHeight="31.0" prefWidth="190.0">
                  <effect>
@@ -83,7 +83,7 @@
 <!--                 </effect>-->
 <!--          </TextField>-->
           <DatePicker fx:id="birthday" disable="true" layoutX="103.0" layoutY="209.0" prefHeight="31.0" prefWidth="190.0" />
-          <ComboBox fx:id="gender" layoutX="408.0" layoutY="119.0" prefHeight="31.0" prefWidth="60.0" />
+          <ComboBox fx:id="gender" disable="true" layoutX="408.0" layoutY="119.0" prefHeight="31.0" prefWidth="60.0" />
 <!--          <RadioButton fx:id="gender_male" layoutX="408.0" layoutY="119.0" mnemonicParsing="false" selected="true" text="男">-->
 <!--                 <toggleGroup>-->
 <!--                        <ToggleGroup fx:id="gender" />-->
