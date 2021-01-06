@@ -10,9 +10,8 @@ import org.krst.app.configurations.Logger;
 import org.krst.app.domains.Evaluation;
 import org.krst.app.domains.Staff;
 import org.krst.app.services.DataPassService;
+import org.krst.app.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.time.LocalDate;
 
 @FXMLController
 public class AddEvaluationController {
@@ -38,7 +37,7 @@ public class AddEvaluationController {
         try {
             Staff staff = (Staff) dataPassService.getValue();
             name.setText(staff.getName());
-            year.setText(String.valueOf(LocalDate.now().getYear()));
+            year.setText(String.valueOf(CommonUtils.getCurrentZonedTime().getYear()));
             title.setText(staff.getTitle());
             responsibility.setText(staff.getResponsibility());
         } catch (Exception e) {
@@ -54,13 +53,22 @@ public class AddEvaluationController {
     }
 
     public void approve() {
+        if (year.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("新建员工评价失败");
+            alert.setHeaderText("失败原因：未填入评价年份");
+            alert.setContentText("解决方法：请输入评价年份");
+            alert.show();
+            return;
+        }
+
         Evaluation evaluation = new Evaluation(
-                null,
                 Integer.valueOf(year.getText()),
                 title.getText(),
                 responsibility.getText(),
                 comment.getText());
-        dataPassService.setValue(evaluation);
+        if (!evaluation.equals(new Evaluation()))
+            dataPassService.setValue(evaluation);
         close();
     }
 
