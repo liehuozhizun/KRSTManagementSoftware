@@ -3,14 +3,14 @@ package org.krst.app.controllers.teacher;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
-import org.krst.app.domains.Attribute;
-import org.krst.app.domains.Staff;
-import org.krst.app.domains.Teacher;
+import org.krst.app.domains.*;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.repositories.StaffRepository;
@@ -19,6 +19,7 @@ import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
+import org.krst.app.views.share.AddVisit;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
@@ -45,9 +46,17 @@ public class TeacherInfoPageController {
     @FXML private ComboBox <Attribute>changeableAttribute;
     @FXML private ComboBox <Staff>changeableStaff;
     @FXML private CheckBox isGregorianCalendar;
+    @FXML private TableView<Visit> visit;
+    @FXML private TableColumn<Visit, String> visit_date;
+    @FXML private TableColumn<Visit, String> visit_content;
+    @FXML private TableColumn<Visit, String> visit_summary;
+    @FXML private TableView<Relation> relationship;
+    @FXML private TableColumn<Relation, String> relationship_relation;
+    @FXML private TableColumn<Relation, String> relationship_name;
+    @FXML private TableColumn<Relation, Relation.Type> relationship_type;
+    @FXML private TableColumn<Relation, String> relationship_id;
 
-
-
+    @Autowired private StaffRepository staffRepository;
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
@@ -56,13 +65,14 @@ public class TeacherInfoPageController {
     private Logger logger;
     @Autowired
     private DataPassService dataPassService;
-
+    private Staff originalStaff;
     Teacher selectedOne;
     @FXML
     public void initialize() {
         selectedOne =(Teacher) dataPassService.getValue();
 
         start(selectedOne);
+        initSetRightSide();
         gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
             //gender.setPromptText( gender.getSelectionModel().getSelectedItem());
             gender.setConverter(new StringConverter<String>() {
@@ -254,6 +264,8 @@ public class TeacherInfoPageController {
             buttonHide(close,true);
             buttonShow(confirm,true);
             buttonShow(cancel,true);
+            isGregorianCalendar.setDisable(false);
+
         }
     public void changeFalse() {
         changeSet(name,false);
@@ -281,6 +293,7 @@ public class TeacherInfoPageController {
     }
 
         public void delete() {
+        //确认窗口，确认红色
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
             teacherRepository.delete(selectedOne);
             close();
@@ -322,10 +335,13 @@ public class TeacherInfoPageController {
                 teacher.setGender(gender.getPromptText());
                 teacherRepository.save(teacher);
                 changeFalse();
+                isGregorianCalendar.setDisable(true);
                 }
         }
         public void cancel() {
-        close();
+        //回到上级不保存
+            changeFalse();
+            start(selectedOne);
         }
         private void changeSet(TextField textField, boolean status) {
 
@@ -353,6 +369,87 @@ public class TeacherInfoPageController {
             button.setVisible(status);
 
         }
+        private void initSetRightSide(){
+            visit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            visit.setRowFactory( tv -> {
+                TableRow<Visit> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                        dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
+                        KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    }
+                });
+                return row ;
+            });
+            relationship.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            relationship.setRowFactory( tv -> {
+                TableRow<Relation> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                        dataPassService.setValue(row.getItem());
+//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    }
+                });
+                return row ;
+            });
+            visit_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            visit_content.setCellValueFactory(new PropertyValueFactory<>("content"));
+            visit_summary.setCellValueFactory(new PropertyValueFactory<>("summary"));
 
+            relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relation"));
+            relationship_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            relationship_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+            relationship_type.setCellFactory(new Callback<TableColumn<Relation, Relation.Type>, TableCell<Relation, Relation.Type>>() {
+                @Override
+                public TableCell<Relation, Relation.Type> call(TableColumn<Relation, Relation.Type> param) {
+                    return new TableCell<Relation, Relation.Type>() {
+                        @Override
+                        protected void updateItem(Relation.Type item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText(null);
+                                this.setGraphic(null);
+                            } else {
+                                String type = null;
+                                switch (item) {
+                                    case STUDENT:
+                                        type = "学生";
+                                        break;
+                                    case TEACHER:
+                                        type = "教师";
+                                        break;
+                                    case STAFF:
+                                        type = "员工";
+                                        break;
+                                    case PERSON:
+                                        type = "普通";
+                                        break;
+                                    default: break;
+                                }
+                                this.setText(type);
+                            }
+                        }
+                    };
+
+
+        }});}
+    public void addRelationship() {
+//        KRSTManagementSoftware.openWindow(AddRelation.class);
+        Relation relation = (Relation) dataPassService.getValue();
+        if (relation != null) {
+            originalStaff.getRelationships().add(relation);
+            staffRepository.save(originalStaff);
+            relationship.getItems().add(relation);
+        }
+    }
+    public void addVisit() {
+        KRSTManagementSoftware.openWindow(AddVisit.class);
+        Visit vis = (Visit) dataPassService.getValue();
+        if (vis != null) {
+            originalStaff.getVisits().add(vis);
+            staffRepository.save(originalStaff);
+            visit.getItems().add(vis);
+        }
+    }
 
 }
