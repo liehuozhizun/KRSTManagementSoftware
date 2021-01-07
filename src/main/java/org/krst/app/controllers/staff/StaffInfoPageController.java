@@ -3,9 +3,13 @@ package org.krst.app.controllers.staff;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.InfoPageControllerTemplate;
@@ -15,11 +19,13 @@ import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.share.AddInternship;
 import org.krst.app.views.share.AddVisit;
+import org.krst.app.views.share.VisitInfoPage;
 import org.krst.app.views.staff.AddEvaluation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
-public class StaffInfoPageController extends InfoPageControllerTemplate {
+public class StaffInfoPageController implements InfoPageControllerTemplate {
+    @FXML private SplitPane splitPane;
     @FXML private TextField id;
     @FXML private TextField name;
     @FXML private TextField baptismalName;
@@ -77,6 +83,8 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
         refreshAll(staff);
         initDefaultComponents();
         setEditableMode(false);
+        splitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.4074));
     }
 
     private void initDefaultComponents() {
@@ -85,9 +93,8 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
             TableRow<Visit> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-                    System.out.println("打开VisitInfoPage窗口");
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
+                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                 }
             });
             return row ;
@@ -301,19 +308,20 @@ public class StaffInfoPageController extends InfoPageControllerTemplate {
     }
 
     @Override
-    protected void setEditableMode(boolean state) {
+    public void setEditableMode(boolean state) {
         setTextEditableMode(state, id, name, baptismalName, title, responsibility,
                 phone, altPhone, address, experience, talent, resource, education);
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
         isGregorianCalendar.setDisable(!state);
-        gender.setDisable(!state);
+        gender.setMouseTransparent(!state);
     }
 
-    @Override
     // true: hide change/delete/close buttons; show accept/cancel buttons
-    protected void setButtonMode(boolean state) {
+    @Override
+    public void setButtonMode(boolean state) {
         change.setVisible(!state);
         accept.setVisible(state);
+        accept.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
         delete.setVisible(!state);
         cancel.setVisible(state);
         close.setVisible(!state);
