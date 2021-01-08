@@ -33,6 +33,7 @@ public class Student implements InformationOperations {
     private String experience;
     private String talent;
     private String resource;
+    private String education;
     @OneToOne
     private Staff staff;
     @ElementCollection
