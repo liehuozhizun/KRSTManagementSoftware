@@ -20,6 +20,21 @@ public class Relation {
         STUDENT,
         TEACHER,
         STAFF,
-        PERSON
+        PERSON;
+
+        public String getTypeString() {
+            switch (this) {
+                case STUDENT:
+                    return "学生";
+                case TEACHER:
+                    return "教师";
+                case STAFF:
+                    return "员工";
+                case PERSON:
+                    return "普通";
+                default:
+                    return "无该类型";
+            }
+        }
     }
 }
