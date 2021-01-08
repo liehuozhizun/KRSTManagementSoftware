@@ -3,6 +3,7 @@ package org.krst.app.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.ElementCollection;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString(exclude = {"visits","internships","evaluations","relationships"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Staff implements InformationOperations {

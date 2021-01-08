@@ -1,5 +1,7 @@
 package org.krst.app.controllers;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.effect.ColorAdjust;
@@ -13,8 +15,9 @@ public interface InfoPageControllerTemplate {
     ColorAdjust uneditableColorAdjust = new ColorAdjust(0, 0, -0.01, 0);
 
     void setEditableMode(boolean state);
+    void setButtonMode(boolean state);
 
-    default void setTextEditableMode(boolean state, TextInputControl... textInputControls) {
+    default void setTextEditableMode(boolean state, TextInputControl ...textInputControls) {
         ColorAdjust colorAdjust = state ? editableColorAdjust : uneditableColorAdjust;
         for (TextInputControl textInputControl : textInputControls) {
             textInputControl.setEditable(state);
@@ -22,7 +25,7 @@ public interface InfoPageControllerTemplate {
         }
     }
 
-    default void setDatePickerEditableMode(boolean state, DatePicker...datePickers) {
+    default void setDatePickerEditableMode(boolean state, DatePicker ...datePickers) {
         double opacity = state ? OPACITY_ENABLE_MODE : OPACITY_DISABLE_MODE;
         for (DatePicker datePicker : datePickers) {
             datePicker.setDisable(!state);
@@ -31,5 +34,16 @@ public interface InfoPageControllerTemplate {
         }
     }
 
-    void setButtonMode(boolean state);
+    default void setComboBoxEditableMode(boolean state, ComboBox ...comboBoxes) {
+        for (ComboBox comboBox : comboBoxes) {
+            comboBox.setMouseTransparent(!state);
+        }
+    }
+
+    default void setCheckBoxEditableMOde(boolean state, CheckBox ...checkBoxes) {
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setDisable(!state);
+        }
+    }
+
 }

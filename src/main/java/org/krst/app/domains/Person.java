@@ -3,6 +3,7 @@ package org.krst.app.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString(exclude = "relationships")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person implements InformationOperations {

@@ -3,11 +3,13 @@ package org.krst.app.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@ToString(exclude = {"student","course"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Grade {

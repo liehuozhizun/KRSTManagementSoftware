@@ -9,6 +9,7 @@ import org.krst.app.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class CacheService {
 
     public List<Staff> getStaffs() {
         if (staffs == null) refreshStaffCache();
-        return staffs;
+        return new ArrayList<>(staffs);
     }
 
     public void refreshStaffCache() {
@@ -36,7 +37,7 @@ public class CacheService {
 
     public List<Attribute> getAttributes() {
         if (attributes == null) refreshAttributeCache();
-        return attributes;
+        return new ArrayList<>(attributes);
     }
 
     public void refreshAttributeCache() {
@@ -45,7 +46,7 @@ public class CacheService {
 
     public List<CourseTemplate> getCourseTemplates() {
         if (courseTemplates == null) refreshCourseTemplateCache();
-        return courseTemplates;
+        return new ArrayList<>(courseTemplates);
     }
 
     public void refreshCourseTemplateCache() {
