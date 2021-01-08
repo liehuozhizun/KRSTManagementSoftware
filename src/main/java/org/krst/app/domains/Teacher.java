@@ -3,6 +3,7 @@ package org.krst.app.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString(exclude = {"staff","visits","relationships"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher implements InformationOperations {
@@ -33,6 +35,7 @@ public class Teacher implements InformationOperations {
     private String experience;
     private String talent;
     private String resource;
+    private String education;
     @OneToOne
     private Staff staff;
     @ElementCollection
