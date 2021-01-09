@@ -10,11 +10,12 @@ Sprint Backlog
     KRST-34 [BE] Adjust StaffInfoPageController by removing comments
 
 In Progress
-    KRST-35 [BE/FE] Visit Info Page w/ Controller Y
+
     KRST-3 [FE] Teacher Info Page w/ Controller Z
     KRST-2 [FE] StudentInfoPage w/ Controller C
 
 Done
+    KRST-35 [BE/FE] Visit Info Page w/ Controller Y 1/8
     KRST-30 [BE] Revise Student/Teacher model, add editable mode effect Y 1/7
     KRST-23 [FE/BE] Staff Info Page w/ Controller Y 1/5
     KRST-27 [BE] Revise Relationship mapping and relative logics Y 1/4

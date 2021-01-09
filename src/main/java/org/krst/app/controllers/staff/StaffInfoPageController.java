@@ -93,7 +93,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Visit> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem()));
                     KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                 }
             });
@@ -161,23 +161,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
-                            String type = null;
-                            switch (item) {
-                                case STUDENT:
-                                    type = "学生";
-                                    break;
-                                case TEACHER:
-                                    type = "教师";
-                                    break;
-                                case STAFF:
-                                    type = "员工";
-                                    break;
-                                case PERSON:
-                                    type = "普通";
-                                    break;
-                                default: break;
-                            }
-                            this.setText(type);
+                            this.setText(item.getTypeString());
                         }
                     }
                 };
@@ -202,7 +186,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         id.setText(staff.getId());
         name.setText(staff.getName());
         baptismalName.setText(staff.getBaptismalName());
-        gender.getItems().addAll("男", "女");
         gender.getSelectionModel().select(staff.getGender() == null ? null : staff.getGender());
         birthday.setValue(staff.getBirthday());
         isGregorianCalendar.setSelected(staff.getIsGregorianCalendar() != null && staff.getIsGregorianCalendar());
@@ -312,8 +295,8 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         setTextEditableMode(state, id, name, baptismalName, title, responsibility,
                 phone, altPhone, address, experience, talent, resource, education);
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
-        isGregorianCalendar.setDisable(!state);
-        gender.setMouseTransparent(!state);
+        setCheckBoxEditableMOde(state, isGregorianCalendar);
+        setComboBoxEditableMode(state, gender);
     }
 
     // true: hide change/delete/close buttons; show accept/cancel buttons
