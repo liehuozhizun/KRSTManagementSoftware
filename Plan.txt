@@ -4,8 +4,6 @@ Sprint Backlog
     KRST-25 [FE/BE] Relation Add Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-29 [BE/FE] Add Relation page w/ Controller
-    KRST-30 [BE/FE] Visit Info Page w/ Controller
-    KRST-31 [BE/FE] Internship Info Page w/ Controller
     KRST-32 [BE/FE] Evaluation Info Page w/ Controller
     KRST-33 [BE/FE] Attribute Info Page w/ Controller
     KRST-34 [BE] Adjust StaffInfoPageController by removing comments
@@ -15,6 +13,9 @@ In Progress
     KRST-2 [FE] StudentInfoPage w/ Controller C
 
 Done
+    KRST-31 [BE/FE] Internship Info Page w/ Controller Y 1/8
+    KRST-35 [BE/FE] Visit Info Page w/ Controller Y 1/8
+    KRST-30 [BE] Revise Student/Teacher model, add editable mode effect Y 1/7
     KRST-23 [FE/BE] Staff Info Page w/ Controller Y 1/5
     KRST-27 [BE] Revise Relationship mapping and relative logics Y 1/4
     KRST-1 [BE] Logics between ComboBox and ListView Z Y 1/2
@@ -51,3 +52,4 @@ Backlog
     KRST-20 [FE/BE] Main window w/ Controller - Staff
     KRST-21 [FE/BE] Main window w/ Controller - Other
     KRST-26 [BE] Remove AbstractJavaFxApplicationSupportExtension's closeWindow() & stageList. Adjust method openWindow()
+    KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order

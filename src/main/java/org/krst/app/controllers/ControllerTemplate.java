@@ -1,37 +1,55 @@
 package org.krst.app.controllers;
 
-import javafx.beans.value.ChangeListener;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import org.krst.app.domains.operations.InformationOperations;
 
 /*
  * This class is intended to support ComboBox and ListView exchange domain data
  * Instructions:
  *   1. Extend the controller class which needs data interaction with THIS abstract class
- *   2. Override flush() method to allow refresh displayed data for every action
- *   3. In the initialize() method, call setUpSelectorAndList()
+ *   2. In the initialize() method, call setUpSelectorAndList()
  */
 public abstract class ControllerTemplate {
 
-    protected int biggestIndex = -1;
-    protected boolean triggerByRemove = false;
+    private boolean flag = false;
+    private int idx = -1;
+    private String promptText = "选择人员";
 
-    /*
-     * Set all control components which are getting involved in data exchange
-     */
-    public abstract void flush();
+    @Deprecated
+    protected void setPromptText(String promptText) {
+        this.promptText = promptText;
+    }
 
     protected <T> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
-        selector.getSelectionModel().selectedIndexProperty().addListener(getChangeListener(selector, listView));
+        selector.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (!flag) {
+                listView.getItems().add(selector.getValue());
+                idx = selector.getSelectionModel().getSelectedIndex();
+            }
+            flag = !flag;
+        });
 
         selector.setOnMousePressed(event -> {
-            if (triggerByRemove) {
-                selector.getItems().remove(biggestIndex);
-                biggestIndex = -1;
-                triggerByRemove = false;
+            if (idx != -1) {
+                flag = true;
+                selector.getItems().remove(idx);
+                idx = -1;
+            }
+        });
+
+        selector.setConverter(new StringConverter<T>() {
+            @Override
+            public String toString(T object) {
+                return promptText;
+            }
+
+            @Override
+            public T fromString(String string) {
+                return null;
             }
         });
 
@@ -41,34 +59,15 @@ public abstract class ControllerTemplate {
                 if (selectedItem != null) {
                     selector.getItems().add(selectedItem);
                     listView.getItems().remove(selectedItem);
-                    flush();
                 }
             }
         });
 
-        flush();
+        selector.setCellFactory(getCellFactory());
+        listView.setCellFactory(getCellFactory());
     }
 
-    private <T> ChangeListener<Number> getChangeListener(ComboBox<T> selector, ListView<T> listView) {
-        return (observable, oldValue, newValue) -> {
-            if(newValue.intValue() > biggestIndex) {
-                biggestIndex = newValue.intValue();
-            }
-            if (biggestIndex != -1 && !triggerByRemove) {
-                addElementToListView(selector.getValue(), listView);
-                triggerByRemove = true;
-                selector.getSelectionModel().clearSelection();
-            }
-        };
-    }
-
-    private <T> void addElementToListView(T object, ListView<T> listView) {
-        if (!listView.getItems().contains(object)) {
-            listView.getItems().add(object);
-        }
-    }
-
-    protected <T> Callback<ListView<T>, ListCell<T>> getCellFactory() {
+    private <T> Callback<ListView<T>, ListCell<T>> getCellFactory() {
         return new Callback<ListView<T>, ListCell<T>>() {
             @Override
             public ListCell<T> call(ListView<T> param) {

@@ -42,12 +42,6 @@ public class AddCourseTemplateController extends ControllerTemplate {
         setUpSelectorAndList(teacherSelector, teachers);
     }
 
-    @Override
-    public void flush(){
-        teachers.setCellFactory(getCellFactory());
-        teacherSelector.setCellFactory(getCellFactory());
-    }
-
     public void approve() {
         if (courseTemplateRepository.existsById(id.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
