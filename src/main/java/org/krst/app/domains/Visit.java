@@ -1,9 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +9,7 @@ import java.util.List;
 @Entity
 @Embeddable
 @Data
+@EqualsAndHashCode(exclude = "visitors")
 @ToString(exclude = "visitors")
 @AllArgsConstructor
 @NoArgsConstructor

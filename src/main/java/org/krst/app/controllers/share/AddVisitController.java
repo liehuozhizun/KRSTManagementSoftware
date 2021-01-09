@@ -4,7 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import org.krst.app.controllers.ControllerTemplate;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Visit;
 import org.krst.app.repositories.VisitRepository;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 
 @FXMLController
-public class AddVisitController {
+public class AddVisitController extends ControllerTemplate {
 
     @FXML
     private DatePicker date;
@@ -40,35 +40,7 @@ public class AddVisitController {
     @FXML
     public void initialize() {
         visitor.getItems().addAll(cacheService.getStaffs());
-
-        visitor.setCellFactory(new Callback<ListView<Staff>, ListCell<Staff>>() {
-            @Override
-            public ListCell<Staff> call(ListView param) {
-                return new ListCell<Staff>() {
-                    @Override
-                    protected void updateItem(Staff item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName() + " [" + item.getId() + "]");
-                        }
-                    }
-                };
-            }
-        });
-
-        visitor.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                addVisitorToVisitors(newValue);
-            }
-        });
-    }
-
-    private void addVisitorToVisitors(Staff staff) {
-        if (!visitors.getItems().contains(staff)) {
-            visitors.getItems().add(staff);
-        }
+        setUpSelectorAndList(visitor, visitors);
     }
 
     public void approve() {
