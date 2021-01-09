@@ -92,16 +92,22 @@ public class VisitInfoPageController extends ControllerTemplate implements InfoP
         setButtonMode(true);
     }
 
+    /*
+     * ATTENTION:
+     * The caller window who opened this window is RESPONSIBLE to delete this visit model
+     * by following steps:
+     *  1. @Autowired VisitRepository
+     *  2. visitRepository.delete(*);
+     *  3. logger.logInfo(this.getClass().toString(), "删除探访记录：探访编号-{}，姓名-{}", id, name);
+     */
     public void accept() {
         if (isDeleteOperation) {
-            visitRepository.delete(originalVisit);
-            logger.logInfo(this.getClass().toString(), "删除探访记录：编号-{}，姓名-{}", originalVisit.getId().toString(), name.getText());
             dataPassService.setValue(new Pair<>(false, null));
             close();
         } else {
             loadValuesIntoVisitModel();
             originalVisit = visitRepository.save(originalVisit);
-            logger.logInfo(this.getClass().toString(), "更改探访记录：编号-{}，姓名-{}", originalVisit.getId().toString(), name.getText());
+            logger.logInfo(this.getClass().toString(), "更改探访记录：探访记录编号-{}，姓名-{}", originalVisit.getId().toString(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
             dataPassService.setValue(new Pair<>(true, originalVisit));

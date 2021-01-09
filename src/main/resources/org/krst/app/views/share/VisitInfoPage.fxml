@@ -6,10 +6,11 @@
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0"
-      prefWidth="605.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.share.VisitInfoPageController">
+      prefWidth="605.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.VisitInfoPageController">
     <Text layoutX="275.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="探访记录">
         <font>
-          <Font size="18.0"/>
+            <Font size="18.0"/>
         </font>
     </Text>
     <Text layoutX="42.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="被探访者"/>
@@ -18,9 +19,10 @@
     <Text layoutX="72.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="内容"/>
     <Text layoutX="72.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="总结"/>
     <Text layoutX="72.0" layoutY="530.0" strokeType="OUTSIDE" strokeWidth="0.0" text="备注"/>
-    <TextField fx:id="name" editable="false" layoutX="121.0" layoutY="76.0" prefHeight="31.0" prefWidth="200.0">
+    <TextField fx:id="name" editable="false" layoutX="121.0" layoutY="76.0" mouseTransparent="true" prefHeight="31.0"
+               prefWidth="200.0">
         <effect>
-          <ColorAdjust brightness="-0.01"/>
+            <ColorAdjust brightness="-0.01"/>
         </effect>
     </TextField>
     <ListView fx:id="visitors" layoutX="122.0" layoutY="115.0" prefHeight="131.0" prefWidth="200.0"/>
