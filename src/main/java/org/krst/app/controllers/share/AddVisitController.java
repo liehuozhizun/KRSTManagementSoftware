@@ -14,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
+/*
+ * In  : None
+ * Out : Visit, new created visit model
+ */
 @FXMLController
 public class AddVisitController extends ControllerTemplate {
 

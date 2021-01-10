@@ -10,6 +10,10 @@ import org.krst.app.repositories.StaffRepository;
 import org.krst.app.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : None
+ * Out : None
+ */
 @FXMLController
 public class AddStaffController {
 

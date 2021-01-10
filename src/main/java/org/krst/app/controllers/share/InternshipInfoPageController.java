@@ -14,6 +14,17 @@ import org.krst.app.domains.operations.InformationOperations;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Pair<InformationOperations, Internship>
+ *       InformationOperations, Student/Teacher/Staff/Person implement this interface
+ *       Internship, internship data model
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Internship>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Internship, updated Internship model
+ */
 @FXMLController
 public class InternshipInfoPageController implements InfoPageControllerTemplate {
     @FXML private TextField name;

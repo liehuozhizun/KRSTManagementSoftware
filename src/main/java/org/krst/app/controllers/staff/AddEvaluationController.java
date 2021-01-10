@@ -13,6 +13,12 @@ import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Staff, the Staff model that will be used to store this evaluation model
+ * Out : null, create an empty Evaluation, which should be ignored
+ *       OR
+ *       Evaluation, new created Evaluation model
+ */
 @FXMLController
 public class AddEvaluationController {
 

@@ -10,6 +10,7 @@ import org.krst.app.controllers.ControllerTemplate;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Visit;
+import org.krst.app.domains.operations.InformationOperations;
 import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
@@ -17,6 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/*
+ * In  : Pair<InformationOperations, Visit>
+ *       InformationOperations, Student/Teacher/Staff/Person implement this interface
+ *       Visit, visit data model
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Visit>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Visit, updated Visit model
+ */
 @FXMLController
 public class VisitInfoPageController extends ControllerTemplate implements InfoPageControllerTemplate {
     @FXML private TextField name;
@@ -42,7 +54,7 @@ public class VisitInfoPageController extends ControllerTemplate implements InfoP
     private Boolean isDeleteOperation;
 
     @FXML public void initialize() {
-        Pair<Staff, Visit> data = (Pair<Staff, Visit>)dataPassService.getValue();
+        Pair<InformationOperations, Visit> data = (Pair<InformationOperations, Visit>)dataPassService.getValue();
         if (data.getKey() == null || data.getValue() == null) {
             close();
             return;
