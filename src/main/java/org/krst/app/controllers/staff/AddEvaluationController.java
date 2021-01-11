@@ -69,7 +69,7 @@ public class AddEvaluationController {
         }
 
         Evaluation evaluation = new Evaluation(
-                Integer.valueOf(year.getText()),
+                year.getText(),
                 title.getText(),
                 responsibility.getText(),
                 comment.getText());

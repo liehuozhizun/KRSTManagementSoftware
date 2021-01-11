@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Relation {
+public class Relation implements Cloneable {
     private String relation;
     private String name;
     private Type type;
@@ -35,6 +35,15 @@ public class Relation {
                 default:
                     return "无该类型";
             }
+        }
+    }
+
+    @Override
+    public Relation clone() {
+        try {
+            return (Relation) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
         }
     }
 }
