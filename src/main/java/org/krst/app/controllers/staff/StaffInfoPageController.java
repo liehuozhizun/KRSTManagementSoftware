@@ -23,6 +23,7 @@ import org.krst.app.views.share.AddVisit;
 import org.krst.app.views.share.InternshipInfoPage;
 import org.krst.app.views.share.VisitInfoPage;
 import org.krst.app.views.staff.AddEvaluation;
+import org.krst.app.views.staff.EvaluationInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
@@ -101,7 +102,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             row.setOnMouseClicked(event -> {
                 // double click a nonempty row
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem()));
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                     Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
                     if (returnedData != null) { // no changes are made, just ignore it
@@ -125,7 +126,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Internship> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem()));
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(InternshipInfoPage.class);
                     Pair<Boolean, Internship> returnedData = (Pair<Boolean, Internship>) dataPassService.getValue();
                     if (returnedData != null) { // no changes are made, just ignore it
@@ -149,9 +150,22 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Evaluation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-                    System.out.println("打开EvaluationInfoPage窗口");
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(originalStaff.getName(), row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(EvaluationInfoPage.class);
+                    Pair<Boolean, Evaluation> returnedData = (Pair<Boolean, Evaluation>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        originalStaff.getEvaluations().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalStaff.getEvaluations().add(returnedData.getValue());
+                            evaluation.getItems().set(row.getIndex(), returnedData.getValue());
+                            logger.logInfo(this.getClass().toString(), "更改员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        } else {
+                            originalStaff.getEvaluations().remove(row.getItem());
+                            evaluation.getItems().remove(row.getIndex());
+                            logger.logInfo(this.getClass().toString(), "删除员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        }
+                        originalStaff = staffRepository.save(originalStaff);
+                    }
                 }
             });
             return row ;

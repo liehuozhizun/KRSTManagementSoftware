@@ -14,7 +14,7 @@ import java.util.Set;
 @ToString(exclude = {"courseTemplate","primaryTeacher","secondaryTeacher", "offers", "grades"})
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
+public class Course implements Cloneable {
     @Id
     private String id;
     private LocalDate startDate;
@@ -32,4 +32,12 @@ public class Course {
     @OneToMany
     private Set<Grade> grades; // 成绩
 
+    @Override
+    public Course clone() {
+        try {
+            return (Course) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }
