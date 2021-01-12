@@ -4,7 +4,6 @@ Sprint Backlog
     KRST-25 [FE/BE] Relation Add Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-29 [BE/FE] Add Relation page w/ Controller
-    KRST-33 [BE/FE] Attribute Info Page w/ Controller
     KRST-34 [BE] Adjust StaffInfoPageController by removing comments
 
 In Progress
@@ -12,6 +11,7 @@ In Progress
     KRST-2 [FE] StudentInfoPage w/ Controller C
 
 Done
+    KRST-33 [BE/FE] Attribute Info Page w/ Controller
     KRST-32 [BE/FE] Evaluation Info Page w/ Controller Y 1/10
     KRST-31 [BE/FE] Internship Info Page w/ Controller Y 1/8
     KRST-35 [BE/FE] Visit Info Page w/ Controller Y 1/8
