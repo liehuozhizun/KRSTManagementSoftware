@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0"
+      prefWidth="416.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.AttributeInfoPageController">
+   <Text layoutX="155.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属教区记录">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Text>
+   <Text layoutX="97.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教区"/>
+   <Text layoutX="84.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责人"/>
+   <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="联系方式"/>
+   <Text layoutX="55.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="第二负责人"/>
+   <Text layoutX="69.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="联系方式"/>
+   <TextField fx:id="attribute" layoutX="142.0" layoutY="86.0"/>
+   <TextField fx:id="leader" layoutX="143.0" layoutY="137.0"/>
+   <TextField fx:id="leaderPhone" layoutX="143.0" layoutY="178.0"/>
+   <TextField fx:id="altLeader" layoutX="143.0" layoutY="230.0"/>
+   <TextField fx:id="altLeaderPhone" layoutX="143.0" layoutY="272.0"/>
+   <Button fx:id="cancel" layoutX="243.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#cancel"
+           prefHeight="38.0" prefWidth="67.0" text="取消" visible="false"/>
+   <Button fx:id="accept" layoutX="109.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#accept"
+           prefHeight="38.0" prefWidth="67.0" text="确认" visible="false"/>
+   <Button fx:id="close" layoutX="310.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#close"
+           prefHeight="38.0" prefWidth="67.0" text="关闭"/>
+   <Button fx:id="delete" layoutX="176.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#delete"
+           prefHeight="38.0" prefWidth="67.0" text="删除"/>
+   <Button fx:id="change" layoutX="42.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#change"
+           prefHeight="38.0" prefWidth="67.0" text="更改"/>
+</Pane>

@@ -34,6 +34,7 @@ public class InternshipInfoPageController implements InfoPageControllerTemplate 
     @FXML private TextArea purpose;
     @FXML private TextArea summary;
     @FXML private TextArea comment;
+
     @FXML private Button change;
     @FXML private Button accept;
     @FXML private Button delete;
