@@ -186,6 +186,6 @@
          <Button layoutX="685.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#addInternship" text="新增"/>
          <Button layoutX="305.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addEvaluation" text="新增"/>
          <Button layoutX="685.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addRelationship" text="新增"/>
-      </children>
-   </AnchorPane>
+   </children>
+</AnchorPane>
 </SplitPane>

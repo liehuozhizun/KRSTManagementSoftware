@@ -19,7 +19,6 @@ import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.share.AddInternship;
 import org.krst.app.views.share.AddVisit;
-import org.krst.app.views.share.VisitInfoPage;
 import org.krst.app.views.staff.AddEvaluation;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -94,7 +93,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                     dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
-                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                 }
             });
             return row ;
