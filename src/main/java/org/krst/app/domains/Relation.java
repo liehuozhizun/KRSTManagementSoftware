@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Relation implements Cloneable {
-    private String relation;
+    private String relationship;
     private String name;
     private Type type;
     private String id;
