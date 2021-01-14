@@ -6,6 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <SplitPane fx:id="splitPane" dividerPositions="0.40737893927747887" maxHeight="-Infinity" maxWidth="-Infinity"
            minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1303.0"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -62,7 +64,14 @@
          </effect>
       </TextField>
       <ComboBox fx:id="gender" layoutX="356.0" layoutY="151.0" prefHeight="31.0" prefWidth="72.0"
-                style="-fx-opacity: 1;" visibleRowCount="2"/>
+                style="-fx-opacity: 1;" visibleRowCount="2" >
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="男" />
+               <String fx:value="女" />
+            </FXCollections>
+         </items>
+      </ComboBox>
       <DatePicker fx:id="birthday" layoutX="105.0" layoutY="190.0" prefHeight="31.0" prefWidth="151.0"/>
       <CheckBox fx:id="isGregorianCalendar" layoutX="280.0" layoutY="195.0" mnemonicParsing="false"
                 style="-fx-opacity: 1;" text="农历"/>
@@ -133,59 +142,57 @@
               prefHeight="38.0" prefWidth="67.0" text="取消" visible="false"/>
    </AnchorPane>
    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="713.0">
-      <children>
-         <Text layoutX="23.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="探访记录">
-            <font>
-               <Font size="18.0"/>
-            </font>
-         </Text>
-         <Text layoutX="403.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="服侍记录">
-            <font>
-               <Font size="18.0"/>
-            </font>
-         </Text>
-         <Text layoutX="23.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工评定">
-            <font>
-               <Font size="18.0"/>
-            </font>
-         </Text>
-         <Text layoutX="403.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="亲属关系">
-            <font>
-               <Font size="18.0"/>
-            </font>
-         </Text>
-         <TableView fx:id="visit" layoutX="23.0" layoutY="91.0" prefHeight="408.0" prefWidth="332.0">
-            <columns>
-               <TableColumn fx:id="visit_date" prefWidth="93.0" text="日期"/>
-               <TableColumn fx:id="visit_content" prefWidth="119.0" text="内容"/>
-               <TableColumn fx:id="visit_summary" prefWidth="119.0" text="总结"/>
-            </columns>
-         </TableView>
-         <TableView fx:id="internship" layoutX="403.0" layoutY="91.0" prefHeight="408.0" prefWidth="332.0">
-            <columns>
-               <TableColumn fx:id="internship_startDate" prefWidth="93.0" text="开始日期"/>
-               <TableColumn fx:id="internship_endDate" prefWidth="93.0" text="结束日期"/>
-               <TableColumn fx:id="internship_purpose" prefWidth="145.0" text="目的"/>
-            </columns>
-         </TableView>
-         <TableView fx:id="evaluation" layoutX="23.0" layoutY="564.0" prefHeight="236.0" prefWidth="332.0">
-            <columns>
-               <TableColumn fx:id="evaluation_year" prefWidth="56.0" text="年份"/>
-               <TableColumn fx:id="evaluation_content" prefWidth="275.0" text="评定内容"/>
-            </columns>
-         </TableView>
-         <TableView fx:id="relationship" layoutX="403.0" layoutY="563.0" prefHeight="236.0" prefWidth="332.0">
-            <columns>
-               <TableColumn fx:id="relationship_relation" prefWidth="84.0" text="关系"/>
-               <TableColumn fx:id="relationship_name" prefWidth="84.0" text="姓名"/>
-               <TableColumn fx:id="relationship_type" prefWidth="87.0" text="类型"/>
-               <TableColumn fx:id="relationship_id" prefWidth="76.0" text="编号"/>
-            </columns>
-         </TableView>
-         <Button layoutX="305.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#addVisit" text="新增"/>
-         <Button layoutX="685.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#addInternship" text="新增"/>
-         <Button layoutX="305.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addEvaluation" text="新增"/>
-         <Button layoutX="685.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addRelationship" text="新增"/>
-   </children>
-</AnchorPane>
+      <Text layoutX="23.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="探访记录">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Text>
+      <Text layoutX="403.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="服侍记录">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Text>
+      <Text layoutX="23.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工评定">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Text>
+      <Text layoutX="403.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="亲属关系">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Text>
+      <TableView fx:id="visit" layoutX="23.0" layoutY="91.0" prefHeight="408.0" prefWidth="332.0">
+         <columns>
+            <TableColumn fx:id="visit_date" prefWidth="93.0" text="日期"/>
+            <TableColumn fx:id="visit_content" prefWidth="119.0" text="内容"/>
+            <TableColumn fx:id="visit_summary" prefWidth="119.0" text="总结"/>
+         </columns>
+      </TableView>
+      <TableView fx:id="internship" layoutX="403.0" layoutY="91.0" prefHeight="408.0" prefWidth="332.0">
+         <columns>
+            <TableColumn fx:id="internship_startDate" prefWidth="93.0" text="开始日期"/>
+            <TableColumn fx:id="internship_endDate" prefWidth="93.0" text="结束日期"/>
+            <TableColumn fx:id="internship_purpose" prefWidth="145.0" text="目的"/>
+         </columns>
+      </TableView>
+      <TableView fx:id="evaluation" layoutX="23.0" layoutY="564.0" prefHeight="236.0" prefWidth="332.0">
+         <columns>
+            <TableColumn fx:id="evaluation_year" prefWidth="56.0" text="年份"/>
+            <TableColumn fx:id="evaluation_content" prefWidth="275.0" text="评定内容"/>
+         </columns>
+      </TableView>
+      <TableView fx:id="relationship" layoutX="403.0" layoutY="563.0" prefHeight="236.0" prefWidth="332.0">
+         <columns>
+            <TableColumn fx:id="relationship_relation" prefWidth="84.0" text="关系"/>
+            <TableColumn fx:id="relationship_name" prefWidth="84.0" text="姓名"/>
+            <TableColumn fx:id="relationship_type" prefWidth="87.0" text="类型"/>
+            <TableColumn fx:id="relationship_id" prefWidth="76.0" text="编号"/>
+         </columns>
+      </TableView>
+      <Button layoutX="305.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#addVisit" text="新增"/>
+      <Button layoutX="685.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#addInternship" text="新增"/>
+      <Button layoutX="305.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addEvaluation" text="新增"/>
+      <Button layoutX="685.0" layoutY="525.0" mnemonicParsing="false" onMouseClicked="#addRelationship" text="新增"/>
+   </AnchorPane>
 </SplitPane>

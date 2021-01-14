@@ -15,13 +15,21 @@ import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.*;
 import org.krst.app.repositories.StaffRepository;
+import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.share.AddInternship;
 import org.krst.app.views.share.AddVisit;
+import org.krst.app.views.share.InternshipInfoPage;
+import org.krst.app.views.share.VisitInfoPage;
 import org.krst.app.views.staff.AddEvaluation;
+import org.krst.app.views.staff.EvaluationInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Staff, the Staff model that need to be displayed
+ * Out : None
+ */
 @FXMLController
 public class StaffInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
@@ -70,6 +78,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     @FXML private TableColumn<Relation, String> relationship_id;
 
     @Autowired private StaffRepository staffRepository;
+    @Autowired private VisitRepository visitRepository;
     @Autowired private DataPassService dataPassService;
     @Autowired private Logger logger;
 
@@ -91,9 +100,23 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         visit.setRowFactory( tv -> {
             TableRow<Visit> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
+                // double click a nonempty row
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStaff.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId())); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStaff.getVisits().add(returnedData.getValue()); // store new Visit into originalStaff
+                            visit.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                        } else { // false: delete operation
+                            originalStaff = staffRepository.save(originalStaff); // remove mapping between Staff and Visit
+                            visitRepository.delete(row.getItem()); // remove Visit model in database
+                            logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
+                            visit.getItems().remove(row.getIndex()); // remove data from TableView
+                        }
+                    }
                 }
             });
             return row ;
@@ -103,9 +126,21 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Internship> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-                    System.out.println("打开InternshipInfoPage窗口");
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(InternshipInfoPage.class);
+                    Pair<Boolean, Internship> returnedData = (Pair<Boolean, Internship>) dataPassService.getValue();
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStaff.getInternships().remove(row.getItem()); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStaff.getInternships().add(returnedData.getValue()); // store new Visit into originalStaff
+                            internship.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                            logger.logInfo(this.getClass().toString(), "更改员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        } else { // false: delete operation
+                            internship.getItems().remove(row.getIndex()); // remove data from TableView
+                            logger.logInfo(this.getClass().toString(), "删除员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        }
+                        originalStaff = staffRepository.save(originalStaff); // remove this Internship from Staff
+                    }
                 }
             });
             return row ;
@@ -115,9 +150,22 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Evaluation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-                    System.out.println("打开EvaluationInfoPage窗口");
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(originalStaff.getName(), row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(EvaluationInfoPage.class);
+                    Pair<Boolean, Evaluation> returnedData = (Pair<Boolean, Evaluation>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        originalStaff.getEvaluations().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalStaff.getEvaluations().add(returnedData.getValue());
+                            evaluation.getItems().set(row.getIndex(), returnedData.getValue());
+                            logger.logInfo(this.getClass().toString(), "更改员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        } else {
+                            originalStaff.getEvaluations().remove(row.getItem());
+                            evaluation.getItems().remove(row.getIndex());
+                            logger.logInfo(this.getClass().toString(), "删除员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        }
+                        originalStaff = staffRepository.save(originalStaff);
+                    }
                 }
             });
             return row ;
@@ -160,23 +208,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
-                            String type = null;
-                            switch (item) {
-                                case STUDENT:
-                                    type = "学生";
-                                    break;
-                                case TEACHER:
-                                    type = "教师";
-                                    break;
-                                case STAFF:
-                                    type = "员工";
-                                    break;
-                                case PERSON:
-                                    type = "普通";
-                                    break;
-                                default: break;
-                            }
-                            this.setText(type);
+                            this.setText(item.getTypeString());
                         }
                     }
                 };
@@ -201,7 +233,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         id.setText(staff.getId());
         name.setText(staff.getName());
         baptismalName.setText(staff.getBaptismalName());
-        gender.getItems().addAll("男", "女");
         gender.getSelectionModel().select(staff.getGender() == null ? null : staff.getGender());
         birthday.setValue(staff.getBirthday());
         isGregorianCalendar.setSelected(staff.getIsGregorianCalendar() != null && staff.getIsGregorianCalendar());
@@ -311,8 +342,8 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         setTextEditableMode(state, id, name, baptismalName, title, responsibility,
                 phone, altPhone, address, experience, talent, resource, education);
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
-        isGregorianCalendar.setDisable(!state);
-        gender.setMouseTransparent(!state);
+        setCheckBoxEditableMOde(state, isGregorianCalendar);
+        setComboBoxEditableMode(state, gender);
     }
 
     // true: hide change/delete/close buttons; show accept/cancel buttons
@@ -331,7 +362,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         Visit vis = (Visit) dataPassService.getValue();
         if (vis != null) {
             originalStaff.getVisits().add(vis);
-            staffRepository.save(originalStaff);
+            originalStaff = staffRepository.save(originalStaff);
             visit.getItems().add(vis);
         }
     }
@@ -341,7 +372,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         Internship intern = (Internship) dataPassService.getValue();
         if (intern != null) {
             originalStaff.getInternships().add(intern);
-            staffRepository.save(originalStaff);
+            originalStaff = staffRepository.save(originalStaff);
             internship.getItems().add(intern);
         }
     }
@@ -352,7 +383,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         Evaluation eva = (Evaluation) dataPassService.getValue();
         if (eva != null) {
             originalStaff.getEvaluations().add(eva);
-            staffRepository.save(originalStaff);
+            originalStaff = staffRepository.save(originalStaff);
             evaluation.getItems().add(eva);
         }
     }
@@ -362,7 +393,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         Relation relation = (Relation) dataPassService.getValue();
         if (relation != null) {
             originalStaff.getRelationships().add(relation);
-            staffRepository.save(originalStaff);
+            originalStaff = staffRepository.save(originalStaff);
             relationship.getItems().add(relation);
         }
     }

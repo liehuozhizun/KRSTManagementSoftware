@@ -9,6 +9,10 @@ import org.krst.app.domains.Internship;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : None
+ * Out : Internship, new created internship model
+ */
 @FXMLController
 public class AddInternshipController {
 

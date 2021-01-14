@@ -1,8 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,9 +9,11 @@ import java.util.List;
 @Entity
 @Embeddable
 @Data
+@EqualsAndHashCode(exclude = "visitors")
+@ToString(exclude = "visitors")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Visit {
+public class Visit implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,4 +23,13 @@ public class Visit {
     private String content;
     private String summary;
     private String comment;
+
+    @Override
+    public Visit clone() {
+        try {
+            return (Visit) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }

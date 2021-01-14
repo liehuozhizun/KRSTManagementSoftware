@@ -10,6 +10,11 @@ import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In   : None
+ * Out  : None
+ * Note : new created Attribute will be stored in CacheService
+ */
 @FXMLController
 public class AddAttributeController {
 

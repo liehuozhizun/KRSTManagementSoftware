@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0"
+      prefWidth="483.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.staff.EvaluationInfoPageController">
+    <Label layoutX="34.0" layoutY="263.0" text="评定内容"/>
+    <TextField fx:id="name" editable="false" layoutX="117.0" layoutY="87.0" prefHeight="31.0" prefWidth="146.0">
+        <effect>
+          <ColorAdjust brightness="-0.05"/>
+        </effect>
+    </TextField>
+    <TextField fx:id="year" layoutX="332.0" layoutY="87.0" prefHeight="31.0" prefWidth="124.0"/>
+    <Label layoutX="34.0" layoutY="140.0" text="工作职务"/>
+    <TextArea fx:id="responsibility" layoutX="115.0" layoutY="179.0" prefHeight="67.0" prefWidth="339.0"/>
+    <Label layoutX="34.0" layoutY="92.0" text="员工姓名"/>
+    <Label layoutX="287.0" layoutY="92.0" text="年份"/>
+    <Label layoutX="34.0" layoutY="193.0" text="负责内容"/>
+    <Label layoutX="188.0" layoutY="37.0" text="员工评定记录">
+        <font>
+          <Font name="System Bold" size="18.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="title" layoutX="116.0" layoutY="135.0" prefHeight="31.0" prefWidth="339.0"/>
+    <TextArea fx:id="comment" layoutX="115.0" layoutY="263.0" prefHeight="163.0" prefWidth="339.0"/>
+    <Button fx:id="cancel" layoutX="276.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#cancel"
+            prefHeight="38.0" prefWidth="67.0" text="取消" visible="false"/>
+    <Button fx:id="accept" layoutX="142.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#accept"
+            prefHeight="38.0" prefWidth="67.0" text="确认" visible="false"/>
+    <Button fx:id="close" layoutX="343.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#close"
+            prefHeight="38.0" prefWidth="67.0" text="关闭"/>
+    <Button fx:id="delete" layoutX="209.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#delete"
+            prefHeight="38.0" prefWidth="67.0" text="删除"/>
+    <Button fx:id="change" layoutX="75.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#change"
+            prefHeight="38.0" prefWidth="67.0" text="更改"/>
+</Pane>
