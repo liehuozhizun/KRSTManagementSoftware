@@ -5,12 +5,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0"
-      prefWidth="544.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.share.InternshipInfoPageController">
-    <Text layoutX="225.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="实践/服侍记录">
+      prefWidth="544.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.InternshipInfoPageController">
+    <Text layoutX="214.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="实践/服侍记录">
         <font>
-          <Font size="18.0"/>
+            <Font size="18.0"/>
         </font>
     </Text>
     <Text layoutX="23.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="实践/服侍人"/>
@@ -23,13 +23,13 @@
     <TextField fx:id="name" editable="false" layoutX="123.0" layoutY="76.0" mouseTransparent="true" prefHeight="31.0"
                prefWidth="150.0">
         <effect>
-          <ColorAdjust brightness="-0.01"/>
+            <ColorAdjust brightness="-0.01"/>
         </effect>
     </TextField>
     <TextField fx:id="id" editable="false" layoutX="370.0" layoutY="76.0" mouseTransparent="true" prefHeight="31.0"
                prefWidth="150.0">
         <effect>
-          <ColorAdjust brightness="-0.01"/>
+            <ColorAdjust brightness="-0.01"/>
         </effect>
     </TextField>
     <DatePicker fx:id="startDate" layoutX="123.0" layoutY="118.0" prefHeight="31.0" prefWidth="150.0"/>
@@ -37,14 +37,14 @@
     <TextArea fx:id="purpose" layoutX="123.0" layoutY="159.0" prefHeight="96.0" prefWidth="398.0"/>
     <TextArea fx:id="summary" layoutX="123.0" layoutY="262.0" prefHeight="96.0" prefWidth="398.0"/>
     <TextArea fx:id="comment" layoutX="123.0" layoutY="365.0" prefHeight="96.0" prefWidth="398.0"/>
-    <Button fx:id="change" layoutX="123.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#change"
+    <Button fx:id="change" layoutX="105.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#change"
             prefHeight="38.0" prefWidth="67.0" text="更改"/>
-    <Button fx:id="delete" layoutX="257.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#delete"
+    <Button fx:id="delete" layoutX="239.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#delete"
             prefHeight="38.0" prefWidth="67.0" text="删除"/>
-    <Button fx:id="close" layoutX="391.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#close"
+    <Button fx:id="close" layoutX="373.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#close"
             prefHeight="38.0" prefWidth="67.0" text="关闭"/>
-    <Button fx:id="accept" layoutX="190.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#accept"
+    <Button fx:id="accept" layoutX="172.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#accept"
             prefHeight="38.0" prefWidth="67.0" text="确认" visible="false"/>
-    <Button fx:id="cancel" layoutX="324.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#cancel"
+    <Button fx:id="cancel" layoutX="306.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#cancel"
             prefHeight="38.0" prefWidth="67.0" text="取消" visible="false"/>
 </Pane>

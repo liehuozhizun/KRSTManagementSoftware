@@ -17,6 +17,10 @@ import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : None
+ * Out : None
+ */
 @FXMLController
 public class AddStudentController {
 

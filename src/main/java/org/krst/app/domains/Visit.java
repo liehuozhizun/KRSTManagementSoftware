@@ -13,7 +13,7 @@ import java.util.List;
 @ToString(exclude = "visitors")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Visit {
+public class Visit implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,4 +23,13 @@ public class Visit {
     private String content;
     private String summary;
     private String comment;
+
+    @Override
+    public Visit clone() {
+        try {
+            return (Visit) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }

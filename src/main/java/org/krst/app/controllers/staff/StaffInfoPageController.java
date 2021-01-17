@@ -23,8 +23,13 @@ import org.krst.app.views.share.AddVisit;
 import org.krst.app.views.share.InternshipInfoPage;
 import org.krst.app.views.share.VisitInfoPage;
 import org.krst.app.views.staff.AddEvaluation;
+import org.krst.app.views.staff.EvaluationInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Staff, the Staff model that need to be displayed
+ * Out : None
+ */
 @FXMLController
 public class StaffInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
@@ -95,20 +100,21 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         visit.setRowFactory( tv -> {
             TableRow<Visit> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
+                // double click a nonempty row
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem()));
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                     Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
-                    if (returnedData != null) {
-                        originalStaff.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId()));
-                        if (returnedData.getKey()) {
-                            originalStaff.getVisits().add(returnedData.getValue());
-                            visit.getItems().set(row.getIndex(), returnedData.getValue());
-                        } else {
-                            originalStaff = staffRepository.save(originalStaff);
-                            visitRepository.delete(row.getItem());
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStaff.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId())); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStaff.getVisits().add(returnedData.getValue()); // store new Visit into originalStaff
+                            visit.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                        } else { // false: delete operation
+                            originalStaff = staffRepository.save(originalStaff); // remove mapping between Staff and Visit
+                            visitRepository.delete(row.getItem()); // remove Visit model in database
                             logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
-                            visit.getItems().remove(row.getIndex());
+                            visit.getItems().remove(row.getIndex()); // remove data from TableView
                         }
                     }
                 }
@@ -120,21 +126,21 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Internship> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem()));
+                    dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(InternshipInfoPage.class);
                     Pair<Boolean, Internship> returnedData = (Pair<Boolean, Internship>) dataPassService.getValue();
-                    if (returnedData != null) {
-                        originalStaff.getInternships().remove(row.getItem());
-                        if (returnedData.getKey()) {
-                            originalStaff.getInternships().add(returnedData.getValue());
-                            internship.getItems().set(row.getIndex(), returnedData.getValue());
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStaff.getInternships().remove(row.getItem()); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStaff.getInternships().add(returnedData.getValue()); // store new Visit into originalStaff
+                            internship.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
                             logger.logInfo(this.getClass().toString(), "更改员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
-                        } else {
-                            internship.getItems().remove(row.getIndex());
+                        } else { // false: delete operation
+                            internship.getItems().remove(row.getIndex()); // remove data from TableView
                             logger.logInfo(this.getClass().toString(), "删除员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
                         }
+                        originalStaff = staffRepository.save(originalStaff); // remove this Internship from Staff
                     }
-                    originalStaff = staffRepository.save(originalStaff);
                 }
             });
             return row ;
@@ -144,9 +150,22 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Evaluation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-                    System.out.println("打开EvaluationInfoPage窗口");
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    dataPassService.setValue(new Pair<>(originalStaff.getName(), row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(EvaluationInfoPage.class);
+                    Pair<Boolean, Evaluation> returnedData = (Pair<Boolean, Evaluation>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        originalStaff.getEvaluations().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalStaff.getEvaluations().add(returnedData.getValue());
+                            evaluation.getItems().set(row.getIndex(), returnedData.getValue());
+                            logger.logInfo(this.getClass().toString(), "更改员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        } else {
+                            originalStaff.getEvaluations().remove(row.getItem());
+                            evaluation.getItems().remove(row.getIndex());
+                            logger.logInfo(this.getClass().toString(), "删除员工评定记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        }
+                        originalStaff = staffRepository.save(originalStaff);
+                    }
                 }
             });
             return row ;
