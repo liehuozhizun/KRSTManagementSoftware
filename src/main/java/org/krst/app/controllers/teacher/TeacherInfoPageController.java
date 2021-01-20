@@ -13,19 +13,21 @@ import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.*;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.AttributeRepository;
+import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
+import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.krst.app.views.share.AddVisit;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
-public class TeacherInfoPageController {
+public class TeacherInfoPageController implements InfoPageControllerTemplate {
 
-    @FXML private TextField id,name,baptismalName;
+    @FXML private TextField id,name,baptismalName,age;
     @FXML private TextField leader;
     @FXML private TextField leaderPhone;
     @FXML private TextField altLeader;
@@ -37,6 +39,7 @@ public class TeacherInfoPageController {
     @FXML private DatePicker confirmationDate;
     @FXML private DatePicker marriageDate;
     @FXML private DatePicker deathDate;
+    @FXML private TextArea education;
     @FXML private TextArea address;
     @FXML private TextArea experience;
     @FXML private TextArea talent;
@@ -65,14 +68,24 @@ public class TeacherInfoPageController {
     private Logger logger;
     @Autowired
     private DataPassService dataPassService;
-    private Staff originalStaff;
-    Teacher selectedOne;
+
+    private Teacher selectedOne;
+    private Boolean isDeleteOperation=false;
+
     @FXML
     public void initialize() {
-        selectedOne =(Teacher) dataPassService.getValue();
-
-        start(selectedOne);
+        setEditableMode(false);
+        setButtonMode(false);
+        selectedOne = (Teacher) dataPassService.getValue();
+        if (selectedOne == null) {
+            return;
+        }
+        refresh(selectedOne);
         initSetRightSide();
+        allAddListener();
+        setUpListView(visit);
+    }
+    private  void allAddListener(){
         gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
             //gender.setPromptText( gender.getSelectionModel().getSelectedItem());
             gender.setConverter(new StringConverter<String>() {
@@ -94,7 +107,8 @@ public class TeacherInfoPageController {
                 refreshAttributeComboBoxContent();
 
             }
-            changeableAttribute.setPromptText((changeableAttribute.getSelectionModel().getSelectedItem().getAttribute()));
+            if (changeableAttribute.getSelectionModel().getSelectedItem()== null){changeableAttribute.getEditor().setText("");}
+            else{changeableAttribute.setPromptText((changeableAttribute.getSelectionModel().getSelectedItem().getAttribute()));}
             leader.setText(changeableAttribute.getSelectionModel().getSelectedItem().getLeader());
             leaderPhone.setText(changeableAttribute.getSelectionModel().getSelectedItem().getLeaderPhone());
             altLeader.setText(changeableAttribute.getSelectionModel().getSelectedItem().getAltLeader());
@@ -129,8 +143,8 @@ public class TeacherInfoPageController {
             });
         });
 
-//
     }
+
     private void refreshAttributeComboBoxContent() {
 
         changeableAttribute.getItems().clear();
@@ -138,17 +152,19 @@ public class TeacherInfoPageController {
         changeableAttribute.getItems().addAll(cacheService.getAttributes());
     }
 
-
         public void close() {
             ((Stage)id.getScene().getWindow()).close();
         }
-        public  void start(Teacher selectedOne){
+        public  void refresh(Teacher selectedOne){
             id.setText(selectedOne.getId());
             name.setText(selectedOne.getName());
             baptismalName.setText(selectedOne.getBaptismalName());
             birthday.setValue(selectedOne.getBirthday());
             if(selectedOne.getIsGregorianCalendar()!=null){
             isGregorianCalendar.setSelected(selectedOne.getIsGregorianCalendar());}
+            if (selectedOne.getBirthday() != null)
+                age.setText(selectedOne.getBirthday().until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears() + " 岁");
+
             baptismalDate.setValue(selectedOne.getBaptismalDate());
             confirmationDate.setValue(selectedOne.getConfirmationDate());
             marriageDate.setValue(selectedOne.getMarriageDate());
@@ -166,6 +182,7 @@ public class TeacherInfoPageController {
             address.setText(selectedOne.getAddress());
             experience.setText(selectedOne.getExperience());
             talent.setText(selectedOne.getTalent());
+            education.setText(selectedOne.getEducation());
             resource.setText(selectedOne.getResource());
             gender.getItems().addAll("男","女");
             gender.setPromptText(selectedOne.getGender());
@@ -173,13 +190,13 @@ public class TeacherInfoPageController {
             if (selectedOne.getStaff() != null) {
                 changeableStaff.setPromptText(selectedOne.getStaff().getName());
             }
-            if(cacheService!=null) {
+
                 Attribute newOne=new Attribute();
                 newOne.setAttribute(Constants.CREATE_PROMPT);
                 changeableAttribute.getItems().add(newOne);
                 changeableAttribute.getItems().addAll(cacheService.getAttributes());
                 changeableStaff.getItems().addAll(cacheService.getStaffs());
-            }
+
             changeableAttribute.setCellFactory(new Callback<ListView<Attribute>, ListCell<Attribute>>() {
                 @Override
                 public ListCell<Attribute> call(ListView<Attribute> param) {
@@ -226,80 +243,30 @@ public class TeacherInfoPageController {
                             staff.getName().equals(string)).findFirst().orElse(null);
                 }
             });
-//            gender.setConverter(new StringConverter<String>() {
-//                @Override
-//                public String toString(String gender) {
-//                    return gender==null?null : gender;
-//                }
-//
-//                @Override
-//                public String fromString(String string) {
-//                    return gender.getItems().stream().filter(gender ->
-//                            gender.equals(string)).findFirst().orElse(null);
-//                }
-//            });
-
         }
 
         public void change() {
-            changeSet(name,true);
-            changeSet(baptismalName,true);
-            changeSet(phone,true);
-            changeSet(altPhone,true);
-            changeSet(id,true);
-            changeAreaSet(address,true);
-            changeAreaSet(experience,true);
-            changeAreaSet(talent,true);
-            changeAreaSet(resource,true);
-            changeDateSet(birthday,true);
-            changeDateSet(baptismalDate,true);
-            changeDateSet(confirmationDate,true);
-            changeDateSet(marriageDate,true);
-            changeDateSet(deathDate,true);
-            changeComboboxSet(gender,true);
-            changeComboboxSet(changeableAttribute,true);
-            changeComboboxSet(changeableStaff,true);
-            buttonHide(change,true);
-            buttonHide(delete,true);
-            buttonHide(close,true);
-            buttonShow(confirm,true);
-            buttonShow(cancel,true);
-            isGregorianCalendar.setDisable(false);
+        setEditableMode(true);
+        setButtonMode(true);
 
         }
     public void changeFalse() {
-        changeSet(name,false);
-        changeSet(baptismalName,false);
-        changeSet(phone,false);
-        changeSet(altPhone,false);
-        changeSet(id,false);
-        changeAreaSet(address,false);
-        changeAreaSet(experience,false);
-        changeAreaSet(talent,false);
-        changeAreaSet(resource,false);
-        changeDateSet(birthday,false);
-        changeDateSet(baptismalDate,false);
-        changeDateSet(confirmationDate,false);
-        changeDateSet(marriageDate,false);
-        changeDateSet(deathDate,false);
-        changeComboboxSet(gender,false);
-        changeComboboxSet(changeableAttribute,false);
-        changeComboboxSet(changeableStaff,false);
-        buttonHide(change,false);
-        buttonHide(delete,false);
-        buttonHide(close,false);
-        buttonShow(confirm,false);
-        buttonShow(cancel,false);
+        setEditableMode(false);
+        setButtonMode(false);
     }
 
         public void delete() {
-        //确认窗口，确认红色
-            logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
-            teacherRepository.delete(selectedOne);
-            close();
+            isDeleteOperation = true;
+            setButtonMode(true);
         }
 
         public void confirm() {
+            if (isDeleteOperation) {
+                teacherRepository.delete(selectedOne);
+                logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
+                close();
+                return;
+            }
             if(!id.getText().equals(selectedOne.getId())
                     &&teacherRepository.existsById(id.getText())
             ) {
@@ -330,6 +297,7 @@ public class TeacherInfoPageController {
                 teacher.setExperience(experience.getText());
                 teacher.setResource(resource.getText());
                 teacher.setTalent(talent.getText());
+                teacher.setEducation(education.getText());
                 teacher.setAttribute(changeableAttribute.getSelectionModel().getSelectedItem());
                 teacher.setStaff(changeableStaff.getSelectionModel().getSelectedItem());
                 teacher.setGender(gender.getPromptText());
@@ -341,42 +309,17 @@ public class TeacherInfoPageController {
         public void cancel() {
         //回到上级不保存
             changeFalse();
-            start(selectedOne);
-        }
-        private void changeSet(TextField textField, boolean status) {
-
-            textField.setDisable(!status);
-            textField.setEditable(status);
-        }
-        private void changeAreaSet(TextArea textArea, boolean status) {
-            textArea.setDisable(!status);
-            textArea.setEditable(status);
-        }
-        private void changeDateSet(DatePicker datePicker, boolean status) {
-            datePicker.setDisable(!status);
-            datePicker.setEditable(status);
-        }
-        private void changeComboboxSet(ComboBox comboBox, boolean status) {
-            comboBox.setDisable(!status);
-            //comboBox.setEditable(status);
-        }
-        private void buttonHide(Button button, boolean status) {
-            button.setDisable(status);
-            button.setVisible(!status);
-        }
-        private void buttonShow(Button button, boolean status){
-            button.setDisable(!status);
-            button.setVisible(status);
-
+            refresh(selectedOne);
         }
         private void initSetRightSide(){
+
             visit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             visit.setRowFactory( tv -> {
                 TableRow<Visit> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                         dataPassService.setValue(new Pair<>(name.getText(), row.getItem()));
-                        KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                        //KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                     }
                 });
                 return row ;
@@ -430,26 +373,56 @@ public class TeacherInfoPageController {
                             }
                         }
                     };
+        }});
+    }
 
-
-        }});}
     public void addRelationship() {
-//        KRSTManagementSoftware.openWindow(AddRelation.class);
+//       KRSTManagementSoftware.openWindow(AddRelation.class);
         Relation relation = (Relation) dataPassService.getValue();
         if (relation != null) {
-            originalStaff.getRelationships().add(relation);
-            staffRepository.save(originalStaff);
+            selectedOne.getRelationships().add(relation);
+            teacherRepository.save(selectedOne);
             relationship.getItems().add(relation);
         }
     }
+
     public void addVisit() {
         KRSTManagementSoftware.openWindow(AddVisit.class);
         Visit vis = (Visit) dataPassService.getValue();
         if (vis != null) {
-            originalStaff.getVisits().add(vis);
-            staffRepository.save(originalStaff);
+            selectedOne.getVisits().add(vis);
+            teacherRepository.save(selectedOne);
             visit.getItems().add(vis);
         }
     }
 
+    @Override
+    public void setEditableMode(boolean state) {
+        setTextEditableMode(state, id, name, baptismalName, phone, altPhone, address, experience, talent, resource, education);
+        setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
+        setComboBoxEditableMode(state, gender, changeableAttribute, changeableStaff);
+        setCheckBoxEditableMOde(state, isGregorianCalendar);
+    }
+
+    @Override
+    public void setButtonMode(boolean state) {
+        change.setVisible(!state);
+        change.setDisable(state);
+        confirm.setVisible(state);
+        confirm.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
+        delete.setVisible(!state);
+        cancel.setVisible(state);
+        close.setVisible(!state);
+    }
+    protected <T> void setUpListView( TableView<T> listView){
+        listView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                T selectedItem = listView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    listView.getItems().remove(selectedItem);
+                }
+            }
+        });
+
+    }
 }

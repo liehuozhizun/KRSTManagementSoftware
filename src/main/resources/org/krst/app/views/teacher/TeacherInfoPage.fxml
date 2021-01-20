@@ -8,64 +8,68 @@
 
 <SplitPane dividerPositions="0.5757290686735654" prefHeight="850.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.teacher.TeacherInfoPageController">
    <items>
-      <AnchorPane prefHeight="848.0" prefWidth="551.0">
+      <AnchorPane prefHeight="878.0" prefWidth="609.0">
          <children>
                <Label layoutX="39.0" layoutY="321.0" text="结婚日期" />
                <Label layoutX="321.0" layoutY="458.0" text="负责人电话" />
-            <Button fx:id="delete" layoutX="277.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="95.0" text="删除" textAlignment="JUSTIFY" underline="true" />
+            <Button fx:id="delete" layoutX="274.0" layoutY="797.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="95.0" text="删除" textAlignment="JUSTIFY" underline="true" />
                <Label layoutX="62.0" layoutY="503.0" text="电话" />
-               <TextField fx:id="name" disable="true" editable="false" layoutX="103.0" layoutY="114.0" prefHeight="31.0" prefWidth="190.0" />
-               <DatePicker fx:id="marriageDate" disable="true" editable="false" layoutX="103.0" layoutY="313.0" prefHeight="31.0" prefWidth="190.0" />
-            <ComboBox fx:id="changeableStaff" disable="true" layoutX="409.0" layoutY="708.0" prefHeight="31.0" prefWidth="172.0" />
+               <TextField fx:id="name" editable="false" layoutX="103.0" layoutY="114.0" prefHeight="31.0" prefWidth="190.0" />
+               <DatePicker fx:id="marriageDate" editable="false" layoutX="103.0" layoutY="313.0" prefHeight="31.0" prefWidth="190.0" />
+            <ComboBox fx:id="changeableStaff" layoutX="406.0" layoutY="156.0" prefHeight="31.0" prefWidth="172.0" />
                <Label layoutX="39.0" layoutY="79.0" text="教师编号" />
-               <TextField fx:id="altLeader" disable="true" editable="false" layoutX="105.0" layoutY="453.0" prefHeight="31.0" prefWidth="190.0" />
+               <TextField fx:id="altLeader" editable="false" layoutX="105.0" layoutY="453.0" prefHeight="31.0" prefWidth="190.0" />
                <Label layoutX="264.0" layoutY="24.0" text="教师档案查询">
                   <font>
                      <Font name="System Bold" size="20.0" />
                   </font>
                </Label>
                <Label layoutX="334.0" layoutY="266.0" text="坚振日期" />
-            <Button fx:id="change" layoutX="123.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="37.0" prefWidth="95.0" text="更改" textAlignment="JUSTIFY" underline="true" />
-               <DatePicker fx:id="confirmationDate" disable="true" editable="false" layoutX="406.0" layoutY="261.0" prefHeight="31.0" prefWidth="172.0" />
-               <TextArea fx:id="experience" disable="true" editable="false" layoutX="104.0" layoutY="614.0" prefHeight="64.0" prefWidth="190.0" />
+            <Button fx:id="change" layoutX="121.0" layoutY="797.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="37.0" prefWidth="95.0" text="更改" textAlignment="JUSTIFY" underline="true" />
+               <DatePicker fx:id="confirmationDate" editable="false" layoutX="406.0" layoutY="261.0" prefHeight="31.0" prefWidth="172.0" />
+               <TextArea fx:id="experience" editable="false" layoutX="104.0" layoutY="614.0" prefHeight="64.0" prefWidth="190.0" />
                <Label layoutX="39.0" layoutY="367.0" text="所属教区" />
                <Label layoutX="369.0" layoutY="621.0" text="特长" />
                <Label layoutX="321.0" layoutY="414.0" text="负责人电话" />
-               <DatePicker fx:id="birthday" disable="true" editable="false" layoutX="103.0" layoutY="212.0" prefHeight="31.0" prefWidth="190.0" />
-            <ComboBox fx:id="gender" disable="true" editable="true" layoutX="372.0" layoutY="115.0" prefHeight="23.0" prefWidth="24.0" />
-            <Button fx:id="close" layoutX="425.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="95.0" text="关闭" textAlignment="JUSTIFY" underline="true" />
+               <DatePicker fx:id="birthday" editable="false" layoutX="103.0" layoutY="212.0" prefHeight="31.0" prefWidth="190.0" />
+            <ComboBox fx:id="gender" editable="true" layoutX="407.0" layoutY="115.0" prefHeight="23.0" prefWidth="69.0" />
+            <Button fx:id="close" layoutX="422.0" layoutY="797.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="37.0" prefWidth="95.0" text="关闭" textAlignment="JUSTIFY" underline="true" />
                <Label layoutX="62.0" layoutY="171.0" text="圣名" />
                <Label layoutX="62.0" layoutY="701.0" text="资源" />
-               <TextField fx:id="altPhone" disable="true" editable="false" layoutX="409.0" layoutY="495.0" prefHeight="31.0" prefWidth="172.0" />
-               <TextField fx:id="altLeaderPhone" disable="true" editable="false" layoutX="408.0" layoutY="453.0" prefHeight="31.0" prefWidth="172.0" />
-               <CheckBox fx:id="isGregorianCalendar" disable="true" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历" />
-               <TextArea fx:id="talent" disable="true" editable="false" layoutX="409.0" layoutY="614.0" prefHeight="64.0" prefWidth="172.0" />
+               <TextField fx:id="altPhone" editable="false" layoutX="409.0" layoutY="495.0" prefHeight="31.0" prefWidth="172.0" />
+               <TextField fx:id="altLeaderPhone" editable="false" layoutX="408.0" layoutY="453.0" prefHeight="31.0" prefWidth="172.0" />
+               <CheckBox fx:id="isGregorianCalendar" layoutX="335.0" layoutY="217.0" mnemonicParsing="false" text="农历" />
+               <TextArea fx:id="talent" editable="false" layoutX="409.0" layoutY="614.0" prefHeight="64.0" prefWidth="172.0" />
                <Label layoutX="39.0" layoutY="269.0" text="领洗日期" />
                <Label layoutX="54.0" layoutY="417.0" text="负责人" />
-               <TextField fx:id="baptismalName" disable="true" editable="false" layoutX="104.0" layoutY="163.0" prefHeight="31.0" prefWidth="190.0" />
-               <TextField fx:id="leaderPhone" disable="true" editable="false" layoutX="408.0" layoutY="409.0" prefHeight="31.0" prefWidth="172.0" />
-            <ComboBox fx:id="changeableAttribute" cache="true" disable="true" layoutX="103.0" layoutY="359.0" prefHeight="31.0" prefWidth="190.0" />
+               <TextField fx:id="baptismalName"  layoutX="104.0" layoutY="163.0" prefHeight="31.0" prefWidth="190.0" />
+               <TextField fx:id="leaderPhone"  editable="false" layoutX="408.0" layoutY="409.0" prefHeight="31.0" prefWidth="172.0" />
+            <ComboBox fx:id="changeableAttribute" cache="true" layoutX="103.0" layoutY="359.0" prefHeight="31.0" prefWidth="190.0" />
                <Label layoutX="62.0" layoutY="548.0" text="地址" />
                <Label layoutX="334.0" layoutY="503.0" text="备用电话" />
-            <Button fx:id="cancel" disable="true" layoutX="346.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="95.0" text="取消" textAlignment="JUSTIFY" underline="true" visible="false" />
-               <DatePicker fx:id="deathDate" disable="true" editable="false" layoutX="406.0" layoutY="313.0" prefHeight="31.0" prefWidth="172.0" />
+            <Button fx:id="cancel" layoutX="346.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="95.0" text="取消" textAlignment="JUSTIFY" underline="true" visible="false" />
+               <DatePicker fx:id="deathDate" editable="false" layoutX="406.0" layoutY="313.0" prefHeight="31.0" prefWidth="172.0" />
                <Label layoutX="39.0" layoutY="218.0" text="出生日期" />
                <Label layoutX="62.0" layoutY="621.0" text="经历" />
-            <Button fx:id="confirm" disable="true" layoutX="209.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="95.0" text="确定" textAlignment="JUSTIFY" underline="true" visible="false" />
-               <TextField fx:id="phone" disable="true" editable="false" layoutX="104.0" layoutY="495.0" prefHeight="31.0" prefWidth="190.0" />
+            <Button fx:id="confirm" layoutX="209.0" layoutY="789.0" mnemonicParsing="false" onMouseClicked="#confirm" prefHeight="37.0" prefWidth="95.0" text="确定" textAlignment="JUSTIFY" underline="true" visible="false" />
+               <TextField fx:id="phone" editable="false" layoutX="104.0" layoutY="495.0" prefHeight="31.0" prefWidth="190.0" />
                <Label layoutX="33.0" layoutY="461.0" text="第二负责人" />
-            <TextField fx:id="id" disable="true" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="31.0" prefWidth="190.0" />
-               <Label layoutX="334.0" layoutY="119.0" text="性别" />
+            <TextField fx:id="id" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="31.0" prefWidth="190.0" />
+               <Label layoutX="357.0" layoutY="119.0" text="性别" />
                <Label layoutX="334.0" layoutY="318.0" text="死亡日期" />
-               <TextField fx:id="leader" disable="true" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0" />
+               <TextField fx:id="leader" editable="false" layoutX="103.0" layoutY="409.0" prefHeight="31.0" prefWidth="190.0" />
                <Label layoutX="39.0" layoutY="122.0" text="教师姓名" />
-               <TextArea fx:id="resource" disable="true" editable="false" layoutX="105.0" layoutY="695.0" prefHeight="64.0" prefWidth="190.0" />
-               <Label layoutX="339.0" layoutY="716.0" text="负责员工" />
-               <TextArea fx:id="address" disable="true" editable="false" layoutX="103.0" layoutY="537.0" prefHeight="64.0" prefWidth="480.0" />
-               <DatePicker fx:id="baptismalDate" disable="true" editable="false" layoutX="103.0" layoutY="262.0" prefHeight="31.0" prefWidth="190.0" />
+               <TextArea fx:id="resource" editable="false" layoutX="105.0" layoutY="695.0" prefHeight="64.0" prefWidth="190.0" />
+               <Label layoutX="334.0" layoutY="164.0" text="负责员工" />
+               <TextArea fx:id="address" editable="false" layoutX="103.0" layoutY="537.0" prefHeight="64.0" prefWidth="480.0" />
+               <DatePicker fx:id="baptismalDate" editable="false" layoutX="103.0" layoutY="262.0" prefHeight="31.0" prefWidth="190.0" />
+            <TextField fx:id="age" disable="true" editable="false" layoutX="509.0" layoutY="216.0" prefHeight="23.0" prefWidth="69.0" />
+            <Label layoutX="470.0" layoutY="220.0" text="年龄" />
+            <TextArea fx:id="education" editable="false" layoutX="409.0" layoutY="695.0" prefHeight="64.0" prefWidth="172.0" />
+            <Label layoutX="368.0" layoutY="701.0" text="教育" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="848.0" prefWidth="380.0">
+      <AnchorPane prefHeight="890.0" prefWidth="600.0">
          <children>
             <TableView fx:id="visit" layoutX="54.0" layoutY="47.0" prefHeight="353.0" prefWidth="300.0">
               <columns>
@@ -84,15 +88,15 @@
             </TableView>
             <Label layoutX="54.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" text="探访记录">
                <font>
-                  <Font size="21.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="54.0" layoutY="435.0" prefHeight="37.0" prefWidth="101.0" text="亲属关系">
                <font>
-                  <Font size="21.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="addVisit" layoutX="299.0" layoutY="14.0" mnemonicParsing="false" text="新增+" />
+            <Button fx:id="addVisit" layoutX="299.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#addVisit" text="新增+" />
             <Button fx:id="addRelationship" layoutX="305.0" layoutY="435.0" mnemonicParsing="false" text="新增+" />
          </children>
       </AnchorPane>
