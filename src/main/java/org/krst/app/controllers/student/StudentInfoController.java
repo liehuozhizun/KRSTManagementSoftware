@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @FXMLController
 public class StudentInfoController implements InfoPageControllerTemplate {
     private String originalStudentId;
+    @FXML private SplitPane splitPane;
     @FXML private TextField leader;
     @FXML private TextField id;
     @FXML private TextField name;
@@ -101,6 +102,8 @@ public class StudentInfoController implements InfoPageControllerTemplate {
         //refreshAll(student);
         setEditableMode(false);
         initDefaultComponents();
+        splitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.4074));
     }
 
     public void change(){
