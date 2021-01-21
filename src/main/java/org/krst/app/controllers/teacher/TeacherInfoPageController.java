@@ -16,12 +16,14 @@ import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.TeacherRepository;
+import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.krst.app.views.share.AddVisit;
+import org.krst.app.views.share.VisitInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
@@ -58,8 +60,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     @FXML private TableColumn<Relation, String> relationship_name;
     @FXML private TableColumn<Relation, Relation.Type> relationship_type;
     @FXML private TableColumn<Relation, String> relationship_id;
+    @FXML private  SplitPane splitPane;
 
-    @Autowired private StaffRepository staffRepository;
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
@@ -68,6 +70,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     private Logger logger;
     @Autowired
     private DataPassService dataPassService;
+    @Autowired
+    private VisitRepository visitRepository;
 
     private Teacher selectedOne;
     private Boolean isDeleteOperation=false;
@@ -83,7 +87,9 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
         refresh(selectedOne);
         initSetRightSide();
         allAddListener();
-        setUpListView(visit);
+        setUpListView();
+        splitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.5757));
     }
     private  void allAddListener(){
         gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
@@ -414,14 +420,31 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
         cancel.setVisible(state);
         close.setVisible(!state);
     }
-    protected <T> void setUpListView( TableView<T> listView){
-        listView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                T selectedItem = listView.getSelectionModel().getSelectedItem();
-                if (selectedItem != null) {
-                    listView.getItems().remove(selectedItem);
+    protected <T> void setUpListView(){
+        visit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        visit.setRowFactory( tv -> {
+            TableRow<Visit> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                // double click a nonempty row
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    dataPassService.setValue(new Pair<>(selectedOne, row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        selectedOne.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId())); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            selectedOne.getVisits().add(returnedData.getValue()); // store new Visit into originalStaff
+                            visit.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                        } else { // false: delete operation
+                            selectedOne = teacherRepository.save(selectedOne); // remove mapping between Staff and Visit
+                            visitRepository.delete(row.getItem()); // remove Visit model in database
+                            logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
+                            visit.getItems().remove(row.getIndex()); // remove data from TableView
+                        }
+                    }
                 }
-            }
+            });
+            return row ;
         });
 
     }
