@@ -73,9 +73,9 @@
          <children>
             <TableView fx:id="visit" layoutX="54.0" layoutY="47.0" prefHeight="353.0" prefWidth="300.0">
               <columns>
-                <TableColumn fx:id="visit_date" prefWidth="103.0" text="日期" />
-                <TableColumn fx:id="visit_content" prefWidth="90.0" text="内容" />
-                  <TableColumn fx:id="visit_summary" prefWidth="106.0" text="总结" />
+                <TableColumn fx:id="visit_date" prefWidth="100.0" text="日期" />
+                <TableColumn fx:id="visit_content" prefWidth="100.0" text="内容" />
+                  <TableColumn fx:id="visit_summary" prefWidth="100.0" text="总结" />
               </columns>
             </TableView>
             <TableView fx:id="relationship" layoutX="54.0" layoutY="466.0" prefHeight="353.0" prefWidth="300.0">
