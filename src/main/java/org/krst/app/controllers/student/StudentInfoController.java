@@ -5,8 +5,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.*;
@@ -14,11 +16,12 @@ import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.CourseRepository;
 import org.krst.app.repositories.StudentRepository;
+import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.Constants;
-import org.krst.app.views.share.AddAttribute;
+import org.krst.app.views.share.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -45,6 +48,7 @@ public class StudentInfoController implements InfoPageControllerTemplate {
     @FXML private DatePicker deathDate;
     @FXML private javafx.scene.control.TextArea address;
     @FXML private javafx.scene.control.TextArea experience;
+    @FXML private javafx.scene.control.TextArea education;
     @FXML private javafx.scene.control.TextArea talent;
     @FXML private TextArea resource;
     @FXML private Button accept;
@@ -56,59 +60,58 @@ public class StudentInfoController implements InfoPageControllerTemplate {
     @FXML private Button addInternship;
     @FXML private Button addscore;
     @FXML private Button addRelationship;
-
     @FXML private TextField age;
 
+    @FXML private TableView<Internship> internship;
+    @FXML private TableColumn<Internship, String> internship_startDate;
+    @FXML private TableColumn<Internship, String> internship_endDate;
+    @FXML private TableColumn<Internship, String> internship_purpose;
+    @FXML private TableView<Relation> relationship;
+    @FXML private TableColumn<Relation, String> relationship_relation;
+    @FXML private TableColumn<Relation, String> relationship_name;
+    @FXML private TableColumn<Relation, Relation.Type> relationship_type;
+    @FXML private TableColumn<Relation, String> relationship_id;
+
+    @FXML private TableView<Visit> visit;
+    @Autowired private VisitRepository visitRepository;
     @Autowired private StudentRepository studentRepository;
     @Autowired private CacheService cacheService;
     @Autowired private Logger logger;
     @Autowired private DataPassService dataPassService;
     @Autowired private CourseRepository courseRepository;
+
+    @FXML private TableColumn<Visit, String> visit_date;
+    @FXML private TableColumn<Visit, String> visit_content;
+    @FXML private TableColumn<Visit, String> visit_summary;
+
+
     private Student originalStudent;
     private Boolean isDeleteOperation;
+
+
+
 
     @FXML
     public void initialize() {
         staff.getItems().addAll(cacheService.getStaffs());
-        refreshAttributeComboBoxContent();
+
+        //refreshAttributeComboBoxContent();
         Student student = (Student) dataPassService.getValue();
-        gender.getItems().addAll("男","女");
         refreshAll(student);
+        //refreshAll(student);
         setEditableMode(false);
-//        initDefaultComponents();
-    }
-    public void addVisit(){//探访记录id是谁的id 谁探访谁
-        return;
-    }
-    public void addInternship(){
-        return;
-    }
-    public void addscore(){
-        return;
-    }
-    public void addRelationship(){
-        return;
+        initDefaultComponents();
     }
 
     public void change(){
         isDeleteOperation = false;
         setEditableMode(true);
         setButtonMode(true);
-        System.out.println("change");
-//        System.out.println(courseRepository.findById("1"));
-
-//        isEditable(true);
-//        isInChangePage(true);
-//        attribute.setValue(originalStudent.getAttribute());
     }
 
     public void delete(){
-        studentRepository.deleteById(originalStudentId);//我觉得这里要有alart，不然失手删掉了很难找回来
-        turnOff();
-    }
-
-    public void close(){
-        turnOff();
+        isDeleteOperation = true;
+        setButtonMode(true);
     }
 
     public void accept(){
@@ -161,26 +164,8 @@ public class StudentInfoController implements InfoPageControllerTemplate {
         setButtonMode(false);
     }
 
-    private void refreshAttributeComboBoxContent() {
-        attribute.getItems().clear();
-        attribute.getItems().add(new Attribute(Constants.CREATE_PROMPT, null, null, null, null));
-        attribute.getItems().addAll(cacheService.getAttributes());
-    }
-
-    public void turnOff() {
-        ((Stage)id.getScene().getWindow()).close();
-    }
-
-    @Override
-    public void setEditableMode(boolean state) {
-        setTextEditableMode(state, id, name, baptismalName,phone,
-                altPhone, address, experience, talent, resource);
-        setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
-        isGregorianCalendar.setDisable(!state);
-        gender.setMouseTransparent(!state);
-        attribute.setMouseTransparent(!state);
-        staff.setMouseTransparent(!state);
-
+    public void close(){
+        turnOff();
     }
 
     @Override
@@ -193,33 +178,36 @@ public class StudentInfoController implements InfoPageControllerTemplate {
         close.setVisible(!state);
 
     }
-    private void refreshAll(Student student) {
-        if (student == null) return;
-        originalStudent = student;
-        refreshBasicInfo(student);
-//        refreshOtherInfo(student);
+
+    @Override
+    public void setEditableMode(boolean state) {
+        setTextEditableMode(state, id, name, baptismalName,phone,education,
+                altPhone, address, experience, talent, resource);
+        setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
+        isGregorianCalendar.setDisable(!state);
+        gender.setMouseTransparent(!state);
+        attribute.setMouseTransparent(!state);
+        staff.setMouseTransparent(!state);
+
     }
+
     private void refreshBasicInfo(Student student) {
         id.setText(student.getId());
         name.setText(student.getName());
         baptismalName.setText(student.getBaptismalName());
         gender.setValue(student.getGender());
-//        gender.getItems().addAll("男", "女");
-//        gender.getSelectionModel().select(staff.getGender() == null ? null : staff.getGender());
+        education.setText(student.getEducation());
         birthday.setValue(student.getBirthday());
-        isGregorianCalendar.setSelected(student.getIsGregorianCalendar() != null && student.getIsGregorianCalendar());//不太懂这里 （和我的不一样）
+        isGregorianCalendar.setSelected(student.getIsGregorianCalendar() != null && student.getIsGregorianCalendar());
         if (student.getBirthday() != null)
             age.setText(student.getBirthday().until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears() + " 岁");
         baptismalDate.setValue(student.getBaptismalDate());
         confirmationDate.setValue(student.getConfirmationDate());
         marriageDate.setValue(student.getMarriageDate());
         deathDate.setValue(student.getDeathDate());
-//        title.setText(staff.getTitle());
-//        responsibility.setText(staff.getResponsibility());
         phone.setText(student.getPhone());
         altPhone.setText(student.getAltPhone());
         address.setText(student.getAddress());
-//        education.setText(staff.getEducation());
         resource.setText(student.getResource());
         talent.setText(student.getTalent());
         experience.setText(student.getExperience());
@@ -254,22 +242,6 @@ public class StudentInfoController implements InfoPageControllerTemplate {
             }
         });
         staff.setValue(student.getStaff());
-//        attribute.setCellFactory(new Callback<ListView<Attribute>, ListCell<Attribute>>() {
-//            @Override
-//            public ListCell<Attribute> call(ListView<Attribute> param) {
-//                return new ListCell<Attribute>() {
-//                    @Override
-//                    protected void updateItem(Attribute item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (item == null || empty) {
-//                            setGraphic(null);
-//                        } else {
-//                            setText(item.getAttribute());
-//                        }
-//                    }
-//                };
-//            }
-//        });
         attribute.setCellFactory(new Callback<ListView<Attribute>, ListCell<Attribute>>() {
             @Override
             public ListCell<Attribute> call(ListView<Attribute> param) {
@@ -329,14 +301,167 @@ public class StudentInfoController implements InfoPageControllerTemplate {
 
     }
 
+    public void addVisit(){
+        KRSTManagementSoftware.openWindow(AddVisit.class);
+        Visit vis = (Visit) dataPassService.getValue();
+        if (vis != null) {
+            originalStudent.getVisits().add(vis);
+            originalStudent = studentRepository.save(originalStudent);
+            visit.getItems().add(vis);
+        }
+    }
+    public void addInternship(){
+        KRSTManagementSoftware.openWindow(AddInternship.class);
+        Internship intern = (Internship) dataPassService.getValue();
+        if (intern != null) {
+            originalStudent.getInternships().add(intern);
+            originalStudent = studentRepository.save(originalStudent);
+            internship.getItems().add(intern);
+        }
+    }
+    public void addscore(){
+        return;
+    }
+    public void addRelationship(){
+//        KRSTManagementSoftware.openWindow(AddRelation.class);
+        Relation relation = (Relation) dataPassService.getValue();
+        if (relation != null) {
+            originalStudent.getRelationships().add(relation);
+            originalStudent = studentRepository.save(originalStudent);
+            relationship.getItems().add(relation);
+        }
+    }
+
+    private void refreshAttributeComboBoxContent() {
+        attribute.getItems().clear();
+        attribute.getItems().add(new Attribute(Constants.CREATE_PROMPT, null, null, null, null));
+        attribute.getItems().addAll(cacheService.getAttributes());
+    }
+
+    public void turnOff() {
+        ((Stage)id.getScene().getWindow()).close();
+    }
+
+
+    private void refreshOtherInfo(Student student){
+    if (student.getVisits() != null)
+        visit.getItems().addAll(student.getVisits());
+    if (student.getInternships() != null)
+        internship.getItems().addAll(student.getInternships());
+    if (student.getRelationships() != null)
+        relationship.getItems().addAll(student.getRelationships());
+
+    }
+    private void initDefaultComponents(){
+        visit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        visit.setRowFactory( tv -> {
+            TableRow<Visit> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                // double click a nonempty row
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    dataPassService.setValue(new Pair<>(originalStudent, row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStudent.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId())); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStudent.getVisits().add(returnedData.getValue()); // store new Visit into originalStaff
+                            visit.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                        } else { // false: delete operation
+                            originalStudent = studentRepository.save(originalStudent); // remove mapping between Staff and Visit
+                            visitRepository.delete(row.getItem()); // remove Visit model in database
+                            logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
+                            visit.getItems().remove(row.getIndex()); // remove data from TableView
+                        }
+                    }
+                }
+            });
+            return row;
+        });
+
+        internship.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        internship.setRowFactory( tv -> {
+            TableRow<Internship> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    dataPassService.setValue(new Pair<>(originalStudent, row.getItem().clone()));
+                    KRSTManagementSoftware.openWindow(InternshipInfoPage.class);
+                    Pair<Boolean, Internship> returnedData = (Pair<Boolean, Internship>) dataPassService.getValue();
+                    if (returnedData != null) { // no changes are made, just ignore it
+                        originalStudent.getInternships().remove(row.getItem()); // remove old data
+                        if (returnedData.getKey()) { // true: update operation
+                            originalStudent.getInternships().add(returnedData.getValue()); // store new Visit into originalStaff
+                            internship.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                            logger.logInfo(this.getClass().toString(), "更改员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        } else { // false: delete operation
+                            internship.getItems().remove(row.getIndex()); // remove data from TableView
+                            logger.logInfo(this.getClass().toString(), "删除员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
+                        }
+                        originalStudent = studentRepository.save(originalStudent); // remove this Internship from Staff
+                    }
+                }
+            });
+            return row ;
+        });
+
+        relationship.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        relationship.setRowFactory( tv -> {
+            TableRow<Relation> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    dataPassService.setValue(row.getItem());
+//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                }
+            });
+            return row ;
+        });
+
+        visit_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        visit_content.setCellValueFactory(new PropertyValueFactory<>("content"));
+        visit_summary.setCellValueFactory(new PropertyValueFactory<>("summary"));
+
+        internship_startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        internship_endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        internship_purpose.setCellValueFactory(new PropertyValueFactory<>("purpose"));
+
+        relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relation"));
+        relationship_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        relationship_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        relationship_type.setCellFactory(new Callback<TableColumn<Relation, Relation.Type>, TableCell<Relation, Relation.Type>>() {
+            @Override
+            public TableCell<Relation, Relation.Type> call(TableColumn<Relation, Relation.Type> param) {
+                return new TableCell<Relation, Relation.Type>() {
+                    @Override
+                    protected void updateItem(Relation.Type item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(item.getTypeString());
+                        }
+                    }
+                };
+            }
+        });
+        relationship_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+    }
+
+
     private Student loadValuesIntoStaffModel() {
         return new Student(id.getText(), name.getText(), baptismalName.getText(), gender.getValue(), birthday.getValue(),
                 isGregorianCalendar.isSelected(), baptismalDate.getValue(), confirmationDate.getValue(), marriageDate.getValue(),
                 deathDate.getValue(), attribute.getValue(), phone.getText(), altPhone.getText(),
-                address.getText(), experience.getText(), talent.getText(), resource.getText(),
+                address.getText(), experience.getText(), talent.getText(), resource.getText(), education.getText(),
                 staff.getValue(), originalStudent.getVisits(), originalStudent.getInternships(), originalStudent.getRelationships(),
                 originalStudent.getGrades()
                 );
     }
 
+    private void refreshAll(Student student) {
+        if (staff == null) return;
+        originalStudent = student;
+        refreshBasicInfo(student);
+        refreshOtherInfo(student);
+    }
 }

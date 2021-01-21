@@ -10,11 +10,12 @@
 <!--     </AnchorPane>-->
 <!-- </SplitPane>-->
 
-<SplitPane fx:id="splitPane" dividerPositions="0.40737893927747887" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1303.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.student.StudentInfoController">
+<?import javafx.collections.FXCollections?>
+<SplitPane fx:id="splitPane" dividerPositions="0.40737893927747887" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="918.0" prefWidth="1303.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.student.StudentInfoController">
 
 <!--<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.student.StudentInfoController">-->
    <items>
-       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="846.0" prefWidth="564.0">
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="852.0" prefWidth="521.0">
           <children>
 
                    <CheckBox fx:id="isGregorianCalendar" layoutX="280.0" layoutY="195.0" mnemonicParsing="false" text="农历" />
@@ -44,13 +45,22 @@
 
                                <TextField fx:id="leader" editable="false" layoutX="101.0" layoutY="366.0" prefHeight="31.0" prefWidth="151.0" />
 
-                   <TextArea fx:id="talent" editable="false" layoutX="318.0" layoutY="576.0" prefHeight="96.0" prefWidth="185.0" />
-                   <TextArea fx:id="resource" editable="false" layoutX="69.0" layoutY="702.0" prefHeight="96.0" prefWidth="185.0" />
-                   <ComboBox fx:id="gender" layoutX="356.0" layoutY="151.0" prefHeight="31.0" prefWidth="72.0" style="-fx-opacity: 1;" />
-                   <TextArea fx:id="experience" editable="false" layoutX="77.0" layoutY="576.0" prefHeight="96.0" prefWidth="185.0" />
+                   <TextArea fx:id="talent" editable="false" layoutX="327.0" layoutY="584.0" prefHeight="96.0" prefWidth="185.0" />
+                   <TextArea fx:id="resource" editable="false" layoutX="96.0" layoutY="710.0" prefHeight="96.0" prefWidth="185.0" />
+                   <TextArea fx:id="experience" editable="false" layoutX="96.0" layoutY="584.0" prefHeight="96.0" prefWidth="185.0" />
+                   <TextArea fx:id="education" editable="false" layoutX="327.0" layoutY="710.0" prefHeight="96.0" prefWidth="185.0" />
+                   <ComboBox fx:id="gender" layoutX="356.0" layoutY="151.0" prefHeight="31.0" prefWidth="72.0"
+                            style="-fx-opacity: 1;" visibleRowCount="2" >
+                       <items>
+                           <FXCollections fx:factory="observableArrayList">
+                               <String fx:value="男" />
+                               <String fx:value="女" />
+                           </FXCollections>
+                       </items>
+                   </ComboBox>
    
 
-                   <TextArea fx:id="address" editable="false" layoutX="105.0" layoutY="492.0" prefHeight="74.0" prefWidth="402.0" />
+                   <TextArea fx:id="address" editable="false" layoutX="96.0" layoutY="492.0" prefHeight="74.0" prefWidth="402.0" />
    
                                <TextField fx:id="phone" editable="false" layoutX="101.0" layoutY="452.0" prefHeight="31.0" prefWidth="151.0">
                    </TextField>
@@ -65,14 +75,15 @@
 
                </Text>
                    <Text layoutX="273.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责人电话" />
-                   <Text layoutX="270.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责员工" />
-                   <Text layoutX="29.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="资源" wrappingWidth="24.0" />
+                   <Text layoutX="278.0" layoutY="838.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责员工" />
+                   <Text layoutX="29.0" layoutY="723.0" strokeType="OUTSIDE" strokeWidth="0.0" text="资源" wrappingWidth="24.0" />
                    <Text layoutX="23.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属教区" />
-                   <Text layoutX="35.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="经历" />
+                   <Text layoutX="29.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" text="经历" />
+                   <Text layoutX="297.0" layoutY="730.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教育" />
                    <Text layoutX="26.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生姓名" />
                    <Text layoutX="11.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="第二负责人" />
                    <Text layoutX="23.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="领洗日期" />
-                   <Text layoutX="270.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="特长" />
+                   <Text layoutX="297.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="特长" />
                    <Text layoutX="29.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="地址" />
                    <Text layoutX="307.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
                    <Text layoutX="279.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="坚振日期" />
@@ -98,12 +109,12 @@
                    <DatePicker fx:id="birthday" disable="true" layoutX="105.0" layoutY="188.0" prefHeight="31.0" prefWidth="151.0" />
    
                
-                   <Button fx:id="cancel" layoutX="296.0" layoutY="812.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
-                   <Button fx:id="close" layoutX="364.0" layoutY="811.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="38.0" prefWidth="67.0" text="退出" />
-                   <Button fx:id="change" layoutX="96.0" layoutY="811.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="38.0" prefWidth="67.0" text="更改" />
-                   <Button fx:id="delete" layoutX="230.0" layoutY="811.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="38.0" prefWidth="67.0" text="删除" />
-                   <Button fx:id="accept" layoutX="162.0" layoutY="812.0" mnemonicParsing="false" onMouseClicked="#accept" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
-                               <ComboBox fx:id="staff" layoutX="325.0" layoutY="695.0" prefHeight="31.0" prefWidth="172.0" />
+                   <Button fx:id="cancel" layoutX="296.0" layoutY="865.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
+                   <Button fx:id="close" layoutX="364.0" layoutY="864.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="38.0" prefWidth="67.0" text="退出" />
+                   <Button fx:id="change" layoutX="96.0" layoutY="864.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="38.0" prefWidth="67.0" text="更改" />
+                   <Button fx:id="delete" layoutX="230.0" layoutY="864.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="38.0" prefWidth="67.0" text="删除" />
+                   <Button fx:id="accept" layoutX="162.0" layoutY="865.0" mnemonicParsing="false" onMouseClicked="#accept" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
+                               <ComboBox fx:id="staff" layoutX="333.0" layoutY="826.0" prefHeight="31.0" prefWidth="172.0" />
                    <ComboBox fx:id="attribute" editable="true" layoutX="101.0" layoutY="329.0" prefHeight="31.0" prefWidth="151.0" />
           </children>
 
