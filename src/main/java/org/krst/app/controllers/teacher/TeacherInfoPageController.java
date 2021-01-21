@@ -310,12 +310,14 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
                 teacherRepository.save(teacher);
                 changeFalse();
                 isGregorianCalendar.setDisable(true);
+                refresh(teacher);
                 }
         }
         public void cancel() {
         //回到上级不保存
             changeFalse();
             refresh(selectedOne);
+            refreshAttributeComboBoxContent();
         }
         private void initSetRightSide(){
 
