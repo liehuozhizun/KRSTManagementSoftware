@@ -8,9 +8,10 @@ import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.StudentRepository;
 import org.krst.app.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RelationshipService {
@@ -29,11 +30,9 @@ public class RelationshipService {
      *          Relation.Type, type of B
      *          String, the relationship of A to B
      *          String, the relationship of B to A
-     * Output : Boolean, result of relationship adding operation
-     *            true, succeed
-     *            false, fail
+     * Output : T, the updated relative model
      */
-    public <T extends InformationOperations, S extends InformationOperations> Boolean addRelationShip(
+    public <T extends InformationOperations, S extends InformationOperations> T addRelationShip(
             T A, Relation.Type AType,
             S B, Relation.Type BType,
             String relationshipA2B,
@@ -50,19 +49,70 @@ public class RelationshipService {
             B.getRelationships().add(A2BRelation);
             A.getRelationships().add(B2ARelation);
 
-            saveModelToRepository(AType, A);
             saveModelToRepository(BType, B);
+            return saveModelToRepository(AType, A);
         } catch (Exception e) {
             logger.logError(this.getClass().toString(), "新增亲属关系失败：错误原因 - ", e.getMessage());
-            return false;
+            return null;
         }
-
-        return true;
     }
 
-//    public <T extends InformationOperations> Boolean updateRelationship(A, Relation.Type AType, String A2BType, ) {
-//
-//    }
+    /*
+     * Update relationship for both relatives
+     * Input  : Relation.Type, type of A
+     *          String, id of A
+     *          Relation.Type, type of B
+     *          String, id of B
+     *          String, the relationship of A to B
+     *          String, the relationship of B to A
+     * Output : T, the updated relative model
+     */
+    public void updateRelationship(Relation.Type AType, String AId, Relation.Type BType, String BId, String relationshipA2B, String relationshipB2A) {
+        switch (AType) {
+            case STUDENT:
+                studentRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+            case TEACHER:
+                teacherRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+            case STAFF:
+                staffRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+            case PERSON:
+                personRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+        }
+
+        switch (BType) {
+            case STUDENT:
+                studentRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+            case TEACHER:
+                teacherRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+            case STAFF:
+                staffRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+            case PERSON:
+                personRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+        }
+    }
+
+    /*
+     * Update id in relationship within other's if change any id
+     * Input  : Set<Relation>, the relationship records of the current person who changed the id
+     *          String, oldId, the old id of the current person
+     *          String, new id of the current person
+     *          String, new name of the current person
+     * Output : nothing
+     */
+    public void updateIdAndName(Set<Relation> relationship, String oldId, String newId, String newName) {
+        relationship.forEach(relation -> {
+            switch (relation.getType()) {
+                case STUDENT:
+                    studentRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                case TEACHER:
+                    teacherRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                case STAFF:
+                    staffRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                case PERSON:
+                    personRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+            }
+        });
+    }
 
     /*
      * Check if this person exists in database by id
@@ -86,20 +136,18 @@ public class RelationshipService {
         return getIdByName(type, name);
     }
 
-    private <T> void saveModelToRepository(Relation.Type type, T data) {
+    private <T> T saveModelToRepository(Relation.Type type, T data) {
         switch (type) {
             case STUDENT:
-                studentRepository.save((Student) data);
-                break;
+                return (T) studentRepository.save((Student) data);
             case TEACHER:
-                teacherRepository.save((Teacher) data);
-                break;
+                return (T) teacherRepository.save((Teacher) data);
             case STAFF:
-                staffRepository.save((Staff) data);
-                break;
+                return (T) staffRepository.save((Staff) data);
             case PERSON:
-                personRepository.save((Person) data);
-                break;
+                return (T) personRepository.save((Person) data);
+            default:
+                return null;
         }
     }
 
@@ -119,17 +167,22 @@ public class RelationshipService {
     }
 
     private String getNameById(Relation.Type type, String id) {
+        Optional data = getDataModelById(type, id);
+        return data.isPresent() ? ((InformationOperations)data.get()).getName() : null;
+    }
+
+    private Optional getDataModelById(Relation.Type type, String id) {
         switch (type) {
             case STUDENT:
-                return studentRepository.findById(id).orElse(new Student()).getName();
+                return studentRepository.findById(id);
             case TEACHER:
-                return teacherRepository.findById(id).orElse(new Teacher()).getName();
+                return teacherRepository.findById(id);
             case STAFF:
-                return staffRepository.findById(id).orElse(new Staff()).getName();
+                return staffRepository.findById(id);
             case PERSON:
-                return personRepository.findById(id).orElse(new Person()).getName();
+                return personRepository.findById(id);
             default:
-                return null;
+                return Optional.empty();
         }
     }
 }
