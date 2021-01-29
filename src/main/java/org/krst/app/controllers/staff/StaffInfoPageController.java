@@ -17,6 +17,7 @@ import org.krst.app.domains.*;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.DataPassService;
+import org.krst.app.services.RelationshipService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.share.AddInternship;
 import org.krst.app.views.share.AddVisit;
@@ -80,6 +81,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     @Autowired private StaffRepository staffRepository;
     @Autowired private VisitRepository visitRepository;
     @Autowired private DataPassService dataPassService;
+    @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
     private Staff originalStaff;
@@ -288,6 +290,9 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         }
 
         if (id.getText().equals(originalStaff.getId())) {
+            if (!name.getText().equals(originalStaff.getName()))
+                relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
+
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
             refreshBasicInfo(originalStaff);
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
@@ -303,6 +308,8 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             alert.setContentText("解决方法：请更改员工编号");
             alert.show();
         } else {
+            relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
+
             staffRepository.delete(originalStaff);
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
             refreshBasicInfo(originalStaff);
