@@ -20,4 +20,7 @@ public interface StaffRepository extends JpaRepository<Staff, String> {
 
     @Query(value = "INSERT INTO staff_relationships VALUES (:stfId, :id, :name, :relationship,:type)", nativeQuery = true)
     void addRelationship(String stfId, String id, String name, String relationship, Relation.Type type);
+
+    @Query(value = "DELETE FROM staff_relationships WHERE staff_id = :stfId AND type =:type AND id = :id", nativeQuery = true)
+    void removeRelationship(String stfId, String id, Relation.Type type);
 }
