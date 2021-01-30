@@ -40,7 +40,7 @@ public interface InfoPageControllerTemplate {
         }
     }
 
-    default void setCheckBoxEditableMOde(boolean state, CheckBox ...checkBoxes) {
+    default void setCheckBoxEditableMode(boolean state, CheckBox ...checkBoxes) {
         for (CheckBox checkBox : checkBoxes) {
             checkBox.setDisable(!state);
         }

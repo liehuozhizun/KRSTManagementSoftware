@@ -10,6 +10,8 @@ import org.krst.app.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class RelationshipService {
     @Autowired private TeacherRepository teacherRepository;
     @Autowired private StaffRepository staffRepository;
     @Autowired private PersonRepository personRepository;
+    @Autowired private CacheService cacheService;
 
     @Autowired private Logger logger;
 
@@ -54,6 +57,34 @@ public class RelationshipService {
         } catch (Exception e) {
             logger.logError(this.getClass().toString(), "新增亲属关系失败：错误原因 - ", e.getMessage());
             return null;
+        }
+    }
+
+    public void addRelationship(Relation.Type curType, String curId, String id, String name, String relationship, Relation.Type type) {
+        switch (curType) {
+            case STUDENT:
+                studentRepository.addRelationship(curId, id, name, relationship, type);
+            case TEACHER:
+                teacherRepository.addRelationship(curId, id, name, relationship, type);
+            case STAFF:
+                staffRepository.addRelationship(curId, id, name, relationship, type);
+            case PERSON:
+                personRepository.addRelationship(curId, id, name, relationship, type);
+        }
+    }
+
+    public Optional<?> getDataModel(Relation.Type type, String id) {
+        switch (type) {
+            case STUDENT:
+                return studentRepository.findById(id);
+            case TEACHER:
+                return teacherRepository.findById(id);
+            case STAFF:
+                return staffRepository.findById(id);
+            case PERSON:
+                return personRepository.findById(id);
+            default:
+                return Optional.empty();
         }
     }
 
@@ -183,6 +214,21 @@ public class RelationshipService {
                 return personRepository.findById(id);
             default:
                 return Optional.empty();
+        }
+    }
+
+    public List<? extends InformationOperations> getAllPossibleRelatives(Relation.Type type) {
+        switch (type) {
+            case STUDENT:
+                return studentRepository.findAll();
+            case TEACHER:
+                return teacherRepository.findAll();
+            case STAFF:
+                return cacheService.getStaffs();
+            case PERSON:
+                return personRepository.findAll();
+            default:
+                return new ArrayList<>();
         }
     }
 }

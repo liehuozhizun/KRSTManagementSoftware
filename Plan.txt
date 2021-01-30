@@ -10,9 +10,9 @@ In Progress
     KRST-2 [FE/BE] StudentInfoPage w/ Controller C
     KRST-3 [FE/BE] Teacher Info Page w/ Controller Z
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-25 [FE/BE] Relation Add Page w/ Controller Y
 
 Done
+    KRST-25 [FE/BE] Add Relationship Page w/ Controller Y 1/29
     KRST-29 [BE] RelationService Y 1/28
     KRST-33 [BE/FE] Attribute Info Page w/ Controller Y 1/11
     KRST-32 [BE/FE] Evaluation Info Page w/ Controller Y 1/10

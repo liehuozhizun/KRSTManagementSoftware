@@ -22,7 +22,8 @@ public class Relation implements Cloneable {
         STAFF,
         PERSON;
 
-        public String getTypeString() {
+        @Override
+        public String toString() {
             switch (this) {
                 case STUDENT:
                     return "学生";
