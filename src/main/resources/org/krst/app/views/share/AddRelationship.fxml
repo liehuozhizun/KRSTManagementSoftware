@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0"
+      prefWidth="459.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.AddRelationshipController">
+    <Text layoutX="176.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新增亲属关系">
+        <font>
+          <Font size="18.0"/>
+        </font>
+    </Text>
+    <Text layoutX="54.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="编号"/>
+    <Text layoutX="240.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="姓名"/>
+    <Text layoutX="24.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="选择身份"/>
+    <Text layoutX="24.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="选择亲属"/>
+    <Text layoutX="145.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="是"/>
+    <Text layoutX="145.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="是"/>
+    <TextField fx:id="id" layoutX="101.0" layoutY="83.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="name" layoutX="283.0" layoutY="83.0" prefHeight="31.0" prefWidth="119.0"/>
+    <ComboBox fx:id="type" layoutX="101.0" layoutY="132.0" prefWidth="150.0"/>
+    <TextField fx:id="relationshipAtoB" layoutX="277.0" layoutY="260.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="relationshipBtoA" layoutX="277.0" layoutY="310.0" prefHeight="31.0" prefWidth="119.0"/>
+    <Button fx:id="accept" layoutX="126.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#accept" prefHeight="40.0"
+            prefWidth="74.0" text="确认"/>
+    <Button layoutX="260.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="40.0"
+            prefWidth="74.0" text="取消"/>
+    <ComboBox fx:id="relative" editable="true" layoutX="101.0" layoutY="180.0" prefWidth="150.0"/>
+    <Text fx:id="AName1" layoutX="63.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A 姓名" textAlignment="CENTER"
+          underline="true" wrappingWidth="81.08447265625"/>
+    <Text fx:id="BName1" layoutX="159.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B 姓名" textAlignment="CENTER"
+          underline="true" wrappingWidth="81.08447265625"/>
+    <Line endX="150.0" layoutX="238.0" layoutY="232.0" startX="-150.0" strokeDashOffset="4.0"/>
+    <Text fx:id="AName2"layoutX="159.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A 姓名" textAlignment="CENTER"
+          underline="true" wrappingWidth="81.08447265625"/>
+    <Text fx:id="BName2" layoutX="63.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B 姓名" textAlignment="CENTER"
+          underline="true" wrappingWidth="81.08447265625"/>
+    <Text layoutX="240.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="的"/>
+    <Text layoutX="240.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="的"/>
+</Pane>

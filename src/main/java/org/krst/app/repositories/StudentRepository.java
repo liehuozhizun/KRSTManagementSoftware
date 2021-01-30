@@ -17,4 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 
     @Query(value = "UPDATE student_relationships SET relationship = :newRelationship WHERE student_id = :stdId AND type = :type AND id = :id", nativeQuery = true)
     void updateRelationship(String stdId, String id, String newRelationship, Relation.Type type);
+
+    @Query(value = "INSERT INTO student_relationships VALUES (:stdId, :id, :name, :relationship,:type)", nativeQuery = true)
+    void addRelationship(String stdId, String id, String name, String relationship, Relation.Type type);
 }

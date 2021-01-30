@@ -17,4 +17,7 @@ public interface StaffRepository extends JpaRepository<Staff, String> {
 
     @Query(value = "UPDATE staff_relationships SET relationship = :newRelationship WHERE staff_id = :stdId AND type = :type AND id = :id", nativeQuery = true)
     void updateRelationship(String stfId, String id, String newRelationship, Relation.Type type);
+
+    @Query(value = "INSERT INTO staff_relationships VALUES (:stfId, :id, :name, :relationship,:type)", nativeQuery = true)
+    void addRelationship(String stfId, String id, String name, String relationship, Relation.Type type);
 }

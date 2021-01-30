@@ -210,7 +210,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
-                            this.setText(item.getTypeString());
+                            this.setText(item.toString());
                         }
                     }
                 };
@@ -349,7 +349,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         setTextEditableMode(state, id, name, baptismalName, title, responsibility,
                 phone, altPhone, address, experience, talent, resource, education);
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
-        setCheckBoxEditableMOde(state, isGregorianCalendar);
+        setCheckBoxEditableMode(state, isGregorianCalendar);
         setComboBoxEditableMode(state, gender);
     }
 

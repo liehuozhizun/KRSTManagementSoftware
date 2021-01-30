@@ -17,4 +17,7 @@ public interface PersonRepository extends JpaRepository<Person, String> {
 
     @Query(value = "UPDATE person_relationships SET relationship = :newRelationship WHERE person_id = :stdId AND type = :type AND id = :id", nativeQuery = true)
     void updateRelationship(String perId, String id, String newRelationship, Relation.Type type);
+
+    @Query(value = "INSERT INTO person_relationships VALUES (:perId, :id, :name, :relationship,:type)", nativeQuery = true)
+    void addRelationship(String perId, String id, String name, String relationship, Relation.Type type);
 }

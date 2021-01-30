@@ -17,4 +17,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String> {
 
     @Query(value = "UPDATE teacher_relationships SET relationship = :newRelationship WHERE teacher_id = :stdId AND type = :type AND id = :id", nativeQuery = true)
     void updateRelationship(String tecId, String id, String newRelationship, Relation.Type type);
+
+    @Query(value = "INSERT INTO teacher_relationships VALUES (:tecId, :id, :name, :relationship,:type)", nativeQuery = true)
+    void addRelationship(String tecId, String id, String name, String relationship, Relation.Type type);
 }
