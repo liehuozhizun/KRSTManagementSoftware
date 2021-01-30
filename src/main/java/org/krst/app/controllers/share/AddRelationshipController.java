@@ -23,14 +23,14 @@ import org.springframework.data.util.Pair;
  */
 @FXMLController
 public class AddRelationshipController implements InfoPageControllerTemplate {
-    @FXML TextField id;
-    @FXML TextField name;
-    @FXML ComboBox<Relation.Type> type;
-    @FXML ComboBox<InformationOperations> relative;
-    @FXML TextField relationshipAtoB;
-    @FXML TextField relationshipBtoA;
-    @FXML Button accept;
-    @FXML Text AName1, AName2, BName1, BName2;
+    @FXML private TextField id;
+    @FXML private TextField name;
+    @FXML private ComboBox<Relation.Type> type;
+    @FXML private ComboBox<InformationOperations> relative;
+    @FXML private TextField relationshipAtoB;
+    @FXML private TextField relationshipBtoA;
+    @FXML private Button accept;
+    @FXML private Text AName1, AName2, BName1, BName2;
 
     @Autowired private DataPassService dataPassService;
     @Autowired private RelationshipService relationshipService;

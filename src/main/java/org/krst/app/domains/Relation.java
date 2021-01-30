@@ -37,6 +37,21 @@ public class Relation implements Cloneable {
                     return "无该类型";
             }
         }
+
+        public static Type getTypeByString(String type) {
+            switch (type) {
+                case "学生":
+                    return STUDENT;
+                case "教师":
+                    return TEACHER;
+                case "员工":
+                    return STAFF;
+                case "普通":
+                    return PERSON;
+                default:
+                    return null;
+            }
+        }
     }
 
     @Override

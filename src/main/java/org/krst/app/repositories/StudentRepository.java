@@ -20,4 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 
     @Query(value = "INSERT INTO student_relationships VALUES (:stdId, :id, :name, :relationship,:type)", nativeQuery = true)
     void addRelationship(String stdId, String id, String name, String relationship, Relation.Type type);
+
+    @Query(value = "DELETE FROM student_relationships WHERE student_id = :stdId AND type =:type AND id = :id", nativeQuery = true)
+    void removeRelationship(String stdId, String id, Relation.Type type);
 }

@@ -20,4 +20,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String> {
 
     @Query(value = "INSERT INTO teacher_relationships VALUES (:tecId, :id, :name, :relationship,:type)", nativeQuery = true)
     void addRelationship(String tecId, String id, String name, String relationship, Relation.Type type);
+
+    @Query(value = "DELETE FROM teacher_relationships WHERE teacher_id = :tecId AND type =:type AND id = :id", nativeQuery = true)
+    void removeRelationship(String tecId, String id, Relation.Type type);
 }

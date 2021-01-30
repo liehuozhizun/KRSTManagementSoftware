@@ -20,4 +20,7 @@ public interface PersonRepository extends JpaRepository<Person, String> {
 
     @Query(value = "INSERT INTO person_relationships VALUES (:perId, :id, :name, :relationship,:type)", nativeQuery = true)
     void addRelationship(String perId, String id, String name, String relationship, Relation.Type type);
+
+    @Query(value = "DELETE FROM person_relationships WHERE person_id = :perId AND type =:type AND id = :id", nativeQuery = true)
+    void removeRelationship(String perId, String id, Relation.Type type);
 }

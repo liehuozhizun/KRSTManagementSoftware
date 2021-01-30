@@ -231,4 +231,18 @@ public class RelationshipService {
                 return new ArrayList<>();
         }
     }
+
+    public void removeRelationship(Relation.Type AType, String AId, String BId, Relation.Type BType) {
+        switch (AType) {
+            case STUDENT:
+                studentRepository.removeRelationship(AId, BId, BType);
+            case TEACHER:
+                teacherRepository.removeRelationship(AId, BId, BType);
+            case STAFF:
+                staffRepository.removeRelationship(AId, BId, BType);
+                cacheService.refreshStaffCache();
+            case PERSON:
+                personRepository.removeRelationship(AId, BId, BType);
+        }
+    }
 }
