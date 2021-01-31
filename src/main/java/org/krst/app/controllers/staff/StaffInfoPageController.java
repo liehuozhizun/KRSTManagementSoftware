@@ -14,15 +14,13 @@ import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.*;
+import org.krst.app.models.RelationPassModel;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.RelationshipService;
 import org.krst.app.utils.CommonUtils;
-import org.krst.app.views.share.AddInternship;
-import org.krst.app.views.share.AddVisit;
-import org.krst.app.views.share.InternshipInfoPage;
-import org.krst.app.views.share.VisitInfoPage;
+import org.krst.app.views.share.*;
 import org.krst.app.views.staff.AddEvaluation;
 import org.krst.app.views.staff.EvaluationInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +87,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
 
     @FXML public void initialize() {
         Staff staff = (Staff)dataPassService.getValue();
-        staff = staffRepository.findById("1").orElse(new Staff());
         refreshAll(staff);
         initDefaultComponents();
         setEditableMode(false);
@@ -102,21 +99,20 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         visit.setRowFactory( tv -> {
             TableRow<Visit> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                // double click a nonempty row
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                     dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(VisitInfoPage.class);
                     Pair<Boolean, Visit> returnedData = (Pair<Boolean, Visit>) dataPassService.getValue();
-                    if (returnedData != null) { // no changes are made, just ignore it
-                        originalStaff.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId())); // remove old data
-                        if (returnedData.getKey()) { // true: update operation
-                            originalStaff.getVisits().add(returnedData.getValue()); // store new Visit into originalStaff
-                            visit.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
-                        } else { // false: delete operation
-                            originalStaff = staffRepository.save(originalStaff); // remove mapping between Staff and Visit
-                            visitRepository.delete(row.getItem()); // remove Visit model in database
+                    if (returnedData != null) {
+                        originalStaff.getVisits().removeIf(vis -> vis.getId().equals(row.getItem().getId()));
+                        if (returnedData.getKey()) {
+                            originalStaff.getVisits().add(returnedData.getValue());
+                            visit.getItems().set(row.getIndex(), returnedData.getValue());
+                        } else {
+                            originalStaff = staffRepository.save(originalStaff);
+                            visitRepository.delete(row.getItem());
                             logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
-                            visit.getItems().remove(row.getIndex()); // remove data from TableView
+                            visit.getItems().remove(row.getIndex());
                         }
                     }
                 }
@@ -131,17 +127,17 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                     dataPassService.setValue(new Pair<>(originalStaff, row.getItem().clone()));
                     KRSTManagementSoftware.openWindow(InternshipInfoPage.class);
                     Pair<Boolean, Internship> returnedData = (Pair<Boolean, Internship>) dataPassService.getValue();
-                    if (returnedData != null) { // no changes are made, just ignore it
-                        originalStaff.getInternships().remove(row.getItem()); // remove old data
-                        if (returnedData.getKey()) { // true: update operation
-                            originalStaff.getInternships().add(returnedData.getValue()); // store new Visit into originalStaff
-                            internship.getItems().set(row.getIndex(), returnedData.getValue()); // update data for row in TableView
+                    if (returnedData != null) {
+                        originalStaff.getInternships().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalStaff.getInternships().add(returnedData.getValue());
+                            internship.getItems().set(row.getIndex(), returnedData.getValue());
                             logger.logInfo(this.getClass().toString(), "更改员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
-                        } else { // false: delete operation
-                            internship.getItems().remove(row.getIndex()); // remove data from TableView
+                        } else {
+                            internship.getItems().remove(row.getIndex());
                             logger.logInfo(this.getClass().toString(), "删除员工服侍记录：编号-{}，姓名-{}", id.getText(), name.getText());
                         }
-                        originalStaff = staffRepository.save(originalStaff); // remove this Internship from Staff
+                        originalStaff = staffRepository.save(originalStaff);
                     }
                 }
             });
@@ -177,8 +173,31 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             TableRow<Relation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    dataPassService.setValue(row.getItem());
-//                    KRSTManagementSoftware.openWindow(VisitInfoPage.class);
+                    Relation tempRelation = row.getItem();
+                    RelationPassModel relationPassModel = new RelationPassModel(
+                            Relation.Type.STAFF,
+                            originalStaff.getId(),
+                            originalStaff.getName(),
+                            tempRelation.getType(),
+                            tempRelation.getId(),
+                            tempRelation.getName(),
+                            tempRelation.getRelationship()
+                    );
+                    dataPassService.setValue(relationPassModel);
+                    KRSTManagementSoftware.openWindow(RelationshipInfoPage.class);
+                    Pair<Boolean, String> returnedData = (Pair<Boolean, String>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        if (returnedData.getKey()) {
+                            originalStaff.getRelationships().remove(row.getItem());
+                            Relation temp = row.getItem();
+                            temp.setRelationship(returnedData.getValue());
+                            relationship.getItems().set(row.getIndex(), temp);
+                            originalStaff.getRelationships().add(row.getItem());
+                        } else {
+                            originalStaff.getRelationships().remove(row.getItem());
+                            relationship.getItems().remove(row.getItem());
+                        }
+                    }
                 }
             });
             return row ;
@@ -196,7 +215,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
         evaluation_year.setCellValueFactory(new PropertyValueFactory<>("year"));
         evaluation_content.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
-        relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relation"));
+        relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relationship"));
         relationship_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         relationship_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         relationship_type.setCellFactory(new Callback<TableColumn<Relation, Relation.Type>, TableCell<Relation, Relation.Type>>() {
@@ -206,7 +225,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Relation.Type item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -396,12 +415,12 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void addRelationship() {
-//        KRSTManagementSoftware.openWindow(AddRelation.class);
-        Relation relation = (Relation) dataPassService.getValue();
-        if (relation != null) {
-            originalStaff.getRelationships().add(relation);
-            originalStaff = staffRepository.save(originalStaff);
-            relationship.getItems().add(relation);
+        dataPassService.setValue(new Pair<>(Relation.Type.STAFF, new Pair<>(originalStaff.getId(), originalStaff.getName())));
+        KRSTManagementSoftware.openWindow(AddRelationship.class);
+        Staff tempStaff = (Staff) dataPassService.getValue();
+        if (tempStaff != null) {
+            originalStaff = tempStaff;
+            relationship.getItems().setAll(originalStaff.getRelationships());
         }
     }
 }

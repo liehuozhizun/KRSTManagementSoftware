@@ -187,7 +187,7 @@
             <TableColumn fx:id="relationship_relation" prefWidth="84.0" text="关系"/>
             <TableColumn fx:id="relationship_name" prefWidth="84.0" text="姓名"/>
             <TableColumn fx:id="relationship_type" prefWidth="87.0" text="类型"/>
-            <TableColumn fx:id="relationship_id" prefWidth="76.0" text="编号"/>
+            <TableColumn fx:id="relationship_id" prefWidth="75.0" text="编号"/>
          </columns>
       </TableView>
       <Button layoutX="305.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#addVisit" text="新增"/>

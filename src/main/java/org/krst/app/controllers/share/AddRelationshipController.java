@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.util.Pair;
+import javafx.util.StringConverter;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.Relation;
 import org.krst.app.domains.operations.InformationOperations;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 
 /*
  * In    : Pair<Relation.Type, Pair<String, String>>
@@ -52,6 +52,7 @@ public class AddRelationshipController implements InfoPageControllerTemplate {
     }
 
     private void initComponent() {
+        selectedType = null;
         setEditableMode(false);
         setButtonMode(false);
 
@@ -61,10 +62,10 @@ public class AddRelationshipController implements InfoPageControllerTemplate {
 
             if (oldValue == null) {
                 setEditableMode(true);
+                setButtonMode(true);
             }
 
             if (selectedType != newValue) {
-                relative.getSelectionModel().clearSelection();
                 relative.getItems().clear();
                 relative.getItems().addAll(relationshipService.getAllPossibleRelatives(newValue));
                 selectedType = newValue;
@@ -75,41 +76,46 @@ public class AddRelationshipController implements InfoPageControllerTemplate {
             if (newValue == null) return;
             BName1.setText(newValue.getName());
             BName2.setText(newValue.getName());
+            relativeModel = newValue;
         });
 
-        relative.setCellFactory(new Callback<ListView<InformationOperations>, ListCell<InformationOperations>>() {
+        relative.setConverter(new StringConverter<InformationOperations>() {
             @Override
-            public ListCell<InformationOperations> call(ListView<InformationOperations> param) {
-                return new ListCell<InformationOperations>() {
-                    @Override
-                    protected void updateItem(InformationOperations item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            this.setText(null);
-                            this.setGraphic(null);
-                        } else {
-                            relativeModel = item;
-                            this.setText(item.getNameAndId());
-                        }
-                    }
-                };
+            public String toString(InformationOperations object) {
+                return object == null ? null : object.getNameAndId();
+            }
+
+            @Override
+            public InformationOperations fromString(String string) {
+                InformationOperations temp = relative.getItems().stream()
+                        .filter(x -> x.getName().equals(string) || x.getId().equals(string) || x.getNameAndId().equals(string))
+                        .findAny().orElse(null);
+                if (temp != null) {
+                    BName1.setText(temp.getName());
+                    BName2.setText(temp.getName());
+                } else {
+                    BName1.setText("?");
+                    BName2.setText("?");
+                }
+
+                return temp;
             }
         });
     }
 
     private void initData(Pair<Relation.Type, Pair<String, String>> data) {
-        _type = data.getFirst();
-        id.setText(data.getSecond().getFirst());
-        name.setText(data.getSecond().getSecond());
-        AName1.setText(data.getSecond().getSecond());
-        AName2.setText(data.getSecond().getSecond());
+        _type = data.getKey();
+        id.setText(data.getValue().getKey());
+        name.setText(data.getValue().getValue());
+        AName1.setText(data.getValue().getValue());
+        AName2.setText(data.getValue().getValue());
         BName1.setText("?");
         BName2.setText("?");
     }
 
     public void accept() {
         relationshipService.addRelationship(_type, id.getText(), relativeModel.getId(), relativeModel.getName(), relationshipBtoA.getText(), type.getValue());
-        relationshipService.addRelationship(type.getValue(), relativeModel.getId(), id.getId(), name.getText(), relationshipAtoB.getText(), _type);
+        relationshipService.addRelationship(type.getValue(), relativeModel.getId(), id.getText(), name.getText(), relationshipAtoB.getText(), _type);
         relationshipService.getDataModel(_type, id.getText()).ifPresent(data -> dataPassService.setValue(data));
         close();
     }
@@ -120,8 +126,8 @@ public class AddRelationshipController implements InfoPageControllerTemplate {
 
     @Override
     public void setEditableMode(boolean state) {
-        setTextEditableMode(false, id, name, relationshipAtoB, relationshipBtoA);
-        setComboBoxEditableMode(false, relative);
+        setTextEditableMode(state, id, name, relationshipAtoB, relationshipBtoA);
+        setComboBoxEditableMode(state, relative);
     }
 
     @Override

@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /*
  * In  : RelationPassModel, the model contains the relationship information
  * Out : null, nothing changed
- *       Pair<Boolean, String>, result of
+ *       Pair<Boolean, String>, result of changed relationship
  *          <false, null>, delete this relationship
  *          <true, String>, updated the relationship
  */
@@ -49,6 +49,8 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
     @Autowired private Logger logger;
 
     private boolean isDeleteOperation;
+    private Relation.Type _AType;
+    private Relation.Type _BType;
     private String _relationshipAtoB;
     private String _relationshipBtoA;
 
@@ -64,20 +66,22 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
         setEditableMode(false);
         setButtonMode(false);
 
+        _AType = data.getAType();
         AType.setText(data.getAType().toString());
         AId.setText(data.getAId());
         AName.setText(data.getAName());
         AName1.setText(data.getAName());
         AName2.setText(data.getAName());
+        _BType = data.getBType();
         BType.setText(data.getBType().toString());
         BId.setText(data.getBId());
         BName.setText(data.getBName());
         BName1.setText(data.getBName());
         BName2.setText(data.getBName());
 
-        _relationshipAtoB = data.getRelationshipAtoB();
+        _relationshipAtoB = relationshipService.getRelationship(data.getBType(), data.getBId(), data.getAId(), data.getAType());
         _relationshipBtoA = data.getRelationshipBtoA();
-        relationshipAtoB.setText(data.getRelationshipAtoB());
+        relationshipAtoB.setText(_relationshipAtoB);
         relationshipBtoA.setText(data.getRelationshipBtoA());
     }
 
@@ -92,7 +96,7 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
         accept.setVisible(state);
         accept.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
         delete.setVisible(!state);
-        deletePromptText.setVisible(!state);
+        deletePromptText.setVisible(isDeleteOperation && state);
         cancel.setVisible(state);
         close.setVisible(!state);
     }
@@ -108,14 +112,14 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
      */
     public void accept() {
         if (isDeleteOperation) {
-            relationshipService.removeRelationship(Relation.Type.getTypeByString(AType.getText()), AId.getText(), BId.getText(), Relation.Type.getTypeByString(BType.getText()));
-            relationshipService.removeRelationship(Relation.Type.getTypeByString(BType.getText()), BId.getText(), AId.getText(), Relation.Type.getTypeByString(AType.getText()));
+            relationshipService.removeRelationship(_AType, AId.getText(), BId.getText(), _BType);
+            relationshipService.removeRelationship(_BType, BId.getText(), AId.getText(), _AType);
             logger.logInfo(this.getClass().toString(), "删除亲属关系：A类型-{}，A编号-{}，A姓名-{}，B2A原关系-{}; B类型-{}，B编号-{}，B姓名-{}，A2B原关系-{}",
                     AType.getText(), AId.getText(), AName.getText(), _relationshipBtoA, BType.getText(), BId.getText(), BName.getText(), _relationshipAtoB);
             dataPassService.setValue(new Pair<>(false, null));
             close();
-        } else if (!_relationshipAtoB.equals(relationshipAtoB.getText()) && !_relationshipBtoA.equals(relationshipBtoA.getText())) {
-            relationshipService.updateRelationship(Relation.Type.getTypeByString(AType.getText()), AId.getText(), Relation.Type.getTypeByString(BType.getText()), BId.getText(), relationshipAtoB.getText(), relationshipBtoA.getText());
+        } else if (!_relationshipAtoB.equals(relationshipAtoB.getText()) || !_relationshipBtoA.equals(relationshipBtoA.getText())) {
+            relationshipService.updateRelationship(_AType, AId.getText(), _BType, BId.getText(), relationshipAtoB.getText(), relationshipBtoA.getText());
             logger.logInfo(this.getClass().toString(),"更改亲属关系：A类型-{}，A编号-{}，A姓名-{}，B2A原关系-{}，B2A现关系-{}; B类型-{}，B编号-{}，B姓名-{}，A2B原关系-{}，A2B现关系-{}",
                     AType.getText(), AId.getText(), AName.getText(), _relationshipBtoA, relationshipBtoA.getText(), BType.getText(), BId.getText(), BName.getText(), _relationshipAtoB, relationshipAtoB.getText());
             setEditableMode(false);
