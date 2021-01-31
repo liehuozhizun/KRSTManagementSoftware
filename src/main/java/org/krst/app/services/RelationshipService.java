@@ -1,6 +1,5 @@
 package org.krst.app.services;
 
-import org.krst.app.configurations.Logger;
 import org.krst.app.domains.*;
 import org.krst.app.domains.operations.InformationOperations;
 import org.krst.app.repositories.PersonRepository;
@@ -23,68 +22,26 @@ public class RelationshipService {
     @Autowired private PersonRepository personRepository;
     @Autowired private CacheService cacheService;
 
-    @Autowired private Logger logger;
-
     /*
      * Add relationship to each other
-     * Input  : T, relative A (current person)
-     *          Relation.Type, type of A
-     *          S, relative B (the one who will be passively built relationship)
-     *          Relation.Type, type of B
-     *          String, the relationship of A to B
-     *          String, the relationship of B to A
-     * Output : T, the updated relative model
+     * Input  : Relation.Type, type of the current person
+     *          String, id of the current person
+     *          String, id of the relative
+     *          String, name of the relative
+     *          String, the relationship of the relative to the current person
+     *          Relation.Type, type of relative
+     * Output : none
      */
-    public <T extends InformationOperations, S extends InformationOperations> T addRelationShip(
-            T A, Relation.Type AType,
-            S B, Relation.Type BType,
-            String relationshipA2B,
-            String relationshipB2A
-    ) {
-        if (A == null || B == null || relationshipA2B == null || relationshipB2A == null) {
-            return null;
-        }
-
-        try {
-            Relation A2BRelation = new Relation(relationshipB2A, A.getName(), AType, A.getId());
-            Relation B2ARelation = new Relation(relationshipA2B, B.getName(), BType, B.getId());
-
-            B.getRelationships().add(A2BRelation);
-            A.getRelationships().add(B2ARelation);
-
-            saveModelToRepository(BType, B);
-            return saveModelToRepository(AType, A);
-        } catch (Exception e) {
-            logger.logError(this.getClass().toString(), "新增亲属关系失败：错误原因 - ", e.getMessage());
-            return null;
-        }
-    }
-
     public void addRelationship(Relation.Type curType, String curId, String id, String name, String relationship, Relation.Type type) {
         switch (curType) {
             case STUDENT:
-                studentRepository.addRelationship(curId, id, name, relationship, type);
+                studentRepository.addRelationship(curId, id, name, relationship, type.ordinal());
             case TEACHER:
-                teacherRepository.addRelationship(curId, id, name, relationship, type);
+                teacherRepository.addRelationship(curId, id, name, relationship, type.ordinal());
             case STAFF:
-                staffRepository.addRelationship(curId, id, name, relationship, type);
+                staffRepository.addRelationship(curId, id, name, relationship, type.ordinal());
             case PERSON:
-                personRepository.addRelationship(curId, id, name, relationship, type);
-        }
-    }
-
-    public Optional<?> getDataModel(Relation.Type type, String id) {
-        switch (type) {
-            case STUDENT:
-                return studentRepository.findById(id);
-            case TEACHER:
-                return teacherRepository.findById(id);
-            case STAFF:
-                return staffRepository.findById(id);
-            case PERSON:
-                return personRepository.findById(id);
-            default:
-                return Optional.empty();
+                personRepository.addRelationship(curId, id, name, relationship, type.ordinal());
         }
     }
 
@@ -96,29 +53,29 @@ public class RelationshipService {
      *          String, id of B
      *          String, the relationship of A to B
      *          String, the relationship of B to A
-     * Output : T, the updated relative model
+     * Output : none
      */
     public void updateRelationship(Relation.Type AType, String AId, Relation.Type BType, String BId, String relationshipA2B, String relationshipB2A) {
         switch (AType) {
             case STUDENT:
-                studentRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+                studentRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
             case TEACHER:
-                teacherRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+                teacherRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
             case STAFF:
-                staffRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+                staffRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
             case PERSON:
-                personRepository.updateRelationship(AId, BId, relationshipB2A, BType);
+                personRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
         }
 
         switch (BType) {
             case STUDENT:
-                studentRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+                studentRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
             case TEACHER:
-                teacherRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+                teacherRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
             case STAFF:
-                staffRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+                staffRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
             case PERSON:
-                personRepository.updateRelationship(AId, BId, relationshipA2B, AType);
+                personRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
         }
     }
 
@@ -128,95 +85,50 @@ public class RelationshipService {
      *          String, oldId, the old id of the current person
      *          String, new id of the current person
      *          String, new name of the current person
-     * Output : nothing
+     * Output : none
      */
     public void updateIdAndName(Set<Relation> relationship, String oldId, String newId, String newName) {
         relationship.forEach(relation -> {
             switch (relation.getType()) {
                 case STUDENT:
-                    studentRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                    studentRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
                 case TEACHER:
-                    teacherRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                    teacherRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
                 case STAFF:
-                    staffRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                    staffRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
                 case PERSON:
-                    personRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType());
+                    personRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
             }
         });
     }
 
     /*
-     * Check if this person exists in database by id
-     * Input  : Relation.Type, type of this person
-     *          String, id of this person
-     * Output : String, null if this person doesn't exist
-     *                  actual name if this person exists
+     * Remove relationship info
+     * Input  : Relation.Type, type of A
+     *          String, id of A
+     *          String, id of B
+     *          Relation.Type, type of B
+     * Output : none
      */
-    public String checkExistenceById(Relation.Type type, String id) {
-        return getNameById(type, id);
+    public void removeRelationship(Relation.Type AType, String AId, String BId, Relation.Type BType) {
+        switch (AType) {
+            case STUDENT:
+                studentRepository.removeRelationship(AId, BId, BType.ordinal());
+            case TEACHER:
+                teacherRepository.removeRelationship(AId, BId, BType.ordinal());
+            case STAFF:
+                staffRepository.removeRelationship(AId, BId, BType.ordinal());
+                cacheService.refreshStaffCache();
+            case PERSON:
+                personRepository.removeRelationship(AId, BId, BType.ordinal());
+        }
     }
 
     /*
-     * Check if this person exists in database by name
-     * Input  : Relation.Type, type of this person
-     *          String, name of this person
-     * Output : String, null if this person doesn't exist
-     *                  id if this person exists
+     * Remove relationship info
+     * Input  : Relation.Type, type of the relative
+     * Output : List<? extends InformationOperations>, all possible relatives of the type
      */
-    public String checkExistenceByName(Relation.Type type, String name) {
-        return getIdByName(type, name);
-    }
-
-    private <T> T saveModelToRepository(Relation.Type type, T data) {
-        switch (type) {
-            case STUDENT:
-                return (T) studentRepository.save((Student) data);
-            case TEACHER:
-                return (T) teacherRepository.save((Teacher) data);
-            case STAFF:
-                return (T) staffRepository.save((Staff) data);
-            case PERSON:
-                return (T) personRepository.save((Person) data);
-            default:
-                return null;
-        }
-    }
-
-    private String getIdByName(Relation.Type type, String name) {
-        switch (type) {
-            case STUDENT:
-                return studentRepository.findTopByName(name).orElse(new Student()).getId();
-            case TEACHER:
-                return teacherRepository.findTopByName(name).orElse(new Teacher()).getId();
-            case STAFF:
-                return staffRepository.findTopByName(name).orElse(new Staff()).getId();
-            case PERSON:
-                return personRepository.findTopByName(name).orElse(new Person()).getId();
-            default:
-                return null;
-        }
-    }
-
-    private String getNameById(Relation.Type type, String id) {
-        Optional data = getDataModelById(type, id);
-        return data.isPresent() ? ((InformationOperations)data.get()).getName() : null;
-    }
-
-    private Optional getDataModelById(Relation.Type type, String id) {
-        switch (type) {
-            case STUDENT:
-                return studentRepository.findById(id);
-            case TEACHER:
-                return teacherRepository.findById(id);
-            case STAFF:
-                return staffRepository.findById(id);
-            case PERSON:
-                return personRepository.findById(id);
-            default:
-                return Optional.empty();
-        }
-    }
-
     public List<? extends InformationOperations> getAllPossibleRelatives(Relation.Type type) {
         switch (type) {
             case STUDENT:
@@ -232,17 +144,47 @@ public class RelationshipService {
         }
     }
 
-    public void removeRelationship(Relation.Type AType, String AId, String BId, Relation.Type BType) {
+    /*
+     * Obtain the relationship of the relative
+     * Input  : Relation.Type, type of A
+     *          String, id of A
+     *          String, id of B
+     *          Relation.Type, type of B
+     * Output : String, the relationship of the relative
+     */
+    public String getRelationship(Relation.Type AType, String AId, String BId, Relation.Type BType) {
         switch (AType) {
             case STUDENT:
-                studentRepository.removeRelationship(AId, BId, BType);
+                return studentRepository.getRelationship(AId, BId, BType.ordinal());
             case TEACHER:
-                teacherRepository.removeRelationship(AId, BId, BType);
+                return teacherRepository.getRelationship(AId, BId, BType.ordinal());
             case STAFF:
-                staffRepository.removeRelationship(AId, BId, BType);
-                cacheService.refreshStaffCache();
+                return staffRepository.getRelationship(AId, BId, BType.ordinal());
             case PERSON:
-                personRepository.removeRelationship(AId, BId, BType);
+                return personRepository.getRelationship(AId, BId, BType.ordinal());
+            default:
+                return null;
+        }
+    }
+
+    /*
+     * Obtain the relevant person data model
+     * Input  : Relation.Type, type of the person
+     *          String, id of the current person
+     * Output : Optional<? extends InformationOperations>, data model of the person
+     */
+    public Optional<? extends InformationOperations> getDataModel(Relation.Type type, String id) {
+        switch (type) {
+            case STUDENT:
+                return studentRepository.findById(id);
+            case TEACHER:
+                return teacherRepository.findById(id);
+            case STAFF:
+                return staffRepository.findById(id);
+            case PERSON:
+                return personRepository.findById(id);
+            default:
+                return Optional.empty();
         }
     }
 }

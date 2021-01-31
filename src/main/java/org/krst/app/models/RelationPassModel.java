@@ -13,6 +13,5 @@ public class RelationPassModel {
     private Relation.Type BType;
     private String BId;
     private String BName;
-    private String relationshipAtoB;
     private String relationshipBtoA;
 }

@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Relation implements Cloneable {
     private String relationship;
     private String name;
+    @Enumerated(value = EnumType.ORDINAL)
     private Type type;
     private String id;
 
@@ -34,7 +35,7 @@ public class Relation implements Cloneable {
                 case PERSON:
                     return "普通";
                 default:
-                    return "无该类型";
+                    return null;
             }
         }
 

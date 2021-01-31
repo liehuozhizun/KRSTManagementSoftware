@@ -13,22 +13,38 @@
             <Font size="18.0"/>
         </font>
     </Text>
-    <Text layoutX="31.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="身份"/>
-    <Text layoutX="31.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="编号"/>
-    <Text layoutX="31.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="姓名"/>
-    <Text layoutX="238.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="身份"/>
-    <Text layoutX="238.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="编号"/>
-    <Text layoutX="238.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="姓名"/>
+    <Text layoutX="31.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="身份"/>
+    <Text layoutX="31.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="编号"/>
+    <Text layoutX="31.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="姓名"/>
+    <Text layoutX="238.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="身份"/>
+    <Text layoutX="238.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="编号"/>
+    <Text layoutX="238.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="姓名"/>
     <Text layoutX="230.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="的"/>
     <Text layoutX="230.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="的"/>
     <Text fx:id="BName2" layoutX="53.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B 姓名"
-          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625"/>
+          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625">
+        <font>
+         <Font size="18.0"/>
+        </font>
+    </Text>
     <Text fx:id="AName2" layoutX="149.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A 姓名"
-          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625"/>
+          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625">
+        <font>
+         <Font size="18.0"/>
+        </font>
+    </Text>
     <Text fx:id="BName1" layoutX="149.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B 姓名"
-          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625"/>
+          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625">
+        <font>
+         <Font size="18.0"/>
+        </font>
+    </Text>
     <Text fx:id="AName1" layoutX="53.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A 姓名"
-          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625"/>
+          textAlignment="CENTER" underline="true" wrappingWidth="81.08447265625">
+        <font>
+         <Font size="18.0"/>
+        </font>
+    </Text>
     <TextField fx:id="relationshipBtoA" layoutX="267.0" layoutY="315.0" prefHeight="31.0" prefWidth="119.0"/>
     <TextField fx:id="relationshipAtoB" layoutX="267.0" layoutY="265.0" prefHeight="31.0" prefWidth="119.0"/>
     <Text layoutX="135.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="是"/>
@@ -43,13 +59,13 @@
             prefHeight="38.0" prefWidth="67.0" text="删除"/>
     <Button fx:id="change" layoutX="53.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#change"
             prefHeight="38.0" prefWidth="67.0" text="更改"/>
-    <TextField fx:id="AType" layoutX="79.0" layoutY="99.0" prefHeight="31.0" prefWidth="119.0"/>
-    <TextField fx:id="BType" layoutX="289.0" layoutY="99.0" prefHeight="31.0" prefWidth="119.0"/>
-    <TextField fx:id="AId" layoutX="79.0" layoutY="142.0" prefHeight="31.0" prefWidth="119.0"/>
-    <TextField fx:id="BId" layoutX="289.0" layoutY="142.0" prefHeight="31.0" prefWidth="119.0"/>
-    <TextField fx:id="AName" layoutX="79.0" layoutY="185.0" prefHeight="31.0" prefWidth="119.0"/>
-    <TextField fx:id="BName" layoutX="289.0" layoutY="185.0" prefHeight="31.0" prefWidth="119.0"/>
-    <Line endX="150.0" layoutX="230.0" layoutY="242.0" startX="-150.0" strokeDashOffset="4.0"/>
-    <Text fx:id="deletePromptText" fill="RED" layoutX="86.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="注意：此操作将删除双方之间的全部关系"
-          textAlignment="CENTER" underline="true"/>
+    <TextField fx:id="AType" layoutX="79.0" layoutY="94.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="BType" layoutX="289.0" layoutY="94.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="AId" layoutX="79.0" layoutY="137.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="BId" layoutX="289.0" layoutY="137.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="AName" layoutX="79.0" layoutY="180.0" prefHeight="31.0" prefWidth="119.0"/>
+    <TextField fx:id="BName" layoutX="289.0" layoutY="180.0" prefHeight="31.0" prefWidth="119.0"/>
+    <Line endX="150.0" layoutX="230.0" layoutY="237.0" startX="-150.0" strokeDashOffset="4.0"/>
+    <Text fx:id="deletePromptText" fill="RED" layoutX="86.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="注意：此操作将删除双方之间的全部关系" textAlignment="CENTER" underline="true"/>
 </Pane>
