@@ -115,7 +115,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                         } else {
                             originalStaff = staffRepository.save(originalStaff);
                             visitRepository.delete(row.getItem());
-                            logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
+                            logger.logInfo(this.getClass().toString(), "删除探访记录：探访记录，类型-员工，编号-{}，姓名-{}", row.getItem().getId().toString(), name.getText());
                             visit.getItems().remove(row.getIndex());
                         }
                     }
@@ -317,7 +317,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                 relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
 
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
-            refreshBasicInfo(originalStaff);
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -335,7 +334,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
 
             staffRepository.delete(originalStaff);
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
-            refreshBasicInfo(originalStaff);
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);

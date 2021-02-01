@@ -6,10 +6,10 @@ Sprint Backlog
 
 In Progress
     KRST-2 [FE/BE] StudentInfoPage w/ Controller C
-    KRST-3 [FE/BE] Teacher Info Page w/ Controller Z
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
 
 Done
+    KRST-3 [FE/BE] Teacher Info Page w/ Controller Z Y 2/1
     KRST-34 [BE] Adjust StaffInfoPageController and Test RelationshipService Y 1/31
     KRST-24 [FE/BE] Relationship Info Page w/ Controller Y 1/30
     KRST-25 [FE/BE] Add Relationship Page w/ Controller Y 1/29
