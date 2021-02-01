@@ -87,6 +87,10 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
 
     @FXML public void initialize() {
         Staff staff = (Staff)dataPassService.getValue();
+        if (staff == null) {
+            close();
+            return;
+        }
         refreshAll(staff);
         initDefaultComponents();
         setEditableMode(false);
