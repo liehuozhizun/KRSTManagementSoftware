@@ -1,17 +1,20 @@
 Sprint Backlog
+    KRST-37 [FE/BE] Add Course Page w/ Controller
     KRST-22 [FE/BE] Course Info Page w/ Controller
-    KRST-24 [FE/BE] Relation Info Page w/ Controller
-    KRST-25 [FE/BE] Relation Add Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
-    KRST-29 [BE/FE] Add Relation page w/ Controller
-    KRST-34 [BE] Adjust StaffInfoPageController by removing comments
+    KRST-40 [BE] Revise StudentInfoPage Grade component
 
 In Progress
-    KRST-3 [FE] Teacher Info Page w/ Controller Z
-    KRST-2 [FE] StudentInfoPage w/ Controller C
+    KRST-2 [FE/BE] StudentInfoPage w/ Controller C
+    KRST-3 [FE/BE] Teacher Info Page w/ Controller Z
+    KRST-38 [FE/BE] Add Grade Page w/ Controller C
 
 Done
-    KRST-33 [BE/FE] Attribute Info Page w/ Controller
+    KRST-34 [BE] Adjust StaffInfoPageController and Test RelationshipService Y 1/31
+    KRST-24 [FE/BE] Relationship Info Page w/ Controller Y 1/30
+    KRST-25 [FE/BE] Add Relationship Page w/ Controller Y 1/29
+    KRST-29 [BE] RelationService Y 1/28
+    KRST-33 [BE/FE] Attribute Info Page w/ Controller Y 1/11
     KRST-32 [BE/FE] Evaluation Info Page w/ Controller Y 1/10
     KRST-31 [BE/FE] Internship Info Page w/ Controller Y 1/8
     KRST-35 [BE/FE] Visit Info Page w/ Controller Y 1/8
