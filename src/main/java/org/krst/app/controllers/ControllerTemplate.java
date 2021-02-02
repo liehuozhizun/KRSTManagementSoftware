@@ -5,7 +5,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 
 /*
  * This class is intended to support ComboBox and ListView exchange domain data

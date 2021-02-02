@@ -1,7 +1,7 @@
 package org.krst.app.services;
 
 import org.krst.app.domains.*;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 import org.krst.app.repositories.PersonRepository;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.repositories.StudentRepository;

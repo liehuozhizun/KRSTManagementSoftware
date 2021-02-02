@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -2,7 +2,12 @@ Sprint Backlog
     KRST-37 [FE/BE] Add Course Page w/ Controller
     KRST-22 [FE/BE] Course Info Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
-    KRST-40 [BE] Revise StudentInfoPage Grade component
+    KRST-41 [BE] Revise StudentInfoPage Grade component
+    KRST-42 [BE/FE] Add Person Page w/ Controller
+    KRST-43 {BE/FE] Person Info Page w/ Controller
+    KRST-44 [BE/FE] AttributeControlPanel
+    KRST-45 [BE/FE] PatronSaintControlPanel
+    KRST-47 [BE/FE] CourseTemplateControlPanel
 
 In Progress
     KRST-2 [FE/BE] StudentInfoPage w/ Controller C
@@ -48,6 +53,7 @@ Done
     [FE] Remainder Page : 设置TableView的customized display
 
 Backlog
+    KRST-46 [FE/BE] Main window - base
     KRST-16 [FE/BE] Main window w/ Controller - System
     KRST-17 [FE/BE] Main window w/ Controller - Student
     KRST-18 [FE/BE] Main window w/ Controller - Teacher

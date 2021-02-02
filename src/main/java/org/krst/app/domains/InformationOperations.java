@@ -1,6 +1,4 @@
-package org.krst.app.domains.operations;
-
-import org.krst.app.domains.Relation;
+package org.krst.app.domains;
 
 import java.time.LocalDate;
 import java.util.Set;

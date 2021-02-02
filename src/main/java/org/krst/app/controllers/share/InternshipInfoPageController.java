@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.Internship;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 

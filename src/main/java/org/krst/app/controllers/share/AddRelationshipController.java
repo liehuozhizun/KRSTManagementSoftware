@@ -9,7 +9,7 @@ import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.Relation;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
