@@ -11,8 +11,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Relation implements Cloneable {
-    private String relation;
+    private String relationship;
     private String name;
+    @Enumerated(value = EnumType.ORDINAL)
     private Type type;
     private String id;
 
@@ -22,7 +23,8 @@ public class Relation implements Cloneable {
         STAFF,
         PERSON;
 
-        public String getTypeString() {
+        @Override
+        public String toString() {
             switch (this) {
                 case STUDENT:
                     return "学生";
@@ -33,7 +35,22 @@ public class Relation implements Cloneable {
                 case PERSON:
                     return "普通";
                 default:
-                    return "无该类型";
+                    return null;
+            }
+        }
+
+        public static Type getTypeByString(String type) {
+            switch (type) {
+                case "学生":
+                    return STUDENT;
+                case "教师":
+                    return TEACHER;
+                case "员工":
+                    return STAFF;
+                case "普通":
+                    return PERSON;
+                default:
+                    return null;
             }
         }
     }

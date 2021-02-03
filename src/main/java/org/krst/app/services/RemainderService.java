@@ -1,7 +1,7 @@
 package org.krst.app.services;
 
 import org.krst.app.domains.*;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 import org.krst.app.models.Remainder;
 import org.krst.app.repositories.*;
 import org.krst.app.utils.CommonUtils;

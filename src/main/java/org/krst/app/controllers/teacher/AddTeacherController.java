@@ -13,6 +13,7 @@ import org.krst.app.domains.Teacher;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
+import org.krst.app.services.DataPassService;
 import org.krst.app.utils.Constants;
 import org.krst.app.views.share.AddAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,60 +75,29 @@ public class AddTeacherController {
     @Autowired
     private CacheService cacheService;
     @Autowired
+    private DataPassService dataPassService;
+    @Autowired
     private Logger logger;
 
     @FXML
     public void initialize() {
         staff.getItems().addAll(cacheService.getStaffs());
-
-        staff.setCellFactory(new Callback<ListView<Staff>, ListCell<Staff>>() {
-            @Override
-            public ListCell<Staff> call(ListView<Staff> param) {
-                return new ListCell<Staff>() {
-                    @Override
-                    protected void updateItem(Staff item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getName() + " [" + item.getId() + "]");
-                        }
-                    }
-                };
-            }
-        });
-
         staff.setConverter(new StringConverter<Staff>() {
             @Override
             public String toString(Staff staff) {
-                return staff == null ? null : staff.getName() + " [" + staff.getId() + "]";
+                return staff == null ? null : staff.getNameAndId();
             }
 
             @Override
             public Staff fromString(String string) {
                 return staff.getItems().stream().filter(staff ->
-                        staff.getName().equals(string)).findFirst().orElse(null);
+                        staff.getName().equals(string) || staff.getId().equals(string) || staff.getNameAndId().equals(string))
+                        .findFirst().orElse(null);
             }
         });
 
-        refreshAttributeComboBoxContent();
-
-        attribute.setCellFactory(new Callback<ListView<Attribute>, ListCell<Attribute>>() {
-            @Override
-            public ListCell<Attribute> call(ListView<Attribute> param) {
-                return new ListCell<Attribute>() {
-                    @Override
-                    protected void updateItem(Attribute item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            setText(item.getAttribute());
-                        }
-                    }
-                };
-            }
-        });
+        attribute.getItems().add(new Attribute(Constants.CREATE_PROMPT, null, null, null, null));
+        attribute.getItems().addAll(cacheService.getAttributes());
 
         attribute.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
@@ -138,8 +108,11 @@ public class AddTeacherController {
             } else {
                 if (Constants.CREATE_PROMPT.equals(newValue.getAttribute())) {
                     KRSTManagementSoftware.openWindow(AddAttribute.class);
-                    refreshAttributeComboBoxContent();
-                    attribute.getSelectionModel().selectLast();
+                    Attribute temp = (Attribute) dataPassService.getValue();
+                    if (temp != null) {
+                        attribute.getItems().add(temp);
+                        attribute.getSelectionModel().selectLast();
+                    }
                 } else {
                     leader.setText(newValue.getLeader());
                     leaderPhone.setText(newValue.getLeaderPhone());
@@ -157,16 +130,10 @@ public class AddTeacherController {
 
             @Override
             public Attribute fromString(String string) {
-                return attribute.getItems().stream().filter(attribute ->
+                return string == null ? null : attribute.getItems().stream().filter(attribute ->
                         attribute.getAttribute().equals(string)).findFirst().orElse(null);
             }
         });
-    }
-
-    private void refreshAttributeComboBoxContent() {
-        attribute.getItems().clear();
-        attribute.getItems().add(new Attribute(Constants.CREATE_PROMPT, null, null, null, null));
-        attribute.getItems().addAll(cacheService.getAttributes());
     }
 
     public void approve() {

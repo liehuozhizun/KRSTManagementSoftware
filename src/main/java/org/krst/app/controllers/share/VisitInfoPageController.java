@@ -10,7 +10,7 @@ import org.krst.app.controllers.ControllerTemplate;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.Staff;
 import org.krst.app.domains.Visit;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
