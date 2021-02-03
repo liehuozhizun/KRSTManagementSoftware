@@ -68,6 +68,8 @@ public class AddTeacherController {
     @FXML
     private TextArea resource;
     @FXML
+    private TextArea education;
+    @FXML
     private ComboBox<Staff> staff;
 
     @Autowired
@@ -171,6 +173,7 @@ public class AddTeacherController {
         teacher.setExperience(experience.getText());
         teacher.setResource(resource.getText());
         teacher.setTalent(talent.getText());
+        teacher.setEducation(education.getText());
         teacher.setStaff(staff.getValue());
 
         teacherRepository.save(teacher);
