@@ -23,6 +23,7 @@ public class Person implements InformationOperations {
     private LocalDate birthday;
     private Boolean isGregorianCalendar;
     private String phone;
+    private String altPhone;
     private String address;
     private String job;
     @ElementCollection
