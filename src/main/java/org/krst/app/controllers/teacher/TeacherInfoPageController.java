@@ -27,6 +27,10 @@ import org.krst.app.views.share.AddVisit;
 import org.krst.app.views.share.VisitInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Teacher, the Teacher model that need to be displayed
+ * Out : None
+ */
 @FXMLController
 public class TeacherInfoPageController implements InfoPageControllerTemplate {
     @FXML private TextField id, name, baptismalName, age;
@@ -55,7 +59,6 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     @FXML private ComboBox<Attribute> attribute;
     @FXML private ComboBox<Staff> staff;
     @FXML private CheckBox isGregorianCalendar;
-    @FXML private Text staffPromptText;
 
     @FXML private TableView<Visit> visit;
     @FXML private TableColumn<Visit, String> visit_date;
@@ -149,6 +152,11 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
                         .findFirst().orElse(null);
             }
         });
+
+        gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                gender.getEditor().setText(newValue);
+        });
     }
 
     private void initRightSideDefaultComponents() {
@@ -239,8 +247,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     private void refreshOtherInfo(Teacher teacher) {
         if (teacher.getVisits() != null) {
             visit.getItems().addAll(teacher.getVisits());
-            if (teacher.getRelationships() != null)
-                relationship.getItems().addAll(teacher.getRelationships());
+        if (teacher.getRelationships() != null)
+            relationship.getItems().addAll(teacher.getRelationships());
         }
     }
 
@@ -346,14 +354,12 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
         setComboBoxEditableMode(state, gender, attribute, staff);
         setCheckBoxEditableMode(state, isGregorianCalendar);
-        staffPromptText.setVisible(state);
         staff.setEditable(state);
     }
 
     @Override
     public void setButtonMode(boolean state) {
         change.setVisible(!state);
-        change.setDisable(state);
         accept.setVisible(state);
         accept.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
         delete.setVisible(!state);

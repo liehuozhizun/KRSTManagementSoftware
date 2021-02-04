@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 <SplitPane fx:id="splitPane" dividerPositions="0.5757290686735654" minHeight="-Infinity" minWidth="-Infinity"
-           prefHeight="896.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           prefHeight="863.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="org.krst.app.controllers.teacher.TeacherInfoPageController">
    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="848.0" prefWidth="550.0">
       <Label layoutX="235.0" layoutY="20.0" text="教师档案">
@@ -67,7 +67,8 @@
       <Label layoutX="278.0" layoutY="362.0" text="负责人电话"/>
       <Label layoutX="29.0" layoutY="402.0" text="第二负责"/>
       <Label layoutX="292.0" layoutY="402.0" text="第二电话"/>
-      <ComboBox fx:id="attribute" cache="true" layoutX="104.0" layoutY="317.0" prefHeight="31.0" prefWidth="150.0"/>
+      <ComboBox fx:id="attribute" cache="true" editable="true" layoutX="104.0" layoutY="317.0" prefHeight="31.0"
+                prefWidth="178.0" promptText="可输入教区名查询"/>
       <TextField fx:id="leader" editable="false" layoutX="104.0" layoutY="357.0" prefHeight="31.0"
                  prefWidth="150.0"/>
       <TextField fx:id="leaderPhone" editable="false" layoutX="362.0" layoutY="357.0" prefHeight="31.0"
@@ -81,35 +82,34 @@
       <Label layoutX="59.0" layoutY="461.0" text="电话"/>
       <Label layoutX="292.0" layoutY="461.0" text="备用电话"/>
       <Label layoutX="59.0" layoutY="507.0" text="地址"/>
-      <Label layoutX="35.0" layoutY="577.0" text="经历"/>
-      <Label layoutX="282.0" layoutY="577.0" text="特长"/>
-      <Label layoutX="32.0" layoutY="680.0" text="资源"/>
-      <Label layoutX="282.0" layoutY="680.0" text="教育"/>
-      <Label layoutX="260.0" layoutY="789.0" text="负责员工"/>
+      <Label layoutX="36.0" layoutY="589.0" text="经历"/>
+      <Label layoutX="283.0" layoutY="589.0" text="特长"/>
+      <Label layoutX="33.0" layoutY="671.0" text="资源"/>
+      <Label layoutX="283.0" layoutY="671.0" text="教育"/>
+      <Label layoutX="258.0" layoutY="762.0" text="负责员工"/>
       <TextField fx:id="phone" editable="false" layoutX="104.0" layoutY="456.0" prefHeight="31.0" prefWidth="150.0"/>
       <TextField fx:id="altPhone" editable="false" layoutX="362.0" layoutY="456.0" prefHeight="31.0"
                  prefWidth="150.0"/>
-      <TextArea fx:id="address" editable="false" layoutX="105.0" layoutY="496.0" prefHeight="64.0"
+      <TextArea fx:id="address" editable="false" layoutX="105.0" layoutY="496.0" prefHeight="76.0"
                 prefWidth="408.0"/>
-      <TextArea fx:id="experience" editable="false" layoutX="76.0" layoutY="570.0" prefHeight="96.0"
+      <TextArea fx:id="experience" editable="false" layoutX="77.0" layoutY="582.0" prefHeight="76.0"
                 prefWidth="185.0"/>
-      <TextArea fx:id="talent" editable="false" layoutX="329.0" layoutY="571.0" prefHeight="96.0" prefWidth="185.0"/>
-      <TextArea fx:id="resource" editable="false" layoutX="76.0" layoutY="676.0" prefHeight="96.0"
+      <TextArea fx:id="talent" editable="false" layoutX="330.0" layoutY="583.0" prefHeight="76.0" prefWidth="185.0"/>
+      <TextArea fx:id="resource" editable="false" layoutX="77.0" layoutY="667.0" prefHeight="76.0"
                 prefWidth="185.0"/>
-      <TextArea fx:id="education" editable="false" layoutX="329.0" layoutY="677.0" prefHeight="96.0"
+      <TextArea fx:id="education" editable="false" layoutX="330.0" layoutY="668.0" prefHeight="76.0"
                 prefWidth="185.0"/>
-      <ComboBox fx:id="staff" layoutX="329.0" layoutY="784.0" prefHeight="31.0" prefWidth="185.0"/>
-      <Text fx:id="staffPromptText" layoutX="363.0" layoutY="831.0" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="可输入姓名或编号查询"/>
-      <Button fx:id="change" layoutX="108.0" layoutY="838.0" mnemonicParsing="false" onMouseClicked="#change"
+      <ComboBox fx:id="staff" editable="true" layoutX="331.0" layoutY="757.0" prefHeight="31.0" prefWidth="185.0"
+                promptText="可输入姓名编号查询"/>
+      <Button fx:id="change" layoutX="111.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#change"
               prefHeight="38.0" prefWidth="67.0" text="更改"/>
-      <Button fx:id="close" layoutX="376.0" layoutY="838.0" mnemonicParsing="false" onMouseClicked="#close"
+      <Button fx:id="close" layoutX="379.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#close"
               prefHeight="38.0" prefWidth="67.0" text="关闭"/>
-      <Button fx:id="accept" layoutX="175.0" layoutY="838.0" mnemonicParsing="false" onMouseClicked="#accept"
+      <Button fx:id="accept" layoutX="178.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#accept"
               prefHeight="38.0" prefWidth="67.0" text="确认" visible="false"/>
-      <Button fx:id="cancel" layoutX="309.0" layoutY="838.0" mnemonicParsing="false" onMouseClicked="#cancel"
+      <Button fx:id="cancel" layoutX="312.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#cancel"
               prefHeight="38.0" prefWidth="67.0" text="取消" visible="false"/>
-      <Button fx:id="delete" layoutX="242.0" layoutY="838.0" mnemonicParsing="false" onMouseClicked="#delete"
+      <Button fx:id="delete" layoutX="245.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#delete"
               prefHeight="38.0" prefWidth="67.0" text="删除"/>
    </AnchorPane>
    <AnchorPane prefHeight="848.0" prefWidth="350.0">

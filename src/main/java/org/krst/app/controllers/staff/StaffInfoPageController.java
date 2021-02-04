@@ -91,14 +91,17 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             close();
             return;
         }
-        refreshAll(staff);
+
         initDefaultComponents();
-        setEditableMode(false);
-        splitPane.getDividers().get(0).positionProperty()
-                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.4074));
+        refreshAll(staff);
     }
 
     private void initDefaultComponents() {
+        setEditableMode(false);
+        setButtonMode(false);
+        splitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(0.4074));
+
         visit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         visit.setRowFactory( tv -> {
             TableRow<Visit> row = new TableRow<>();
@@ -248,7 +251,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     }
 
     private void refreshAll(Staff staff) {
-        if (staff == null) return;
         originalStaff = staff;
         refreshBasicInfo(staff);
         refreshOtherInfo(staff);
