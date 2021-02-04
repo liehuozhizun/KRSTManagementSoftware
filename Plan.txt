@@ -3,15 +3,14 @@ Sprint Backlog
     KRST-22 [FE/BE] Course Info Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-41 [BE] Revise StudentInfoPage Grade component
-    KRST-44 [BE/FE] AttributeControlPanel
     KRST-45 [BE/FE] PatronSaintControlPanel
     KRST-47 [BE/FE] CourseTemplateControlPanel
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-43 {BE/FE] Person Info Page w/ Controller Y
-
+    KRST-44 [BE/FE] AttributeControlPanel Y
 Done
+    KRST-43 {BE/FE] Person Info Page w/ Controller Y 2/4
     KRST-42 [BE/FE] Add Person Page w/ Controller Y 2/3
     KRST-2 [FE/BE] StudentInfoPage w/ Controller C Y 2/3
     KRST-3 [FE/BE] Teacher Info Page w/ Controller Z Y 2/1
