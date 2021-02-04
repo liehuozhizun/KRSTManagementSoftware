@@ -1,12 +1,10 @@
-package org.krst.app.views.student;
+package org.krst.app.views.person;
 
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import org.springframework.context.annotation.Scope;
 
-@FXMLView(title = "学生档案")
+@FXMLView(title = "普通人档案")
 @Scope("prototype")
-public class StudentInfoPage extends AbstractFxmlView {
-
+public class PersonInfoPage extends AbstractFxmlView {
 }
-
