@@ -7,9 +7,10 @@ Sprint Backlog
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-45 [BE/FE] PatronSaintControlPanel Y
+    KRST-48 [BE/FE] AddPatronSaintDate and PatronSaintDateInfoPage w/ Controller Y
 
 Done
+    KRST-45 [BE/FE] PatronSaintDateControlPanel Y 2/4
     KRST-44 [BE/FE] AttributeControlPanel Y 2/4
     KRST-43 {BE/FE] Person Info Page w/ Controller Y 2/4
     KRST-42 [BE/FE] Add Person Page w/ Controller Y 2/3
