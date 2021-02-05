@@ -12,6 +12,7 @@ import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.CourseTemplateRepository;
+import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,6 +36,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     @FXML private Button change, accept, delete, cancel, close;
 
     @Autowired private CourseTemplateRepository courseTemplateRepository;
+    @Autowired private CacheService cacheService;
     @Autowired private DataPassService dataPassService;
     @Autowired private Logger logger;
 
@@ -70,6 +72,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
             courseTemplateRepository.delete(originalCourseTemplate);
             logger.logInfo(this.getClass().toString(), "删除课程模板：编号-{}，名称-{}", id.getText(), name.getText());
             dataPassService.setValue(new Pair<>(false, null));
+            cacheService.refreshCourseTemplateCache();
             close();
             return;
         }
@@ -87,6 +90,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
             originalCourseTemplate = courseTemplateRepository.save(loadValuesIntoCourseTemplateModel());
             logger.logInfo(this.getClass().toString(), "更改课程模板：编号-{}，名称-{}", id.getText(), name.getText());
             dataPassService.setValue(new Pair<>(true, originalCourseTemplate));
+            cacheService.refreshCourseTemplateCache();
             setEditableMode(false);
             setButtonMode(false);
             return;
@@ -104,6 +108,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
             refreshBasicInfo(originalCourseTemplate);
             logger.logInfo(this.getClass().toString(), "更改课程模板：编号-{}，名称-{}", id.getText(), name.getText());
             dataPassService.setValue(new Pair<>(true, originalCourseTemplate));
+            cacheService.refreshCourseTemplateCache();
             setEditableMode(false);
             setButtonMode(false);
         }

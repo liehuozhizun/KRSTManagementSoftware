@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="559.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.krst.app.controllers.course.AddCourseController">
+    <Text layoutX="263.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新建课程">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Text>
+    <Text layoutX="30.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程编号"/>
+    <Text layoutX="30.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="开始日期"/>
+    <Text layoutX="299.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="结束日期"/>
+    <Text layoutX="30.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="授课地址"/>
+    <Text layoutX="30.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="授课班级"/>
+    <Text layoutX="30.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程模板"/>
+    <Text layoutX="30.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="模板名称"/>
+    <Text layoutX="60.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="主题"/>
+    <Text layoutX="30.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="主课教师"/>
+    <Text layoutX="30.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="副课教师"/>
+    <TextField fx:id="id" layoutX="116.0" layoutY="74.0" prefHeight="31.0" prefWidth="150.0"/>
+    <DatePicker fx:id="startDate" layoutX="116.0" layoutY="114.0" prefHeight="31.0" prefWidth="150.0"/>
+    <DatePicker fx:id="endDate" layoutX="384.0" layoutY="114.0" prefWidth="150.0"/>
+    <TextField fx:id="location" layoutX="116.0" layoutY="155.0" prefHeight="31.0" prefWidth="420.0"/>
+    <TextField fx:id="className" layoutX="116.0" layoutY="197.0" prefHeight="31.0" prefWidth="420.0"/>
+    <ComboBox fx:id="courseTemplate" layoutX="116.0" layoutY="238.0" prefHeight="31.0" prefWidth="187.0"
+              promptText="请选择课程模板"/>
+    <TextField fx:id="name" layoutX="116.0" layoutY="278.0" mouseTransparent="true" prefHeight="31.0" prefWidth="420.0">
+        <effect>
+            <ColorAdjust brightness="-0.01"/>
+        </effect>
+    </TextField>
+    <TextArea fx:id="topic" layoutX="116.0" layoutY="319.0" mouseTransparent="true" prefHeight="76.0" prefWidth="420.0">
+        <effect>
+            <ColorAdjust brightness="-0.01"/>
+        </effect>
+    </TextArea>
+    <ComboBox fx:id="primaryTeacher" layoutX="116.0" layoutY="406.0" prefWidth="150.0" visibleRowCount="5"/>
+    <ComboBox fx:id="secondaryTeacher" layoutX="116.0" layoutY="449.0" prefWidth="150.0" visibleRowCount="5"/>
+    <Button layoutX="163.0" layoutY="499.0" mnemonicParsing="false" onMouseClicked="#accept" prefHeight="40.0"
+            prefWidth="74.0" text="确认"/>
+    <Button layoutX="341.0" layoutY="499.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="40.0"
+            prefWidth="74.0" text="取消"/>
+    <Text layoutX="274.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="可选"/>
+</AnchorPane>

@@ -11,6 +11,7 @@ import javafx.util.Pair;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.repositories.CourseTemplateRepository;
+import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.views.course.AddCourseTemplate;
 import org.krst.app.views.course.CourseTemplateInfoPage;
@@ -28,12 +29,12 @@ public class CourseTemplateControlPanelController {
     @FXML private TableColumn<CourseTemplate, String> name;
     @FXML private TableColumn<CourseTemplate, String> topic;
 
-    @Autowired private CourseTemplateRepository courseTemplateRepository;
+    @Autowired private CacheService cacheService;
     @Autowired private DataPassService dataPassService;
 
     @FXML public void initialize() {
         if (number.getText() == null || number.getText().equals("0"))
-            courseTemplates.getItems().setAll(courseTemplateRepository.findAll());
+            courseTemplates.getItems().setAll(cacheService.getCourseTemplates());
 
         number.setText(String.valueOf(courseTemplates.getItems().size()));
         courseTemplates.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

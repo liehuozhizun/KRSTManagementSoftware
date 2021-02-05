@@ -5,6 +5,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.ControllerTemplate;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Teacher;
@@ -35,6 +36,8 @@ public class AddCourseTemplateController extends ControllerTemplate {
     private CourseTemplateRepository courseTemplateRepository;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private Logger logger;
 
     @FXML
     public void initialize() {
@@ -46,8 +49,8 @@ public class AddCourseTemplateController extends ControllerTemplate {
         if (courseTemplateRepository.existsById(id.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("新建课程模板失败");
-            alert.setHeaderText("失败原因：课程编号已存在");
-            alert.setContentText("解决方法：更换课程编号");
+            alert.setHeaderText("失败原因：课程模板编号已存在");
+            alert.setContentText("解决方法：更换课程模板编号");
             alert.showAndWait();
             return;
         }
@@ -60,6 +63,7 @@ public class AddCourseTemplateController extends ControllerTemplate {
 
         courseTemplateRepository.save(courseTemplate);
         cacheService.refreshCourseTemplateCache();
+        logger.logInfo(this.getClass().toString(), "新建课程模板，编号-{}，名称-{}", id.getText(), name.getText());
         close();
     }
 
