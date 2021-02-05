@@ -11,7 +11,7 @@
 <SplitPane fx:id="splitPane" dividerPositions="0.425826287471176" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" mouseTransparent="true" prefHeight="864.0" prefWidth="1280.0"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="org.krst.app.controllers.student.StudentInfoController">
+           fx:controller="org.krst.app.controllers.student.StudentInfoPageController">
     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="852.0" prefWidth="530.0">
         <Text layoutX="221.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生档案">
             <font>
