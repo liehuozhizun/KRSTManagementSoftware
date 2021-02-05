@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Out : None
  */
 @FXMLController
-public class StudentInfoController implements InfoPageControllerTemplate {
+public class StudentInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
     @FXML private TextField id;
     @FXML private TextField name;

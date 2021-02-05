@@ -24,9 +24,9 @@ public abstract class ControllerTemplate {
         this.promptText = promptText;
     }
 
-    protected <T> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
+    protected <T extends InformationOperations> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
         selector.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if (!flag) {
+            if (!flag && newValue != null) {
                 listView.getItems().add(selector.getValue());
                 idx = selector.getSelectionModel().getSelectedIndex();
             }

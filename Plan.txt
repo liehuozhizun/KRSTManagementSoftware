@@ -1,13 +1,14 @@
 Sprint Backlog
-    KRST-37 [FE/BE] Add Course Page w/ Controller
     KRST-22 [FE/BE] Course Info Page w/ Controller
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-41 [BE] Revise StudentInfoPage Grade component
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-47 [BE/FE] CourseTemplateControlPanel y
+    KRST-37 [FE/BE] Add Course Page w/ Controller Y
+
 Done
+    KRST-47 [BE/FE] CourseTemplateControlPanel and CourseTemplateInfoPage w/ Controller Y 2/5
     KRST-48 [BE/FE] AddPatronSaintDate and PatronSaintDateInfoPage w/ Controller Y 2/4
     KRST-45 [BE/FE] PatronSaintDateControlPanel Y 2/4
     KRST-44 [BE/FE] AttributeControlPanel Y 2/4
@@ -62,3 +63,6 @@ Backlog
     KRST-21 [FE/BE] Main window w/ Controller - Other
     KRST-26 [BE] Remove AbstractJavaFxApplicationSupportExtension's closeWindow() & stageList. Adjust method openWindow()
     KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
+
+BUG
+    [可能] 更改某一人的Id，这个操作可能不会反映在有mapping的其他数据类中。需要测试，如存在问题，需要在每次更改id时，更新整个数据库所有关联数据。
