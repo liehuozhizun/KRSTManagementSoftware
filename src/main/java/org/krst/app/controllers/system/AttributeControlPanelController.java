@@ -16,6 +16,10 @@ import org.krst.app.views.share.AddAttribute;
 import org.krst.app.views.share.AttributeInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * IN  : none
+ * OUT : none
+ */
 @FXMLController
 public class AttributeControlPanelController {
     @FXML private TextField number;

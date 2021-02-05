@@ -18,10 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * In  : Attribute, data model needs to be displayed
  * Out : null, no changes are made
  *       OR
- *       Pair<Boolean, Internship>
+ *       Pair<Boolean, Attribute>
  *         Boolean, true  update operation
  *                  false delete operation
- *         Internship, updated Attribute model
+ *         Attribute, updated Attribute model
  */
 @FXMLController
 public class AttributeInfoPageController implements InfoPageControllerTemplate {
