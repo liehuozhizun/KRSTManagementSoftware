@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0"
+      prefWidth="329.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.system.AddPatronSaintDateController">
+    <Text layoutX="102.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新增圣人纪念日">
+        <font>
+          <Font size="18.0"/>
+        </font>
+    </Text>
+    <Text layoutX="32.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="圣人姓名"/>
+    <Text layoutX="32.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="纪念日期"/>
+    <TextField fx:id="name" layoutX="110.0" layoutY="75.0"/>
+    <DatePicker fx:id="date" layoutX="110.0" layoutY="121.0" prefHeight="31.0" prefWidth="186.0"/>
+    <Button layoutX="193.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#close"
+            prefHeight="37.0" prefWidth="69.0" text="取消"/>
+    <Button layoutX="68.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#accept"
+            prefHeight="37.0" prefWidth="69.0" text="确认"/>
+</Pane>
