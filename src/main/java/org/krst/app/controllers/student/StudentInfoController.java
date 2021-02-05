@@ -90,7 +90,6 @@ public class StudentInfoController implements InfoPageControllerTemplate {
     @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
-
     private Student originalStudent;
     private Boolean isDeleteOperation;
 
@@ -123,7 +122,7 @@ public class StudentInfoController implements InfoPageControllerTemplate {
             if (newValue == null) return;
 
             if (Constants.CREATE_PROMPT.equals(newValue.getAttribute())) {
-                KRSTManagementSoftware.openWindow(AddAttribute.class, true);
+                KRSTManagementSoftware.openWindow(AddAttribute.class);
                 Attribute temp = (Attribute) dataPassService.getValue();
                 if (temp != null) {
                     attribute.getItems().add(temp);
