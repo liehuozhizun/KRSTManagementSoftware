@@ -66,8 +66,7 @@ public class AddCourseController {
 
     private Course loadValuesIntoCourseModel() {
         return new Course(id.getText(), startDate.getValue(), endDate.getValue(), location.getText(), className.getText(),
-                courseTemplate.getValue(), primaryTeacher.getValue(), secondaryTeacher.getValue(),
-                null, null);
+                courseTemplate.getValue(), primaryTeacher.getValue(), secondaryTeacher.getValue(), null);
     }
 
     public void close() {

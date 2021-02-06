@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@ToString(exclude = {"courseTemplate","primaryTeacher","secondaryTeacher", "offers", "grades"})
+@ToString(exclude = {"courseTemplate","primaryTeacher","secondaryTeacher", "grades"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course implements Cloneable {
@@ -27,8 +27,6 @@ public class Course implements Cloneable {
     private Teacher primaryTeacher; // 主课教师
     @OneToOne
     private Teacher secondaryTeacher; // 副课教师
-    @ElementCollection
-    private Set<String> offers; // 赠予
     @OneToMany
     private Set<Grade> grades; // 成绩
 
