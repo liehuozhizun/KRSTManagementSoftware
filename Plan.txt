@@ -1,11 +1,17 @@
 Sprint Backlog
-    KRST-28 [BE] Improve all @Scope("prototype") views
+    KRST-16 [FE/BE] Main window w/ Controller - System
+    KRST-17 [FE/BE] Main window w/ Controller - Student
+    KRST-18 [FE/BE] Main window w/ Controller - Teacher
+    KRST-19 [FE/BE] Main window w/ Controller - Course
+    KRST-20 [FE/BE] Main window w/ Controller - Staff
+    KRST-21 [FE/BE] Main window w/ Controller - Other
     KRST-41 [BE] Revise StudentInfoPage Grade component
     KRST-49 [FE/BE] Add GradeInfoPage w/ Controller
     KRST-50 [BE] Revise CourseInfoPageController Grade component
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
+    KRST-46 [FE/BE] Main window - base Y
 
 Done
     KRST-22 [FE/BE] Course Info Page w/ Controller Y 2/5
@@ -56,15 +62,13 @@ Done
     [FE] Remainder Page : 设置TableView的customized display
 
 Backlog
-    KRST-46 [FE/BE] Main window - base
-    KRST-16 [FE/BE] Main window w/ Controller - System
-    KRST-17 [FE/BE] Main window w/ Controller - Student
-    KRST-18 [FE/BE] Main window w/ Controller - Teacher
-    KRST-19 [FE/BE] Main window w/ Controller - Course
-    KRST-20 [FE/BE] Main window w/ Controller - Staff
-    KRST-21 [FE/BE] Main window w/ Controller - Other
     KRST-26 [BE] Remove AbstractJavaFxApplicationSupportExtension's closeWindow() & stageList. Adjust method openWindow()
+    KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
+    KRST-51 [BE] Database Lock & Unlock tools
+    KRST-52 [BE] Reset Database
+    KRST-52 [BE] Database Import & Export
+    KRST-53 [BE] Printable Course Information
 
 BUG
     [可能] 更改某一人的Id，这个操作可能不会反映在有mapping的其他数据类中。需要测试，如存在问题，需要在每次更改id时，更新整个数据库所有关联数据。
