@@ -14,10 +14,19 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatronSaintDate {
+public class PatronSaintDate implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private LocalDate date;
+
+    @Override
+    public PatronSaintDate clone() {
+        try {
+            return (PatronSaintDate) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }

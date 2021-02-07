@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 import org.krst.app.domains.Attribute;
 import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.services.CacheService;
+import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In   : None
- * Out  : None
+ * Out  : Attribute, new created Attribute if successfully created
  * Note : new created Attribute will be stored in CacheService
  */
 @FXMLController
@@ -33,6 +34,8 @@ public class AddAttributeController {
     private AttributeRepository attributeRepository;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private DataPassService dataPassService;
 
     public void approve() {
         if (attributeRepository.existsById(attribute.getText())) {
@@ -49,7 +52,7 @@ public class AddAttributeController {
                     altLeader.getText(),
                     altLeaderPhone.getText());
             if (!attr.equals(new Attribute())) {
-                attributeRepository.save(attr);
+                dataPassService.setValue(attributeRepository.save(attr));
                 cacheService.refreshAttributeCache();
             }
             close();

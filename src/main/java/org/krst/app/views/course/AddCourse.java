@@ -1,10 +1,10 @@
-package org.krst.app.views.staff;
+package org.krst.app.views.course;
 
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import org.springframework.context.annotation.Scope;
 
-@FXMLView(title = "员工档案")
+@FXMLView(title = "新建课程")
 @Scope("prototype")
-public class StaffInfoPage extends AbstractFxmlView {
+public class AddCourse extends AbstractFxmlView {
 }

@@ -14,6 +14,15 @@ import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Attribute, data model needs to be displayed
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Attribute>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Attribute, updated Attribute model
+ */
 @FXMLController
 public class AttributeInfoPageController implements InfoPageControllerTemplate {
     @FXML private TextField attribute;
@@ -57,7 +66,6 @@ public class AttributeInfoPageController implements InfoPageControllerTemplate {
     @Override
     public void setEditableMode(boolean state) {
         setTextEditableMode(state, attribute, leader, leaderPhone, altLeader, altLeaderPhone);
-
     }
 
     @Override

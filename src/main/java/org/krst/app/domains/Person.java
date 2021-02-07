@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.krst.app.domains.operations.InformationOperations;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,6 +23,7 @@ public class Person implements InformationOperations {
     private LocalDate birthday;
     private Boolean isGregorianCalendar;
     private String phone;
+    private String altPhone;
     private String address;
     private String job;
     @ElementCollection

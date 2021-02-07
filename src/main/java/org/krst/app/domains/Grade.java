@@ -23,7 +23,7 @@ public class Grade implements Cloneable {
     private Integer score; // 成绩
     private String courseFeedback; // 课程评价
     private String teacherFeedback; // 教师评价
-
+    private String offer; // 赠予
 
     @Override
     public Grade clone() {

@@ -5,7 +5,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import org.krst.app.domains.operations.InformationOperations;
+import org.krst.app.domains.InformationOperations;
 
 /*
  * This class is intended to support ComboBox and ListView exchange domain data
@@ -24,9 +24,9 @@ public abstract class ControllerTemplate {
         this.promptText = promptText;
     }
 
-    protected <T> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
+    protected <T extends InformationOperations> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
         selector.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if (!flag) {
+            if (!flag && newValue != null) {
                 listView.getItems().add(selector.getValue());
                 idx = selector.getSelectionModel().getSelectedIndex();
             }
