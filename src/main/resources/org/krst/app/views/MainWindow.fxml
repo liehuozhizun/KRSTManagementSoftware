@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="basePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="807.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.krst.app.controllers.MainWindowController">
+   <left>
+       <VBox prefHeight="680.0" prefWidth="138.0" BorderPane.alignment="CENTER">
+           <Button mnemonicParsing="false" onMouseClicked="#showStudent" prefHeight="100.0" prefWidth="152.0"
+                   text="学生信息">
+               <font>
+                   <Font size="18.0"/>
+               </font>
+           </Button>
+           <Button mnemonicParsing="false" onMouseClicked="#showTeacher" prefHeight="100.0" prefWidth="156.0"
+                   text="教师信息">
+               <font>
+                   <Font size="18.0"/>
+               </font>
+           </Button>
+           <Button mnemonicParsing="false" onMouseClicked="#showStaff" prefHeight="100.0" prefWidth="143.0" text="员工信息">
+               <font>
+                   <Font size="18.0"/>
+               </font>
+           </Button>
+           <Button mnemonicParsing="false" onMouseClicked="#showCourse" prefHeight="100.0" prefWidth="184.0"
+                   text="课程信息">
+               <font>
+                   <Font size="18.0"/>
+               </font>
+           </Button>
+           <Button mnemonicParsing="false" onMouseClicked="#showOther" prefHeight="100.0" prefWidth="207.0" text="其他">
+               <font>
+                   <Font size="18.0"/>
+               </font>
+           </Button>
+       </VBox>
+   </left>
+   <top>
+       <MenuBar prefHeight="32.0" prefWidth="1084.0" BorderPane.alignment="CENTER">
+           <opaqueInsets>
+               <Insets/>
+           </opaqueInsets>
+           <BorderPane.margin>
+               <Insets/>
+           </BorderPane.margin>
+           <Menu mnemonicParsing="false" text="系统">
+               <MenuItem mnemonicParsing="false" onAction="#system_changePassword" text="更改密码"/>
+               <MenuItem mnemonicParsing="false" onAction="#system_info" text="版本及系统信息"/>
+               <MenuItem mnemonicParsing="false" onAction="#system_exit" text="退出程序"/>
+           </Menu>
+           <Menu mnemonicParsing="false" text="数据库">
+               <MenuItem mnemonicParsing="false" onAction="#database_destroy" text="数据销毁"/>
+               <MenuItem mnemonicParsing="false" onAction="#database_import" text="数据导入"/>
+               <MenuItem mnemonicParsing="false" onAction="#database_export" text="数据导出"/>
+           </Menu>
+           <Menu mnemonicParsing="false" text="其他">
+               <MenuItem mnemonicParsing="false" onAction="#other_remainder" text="日期提醒"/>
+               <MenuItem mnemonicParsing="false" onAction="#other_log" text="基础日志"/>
+           </Menu>
+       </MenuBar>
+   </top>
+   <center>
+       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <SplitPane fx:id="teacher" dividerPositions="0.5" orientation="VERTICAL" prefHeight="776.0"
+                      prefWidth="1100.0">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                   <children>
+                       <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="teacher"/>
+                   </children>
+               </AnchorPane>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+           </SplitPane>
+           <SplitPane fx:id="staff" dividerPositions="0.5" orientation="VERTICAL" prefHeight="776.0" prefWidth="1100.0">
+               <items>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                       <children>
+                           <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="staff"/>
+                       </children>
+                   </AnchorPane>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+               </items>
+           </SplitPane>
+           <SplitPane fx:id="course" dividerPositions="0.5" orientation="VERTICAL" prefHeight="776.0"
+                      prefWidth="1100.0">
+               <items>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                       <children>
+                           <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="course"/>
+                       </children>
+                   </AnchorPane>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+               </items>
+           </SplitPane>
+           <SplitPane fx:id="other" dividerPositions="0.5" orientation="VERTICAL" prefHeight="776.0" prefWidth="1100.0">
+               <items>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                       <children>
+                           <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="other"/>
+                       </children>
+                   </AnchorPane>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+               </items>
+           </SplitPane>
+           <SplitPane fx:id="student" dividerPositions="0.5" orientation="VERTICAL" prefHeight="776.0"
+                      prefWidth="1100.0">
+               <items>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                       <children>
+                           <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="student"/>
+                       </children>
+                   </AnchorPane>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+               </items>
+           </SplitPane>
+       </Pane>
+   </center>
+</BorderPane>
