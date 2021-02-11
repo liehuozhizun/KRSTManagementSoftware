@@ -1,5 +1,4 @@
 Sprint Backlog
-    KRST-16 [FE/BE] Main window w/ Controller - System
     KRST-17 [FE/BE] Main window w/ Controller - Student
     KRST-18 [FE/BE] Main window w/ Controller - Teacher
     KRST-19 [FE/BE] Main window w/ Controller - Course
@@ -11,9 +10,10 @@ Sprint Backlog
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-46 [FE/BE] Main window - base Y
+    KRST-16 [FE/BE] Main window w/ Controller - System Y
 
 Done
+    KRST-46 [FE/BE] Main window - base Y 2/10
     KRST-22 [FE/BE] Course Info Page w/ Controller Y 2/5
     KRST-37 [FE/BE] Add Course Page w/ Controller Y 2/5
     KRST-47 [BE/FE] CourseTemplateControlPanel and CourseTemplateInfoPage w/ Controller Y 2/5
