@@ -1,4 +1,4 @@
-package org.krst.app.controllers.database;
+package org.krst.app.controllers.system;
 
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;

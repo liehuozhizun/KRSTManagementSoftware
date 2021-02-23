@@ -1,6 +1,6 @@
 package org.krst.app;
 
-import org.krst.app.views.course.AddCourseTemplate;
+import org.krst.app.views.system.Login;
 import org.krst.app.views.system.TestEngine;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +12,7 @@ public class KRSTManagementSoftware extends AbstractJavaFxApplicationSupportExte
         if(Arrays.asList(args).contains("-test=true"))
             launch(KRSTManagementSoftware.class, TestEngine.class, args);
         else
-            launch(KRSTManagementSoftware.class, AddCourseTemplate.class, args);
+            launch(KRSTManagementSoftware.class, Login.class, args);
 
         System.exit(0);
     }

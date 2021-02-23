@@ -5,6 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.krst.app.KRSTManagementSoftware;
+import org.krst.app.views.system.ChangePassword;
+import org.krst.app.views.system.Remainder;
+import org.krst.app.views.system.SystemInfoPage;
 
 @FXMLController
 public class MainWindowController {
@@ -14,6 +18,10 @@ public class MainWindowController {
     @FXML SplitPane staff;
     @FXML SplitPane course;
     @FXML SplitPane other;
+
+    @FXML public void initialize() {
+        KRSTManagementSoftware.resizeWindow(835.0, 1250.0, "科瑞斯特管理软件");
+    }
 
     // ----------------- pane switcher -----------------
     public void showStudent() {
@@ -34,10 +42,10 @@ public class MainWindowController {
 
     // ----------------- system control -----------------
     public void system_changePassword() {
-
+        KRSTManagementSoftware.openWindow(ChangePassword.class);
     }
     public void system_info() {
-
+        KRSTManagementSoftware.openWindow(SystemInfoPage.class);
     }
     public void system_exit() {
         ((Stage)basePane.getScene().getWindow()).close();
@@ -52,7 +60,7 @@ public class MainWindowController {
 
     }
     public void other_remainder() {
-
+        KRSTManagementSoftware.openWindow(Remainder.class);
     }
     public void other_log(){
 
