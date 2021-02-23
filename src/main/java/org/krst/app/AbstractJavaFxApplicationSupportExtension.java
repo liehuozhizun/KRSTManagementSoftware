@@ -59,6 +59,7 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         }
         newStage.initStyle(defaultStyle);
 
+        newStage.centerOnScreen();
         if (OpenAndWait) {
             newStage.showAndWait();
         } else {
@@ -70,7 +71,16 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         showView(window);
     }
 
-    public static void closeWindow() {
+    public static void resizeWindow(double height, double width) {
+        getStage().setResizable(false);
+        getStage().setHeight(height);
+        getStage().setWidth(width);
+        getStage().centerOnScreen();
+    }
+
+    public static void resizeWindow(double height, double width, String title) {
+        resizeWindow(height, width);
+        getStage().setTitle(title);
     }
 
     private static ConfigurableApplicationContext context = null;

@@ -2,7 +2,6 @@ package org.krst.app.controllers.system;
 
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
@@ -12,6 +11,7 @@ import org.krst.app.models.Status;
 import org.krst.app.configurations.Logger;
 import org.krst.app.services.LoginService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.MainWindow;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
@@ -46,7 +46,7 @@ public class LoginController {
         switch (status) {
             case SUCCESS:
                 try {
-                    KRSTManagementSoftware.switchScene(FXMLLoader.load(getClass().getResource("/views/database/ChangePassword.fxml")));
+                    KRSTManagementSoftware.switchScene(MainWindow.class);
                 } catch (Exception e) {
                     logger.logFetal(getClass().toString(), e.getMessage());
                     CommonUtils.alertSystemError(e.getMessage());
