@@ -43,8 +43,8 @@ public class InternshipInfoPageController implements InfoPageControllerTemplate 
 
     @Autowired private DataPassService dataPassService;
 
-    private Internship originalInternship;
-    private boolean isDeleteOperation;
+    private Internship originalInternship = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         Pair<InformationOperations, Internship> data = (Pair<InformationOperations, Internship>) dataPassService.getValue();

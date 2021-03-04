@@ -48,7 +48,7 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
     @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
-    private boolean isDeleteOperation;
+    private boolean isDeleteOperation = false;
     private Relation.Type _AType;
     private Relation.Type _BType;
     private String _relationshipAtoB;

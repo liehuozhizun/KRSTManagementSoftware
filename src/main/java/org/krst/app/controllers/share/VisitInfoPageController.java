@@ -50,8 +50,8 @@ public class VisitInfoPageController extends ControllerTemplate implements InfoP
     @Autowired private CacheService cacheService;
     @Autowired private Logger logger;
 
-    private Visit originalVisit;
-    private Boolean isDeleteOperation;
+    private Visit originalVisit = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         Pair<InformationOperations, Visit> data = (Pair<InformationOperations, Visit>)dataPassService.getValue();

@@ -41,7 +41,7 @@ public class AttributeInfoPageController implements InfoPageControllerTemplate {
     @Autowired private AttributeRepository attributeRepository;
     @Autowired private CacheService cacheService;
 
-    private Attribute originalAttribute;
+    private Attribute originalAttribute = null;
     private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {

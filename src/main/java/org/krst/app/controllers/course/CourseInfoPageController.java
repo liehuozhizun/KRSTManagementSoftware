@@ -48,8 +48,8 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
     @Autowired private DataPassService dataPassService;
     @Autowired private Logger logger;
 
-    private Course originalCourse;
-    private Boolean isDeleteOperation;
+    private Course originalCourse = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         originalCourse = (Course) dataPassService.getValue();

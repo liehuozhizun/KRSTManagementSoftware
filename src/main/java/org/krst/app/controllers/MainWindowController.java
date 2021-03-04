@@ -1,26 +1,48 @@
 package org.krst.app.controllers;
 
 import de.felixroske.jfxsupport.FXMLController;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.Pair;
+import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
+import org.krst.app.domains.Attribute;
+import org.krst.app.domains.Student;
+import org.krst.app.repositories.StudentRepository;
+import org.krst.app.services.CacheService;
+import org.krst.app.services.DataPassService;
+import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.student.AddStudent;
+import org.krst.app.views.student.StudentInfoPage;
 import org.krst.app.views.system.ChangePassword;
 import org.krst.app.views.system.Remainder;
 import org.krst.app.views.system.SystemInfoPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+
+import java.time.LocalDate;
 
 @FXMLController
 public class MainWindowController {
-    @FXML BorderPane basePane;
-    @FXML SplitPane student;
-    @FXML SplitPane teacher;
-    @FXML SplitPane staff;
-    @FXML SplitPane course;
-    @FXML SplitPane other;
+    @FXML private BorderPane basePane;
+    @FXML private SplitPane teacher;
+    @FXML private SplitPane staff;
+    @FXML private SplitPane course;
+    @FXML private SplitPane other;
+
+    @Autowired private DataPassService dataPassService;
+    @Autowired private StudentRepository studentRepository;
+    @Autowired private CacheService cacheService;
 
     @FXML public void initialize() {
         KRSTManagementSoftware.resizeWindow(835.0, 1250.0, "科瑞斯特管理软件");
+        student_initialize();
     }
 
     // ----------------- pane switcher -----------------
@@ -64,5 +86,148 @@ public class MainWindowController {
     }
     public void other_log(){
 
+    }
+
+    // ----------------- Student Panel  -----------------
+    @FXML private SplitPane student;
+    @FXML private TextField student_id, student_name;
+    @FXML private Text student_totalNumber, student_searchNumberPrompt, student_searchNumber;
+    @FXML private ComboBox<String> student_gender;
+    @FXML private ComboBox<Attribute> student_attribute;
+    @FXML private TableView<Student> students;
+    @FXML private TableColumn<Student, String> students_id, students_name, students_baptismalName, students_gender,
+            students_phone, students_altPhone, students_address;
+    @FXML private TableColumn<Student, Attribute> students_attribute, students_leader;
+    @FXML private TableColumn<Student, LocalDate> students_birthday, students_age;
+
+    private void student_initialize() {
+        students.getItems().addAll(studentRepository.findAll());
+        student_attribute.getItems().setAll(cacheService.getAttributes());
+        student_attribute.setConverter(new StringConverter<Attribute>() {
+            @Override
+            public String toString(Attribute attribute) {
+                return attribute == null ? null : attribute.getAttribute();
+            }
+
+            @Override
+            public Attribute fromString(String string) {
+                return string == null ? null : student_attribute.getItems().stream().filter(attribute ->
+                        attribute.getAttribute().equals(string)).findFirst().orElse(null);
+            }
+        });
+        student_totalNumber.setText(String.valueOf(students.getItems().size()));
+        students.setRowFactory(tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Student student = row.getItem();
+                    dataPassService.setValue(student);
+                    KRSTManagementSoftware.openWindow(StudentInfoPage.class);
+                    Pair<Boolean, Student> returnedData = (Pair<Boolean, Student>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        if (returnedData.getKey()) {
+                            students.getItems().set(row.getIndex(), returnedData.getValue());
+                        } else {
+                            students.getItems().remove(row.getIndex());
+                            student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) - 1));
+                        }
+                    }
+                }
+            });
+            return row ;
+        });
+        students.getItems().addListener((ListChangeListener<Student>) c -> {
+            student_searchNumber.setText(String.valueOf(students.getItems().size()));
+        });
+        students_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        students_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        students_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
+        students_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        students_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        students_age.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        students_age.setCellFactory(new Callback<TableColumn<Student, LocalDate>, TableCell<Student, LocalDate>>() {
+            @Override
+            public TableCell<Student, LocalDate> call(TableColumn<Student, LocalDate> param) {
+                return new TableCell<Student, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate birthday, boolean empty) {
+                        super.updateItem(birthday, empty);
+                        if (empty || birthday == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(String.valueOf(birthday.until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears()));
+                        }
+                    }
+                };
+            }
+        });
+        students_attribute.setCellValueFactory(new PropertyValueFactory<>("attribute"));
+        students_attribute.setCellFactory(new Callback<TableColumn<Student, Attribute>, TableCell<Student, Attribute>>() {
+            @Override
+            public TableCell<Student, Attribute> call(TableColumn<Student, Attribute> param) {
+                return new TableCell<Student, Attribute>() {
+                    @Override
+                    protected void updateItem(Attribute attribute, boolean empty) {
+                        super.updateItem(attribute, empty);
+                        if (empty || attribute == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(attribute.getAttribute());
+                        }
+                    }
+                };
+            }
+        });
+        students_leader.setCellValueFactory(new PropertyValueFactory<>("attribute"));
+        students_leader.setCellFactory(new Callback<TableColumn<Student, Attribute>, TableCell<Student, Attribute>>() {
+            @Override
+            public TableCell<Student, Attribute> call(TableColumn<Student, Attribute> param) {
+                return new TableCell<Student, Attribute>() {
+                    @Override
+                    protected void updateItem(Attribute attribute, boolean empty) {
+                        super.updateItem(attribute, empty);
+                        if (empty || attribute == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(attribute.getLeader());
+                        }
+                    }
+                };
+            }
+        });
+        students_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        students_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
+        students_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+    }
+    public void student_search() {
+        student_searchNumberPrompt.setVisible(true);
+        student_searchNumber.setVisible(true);
+
+        Student studentExample = new Student();
+        studentExample.setId(student_id.getText());
+        studentExample.setName(student_name.getText());
+        studentExample.setGender(student_gender.getValue());
+        studentExample.setAttribute(student_attribute.getValue());
+        students.getItems().setAll(studentRepository.findAll(Example.of(studentExample)));
+    }
+    public void student_clear() {
+        student_searchNumberPrompt.setVisible(false);
+        student_searchNumber.setVisible(false);
+        student_id.clear();
+        student_name.clear();
+        student_gender.setValue(null);
+        student_attribute.setValue(null);
+        student_attribute.getItems().setAll(cacheService.getAttributes());
+    }
+    public void student_addStudent() {
+        KRSTManagementSoftware.openWindow(AddStudent.class);
+        Student savedStudent = (Student)dataPassService.getValue();
+        if (savedStudent != null) {
+            students.getItems().add(savedStudent);
+            student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) + 1));
+        }
     }
 }

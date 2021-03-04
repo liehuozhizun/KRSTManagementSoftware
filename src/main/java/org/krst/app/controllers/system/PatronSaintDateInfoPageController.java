@@ -33,8 +33,8 @@ public class PatronSaintDateInfoPageController implements InfoPageControllerTemp
     @Autowired private PatronSaintDateRepository patronSaintDateRepository;
     @Autowired private DataPassService dataPassService;
 
-    private PatronSaintDate originalPatronSaintDate;
-    private Boolean isDeleteOperation;
+    private PatronSaintDate originalPatronSaintDate = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         originalPatronSaintDate = (PatronSaintDate) dataPassService.getValue();

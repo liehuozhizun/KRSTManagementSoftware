@@ -27,7 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Student, the Student model that need to be displayed
- * Out : None
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Student>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Student, updated Student model
  */
 @FXMLController
 public class StudentInfoPageController implements InfoPageControllerTemplate {
@@ -90,8 +95,8 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
-    private Student originalStudent;
-    private Boolean isDeleteOperation;
+    private Student originalStudent = null;
+    private boolean isDeleteOperation = false;
 
     @FXML
     public void initialize() {
@@ -355,6 +360,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             studentRepository.delete(originalStudent);
             logger.logInfo(this.getClass().toString(), "删除学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             close();
+            dataPassService.setValue(new Pair<>(false, null));
             return;
         }
 
@@ -375,6 +381,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             logger.logInfo(this.getClass().toString(), "更改学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
+            dataPassService.setValue(new Pair<>(true, originalStudent));
             return;
         }
 
@@ -393,6 +400,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             logger.logInfo(this.getClass().toString(), "更改学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
+            dataPassService.setValue(new Pair<>(true, originalStudent));
         }
     }
 
@@ -463,7 +471,6 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
         setComboBoxEditableMode(state, gender, attribute, staff);
         setCheckBoxEditableMode(state, isGregorianCalendar);
-        staff.setEditable(state);
     }
 
     @Override
