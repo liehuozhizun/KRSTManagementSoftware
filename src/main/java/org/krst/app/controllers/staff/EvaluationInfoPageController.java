@@ -39,8 +39,8 @@ public class EvaluationInfoPageController implements InfoPageControllerTemplate 
 
     @Autowired private DataPassService dataPassService;
 
-    private Evaluation originalEvaluation;
-    private Boolean isDeleteOperation;
+    private Evaluation originalEvaluation = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         Pair<String, Evaluation> data = (Pair<String, Evaluation>) dataPassService.getValue();

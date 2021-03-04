@@ -4,7 +4,6 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
@@ -20,7 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : None
- * Out : None
+ * Out : null, not added
+ *       Student, newly added Student
  */
 @FXMLController
 public class AddStudentController {
@@ -176,10 +176,11 @@ public class AddStudentController {
         student.setTalent(talent.getText());
         student.setEducation(education.getText());
         student.setStaff(staff.getValue());
-
-        studentRepository.save(student);
+        System.out.println(staff.getValue());
+        Student savedStudent = studentRepository.save(student);
         logger.logInfo(getClass().toString(), "新建学生档案，编号：{}，姓名：{}", id.getText(), name.getText());
         close();
+        dataPassService.setValue(savedStudent);
     }
 
     public void close() {

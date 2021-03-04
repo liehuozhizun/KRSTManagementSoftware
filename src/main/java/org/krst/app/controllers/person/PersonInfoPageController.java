@@ -47,8 +47,8 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
     @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
-    private Person originalPerson;
-    private boolean isDeleteOperation;
+    private Person originalPerson = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         originalPerson = (Person) dataPassService.getValue();

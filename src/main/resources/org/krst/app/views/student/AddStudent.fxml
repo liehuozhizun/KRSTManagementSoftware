@@ -72,13 +72,13 @@
          <ColorAdjust brightness="-0.05"/>
       </effect>
    </TextField>
-   <TextField fx:id="phone" editable="false" layoutX="106.0" layoutY="429.0" prefHeight="31.0" prefWidth="185.0"/>
-   <TextField fx:id="altPhone" editable="false" layoutX="400.0" layoutY="429.0" prefHeight="31.0" prefWidth="185.0"/>
+   <TextField fx:id="phone" layoutX="106.0" layoutY="429.0" prefHeight="31.0" prefWidth="185.0"/>
+   <TextField fx:id="altPhone" layoutX="400.0" layoutY="429.0" prefHeight="31.0" prefWidth="185.0"/>
    <TextArea fx:id="address" layoutX="106.0" layoutY="469.0" prefHeight="76.0" prefWidth="480.0"/>
    <TextArea fx:id="experience" layoutX="106.0" layoutY="554.0" prefHeight="76.0" prefWidth="185.0"/>
    <TextArea fx:id="talent" layoutX="400.0" layoutY="554.0" prefHeight="76.0" prefWidth="185.0"/>
    <TextArea fx:id="resource" layoutX="106.0" layoutY="638.0" prefHeight="76.0" prefWidth="185.0"/>
-   <ComboBox fx:id="staff" layoutX="390.0" layoutY="725.0" prefHeight="31.0" prefWidth="192.0" promptText="可输入姓名编号查询"/>
+   <ComboBox fx:id="staff" layoutX="390.0" layoutY="725.0" prefHeight="31.0" prefWidth="192.0" promptText="可输入姓名编号查询" editable="true"/>
    <Button fx:id="approve" layoutX="190.0" layoutY="767.0" mnemonicParsing="false" onMouseClicked="#approve"
            prefHeight="37.0" prefWidth="69.0" text="确认"/>
    <Button fx:id="close" layoutX="350.0" layoutY="767.0" mnemonicParsing="false" onMouseClicked="#close"

@@ -82,8 +82,8 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     @Autowired private RelationshipService relationshipService;
     @Autowired private Logger logger;
 
-    private Staff originalStaff;
-    private Boolean isDeleteOperation;
+    private Staff originalStaff = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         Staff staff = (Staff)dataPassService.getValue();

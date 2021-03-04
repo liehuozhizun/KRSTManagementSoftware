@@ -40,8 +40,8 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     @Autowired private DataPassService dataPassService;
     @Autowired private Logger logger;
 
-    private CourseTemplate originalCourseTemplate;
-    private Boolean isDeleteOperation;
+    private CourseTemplate originalCourseTemplate = null;
+    private boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         originalCourseTemplate = (CourseTemplate) dataPassService.getValue();
