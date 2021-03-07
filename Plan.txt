@@ -1,6 +1,5 @@
 Sprint Backlog
     KRST-19 [FE/BE] MainWindow - Course
-    KRST-21 [FE/BE] MainWindow - Other
     KRST-41 [BE] Revise StudentInfoPage Grade component
     KRST-49 [FE/BE] Add GradeInfoPage w/ Controller
     KRST-50 [BE] Revise CourseInfoPageController Grade component
@@ -9,9 +8,10 @@ Sprint Backlog
 
 In Progress
     KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-20 [FE/BE] MainWindow - Staff Y
+    KRST-21 [FE/BE] MainWindow - Other Y
 
 Done
+    KRST-20 [FE/BE] MainWindow - Staff Y 3/6
     KRST-18 [FE/BE] MainWindow - Teacher Y 3/6
     KRST-17 [FE/BE] MainWindow - Student Y 3/3
     KRST-16 [FE/BE] MainWindow - System Y 2/22

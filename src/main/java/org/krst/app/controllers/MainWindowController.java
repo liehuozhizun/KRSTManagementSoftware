@@ -13,12 +13,15 @@ import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
+import org.krst.app.domains.Staff;
 import org.krst.app.domains.Student;
 import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.staff.AddStaff;
+import org.krst.app.views.staff.StaffInfoPage;
 import org.krst.app.views.student.AddStudent;
 import org.krst.app.views.student.StudentInfoPage;
 import org.krst.app.views.system.ChangePassword;
@@ -34,7 +37,6 @@ import java.time.LocalDate;
 @FXMLController
 public class MainWindowController {
     @FXML private BorderPane basePane;
-    @FXML private SplitPane staff;
     @FXML private SplitPane course;
     @FXML private SplitPane other;
 
@@ -64,6 +66,7 @@ public class MainWindowController {
     }
     public void showStaff() {
         staff.toFront();
+        if (!_staffReady) staff_initialize();
     }
     public void showCourse() {
         course.toFront();
@@ -384,6 +387,101 @@ public class MainWindowController {
         if (savedTeacher != null) {
             teachers.getItems().add(savedTeacher);
             teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) + 1));
+        }
+    }
+
+    // ----------------- Staff Panel  -----------------
+    @FXML private SplitPane staff;
+    @FXML private TextField staff_id, staff_name, staff_title;
+    @FXML private Text staff_totalNumber, staff_searchNumberPrompt, staff_searchNumber;
+    @FXML private ComboBox<String> staff_gender;
+    @FXML private TableView<Staff> staffs;
+    @FXML private TableColumn<Staff, String> staffs_id, staffs_name, staffs_baptismalName, staffs_gender, staffs_title,
+            staffs_responsibility, staffs_phone, staffs_altPhone;
+    @FXML private TableColumn<Staff, LocalDate> staffs_birthday, staffs_age;
+
+    private void staff_initialize() {
+        _staffReady = true;
+        staffs.getItems().setAll(cacheService.getStaffs());
+        staff_totalNumber.setText(String.valueOf(staffs.getItems().size()));
+        staffs.setRowFactory(tv -> {
+            TableRow<Staff> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Staff staff = row.getItem();
+                    dataPassService.setValue(staff);
+                    KRSTManagementSoftware.openWindow(StaffInfoPage.class);
+                    Pair<Boolean, Staff> returnedData = (Pair<Boolean, Staff>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        if (returnedData.getKey()) {
+                            staffs.getItems().set(row.getIndex(), returnedData.getValue());
+                        } else {
+                            staffs.getItems().remove(row.getIndex());
+                            staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) - 1));
+                        }
+                    }
+                }
+            });
+            return row ;
+        });
+        staffs.getItems().addListener((ListChangeListener<Staff>) c -> {
+            staff_searchNumber.setText(String.valueOf(staffs.getItems().size()));
+        });
+        staffs_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        staffs_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffs_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
+        staffs_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        staffs_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        staffs_age.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        staffs_age.setCellFactory(new Callback<TableColumn<Staff, LocalDate>, TableCell<Staff, LocalDate>>() {
+            @Override
+            public TableCell<Staff, LocalDate> call(TableColumn<Staff, LocalDate> param) {
+                return new TableCell<Staff, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate birthday, boolean empty) {
+                        super.updateItem(birthday, empty);
+                        if (empty || birthday == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(String.valueOf(birthday.until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears()));
+                        }
+                    }
+                };
+            }
+        });
+        staffs_title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        staffs_responsibility.setCellValueFactory(new PropertyValueFactory<>("responsibility"));
+        staffs_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        staffs_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
+    }
+    public void staff_search() {
+        staff_searchNumberPrompt.setVisible(true);
+        staff_searchNumber.setVisible(true);
+
+        Staff staffExample = new Staff();
+        staffExample.setId(staff_id.getText().isEmpty() ? null : staff_id.getText());
+        staffExample.setName(staff_name.getText().isEmpty() ? null : staff_name.getText());
+        staffExample.setGender(staff_gender.getValue());
+        staffExample.setTitle(staff_title.getText().isEmpty() ? null : staff_title.getText());
+        if (staffExample.equals(new Staff())) staff_clear();
+        else staffs.getItems().setAll(staffRepository.findAll(Example.of(staffExample)));
+    }
+    public void staff_clear() {
+        staffs.getItems().setAll(cacheService.getStaffs());
+        staff_searchNumberPrompt.setVisible(false);
+        staff_searchNumber.setVisible(false);
+        staff_id.clear();
+        staff_name.clear();
+        staff_gender.setValue(null);
+        staff_title.clear();
+    }
+    public void staff_addStaff() {
+        KRSTManagementSoftware.openWindow(AddStaff.class);
+        Staff savedStaff = (Staff) dataPassService.getValue();
+        if (savedStaff != null) {
+            staffs.getItems().add(savedStaff);
+            staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) + 1));
         }
     }
 }
