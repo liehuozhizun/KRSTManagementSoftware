@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
@@ -135,14 +134,12 @@ public class MainWindowController {
                     Student student = row.getItem();
                     dataPassService.setValue(student);
                     KRSTManagementSoftware.openWindow(StudentInfoPage.class);
-                    Pair<Boolean, Student> returnedData = (Pair<Boolean, Student>) dataPassService.getValue();
-                    if (returnedData != null) {
-                        if (returnedData.getKey()) {
-                            students.getItems().set(row.getIndex(), returnedData.getValue());
-                        } else {
-                            students.getItems().remove(row.getIndex());
-                            student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) - 1));
-                        }
+                    Boolean returnedData = (Boolean) dataPassService.getValue();
+                    if (returnedData != null && !returnedData) {
+                        students.getItems().remove(row.getIndex());
+                        student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) - 1));
+                    } else {
+                        students.getItems().set(row.getIndex(), studentRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -280,14 +277,12 @@ public class MainWindowController {
                     Teacher teacher = row.getItem();
                     dataPassService.setValue(teacher);
                     KRSTManagementSoftware.openWindow(TeacherInfoPage.class);
-                    Pair<Boolean, Teacher> returnedData = (Pair<Boolean, Teacher>) dataPassService.getValue();
-                    if (returnedData != null) {
-                        if (returnedData.getKey()) {
-                            teachers.getItems().set(row.getIndex(), returnedData.getValue());
-                        } else {
-                            teachers.getItems().remove(row.getIndex());
-                            teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) - 1));
-                        }
+                    Boolean returnedData = (Boolean) dataPassService.getValue();
+                    if (returnedData != null && !returnedData) {
+                        teachers.getItems().remove(row.getIndex());
+                        teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) - 1));
+                    } else {
+                        teachers.getItems().set(row.getIndex(), teacherRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -410,14 +405,12 @@ public class MainWindowController {
                     Staff staff = row.getItem();
                     dataPassService.setValue(staff);
                     KRSTManagementSoftware.openWindow(StaffInfoPage.class);
-                    Pair<Boolean, Staff> returnedData = (Pair<Boolean, Staff>) dataPassService.getValue();
-                    if (returnedData != null) {
-                        if (returnedData.getKey()) {
-                            staffs.getItems().set(row.getIndex(), returnedData.getValue());
-                        } else {
-                            staffs.getItems().remove(row.getIndex());
-                            staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) - 1));
-                        }
+                    Boolean returnedData = (Boolean) dataPassService.getValue();
+                    if (returnedData != null && !returnedData) {
+                        staffs.getItems().remove(row.getIndex());
+                        staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) - 1));
+                    } else {
+                        staffs.getItems().set(row.getIndex(), staffRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });

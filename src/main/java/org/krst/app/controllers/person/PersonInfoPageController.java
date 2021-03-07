@@ -19,6 +19,12 @@ import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.share.AddRelationship;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In  : Person, the Person model that need to be displayed
+ * Out : Boolean, false delete operation
+ *       OR
+ *       null, update operation or nothing changed
+ */
 @FXMLController
 public class PersonInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
@@ -113,7 +119,7 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
 
     private void refreshOtherInfo(Person person) {
         if (person.getRelationships() != null)
-            relationship.getItems().addAll(person.getRelationships());
+            relationship.getItems().setAll(person.getRelationships());
     }
 
     public void change() {
@@ -125,6 +131,7 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             personRepository.delete(originalPerson);
+            dataPassService.setValue(false);
             logger.logInfo(getClass().toString(), "删除普通人档案，编号：{}，姓名：{}", id.getText(), name.getText());
             close();
             return;
@@ -209,11 +216,11 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void addRelationship() {
-        dataPassService.setValue(new Pair<>(Relation.Type.STAFF, new Pair<>(originalPerson.getId(), originalPerson.getName())));
+        dataPassService.setValue(new Pair<>(Relation.Type.PERSON, new Pair<>(originalPerson.getId(), originalPerson.getName())));
         KRSTManagementSoftware.openWindow(AddRelationship.class);
-        Person tempTeacher = (Person) dataPassService.getValue();
-        if (tempTeacher != null) {
-            originalPerson = tempTeacher;
+        Person tempPerson = (Person) dataPassService.getValue();
+        if (tempPerson != null) {
+            originalPerson = tempPerson;
             relationship.getItems().setAll(originalPerson.getRelationships());
         }
     }

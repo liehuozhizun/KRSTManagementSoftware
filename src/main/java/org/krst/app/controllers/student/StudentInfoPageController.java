@@ -27,12 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Student, the Student model that need to be displayed
- * Out : null, no changes are made
+ * Out : Boolean, false delete operation
  *       OR
- *       Pair<Boolean, Student>
- *         Boolean, true  update operation
- *                  false delete operation
- *         Student, updated Student model
+ *       null, update operation or nothing changed
  */
 @FXMLController
 public class StudentInfoPageController implements InfoPageControllerTemplate {
@@ -340,13 +337,13 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
 
     private void refreshOtherInfo(Student student){
         if (student.getVisits() != null)
-            visit.getItems().addAll(student.getVisits());
+            visit.getItems().setAll(student.getVisits());
         if (student.getInternships() != null)
-            internship.getItems().addAll(student.getInternships());
+            internship.getItems().setAll(student.getInternships());
         if (student.getGrades() != null)
-            grade.getItems().addAll(student.getGrades());
+            grade.getItems().setAll(student.getGrades());
         if (student.getRelationships() != null)
-            relationship.getItems().addAll(student.getRelationships());
+            relationship.getItems().setAll(student.getRelationships());
     }
 
     public void change(){
@@ -358,9 +355,9 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     public void accept(){
         if (isDeleteOperation) {
             studentRepository.delete(originalStudent);
+            dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             close();
-            dataPassService.setValue(new Pair<>(false, null));
             return;
         }
 
@@ -381,7 +378,6 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             logger.logInfo(this.getClass().toString(), "更改学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
-            dataPassService.setValue(new Pair<>(true, originalStudent));
             return;
         }
 
@@ -400,7 +396,6 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             logger.logInfo(this.getClass().toString(), "更改学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
-            dataPassService.setValue(new Pair<>(true, originalStudent));
         }
     }
 

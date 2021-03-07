@@ -27,12 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Staff, the Staff model that need to be displayed
- * Out : null, no changes are made
+ * Out : Boolean, false delete operation
  *       OR
- *       Pair<Boolean, Staff>
- *         Boolean, true  update operation
- *                  false delete operation
- *         Staff, updated Staff model
+ *       null, update operation or nothing changed
  */
 @FXMLController
 public class StaffInfoPageController implements InfoPageControllerTemplate {
@@ -287,13 +284,13 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
 
     private void refreshOtherInfo(Staff staff) {
         if (staff.getVisits() != null)
-            visit.getItems().addAll(staff.getVisits());
+            visit.getItems().setAll(staff.getVisits());
         if (staff.getInternships() != null)
-            internship.getItems().addAll(staff.getInternships());
+            internship.getItems().setAll(staff.getInternships());
         if (staff.getEvaluations() != null)
-            evaluation.getItems().addAll(staff.getEvaluations());
+            evaluation.getItems().setAll(staff.getEvaluations());
         if (staff.getRelationships() != null)
-            relationship.getItems().addAll(staff.getRelationships());
+            relationship.getItems().setAll(staff.getRelationships());
     }
 
     public void change() {

@@ -29,12 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Teacher, the Teacher model that need to be displayed
- * Out : null, no changes are made
+ * Out : Boolean, false delete operation
  *       OR
- *       Pair<Boolean, Teacher>
- *         Boolean, true  update operation
- *                  false delete operation
- *         Teacher, updated Teacher model
+ *       null, update operation or nothing changed
  */
 @FXMLController
 public class TeacherInfoPageController implements InfoPageControllerTemplate {
@@ -193,6 +190,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
             return row ;
         });
 
+        relationship.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relationship"));
         relationship_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         relationship_type.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -251,9 +249,9 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
 
     private void refreshOtherInfo(Teacher teacher) {
         if (teacher.getVisits() != null) {
-            visit.getItems().addAll(teacher.getVisits());
+            visit.getItems().setAll(teacher.getVisits());
         if (teacher.getRelationships() != null)
-            relationship.getItems().addAll(teacher.getRelationships());
+            relationship.getItems().setAll(teacher.getRelationships());
         }
     }
 
@@ -266,7 +264,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             teacherRepository.delete(originalTeacher);
-            dataPassService.setValue(new Pair<>(false, null));
+            dataPassService.setValue(false);
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
             close();
             return;
@@ -286,7 +284,6 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
                 relationshipService.updateIdAndName(originalTeacher.getRelationships(), originalTeacher.getId(), id.getText(), name.getText());
 
             originalTeacher = teacherRepository.save(loadValuesIntoTeacherModel());
-            dataPassService.setValue(new Pair<>(true, originalTeacher));
             logger.logInfo(this.getClass().toString(), "更改教师档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -304,7 +301,6 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
 
             teacherRepository.delete(originalTeacher);
             originalTeacher = teacherRepository.save(loadValuesIntoTeacherModel());
-            dataPassService.setValue(new Pair<>(true, originalTeacher));
             logger.logInfo(this.getClass().toString(), "更改教师档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -351,8 +347,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
         Visit vis = (Visit) dataPassService.getValue();
         if (vis != null) {
             originalTeacher.getVisits().add(vis);
-            teacherRepository.save(originalTeacher);
             visit.getItems().add(vis);
+            originalTeacher = teacherRepository.save(originalTeacher);
         }
     }
 
