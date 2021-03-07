@@ -8,11 +8,13 @@ import org.krst.app.domains.Staff;
 import org.krst.app.configurations.Logger;
 import org.krst.app.repositories.StaffRepository;
 import org.krst.app.services.CacheService;
+import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : None
- * Out : None
+ * Out : null, not added
+ *       Staff, newly added Staff
  */
 @FXMLController
 public class AddStaffController {
@@ -59,6 +61,8 @@ public class AddStaffController {
     @Autowired
     private StaffRepository staffRepository;
     @Autowired
+    private DataPassService dataPassService;
+    @Autowired
     private Logger logger;
     @Autowired
     private CacheService cacheService;
@@ -101,7 +105,8 @@ public class AddStaffController {
         staff.setTalent(talent.getText());
         staff.setEducation(education.getText());
 
-        staffRepository.save(staff);
+        Staff savedStaff = staffRepository.save(staff);
+        dataPassService.setValue(savedStaff);
 
         cacheService.refreshStaffCache();
         logger.logInfo(getClass().toString(), "新建员工档案，编号：{}，姓名：{}", id.getText(), name.getText());

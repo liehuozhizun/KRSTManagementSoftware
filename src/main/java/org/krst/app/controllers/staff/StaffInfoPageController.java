@@ -27,7 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Staff, the Staff model that need to be displayed
- * Out : None
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Staff>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Staff, updated Staff model
  */
 @FXMLController
 public class StaffInfoPageController implements InfoPageControllerTemplate {
@@ -300,6 +305,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             staffRepository.delete(originalStaff);
+            dataPassService.setValue(new Pair<>(false, null));
             logger.logInfo(this.getClass().toString(), "删除员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             close();
             return;
@@ -319,6 +325,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                 relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
 
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
+            dataPassService.setValue(new Pair<>(true, originalStaff));
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -336,6 +343,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
 
             staffRepository.delete(originalStaff);
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
+            dataPassService.setValue(new Pair<>(true, originalStaff));
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
