@@ -5,12 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.CourseTemplate;
-import org.krst.app.repositories.CourseTemplateRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.views.course.AddCourseTemplate;
@@ -23,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class CourseTemplateControlPanelController {
-    @FXML private TextField number;
+    @FXML private Text number;
     @FXML private TableView<CourseTemplate> courseTemplates;
     @FXML private TableColumn<CourseTemplate, String> id;
     @FXML private TableColumn<CourseTemplate, String> name;

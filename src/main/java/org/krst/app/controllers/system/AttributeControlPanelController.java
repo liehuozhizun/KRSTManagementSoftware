@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class AttributeControlPanelController {
-    @FXML private TextField number;
+    @FXML private Text number;
     @FXML private TableView<Attribute> attributes;
     @FXML private TableColumn<Attribute, String> attributes_attribute;
     @FXML private TableColumn<Attribute, String> attributes_leader;

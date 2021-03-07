@@ -20,13 +20,12 @@ import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.course.CourseTemplateControlPanel;
 import org.krst.app.views.staff.AddStaff;
 import org.krst.app.views.staff.StaffInfoPage;
 import org.krst.app.views.student.AddStudent;
 import org.krst.app.views.student.StudentInfoPage;
-import org.krst.app.views.system.ChangePassword;
-import org.krst.app.views.system.Remainder;
-import org.krst.app.views.system.SystemInfoPage;
+import org.krst.app.views.system.*;
 import org.krst.app.views.teacher.AddTeacher;
 import org.krst.app.views.teacher.TeacherInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -483,5 +482,16 @@ public class MainWindowController {
             staffs.getItems().add(savedStaff);
             staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) + 1));
         }
+    }
+
+    // ----------------- Other Panel  -----------------
+    public void other_courseTemplate() {
+        KRSTManagementSoftware.openWindow(CourseTemplateControlPanel.class);
+    }
+    public void other_attribute() {
+        KRSTManagementSoftware.openWindow(AttributeControlPanel.class);
+    }
+    public void other_patronSaintDate() {
+        KRSTManagementSoftware.openWindow(PatronSaintDateControlPanel.class);
     }
 }
