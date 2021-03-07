@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
@@ -9,9 +10,9 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<BorderPane fx:id="basePane" maxHeight="835.0" maxWidth="1250.0" minHeight="835.0" minWidth="1250.0" prefHeight="835.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.MainWindowController">
+<BorderPane fx:id="basePane" maxHeight="785.0" maxWidth="1250.0" minHeight="785.0" minWidth="1250.0" prefHeight="785.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.MainWindowController">
    <left>
-       <VBox maxHeight="800.0" maxWidth="150.0" minHeight="800.0" minWidth="150.0" prefHeight="800.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+       <VBox maxHeight="750.0" maxWidth="150.0" minHeight="750.0" minWidth="150.0" prefHeight="750.0" prefWidth="150.0" BorderPane.alignment="CENTER">
           <children>
               <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showStudent" prefHeight="100.0" prefWidth="150.0" text="学生信息">
                   <font>
@@ -74,49 +75,19 @@
        </MenuBar>
    </top>
    <center>
-       <Pane maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" prefHeight="800.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+       <Pane maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" prefHeight="750.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
           <children>
-              <SplitPane fx:id="teacher" dividerPositions="0.5" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1100.0">
-                 <items>
-                     <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
-                         <children>
-                             <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="teacher" />
-                         </children>
-                     </AnchorPane>
-                     <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="60.0" prefWidth="1100.0" />
-                 </items>
-              </SplitPane>
-              <SplitPane fx:id="staff" dividerPositions="0.5" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1100.0">
+              <SplitPane fx:id="staff" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
                   <items>
                       <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
                           <children>
                               <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="staff" />
                           </children>
                       </AnchorPane>
-                      <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="60.0" prefWidth="1100.0" />
+                      <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0" />
                   </items>
               </SplitPane>
-              <SplitPane fx:id="course" dividerPositions="0.5" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1100.0">
-                  <items>
-                      <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
-                          <children>
-                              <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="course" />
-                          </children>
-                      </AnchorPane>
-                      <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="60.0" prefWidth="1100.0" />
-                  </items>
-              </SplitPane>
-              <SplitPane fx:id="other" dividerPositions="0.5" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1100.0">
-                  <items>
-                      <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
-                          <children>
-                              <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="other" />
-                          </children>
-                      </AnchorPane>
-                      <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="60.0" prefWidth="1100.0" />
-                  </items>
-              </SplitPane>
-              <SplitPane fx:id="student" dividerPositions="0.5" maxHeight="800.0" maxWidth="1100.0" minHeight="800.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1100.0">
+              <SplitPane fx:id="student" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
                   <items>
                       <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
                           <children>
@@ -146,9 +117,9 @@
                         <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
                           </children>
                       </AnchorPane>
-                  <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1100.0">
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
                      <children>
-                        <TableView fx:id="students" layoutY="45.0" maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                        <TableView fx:id="students" layoutY="45.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
                           <columns>
                             <TableColumn fx:id="students_id" prefWidth="75.0" text="学生编号" />
                               <TableColumn fx:id="students_name" prefWidth="100.0" text="姓名" />
@@ -156,11 +127,11 @@
                               <TableColumn fx:id="students_gender" prefWidth="50.0" text="性别" />
                               <TableColumn fx:id="students_birthday" minWidth="0.0" prefWidth="100.0" text="出生日期" />
                               <TableColumn fx:id="students_age" prefWidth="50.0" text="年龄" />
-                              <TableColumn fx:id="students_attribute" prefWidth="220.0" text="所属堂区" />
+                              <TableColumn fx:id="students_attribute" prefWidth="190.0" text="所属堂区" />
                               <TableColumn fx:id="students_leader" prefWidth="100.0" text="负责人" />
                               <TableColumn fx:id="students_phone" prefWidth="100.0" text="联系方式" />
                               <TableColumn fx:id="students_altPhone" prefWidth="100.0" text="其他联系方式" />
-                              <TableColumn fx:id="students_address" prefWidth="103.0" text="地址" />
+                              <TableColumn fx:id="students_address" prefWidth="115.0" text="地址" />
                           </columns>
                         </TableView>
                         <Text layoutX="514.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
@@ -175,6 +146,87 @@
                      </children>
                   </AnchorPane>
                   </items>
+              </SplitPane>
+              <SplitPane fx:id="course" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                  <items>
+                      <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                          <children>
+                              <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="course" />
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0" />
+                  </items>
+              </SplitPane>
+              <SplitPane fx:id="other" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                  <items>
+                      <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                          <children>
+                              <Text layoutX="424.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="other" />
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0" />
+                  </items>
+              </SplitPane>
+              <SplitPane fx:id="teacher" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                 <items>
+                  <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="90.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师编号" />
+                        <Text layoutX="90.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师姓名" />
+                        <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
+                        <Text layoutX="416.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属堂区" />
+                        <TextField fx:id="teacher_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="teacher_name" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="teacher_attribute" editable="true" layoutX="502.0" layoutY="129.0" prefHeight="31.0" prefWidth="189.0" promptText="选择或输入堂区名称" />
+                        <ComboBox fx:id="teacher_gender" layoutX="502.0" layoutY="88.0" prefHeight="31.0" prefWidth="89.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="男" />
+                                 <String fx:value="女" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_addTeacher" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="teachers" layoutY="46.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                           <columns>
+                              <TableColumn fx:id="teachers_id" prefWidth="75.0" text="教师编号" />
+                              <TableColumn fx:id="teachers_name" prefWidth="100.0" text="姓名" />
+                              <TableColumn fx:id="teachers_baptismalName" prefWidth="100.0" text="圣名" />
+                              <TableColumn fx:id="teachers_gender" prefWidth="50.0" text="性别" />
+                              <TableColumn fx:id="teachers_birthday" minWidth="0.0" prefWidth="100.0" text="出生日期" />
+                              <TableColumn fx:id="teachers_age" prefWidth="50.0" text="年龄" />
+                              <TableColumn fx:id="teachers_attribute" prefWidth="190.0" text="所属堂区" />
+                              <TableColumn fx:id="teachers_leader" prefWidth="100.0" text="负责人" />
+                              <TableColumn fx:id="teachers_phone" prefWidth="100.0" text="联系方式" />
+                              <TableColumn fx:id="teachers_altPhone" prefWidth="100.0" text="其他联系方式" />
+                              <TableColumn fx:id="teachers_address" prefWidth="115.0" text="地址" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="23.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师总人数：" />
+                        <Text fx:id="teacher_totalNumber" layoutX="113.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="teacher_searchNumberPrompt" layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询人数：" visible="false" />
+                        <Text fx:id="teacher_searchNumber" layoutX="291.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+                 </items>
               </SplitPane>
           </children>
        </Pane>

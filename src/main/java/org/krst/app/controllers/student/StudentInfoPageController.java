@@ -452,7 +452,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void addRelationship(){
-        dataPassService.setValue(new Pair<>(Relation.Type.STAFF, new Pair<>(originalStudent.getId(), originalStudent.getName())));
+        dataPassService.setValue(new Pair<>(Relation.Type.STUDENT, new Pair<>(originalStudent.getId(), originalStudent.getName())));
         KRSTManagementSoftware.openWindow(AddRelationship.class);
         Student tempStudent = (Student) dataPassService.getValue();
         if (tempStudent != null) {

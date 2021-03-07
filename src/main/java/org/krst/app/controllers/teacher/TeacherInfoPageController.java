@@ -29,7 +29,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Teacher, the Teacher model that need to be displayed
- * Out : None
+ * Out : null, no changes are made
+ *       OR
+ *       Pair<Boolean, Teacher>
+ *         Boolean, true  update operation
+ *                  false delete operation
+ *         Teacher, updated Teacher model
  */
 @FXMLController
 public class TeacherInfoPageController implements InfoPageControllerTemplate {
@@ -78,8 +83,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     @Autowired private VisitRepository visitRepository;
     @Autowired private RelationshipService relationshipService;
 
-    private Teacher originalTeacher;
-    private Boolean isDeleteOperation;
+    private Teacher originalTeacher = null;
+    private Boolean isDeleteOperation = false;
 
     @FXML public void initialize() {
         originalTeacher = (Teacher) dataPassService.getValue();
@@ -261,6 +266,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             teacherRepository.delete(originalTeacher);
+            dataPassService.setValue(new Pair<>(false, null));
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
             close();
             return;
@@ -280,6 +286,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
                 relationshipService.updateIdAndName(originalTeacher.getRelationships(), originalTeacher.getId(), id.getText(), name.getText());
 
             originalTeacher = teacherRepository.save(loadValuesIntoTeacherModel());
+            dataPassService.setValue(new Pair<>(true, originalTeacher));
             logger.logInfo(this.getClass().toString(), "更改教师档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -297,6 +304,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
 
             teacherRepository.delete(originalTeacher);
             originalTeacher = teacherRepository.save(loadValuesIntoTeacherModel());
+            dataPassService.setValue(new Pair<>(true, originalTeacher));
             logger.logInfo(this.getClass().toString(), "更改教师档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -329,7 +337,7 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void addRelationship() {
-        dataPassService.setValue(new Pair<>(Relation.Type.STAFF, new Pair<>(originalTeacher.getId(), originalTeacher.getName())));
+        dataPassService.setValue(new Pair<>(Relation.Type.TEACHER, new Pair<>(originalTeacher.getId(), originalTeacher.getName())));
         KRSTManagementSoftware.openWindow(AddRelationship.class);
         Teacher tempTeacher = (Teacher) dataPassService.getValue();
         if (tempTeacher != null) {
@@ -354,7 +362,6 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
         setDatePickerEditableMode(state, birthday, baptismalDate, confirmationDate, marriageDate, deathDate);
         setComboBoxEditableMode(state, gender, attribute, staff);
         setCheckBoxEditableMode(state, isGregorianCalendar);
-        staff.setEditable(state);
     }
 
     @Override
