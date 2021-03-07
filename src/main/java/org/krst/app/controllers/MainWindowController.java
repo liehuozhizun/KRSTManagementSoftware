@@ -14,7 +14,8 @@ import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.Attribute;
 import org.krst.app.domains.Student;
-import org.krst.app.repositories.StudentRepository;
+import org.krst.app.domains.Teacher;
+import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
@@ -23,6 +24,8 @@ import org.krst.app.views.student.StudentInfoPage;
 import org.krst.app.views.system.ChangePassword;
 import org.krst.app.views.system.Remainder;
 import org.krst.app.views.system.SystemInfoPage;
+import org.krst.app.views.teacher.AddTeacher;
+import org.krst.app.views.teacher.TeacherInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 
@@ -31,26 +34,33 @@ import java.time.LocalDate;
 @FXMLController
 public class MainWindowController {
     @FXML private BorderPane basePane;
-    @FXML private SplitPane teacher;
     @FXML private SplitPane staff;
     @FXML private SplitPane course;
     @FXML private SplitPane other;
 
     @Autowired private DataPassService dataPassService;
     @Autowired private StudentRepository studentRepository;
+    @Autowired private TeacherRepository teacherRepository;
+    @Autowired private StaffRepository staffRepository;
+    @Autowired private PersonRepository personRepository;
+    @Autowired private CourseRepository courseRepository;
     @Autowired private CacheService cacheService;
 
     @FXML public void initialize() {
-        KRSTManagementSoftware.resizeWindow(835.0, 1250.0, "科瑞斯特管理软件");
+        KRSTManagementSoftware.resizeWindow(785.0, 1250.0, "科瑞斯特管理软件");
         student_initialize();
     }
 
     // ----------------- pane switcher -----------------
+    private boolean _teacherReady = false;
+    private boolean _staffReady = false;
+    private boolean _courseReady = false;
     public void showStudent() {
         student.toFront();
     }
     public void showTeacher() {
         teacher.toFront();
+        if (!_teacherReady) teacher_initialize();
     }
     public void showStaff() {
         staff.toFront();
@@ -101,7 +111,7 @@ public class MainWindowController {
     @FXML private TableColumn<Student, LocalDate> students_birthday, students_age;
 
     private void student_initialize() {
-        students.getItems().addAll(studentRepository.findAll());
+        students.getItems().setAll(studentRepository.findAll());
         student_attribute.getItems().setAll(cacheService.getAttributes());
         student_attribute.setConverter(new StringConverter<Attribute>() {
             @Override
@@ -207,13 +217,14 @@ public class MainWindowController {
         student_searchNumber.setVisible(true);
 
         Student studentExample = new Student();
-        studentExample.setId(student_id.getText());
-        studentExample.setName(student_name.getText());
+        studentExample.setId(student_id.getText().isEmpty() ? null : student_id.getText());
+        studentExample.setName(student_name.getText().isEmpty() ? null : student_name.getText());
         studentExample.setGender(student_gender.getValue());
         studentExample.setAttribute(student_attribute.getValue());
         students.getItems().setAll(studentRepository.findAll(Example.of(studentExample)));
     }
     public void student_clear() {
+        students.getItems().setAll(studentRepository.findAll());
         student_searchNumberPrompt.setVisible(false);
         student_searchNumber.setVisible(false);
         student_id.clear();
@@ -228,6 +239,151 @@ public class MainWindowController {
         if (savedStudent != null) {
             students.getItems().add(savedStudent);
             student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) + 1));
+        }
+    }
+
+    // ----------------- Teacher Panel  -----------------
+    @FXML private SplitPane teacher;
+    @FXML private TextField teacher_id, teacher_name;
+    @FXML private Text teacher_totalNumber, teacher_searchNumberPrompt, teacher_searchNumber;
+    @FXML private ComboBox<String> teacher_gender;
+    @FXML private ComboBox<Attribute> teacher_attribute;
+    @FXML private TableView<Teacher> teachers;
+    @FXML private TableColumn<Teacher, String> teachers_id, teachers_name, teachers_baptismalName, teachers_gender,
+            teachers_phone, teachers_altPhone, teachers_address;
+    @FXML private TableColumn<Teacher, Attribute> teachers_attribute, teachers_leader;
+    @FXML private TableColumn<Teacher, LocalDate> teachers_birthday, teachers_age;
+
+    private void teacher_initialize() {
+        _teacherReady = true;
+        teachers.getItems().setAll(teacherRepository.findAll());
+        teacher_attribute.getItems().setAll(cacheService.getAttributes());
+        teacher_attribute.setConverter(new StringConverter<Attribute>() {
+            @Override
+            public String toString(Attribute attribute) {
+                return attribute == null ? null : attribute.getAttribute();
+            }
+
+            @Override
+            public Attribute fromString(String string) {
+                return string == null ? null : teacher_attribute.getItems().stream().filter(attribute ->
+                        attribute.getAttribute().equals(string)).findFirst().orElse(null);
+            }
+        });
+        teacher_totalNumber.setText(String.valueOf(teachers.getItems().size()));
+        teachers.setRowFactory(tv -> {
+            TableRow<Teacher> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Teacher teacher = row.getItem();
+                    dataPassService.setValue(teacher);
+                    KRSTManagementSoftware.openWindow(TeacherInfoPage.class);
+                    Pair<Boolean, Teacher> returnedData = (Pair<Boolean, Teacher>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        if (returnedData.getKey()) {
+                            teachers.getItems().set(row.getIndex(), returnedData.getValue());
+                        } else {
+                            teachers.getItems().remove(row.getIndex());
+                            teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) - 1));
+                        }
+                    }
+                }
+            });
+            return row ;
+        });
+        teachers.getItems().addListener((ListChangeListener<Teacher>) c -> {
+            teacher_searchNumber.setText(String.valueOf(teachers.getItems().size()));
+        });
+        teachers_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        teachers_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        teachers_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
+        teachers_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        teachers_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        teachers_age.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        teachers_age.setCellFactory(new Callback<TableColumn<Teacher, LocalDate>, TableCell<Teacher, LocalDate>>() {
+            @Override
+            public TableCell<Teacher, LocalDate> call(TableColumn<Teacher, LocalDate> param) {
+                return new TableCell<Teacher, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate birthday, boolean empty) {
+                        super.updateItem(birthday, empty);
+                        if (empty || birthday == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(String.valueOf(birthday.until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears()));
+                        }
+                    }
+                };
+            }
+        });
+        teachers_attribute.setCellValueFactory(new PropertyValueFactory<>("attribute"));
+        teachers_attribute.setCellFactory(new Callback<TableColumn<Teacher, Attribute>, TableCell<Teacher, Attribute>>() {
+            @Override
+            public TableCell<Teacher, Attribute> call(TableColumn<Teacher, Attribute> param) {
+                return new TableCell<Teacher, Attribute>() {
+                    @Override
+                    protected void updateItem(Attribute attribute, boolean empty) {
+                        super.updateItem(attribute, empty);
+                        if (empty || attribute == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(attribute.getAttribute());
+                        }
+                    }
+                };
+            }
+        });
+        teachers_leader.setCellValueFactory(new PropertyValueFactory<>("attribute"));
+        teachers_leader.setCellFactory(new Callback<TableColumn<Teacher, Attribute>, TableCell<Teacher, Attribute>>() {
+            @Override
+            public TableCell<Teacher, Attribute> call(TableColumn<Teacher, Attribute> param) {
+                return new TableCell<Teacher, Attribute>() {
+                    @Override
+                    protected void updateItem(Attribute attribute, boolean empty) {
+                        super.updateItem(attribute, empty);
+                        if (empty || attribute == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(attribute.getLeader());
+                        }
+                    }
+                };
+            }
+        });
+        teachers_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        teachers_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
+        teachers_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+    }
+    public void teacher_search() {
+        teacher_searchNumberPrompt.setVisible(true);
+        teacher_searchNumber.setVisible(true);
+
+        Teacher teacherExample = new Teacher();
+        teacherExample.setId(teacher_id.getText().isEmpty() ? null : teacher_id.getText());
+        teacherExample.setName(teacher_name.getText().isEmpty() ? null : teacher_name.getText());
+        teacherExample.setGender(teacher_gender.getValue());
+        teacherExample.setAttribute(teacher_attribute.getValue());
+        teachers.getItems().setAll(teacherRepository.findAll(Example.of(teacherExample)));
+    }
+    public void teacher_clear() {
+        teachers.getItems().setAll(teacherRepository.findAll());
+        teacher_searchNumberPrompt.setVisible(false);
+        teacher_searchNumber.setVisible(false);
+        teacher_id.clear();
+        teacher_name.clear();
+        teacher_gender.setValue(null);
+        teacher_attribute.setValue(null);
+        teacher_attribute.getItems().setAll(cacheService.getAttributes());
+    }
+    public void teacher_addTeacher() {
+        KRSTManagementSoftware.openWindow(AddTeacher.class);
+        Teacher savedTeacher = (Teacher) dataPassService.getValue();
+        if (savedTeacher != null) {
+            teachers.getItems().add(savedTeacher);
+            teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) + 1));
         }
     }
 }

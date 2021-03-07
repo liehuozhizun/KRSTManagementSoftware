@@ -20,7 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : None
- * Out : None
+ * Out : null, not added
+ *       Teacher, newly added Teacher
  */
 @FXMLController
 public class AddTeacherController {
@@ -176,7 +177,8 @@ public class AddTeacherController {
         teacher.setEducation(education.getText());
         teacher.setStaff(staff.getValue());
 
-        teacherRepository.save(teacher);
+        Teacher savedTeacher = teacherRepository.save(teacher);
+        dataPassService.setValue(savedTeacher);
         logger.logInfo(getClass().toString(), "新建教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
         close();
     }

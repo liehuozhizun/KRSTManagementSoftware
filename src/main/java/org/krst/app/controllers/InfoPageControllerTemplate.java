@@ -35,8 +35,10 @@ public interface InfoPageControllerTemplate {
     }
 
     default void setComboBoxEditableMode(boolean state, ComboBox ...comboBoxes) {
+        ColorAdjust colorAdjust = state ? editableColorAdjust : uneditableColorAdjust;
         for (ComboBox comboBox : comboBoxes) {
             comboBox.setMouseTransparent(!state);
+            comboBox.setEffect(colorAdjust);
         }
     }
 
