@@ -109,8 +109,8 @@ public class AddRelationshipController implements InfoPageControllerTemplate {
         name.setText(data.getValue().getValue());
         AName1.setText(data.getValue().getValue());
         AName2.setText(data.getValue().getValue());
-        BName1.setText("?");
-        BName2.setText("?");
+        BName1.setText("B 姓名");
+        BName2.setText("B 姓名");
     }
 
     public void accept() {
