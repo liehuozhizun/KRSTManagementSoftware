@@ -11,15 +11,15 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.krst.app.KRSTManagementSoftware;
-import org.krst.app.domains.Attribute;
-import org.krst.app.domains.Staff;
-import org.krst.app.domains.Student;
-import org.krst.app.domains.Teacher;
+import org.krst.app.domains.*;
 import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.course.CourseTemplateControlPanel;
+import org.krst.app.views.person.AddPerson;
+import org.krst.app.views.person.PersonInfoPage;
+import org.krst.app.views.share.AttributeControlPanel;
 import org.krst.app.views.staff.AddStaff;
 import org.krst.app.views.staff.StaffInfoPage;
 import org.krst.app.views.student.AddStudent;
@@ -55,6 +55,7 @@ public class MainWindowController {
     private boolean _teacherReady = false;
     private boolean _staffReady = false;
     private boolean _courseReady = false;
+    private boolean _personReady = false;
     public void showStudent() {
         student.toFront();
     }
@@ -65,6 +66,10 @@ public class MainWindowController {
     public void showStaff() {
         staff.toFront();
         if (!_staffReady) staff_initialize();
+    }
+    public void showPerson() {
+        person.toFront();
+        if (!_personReady) person_initialize();
     }
     public void showCourse() {
         course.toFront();
@@ -474,6 +479,96 @@ public class MainWindowController {
         if (savedStaff != null) {
             staffs.getItems().add(savedStaff);
             staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) + 1));
+        }
+    }
+
+    // ----------------- Person Panel  -----------------
+    @FXML private SplitPane person;
+    @FXML private TextField person_id, person_name;
+    @FXML private Text person_totalNumber, person_searchNumberPrompt, person_searchNumber;
+    @FXML private ComboBox<String> person_gender;
+    @FXML private TableView<Person> persons;
+    @FXML private TableColumn<Person, String> persons_id, persons_name, persons_baptismalName, persons_gender,
+            persons_phone, persons_altPhone, persons_job;
+    @FXML private TableColumn<Person, LocalDate> persons_birthday, persons_age;
+
+    private void person_initialize() {
+        _personReady = true;
+        persons.getItems().setAll(personRepository.findAll());
+        person_totalNumber.setText(String.valueOf(persons.getItems().size()));
+        persons.setRowFactory(tv -> {
+            TableRow<Person> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Person person = row.getItem();
+                    dataPassService.setValue(person);
+                    KRSTManagementSoftware.openWindow(PersonInfoPage.class);
+                    Boolean returnedData = (Boolean) dataPassService.getValue();
+                    if (returnedData != null && !returnedData) {
+                        persons.getItems().remove(row.getIndex());
+                        person_totalNumber.setText(String.valueOf(Integer.parseInt(person_totalNumber.getText()) - 1));
+                    } else {
+                        persons.getItems().set(row.getIndex(), personRepository.findById(row.getItem().getId()).orElse(null));
+                    }
+                }
+            });
+            return row ;
+        });
+        persons.getItems().addListener((ListChangeListener<Person>) c -> {
+            person_searchNumber.setText(String.valueOf(persons.getItems().size()));
+        });
+        persons_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        persons_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        persons_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
+        persons_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        persons_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        persons_age.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        persons_age.setCellFactory(new Callback<TableColumn<Person, LocalDate>, TableCell<Person, LocalDate>>() {
+            @Override
+            public TableCell<Person, LocalDate> call(TableColumn<Person, LocalDate> param) {
+                return new TableCell<Person, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate birthday, boolean empty) {
+                        super.updateItem(birthday, empty);
+                        if (empty || birthday == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(String.valueOf(birthday.until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears()));
+                        }
+                    }
+                };
+            }
+        });
+        persons_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        persons_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
+        persons_job.setCellValueFactory(new PropertyValueFactory<>("job"));
+    }
+    public void person_search() {
+        person_searchNumberPrompt.setVisible(true);
+        person_searchNumber.setVisible(true);
+
+        Person personExample = new Person();
+        personExample.setId(staff_id.getText().isEmpty() ? null : staff_id.getText());
+        personExample.setName(staff_name.getText().isEmpty() ? null : staff_name.getText());
+        personExample.setGender(staff_gender.getValue());
+        if (personExample.equals(new Person())) person_clear();
+        else persons.getItems().setAll(personRepository.findAll(Example.of(personExample)));
+    }
+    public void person_clear() {
+        persons.getItems().setAll(personRepository.findAll());
+        person_searchNumberPrompt.setVisible(false);
+        person_searchNumber.setVisible(false);
+        person_id.clear();
+        person_name.clear();
+        person_gender.setValue(null);
+    }
+    public void person_addPerson() {
+        KRSTManagementSoftware.openWindow(AddPerson.class);
+        Person savedPerson = (Person) dataPassService.getValue();
+        if (savedPerson != null) {
+            persons.getItems().add(savedPerson);
+            person_totalNumber.setText(String.valueOf(Integer.parseInt(person_totalNumber.getText()) + 1));
         }
     }
 

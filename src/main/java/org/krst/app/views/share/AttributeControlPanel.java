@@ -1,4 +1,4 @@
-package org.krst.app.views.system;
+package org.krst.app.views.share;
 
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;

@@ -5,10 +5,10 @@ Sprint Backlog
     KRST-50 [BE] Revise CourseInfoPageController Grade component
 
 In Progress
-    KRST-38 [FE/BE] Add Grade Page w/ Controller C
-    KRST-56 [FE/BE] MainWindow - Person Y
+    KRST-38 [FE/BE] Add Grade Page w/ Controller Y
 
 Done
+    KRST-56 [FE/BE] MainWindow - Person Y 3/7
     KRST-55 [BE] Revise Relationship service Y 3/7
     KRST-54 [BE] Revise Remainder service Y 3/7
     KRST-21 [FE/BE] MainWindow - Other Y 3/6
