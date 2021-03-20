@@ -111,6 +111,7 @@ public class GradeInfoPageController implements InfoPageControllerTemplate {
         originalGrade.setScore(score.getText());
         originalGrade.setCourseFeedback(courseFeedback.getText());
         originalGrade.setTeacherFeedback(teacherFeedback.getText());
+        originalGrade.setOffer(offer.getText());
     }
 
     public void delete() {

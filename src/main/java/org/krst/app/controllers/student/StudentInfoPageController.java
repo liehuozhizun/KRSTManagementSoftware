@@ -206,8 +206,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             TableRow<Grade> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    Grade tempGrade = row.getItem();
-                    dataPassService.setValue(tempGrade);
+                    dataPassService.setValue(row.getItem());
                     KRSTManagementSoftware.openWindow(GradeInfoPage.class);
                     Pair<Boolean, Grade> returnedData = (Pair<Boolean, Grade>) dataPassService.getValue();
                     if (returnedData != null) {
