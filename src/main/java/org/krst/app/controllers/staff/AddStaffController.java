@@ -18,54 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class AddStaffController {
+    @FXML private TextField id, name, baptismalName, title, phone, altPhone;
+    @FXML private RadioButton gender_male;
+    @FXML private DatePicker birthday, baptismalDate, confirmationDate, marriageDate, deathDate;
+    @FXML private TextArea responsibility, address, experience, talent, resource, education;
+    @FXML  private CheckBox isGregorianCalendar;
 
-    @FXML
-    private TextField id;
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField baptismalName;
-    @FXML
-    private RadioButton gender_male;
-    @FXML
-    private DatePicker birthday;
-    @FXML
-    private CheckBox isGregorianCalendar;
-    @FXML
-    private DatePicker baptismalDate;
-    @FXML
-    private DatePicker confirmationDate;
-    @FXML
-    private DatePicker marriageDate;
-    @FXML
-    private DatePicker deathDate;
-    @FXML
-    private TextField title;
-    @FXML
-    private TextArea responsibility;
-    @FXML
-    private TextField phone;
-    @FXML
-    private TextField altPhone;
-    @FXML
-    private TextArea address;
-    @FXML
-    private TextArea experience;
-    @FXML
-    private TextArea talent;
-    @FXML
-    private TextArea resource;
-    @FXML
-    private TextArea education;
-
-    @Autowired
-    private StaffRepository staffRepository;
-    @Autowired
-    private DataPassService dataPassService;
-    @Autowired
-    private Logger logger;
-    @Autowired
-    private CacheService cacheService;
+    @Autowired private StaffRepository staffRepository;
+    @Autowired private DataPassService dataPassService;
+    @Autowired private CacheService cacheService;
+    @Autowired private Logger logger;
 
     public void approve() {
         Staff staff = new Staff();

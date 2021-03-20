@@ -31,11 +31,7 @@ public class AttributeInfoPageController implements InfoPageControllerTemplate {
     @FXML private TextField altLeader;
     @FXML private TextField altLeaderPhone;
 
-    @FXML private Button change;
-    @FXML private Button accept;
-    @FXML private Button delete;
-    @FXML private Button cancel;
-    @FXML private Button close;
+    @FXML private Button change,  accept, delete, cancel, close;
 
     @Autowired private DataPassService dataPassService;
     @Autowired private AttributeRepository attributeRepository;

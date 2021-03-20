@@ -22,6 +22,8 @@ import org.krst.app.services.DataPassService;
 import org.krst.app.services.RelationshipService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.Constants;
+import org.krst.app.views.course.AddGrade;
+import org.krst.app.views.course.GradeInfoPage;
 import org.krst.app.views.share.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,38 +36,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @FXMLController
 public class StudentInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
-    @FXML private TextField id;
-    @FXML private TextField name;
-    @FXML private TextField age;
-    @FXML private ComboBox<String> gender;
-    @FXML private TextField baptismalName;
-    @FXML private DatePicker birthday;
+    @FXML private TextField id, name, age, baptismalName, leader, leaderPhone, altLeader, altLeaderPhone, phone, altPhone;
+    @FXML private DatePicker birthday, baptismalDate, confirmationDate, marriageDate, deathDate;
     @FXML private CheckBox isGregorianCalendar;
-    @FXML private DatePicker baptismalDate;
-    @FXML private DatePicker confirmationDate;
-    @FXML private DatePicker marriageDate;
-    @FXML private DatePicker deathDate;
-
+    @FXML private ComboBox<String> gender;
     @FXML private ComboBox<Attribute> attribute;
-    @FXML private TextField leader;
-    @FXML private TextField leaderPhone;
-    @FXML private TextField altLeader;
-    @FXML private TextField altLeaderPhone;
-
-    @FXML private TextField phone;
-    @FXML private TextField altPhone;
-    @FXML private TextArea address;
-    @FXML private TextArea experience;
-    @FXML private TextArea education;
-    @FXML private TextArea talent;
-    @FXML private TextArea resource;
     @FXML private ComboBox<Staff> staff;
+    @FXML private TextArea address, experience, education, talent, resource;
 
-    @FXML private Button change;
-    @FXML private Button accept;
-    @FXML private Button delete;
-    @FXML private Button cancel;
-    @FXML private Button close;
+    @FXML private Button change, accept, delete, cancel, close;
 
     @FXML private TableView<Visit> visit;
     @FXML private TableColumn<Visit, String> visit_date;
@@ -76,9 +55,9 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     @FXML private TableColumn<Internship, String> internship_endDate;
     @FXML private TableColumn<Internship, String> internship_purpose;
     @FXML private TableView<Grade> grade;
-    @FXML private TableColumn<Grade, String> grade_courseTemplate;
-    @FXML private TableColumn<Grade, String> grade_course;
-    @FXML private TableColumn<Grade, Integer> grade_score;
+    @FXML private TableColumn<Grade, Course> grade_courseTemplate;
+    @FXML private TableColumn<Grade, Course> grade_course;
+    @FXML private TableColumn<Grade, String> grade_score;
     @FXML private TableView<Relation> relationship;
     @FXML private TableColumn<Relation, String> relationship_relation;
     @FXML private TableColumn<Relation, String> relationship_name;
@@ -227,7 +206,19 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             TableRow<Grade> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    // TBC    :      LEAVE EMPTY FOR NOW
+                    Grade tempGrade = row.getItem();
+                    dataPassService.setValue(tempGrade);
+                    KRSTManagementSoftware.openWindow(GradeInfoPage.class);
+                    Pair<Boolean, Grade> returnedData = (Pair<Boolean, Grade>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        originalStudent.getGrades().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalStudent.getGrades().add(returnedData.getValue());
+                            grade.getItems().set(row.getIndex(), returnedData.getValue());
+                        } else {
+                            grade.getItems().remove(row.getIndex());
+                        }
+                    }
                 }
             });
             return row ;
@@ -275,8 +266,42 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
         internship_endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         internship_purpose.setCellValueFactory(new PropertyValueFactory<>("purpose"));
 
-        grade_courseTemplate.setCellValueFactory(new PropertyValueFactory<>("courseTemplate"));
+        grade_courseTemplate.setCellValueFactory(new PropertyValueFactory<>("course"));
+        grade_courseTemplate.setCellFactory(new Callback<TableColumn<Grade, Course>, TableCell<Grade, Course>>() {
+            @Override
+            public TableCell<Grade, Course> call(TableColumn<Grade, Course> param) {
+                return new TableCell<Grade, Course>() {
+                    @Override
+                    protected void updateItem(Course item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty && item == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(item.getCourseTemplateIdAndName());
+                        }
+                    }
+                };
+            }
+        });
         grade_course.setCellValueFactory(new PropertyValueFactory<>("course"));
+        grade_course.setCellFactory(new Callback<TableColumn<Grade, Course>, TableCell<Grade, Course>>() {
+            @Override
+            public TableCell<Grade, Course> call(TableColumn<Grade, Course> param) {
+                return new TableCell<Grade, Course>() {
+                    @Override
+                    protected void updateItem(Course item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty && item == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(item.getIdAndName());
+                        }
+                    }
+                };
+            }
+        });
         grade_score.setCellValueFactory(new PropertyValueFactory<>("score"));
 
         relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relation"));
@@ -289,7 +314,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Relation.Type item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty && item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -457,7 +482,12 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void addGrade() {
-        // LEAVE EMPTY FOR NOW
+        dataPassService.setValue(originalStudent);
+        KRSTManagementSoftware.openWindow(AddGrade.class);
+        Grade tempGrade = (Grade) dataPassService.getValue();
+        if (tempGrade != null) {
+            grade.getItems().add(tempGrade);
+        }
     }
 
     @Override

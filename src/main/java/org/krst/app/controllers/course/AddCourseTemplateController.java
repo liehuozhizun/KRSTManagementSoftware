@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 
+/*
+ * IN  : none
+ * OUT : CourseTemplate, newly added CourseTemplate data model
+ */
 @FXMLController
 public class AddCourseTemplateController extends ControllerTemplate {
 

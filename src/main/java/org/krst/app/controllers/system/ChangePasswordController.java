@@ -15,18 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
 public class ChangePasswordController {
+    @FXML private TextField oldPassword;
+    @FXML private PasswordField newPassword, repeatedNewPassword;
 
-    @FXML
-    private TextField oldPassword;
-    @FXML
-    private PasswordField newPassword;
-    @FXML
-    private PasswordField repeatedNewPassword;
-
-    @Autowired
-    private LoginService loginService;
-    @Autowired
-    private Logger logger;
+    @Autowired private LoginService loginService;
+    @Autowired private Logger logger;
 
     public void pressEnterEvent(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {

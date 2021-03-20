@@ -22,7 +22,6 @@ import java.util.Map;
 
 @FXMLController
 public class RemainderController  {
-
     @FXML private TableView<Remainder> today;
     @FXML private TableColumn<Remainder, String> today_date;
     @FXML private TableColumn<Remainder, RemainderEventType> today_type;

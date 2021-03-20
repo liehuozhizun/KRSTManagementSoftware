@@ -1,9 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,6 +8,7 @@ import java.util.Set;
 @Entity
 @Data
 @ToString(exclude = "teachers")
+@EqualsAndHashCode(exclude = "teachers")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseTemplate implements Cloneable {
@@ -28,5 +26,9 @@ public class CourseTemplate implements Cloneable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
+    }
+
+    public String getIdAndName() {
+        return name + " [" + id + "]";
     }
 }

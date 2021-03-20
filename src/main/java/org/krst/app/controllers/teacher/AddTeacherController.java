@@ -25,65 +25,20 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class AddTeacherController {
+    @FXML private TextField id, name, baptismalName, leader, leaderPhone, altLeader, altLeaderPhone, phone, altPhone;
+    @FXML private RadioButton gender_male;
+    @FXML private DatePicker birthday, baptismalDate, confirmationDate, marriageDate, deathDate;
+    @FXML private TextArea address, experience, talent, resource, education;
+    @FXML private CheckBox isGregorianCalendar;
+    @FXML private ComboBox<Attribute> attribute;
+    @FXML private ComboBox<Staff> staff;
 
-    @FXML
-    private TextField id;
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField baptismalName;
-    @FXML
-    private RadioButton gender_male;
-    @FXML
-    private DatePicker birthday;
-    @FXML
-    private CheckBox isGregorianCalendar;
-    @FXML
-    private DatePicker baptismalDate;
-    @FXML
-    private DatePicker confirmationDate;
-    @FXML
-    private DatePicker marriageDate;
-    @FXML
-    private DatePicker deathDate;
-    @FXML
-    private ComboBox<Attribute> attribute;
-    @FXML
-    private TextField leader;
-    @FXML
-    private TextField leaderPhone;
-    @FXML
-    private TextField altLeader;
-    @FXML
-    private TextField altLeaderPhone;
-    @FXML
-    private TextField phone;
-    @FXML
-    private TextField altPhone;
-    @FXML
-    private TextArea address;
-    @FXML
-    private TextArea experience;
-    @FXML
-    private TextArea talent;
-    @FXML
-    private TextArea resource;
-    @FXML
-    private TextArea education;
-    @FXML
-    private ComboBox<Staff> staff;
+    @Autowired private TeacherRepository teacherRepository;
+    @Autowired private CacheService cacheService;
+    @Autowired private DataPassService dataPassService;
+    @Autowired private Logger logger;
 
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private CacheService cacheService;
-    @Autowired
-    private DataPassService dataPassService;
-    @Autowired
-    private Logger logger;
-
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
         staff.getItems().addAll(cacheService.getStaffs());
         staff.setConverter(new StringConverter<Staff>() {
             @Override

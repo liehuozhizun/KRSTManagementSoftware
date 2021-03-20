@@ -20,29 +20,18 @@ import java.util.ArrayList;
  */
 @FXMLController
 public class AddVisitController extends ControllerTemplate {
+    @FXML private DatePicker date;
+    @FXML private ComboBox<Staff> visitor;
+    @FXML private ListView<Staff> visitors;
+    @FXML private TextArea content;
+    @FXML private TextArea summary;
+    @FXML private TextArea comment;
 
-    @FXML
-    private DatePicker date;
-    @FXML
-    private ComboBox<Staff> visitor;
-    @FXML
-    private ListView<Staff> visitors;
-    @FXML
-    private TextArea content;
-    @FXML
-    private TextArea summary;
-    @FXML
-    private TextArea comment;
+    @Autowired private VisitRepository visitRepository;
+    @Autowired private DataPassService dataPassService;
+    @Autowired private CacheService cacheService;
 
-    @Autowired
-    private VisitRepository visitRepository;
-    @Autowired
-    private DataPassService dataPassService;
-    @Autowired
-    private CacheService cacheService;
-
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
         visitor.getItems().addAll(cacheService.getStaffs());
         setUpSelectorAndList(visitor, visitors);
     }

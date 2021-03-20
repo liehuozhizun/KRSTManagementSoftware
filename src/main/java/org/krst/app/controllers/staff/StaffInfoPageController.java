@@ -34,32 +34,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 @FXMLController
 public class StaffInfoPageController implements InfoPageControllerTemplate {
     @FXML private SplitPane splitPane;
-    @FXML private TextField id;
-    @FXML private TextField name;
-    @FXML private TextField baptismalName;
+    @FXML private TextField id, name, baptismalName, age,title, phone, altPhone;
     @FXML private ComboBox<String> gender;
-    @FXML private DatePicker birthday;
+    @FXML private DatePicker birthday, baptismalDate, confirmationDate, marriageDate, deathDate;
     @FXML private CheckBox isGregorianCalendar;
-    @FXML private TextField age;
-    @FXML private DatePicker baptismalDate;
-    @FXML private DatePicker confirmationDate;
-    @FXML private DatePicker marriageDate;
-    @FXML private DatePicker deathDate;
-    @FXML private TextField title;
-    @FXML private TextArea responsibility;
-    @FXML private TextField phone;
-    @FXML private TextField altPhone;
-    @FXML private TextArea address;
-    @FXML private TextArea experience;
-    @FXML private TextArea talent;
-    @FXML private TextArea resource;
-    @FXML private TextArea education;
+    @FXML private TextArea responsibility, address, experience, talent, resource, education;
 
-    @FXML private Button change;
-    @FXML private Button accept;
-    @FXML private Button delete;
-    @FXML private Button cancel;
-    @FXML private Button close;
+    @FXML private Button change, accept, delete, cancel, close;
 
     @FXML private TableView<Visit> visit;
     @FXML private TableColumn<Visit, String> visit_date;

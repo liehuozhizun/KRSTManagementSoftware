@@ -1,9 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @ToString(exclude = {"staff","visits","relationships"})
+@EqualsAndHashCode(exclude = {"attribute","staff","visits","relationships"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher implements InformationOperations {
