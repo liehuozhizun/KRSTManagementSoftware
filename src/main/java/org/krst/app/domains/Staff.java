@@ -1,9 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Entity
 @Data
 @ToString(exclude = {"visits","internships","evaluations","relationships"})
+@EqualsAndHashCode(exclude = {"visits","internships","evaluations","relationships"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Staff implements InformationOperations {

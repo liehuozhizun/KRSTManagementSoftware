@@ -36,31 +36,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @FXMLController
 public class TeacherInfoPageController implements InfoPageControllerTemplate {
     @FXML private TextField id, name, baptismalName, age;
+    @FXML private DatePicker birthday, baptismalDate, confirmationDate, marriageDate, deathDate;
+    @FXML private TextField leader, leaderPhone, altLeader, altLeaderPhone, phone, altPhone;
+    @FXML private TextArea address, experience, talent, resource, education;
+    @FXML private CheckBox isGregorianCalendar;
     @FXML private ComboBox<String> gender;
-    @FXML private DatePicker birthday;
-    @FXML private DatePicker baptismalDate;
-    @FXML private DatePicker confirmationDate;
-    @FXML private DatePicker marriageDate;
-    @FXML private DatePicker deathDate;
-
-    @FXML private TextField leader;
-    @FXML private TextField leaderPhone;
-    @FXML private TextField altLeader;
-    @FXML private TextField altLeaderPhone;
-    @FXML private TextField phone;
-    @FXML private TextField altPhone;
-    @FXML private TextArea address;
-
-    @FXML private TextArea experience;
-    @FXML private TextArea talent;
-    @FXML private TextArea resource;
-    @FXML private TextArea education;
-
-    @FXML private Button accept, delete, close, change, cancel;
-
     @FXML private ComboBox<Attribute> attribute;
     @FXML private ComboBox<Staff> staff;
-    @FXML private CheckBox isGregorianCalendar;
+
+    @FXML private Button accept, delete, close, change, cancel;
 
     @FXML private TableView<Visit> visit;
     @FXML private TableColumn<Visit, String> visit_date;

@@ -16,14 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @FXMLController
 public class LoginController {
+    @FXML private PasswordField textField_password;
 
-    @Autowired
-    private LoginService loginService;
-    @Autowired
-    private Logger logger;
-
-    @FXML
-    private PasswordField textField_password;
+    @Autowired private LoginService loginService;
+    @Autowired private Logger logger;
 
     public void pressEnterEvent(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {

@@ -38,11 +38,7 @@ public class RelationshipInfoPageController implements InfoPageControllerTemplat
     @FXML private TextField relationshipBtoA;
     @FXML private Text deletePromptText;
 
-    @FXML private Button change;
-    @FXML private Button accept;
-    @FXML private Button delete;
-    @FXML private Button cancel;
-    @FXML private Button close;
+    @FXML private Button change,  accept, delete, cancel, close;
 
     @Autowired private DataPassService dataPassService;
     @Autowired private RelationshipService relationshipService;

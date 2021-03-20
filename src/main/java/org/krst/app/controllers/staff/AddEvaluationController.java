@@ -21,25 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class AddEvaluationController {
+    @FXML private TextField name, year, title;
+    @FXML private TextArea responsibility, comment;
 
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField year;
-    @FXML
-    private TextField title;
-    @FXML
-    private TextArea responsibility;
-    @FXML
-    private TextArea comment;
+    @Autowired private DataPassService dataPassService;
+    @Autowired private Logger logger;
 
-    @Autowired
-    private DataPassService dataPassService;
-    @Autowired
-    private Logger logger;
-
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
         try {
             Staff staff = (Staff) dataPassService.getValue();
             name.setText(staff.getName());

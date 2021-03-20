@@ -39,11 +39,7 @@ public class VisitInfoPageController extends ControllerTemplate implements InfoP
     @FXML private TextArea summary;
     @FXML private TextArea comment;
 
-    @FXML private Button change;
-    @FXML private Button accept;
-    @FXML private Button delete;
-    @FXML private Button cancel;
-    @FXML private Button close;
+    @FXML private Button change,  accept, delete, cancel, close;
 
     @Autowired private VisitRepository visitRepository;
     @Autowired private DataPassService dataPassService;

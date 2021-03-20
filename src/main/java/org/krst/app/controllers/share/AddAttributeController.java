@@ -19,23 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @FXMLController
 public class AddAttributeController {
 
-    @FXML
-    private TextField attribute;
-    @FXML
-    private TextField leader;
-    @FXML
-    private TextField leaderPhone;
-    @FXML
-    private TextField altLeader;
-    @FXML
-    private TextField altLeaderPhone;
+    @FXML private TextField attribute, leader, leaderPhone, altLeader, altLeaderPhone;
 
-    @Autowired
-    private AttributeRepository attributeRepository;
-    @Autowired
-    private CacheService cacheService;
-    @Autowired
-    private DataPassService dataPassService;
+    @Autowired private AttributeRepository attributeRepository;
+    @Autowired private CacheService cacheService;
+    @Autowired private DataPassService dataPassService;
 
     public void approve() {
         if (attributeRepository.existsById(attribute.getText())) {

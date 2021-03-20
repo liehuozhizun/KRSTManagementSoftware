@@ -15,20 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class AddInternshipController {
+    @FXML private DatePicker startDate, endDate;
+    @FXML private TextArea purpose, summary, comment;
 
-    @FXML
-    private DatePicker startDate;
-    @FXML
-    private DatePicker endDate;
-    @FXML
-    private TextArea purpose;
-    @FXML
-    private TextArea summary;
-    @FXML
-    private TextArea comment;
-
-    @Autowired
-    private DataPassService dataPassService;
+    @Autowired private DataPassService dataPassService;
 
     public void approve() {
         Internship internship = new Internship(

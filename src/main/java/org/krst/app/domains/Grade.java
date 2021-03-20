@@ -1,26 +1,24 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @ToString(exclude = {"student","course"})
+@EqualsAndHashCode(exclude = {"student","course"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Grade implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Student student;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Course course;
-    private Integer score; // 成绩
+    private String score; // 成绩
     private String courseFeedback; // 课程评价
     private String teacherFeedback; // 教师评价
     private String offer; // 赠予

@@ -61,13 +61,13 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
         teachers.getItems().setAll(courseTemplate.getTeachers());
     }
 
-    public void change(){
+    public void change() {
         isDeleteOperation = false;
         setEditableMode(true);
         setButtonMode(true);
     }
 
-    public void accept(){
+    public void accept() {
         if (isDeleteOperation) {
             courseTemplateRepository.delete(originalCourseTemplate);
             logger.logInfo(this.getClass().toString(), "删除课程模板：编号-{}，名称-{}", id.getText(), name.getText());
@@ -118,12 +118,12 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
         return new CourseTemplate(id.getText(), name.getText(), topic.getText(), originalCourseTemplate.getTeachers());
     }
 
-    public void delete(){
+    public void delete() {
         isDeleteOperation = true;
         setButtonMode(true);
     }
 
-    public void cancel(){
+    public void cancel() {
         if (!isDeleteOperation) {
             refreshBasicInfo(originalCourseTemplate);
             setEditableMode(false);
@@ -131,7 +131,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
         setButtonMode(false);
     }
 
-    public void close(){
+    public void close() {
         ((Stage)id.getScene().getWindow()).close();
     }
 

@@ -1,9 +1,6 @@
 package org.krst.app.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @ToString(exclude = {"staff","visits","internships","relationships","grades"})
+@EqualsAndHashCode(exclude = {"grades","attribute","staff","visits","internships","relationships"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student implements InformationOperations {
@@ -26,7 +24,7 @@ public class Student implements InformationOperations {
     private LocalDate confirmationDate;
     private LocalDate marriageDate;
     private LocalDate deathDate;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Attribute attribute;
     private String phone;
     private String altPhone;
@@ -35,7 +33,7 @@ public class Student implements InformationOperations {
     private String talent;
     private String resource;
     private String education;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Staff staff;
     @ElementCollection
     private Set<Visit> visits; // 探访记录
