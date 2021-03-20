@@ -7,13 +7,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
+import javafx.util.StringConverter;
+import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.*;
 import org.krst.app.repositories.CourseRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
+import org.krst.app.views.course.AddGrade;
+import org.krst.app.views.course.GradeInfoPage;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /*
  * IN  : Course, data model needs to be displayed
@@ -21,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @FXMLController
 public class CourseInfoPageController implements InfoPageControllerTemplate {
-    @FXML private TextField id, location, className, name;
+    @FXML private TextField id, location1, className, name;
     @FXML private DatePicker startDate, endDate;
     @FXML private Text number, prompt1, prompt2;
     @FXML private TextArea topic;
@@ -32,7 +41,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
     @FXML private TableView<Grade> grades;
     @FXML private TableColumn<Grade, String> grades_id;
     @FXML private TableColumn<Grade, Student> grades_name;
-    @FXML private TableColumn<Grade, Integer> grades_score;
+    @FXML private TableColumn<Grade, String> grades_score;
     @FXML private TableView<Grade> offers;
     @FXML private TableColumn<Grade, Student> offers_name;
     @FXML private TableColumn<Grade, String> offers_offer;
@@ -79,9 +88,47 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
             name.setText(newValue.getName());
             topic.setText(newValue.getTopic());
             primaryTeacher.getSelectionModel().clearSelection();
-            primaryTeacher.getItems().setAll(newValue.getTeachers());
+            if (newValue.getTeachers() != null)
+                primaryTeacher.getItems().setAll(newValue.getTeachers());
             secondaryTeacher.getSelectionModel().clearSelection();
-            secondaryTeacher.getItems().setAll(oldValue.getTeachers());
+            if (newValue.getTeachers() != null)
+                secondaryTeacher.getItems().setAll(newValue.getTeachers());
+        });
+        courseTemplate.setConverter(new StringConverter<CourseTemplate>() {
+            @Override
+            public String toString(CourseTemplate courseTemplate1) {
+                return courseTemplate1 == null ? null : courseTemplate1.getIdAndName();
+            }
+
+            @Override
+            public CourseTemplate fromString(String string) {
+                return string == null ? null : courseTemplate.getItems().stream().filter(ct -> ct.getIdAndName().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+        primaryTeacher.setConverter(new StringConverter<Teacher>() {
+            @Override
+            public String toString(Teacher teacher) {
+                return teacher == null ? null : teacher.getNameAndId();
+            }
+
+            @Override
+            public Teacher fromString(String string) {
+                return string == null ? null : primaryTeacher.getItems().stream().filter(ct -> ct.getNameAndId().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+        secondaryTeacher.setConverter(new StringConverter<Teacher>() {
+            @Override
+            public String toString(Teacher teacher) {
+                return teacher == null ? null : teacher.getNameAndId();
+            }
+
+            @Override
+            public Teacher fromString(String string) {
+                return string == null ? null : secondaryTeacher.getItems().stream().filter(ct -> ct.getNameAndId().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
         });
     }
 
@@ -108,6 +155,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
         });
         grades_score.setCellValueFactory(new PropertyValueFactory<>("score"));
 
+        grades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         grades.setRowFactory(defaultRowFactory());
     }
 
@@ -153,7 +201,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                 };
             }
         });
-        courseComments_comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        courseComments_comment.setCellValueFactory(new PropertyValueFactory<>("courseFeedback"));
         courseComments.setRowFactory(defaultRowFactory());
 
         teacherComments.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -175,8 +223,20 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                 };
             }
         });
-        teacherComments_comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        teacherComments_comment.setCellValueFactory(new PropertyValueFactory<>("teacherFeedback"));
         teacherComments.setRowFactory(defaultRowFactory());
+    }
+
+
+    private void refreshPartialData(Grade oldGrade, Grade newGrade, TableView<Grade> tableView, Function<Grade, String> getter) {
+        int itemIndex = tableView.getItems().indexOf(oldGrade);
+        if (itemIndex != -1)
+            if (getter.apply(newGrade).isEmpty())
+                tableView.getItems().remove(itemIndex);
+            else
+                tableView.getItems().set(itemIndex, newGrade);
+        else if (!getter.apply(newGrade).isEmpty())
+            tableView.getItems().add(newGrade);
     }
 
     private Callback<TableView<Grade>, TableRow<Grade>> defaultRowFactory() {
@@ -184,7 +244,31 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
             TableRow<Grade> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    // TBC  -  LEAVE EMPTY FOR NOW
+                    dataPassService.setValue(row.getItem());
+                    KRSTManagementSoftware.openWindow(GradeInfoPage.class);
+                    Pair<Boolean, Grade> returnedData = (Pair<Boolean, Grade>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        originalCourse.getGrades().remove(row.getItem());
+                        if (returnedData.getKey()) {
+                            originalCourse.getGrades().add(returnedData.getValue());
+
+                            int itemIndex = grades.getItems().indexOf(row.getItem());
+                            grades.getItems().set(itemIndex, returnedData.getValue());
+
+                            refreshPartialData(row.getItem(), returnedData.getValue(), offers, Grade::getOffer);
+                            refreshPartialData(row.getItem(), returnedData.getValue(), teacherComments, Grade::getTeacherFeedback);
+                            refreshPartialData(row.getItem(), returnedData.getValue(), courseComments, Grade::getCourseFeedback);
+                        } else {
+                            int itemIndex = grades.getItems().indexOf(row.getItem());
+                            grades.getItems().remove(itemIndex);
+                            itemIndex = offers.getItems().indexOf(row.getItem());
+                            if (itemIndex != -1) offers.getItems().remove(itemIndex);
+                            itemIndex = teacherComments.getItems().indexOf(row.getItem());
+                            if (itemIndex != -1) teacherComments.getItems().remove(itemIndex);
+                            itemIndex = courseComments.getItems().indexOf(row.getItem());
+                            if (itemIndex != -1) courseComments.getItems().remove(itemIndex);
+                        }
+                    }
                 }
             });
             return row;
@@ -193,7 +277,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
 
     private void refreshAll(Course course) {
         refreshBasicInfo(course);
-        refreshOtherInfo(course);
+        refreshOtherInfo(course.getGrades());
     }
 
     private void refreshBasicInfo(Course course) {
@@ -201,22 +285,31 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
         number.setText(String.valueOf(course.getGrades() == null ? 0 : course.getGrades().size()));
         startDate.setValue(course.getStartDate());
         endDate.setValue(course.getEndDate());
-        location.setText(course.getLocation());
+        location1.setText(course.getLocation());
         className.setText(course.getClassName());
-        courseTemplate.getSelectionModel().select(course.getCourseTemplate());
-        primaryTeacher.getSelectionModel().select(course.getPrimaryTeacher());
-        secondaryTeacher.getSelectionModel().select(course.getSecondaryTeacher());
+        if (course.getCourseTemplate() != null)
+            courseTemplate.getSelectionModel().select(course.getCourseTemplate());
+        if (course.getPrimaryTeacher() != null)
+            primaryTeacher.getSelectionModel().select(course.getPrimaryTeacher());
+        if (course.getSecondaryTeacher() != null)
+            secondaryTeacher.getSelectionModel().select(course.getSecondaryTeacher());
     }
 
-    private void refreshOtherInfo(Course course) {
-        grades.getItems().setAll(course.getGrades());
-        offers.getItems().setAll(course.getGrades());
-        courseComments.getItems().setAll(course.getGrades());
-        teacherComments.getItems().setAll(course.getGrades());
+    private void refreshOtherInfo(Set<Grade> gradeSet) {
+        if(gradeSet == null) return;
+        grades.getItems().setAll(gradeSet);
+        offers.getItems().setAll(gradeSet.stream().filter(g->!g.getOffer().isEmpty()).collect(Collectors.toSet()));
+        courseComments.getItems().setAll(gradeSet.stream().filter(g->!g.getCourseFeedback().isEmpty()).collect(Collectors.toSet()));
+        teacherComments.getItems().setAll(gradeSet.stream().filter(g->!g.getTeacherFeedback().isEmpty()).collect(Collectors.toSet()));
     }
 
     public void addGrade() {
-        // LEAVE EMPTY FOR NOW
+        dataPassService.setValue(originalCourse);
+        KRSTManagementSoftware.openWindow(AddGrade.class);
+        Grade tempGrade = (Grade) dataPassService.getValue();
+        if (tempGrade != null) {
+            grades.getItems().add(tempGrade);
+        }
     }
 
     public void change(){
@@ -267,7 +360,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
     }
 
     private Course loadValuesIntoCourseModel() {
-        return new Course(id.getText(), startDate.getValue(), endDate.getValue(), location.getText(), className.getText(),
+        return new Course(id.getText(), startDate.getValue(), endDate.getValue(), location1.getText(), className.getText(),
                 courseTemplate.getValue(), primaryTeacher.getValue(), secondaryTeacher.getValue(),
                 originalCourse.getGrades());
     }
@@ -291,9 +384,9 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
 
     @Override
     public void setEditableMode(boolean state) {
-        setTextEditableMode(state, id, name, location, className);
+        setTextEditableMode(state, id, location1, className);
         setDatePickerEditableMode(state, startDate, endDate);
-        setComboBoxEditableMode(state, primaryTeacher, secondaryTeacher);
+        setComboBoxEditableMode(state, courseTemplate, primaryTeacher, secondaryTeacher);
     }
 
     @Override

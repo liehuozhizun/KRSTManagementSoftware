@@ -23,28 +23,18 @@ import java.util.HashSet;
 @FXMLController
 public class AddCourseTemplateController extends ControllerTemplate {
 
-    @FXML
-    private TextField id;
-    @FXML
-    private TextField name;
-    @FXML
-    private TextArea topic;
-    @FXML
-    private ComboBox<Teacher> teacherSelector;
-    @FXML
-    private ListView<Teacher> teachers;
+    @FXML private TextField id;
+    @FXML private TextField name;
+    @FXML private TextArea topic;
+    @FXML private ComboBox<Teacher> teacherSelector;
+    @FXML private ListView<Teacher> teachers;
 
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private CourseTemplateRepository courseTemplateRepository;
-    @Autowired
-    private CacheService cacheService;
-    @Autowired
-    private Logger logger;
+    @Autowired private TeacherRepository teacherRepository;
+    @Autowired private CourseTemplateRepository courseTemplateRepository;
+    @Autowired private CacheService cacheService;
+    @Autowired private Logger logger;
 
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
         teacherSelector.getItems().addAll(teacherRepository.findAll());
         setUpSelectorAndList(teacherSelector, teachers);
     }
