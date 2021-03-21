@@ -12,12 +12,12 @@
            </font>
        </Text>
        <Text layoutX="37.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="圣人纪念日数量" />
-       <Text layoutX="203.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="双击打开圣人纪念日详情" />
-       <TableView fx:id="table" layoutX="37.0" layoutY="111.0" prefHeight="527.0" prefWidth="330.0">
+       <Text layoutX="215.0" layoutY="666.0" strokeType="OUTSIDE" strokeWidth="0.0" text="双击打开圣人纪念日详情" />
+       <TableView fx:id="table" layoutX="32.0" layoutY="111.0" prefHeight="527.0" prefWidth="348.0">
          <columns>
-             <TableColumn fx:id="id" prefWidth="70.0" text="编号" />
-             <TableColumn fx:id="name" prefWidth="160.0" text="圣人姓名" />
-             <TableColumn fx:id="date" minWidth="0.0" prefWidth="100.0" text="纪念日期" />
+             <TableColumn fx:id="id" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" text="编号" />
+             <TableColumn fx:id="name" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" text="圣人姓名" />
+             <TableColumn fx:id="date" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="纪念日期" />
          </columns>
        </TableView>
        <Button layoutX="272.0" layoutY="71.0" mnemonicParsing="false" onMouseClicked="#addPatronSaintDate" text="新增纪念日" />

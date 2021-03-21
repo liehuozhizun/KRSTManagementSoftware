@@ -10,7 +10,6 @@ import org.krst.app.utils.RemainderEventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.*;
@@ -35,11 +34,6 @@ public class RemainderService {
 
     private final Map<RemainderDateType, List<Remainder>> remainderCache = new HashMap<>(5);
     private boolean isRemainderReady = false;
-
-    @PostConstruct
-    public void init() {
-        refresh();
-    }
 
     public Map<RemainderDateType, List<Remainder>> getRemainder() {
         if (!isRemainderReady) prepareRemainder();

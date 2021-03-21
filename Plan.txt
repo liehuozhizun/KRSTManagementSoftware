@@ -1,9 +1,13 @@
 Sprint Backlog
+    release-1.0 RELEASE_VERSION_1.0
+    KRST-60 [FE/BE] View logs
+    KRST-52 [BE] Reset Database
 
 In Progress
-    KRST-58 [FE] Revise PatronSaintControlPanel listview size Y
+    KRST-59 [BE] Fix Course_id & CourseTemplate_id mapping Y
 
 Done
+    KRST-58 [FE] Revise PatronSaintControlPanel listview size and RemainderService enhancement Y 3/20
     KRST-19 [FE/BE] MainWindow - Course Y 3/20
     KRST-50 [BE] Revise CourseTemplateControlPanel Data Display Y 3/20
     KRST-57 [BE] Revise CourseInfoPageController Grade component Y 3/20
@@ -71,9 +75,9 @@ Backlog
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
     KRST-51 [BE] Database Lock & Unlock tools
-    KRST-52 [BE] Reset Database
     KRST-52 [BE] Database Import & Export
     KRST-53 [BE] Printable Course Information
+    KRST-61 [BE] Printable Grade Information
 
 BUG
     [可能] 更改某一人的Id，这个操作可能不会反映在有mapping的其他数据类中。需要测试，如存在问题，需要在每次更改id时，更新整个数据库所有关联数据。
