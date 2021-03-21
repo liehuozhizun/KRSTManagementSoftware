@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 
 /*
  * IN  : Course, data model needs to be displayed
- * OUT : Boolean, false delete operation
+ * OUT : Boolean
+ *          true, update Id
+ *          false, delete operation
  *       OR
  *       null, update operation or nothing changed
  */
@@ -323,6 +325,8 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
     public void accept(){
         if (isDeleteOperation) {
             courseRepository.delete(originalCourse);
+            courseRepository.updateCourseIdInGrade(originalCourse.getId(), null);
+
             dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除课程信息：编号-{}，授课班级-{}", id.getText(), className.getText());
             close();
@@ -354,8 +358,11 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
             alert.show();
         } else {
             courseRepository.delete(originalCourse);
+            courseRepository.updateCourseIdInGrade(originalCourse.getId(), id.getText());
+
             originalCourse = courseRepository.save(loadValuesIntoCourseModel());
             refreshBasicInfo(originalCourse);
+            dataPassService.setValue(true);
             logger.logInfo(this.getClass().toString(), "更改课程信息：编号-{}，授课班级-{}", id.getText(), className.getText());
             setEditableMode(false);
             setButtonMode(false);

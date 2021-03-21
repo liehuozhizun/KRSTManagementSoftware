@@ -29,4 +29,8 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 
     @Query(value = "SELECT relationship FROM student_relationships WHERE student_id = :AId AND type = :BType AND id = :BId LIMIT 1", nativeQuery = true)
     String getRelationship(String AId, String BId, Integer BType);
+
+    @Modifying
+    @Query(value = "UPDATE grade SET student_id = :newId WHERE student_id = :oldId", nativeQuery = true)
+    void updateStudentIdInGrade(String oldId, String newId);
 }

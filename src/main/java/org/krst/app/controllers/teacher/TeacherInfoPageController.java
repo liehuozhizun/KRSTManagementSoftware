@@ -29,7 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Teacher, the Teacher model that need to be displayed
- * Out : Boolean, false delete operation
+ * Out : Boolean
+ *          true, update Id
+ *          false, delete operation
  *       OR
  *       null, update operation or nothing changed
  */
@@ -248,6 +250,10 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             teacherRepository.delete(originalTeacher);
+            teacherRepository.updatePrimaryTeacherIdInCourse(originalTeacher.getId(), null);
+            teacherRepository.updateSecondaryTeacherIdInCourse(originalTeacher.getId(), null);
+            teacherRepository.updateTeacherIdInCourseTemplate(originalTeacher.getId(), null);
+
             dataPassService.setValue(false);
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
             close();
@@ -284,7 +290,12 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
             relationshipService.updateIdAndName(originalTeacher.getRelationships(), originalTeacher.getId(), id.getText(), name.getText());
 
             teacherRepository.delete(originalTeacher);
+            teacherRepository.updatePrimaryTeacherIdInCourse(originalTeacher.getId(), id.getText());
+            teacherRepository.updateSecondaryTeacherIdInCourse(originalTeacher.getId(), id.getText());
+            teacherRepository.updateTeacherIdInCourseTemplate(originalTeacher.getId(), id.getText());
+
             originalTeacher = teacherRepository.save(loadValuesIntoTeacherModel());
+            dataPassService.setValue(true);
             logger.logInfo(this.getClass().toString(), "更改教师档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);

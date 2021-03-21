@@ -44,7 +44,8 @@ public interface InfoPageControllerTemplate {
 
     default void setCheckBoxEditableMode(boolean state, CheckBox ...checkBoxes) {
         for (CheckBox checkBox : checkBoxes) {
-            checkBox.setDisable(!state);
+            checkBox.setMouseTransparent(!state);
+            checkBox.setEffect(state ? editableColorAdjust : uneditableColorAdjust);
         }
     }
 

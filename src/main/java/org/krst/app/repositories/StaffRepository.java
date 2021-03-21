@@ -29,4 +29,16 @@ public interface StaffRepository extends JpaRepository<Staff, String> {
 
     @Query(value = "SELECT relationship FROM staff_relationships WHERE staff_id = :AId AND type = :BType AND id = :BId LIMIT 1", nativeQuery = true)
     String getRelationship(String AId, String BId, Integer BType);
+
+    @Modifying
+    @Query(value = "UPDATE student SET staff_id = :newId WHERE staff_id = :oldId", nativeQuery = true)
+    void updateStaffIdInStudent(String oldId, String newId);
+
+    @Modifying
+    @Query(value = "UPDATE teacher SET staff_id = :newId WHERE staff_id = :oldId", nativeQuery = true)
+    void updateStaffIdInTeacher(String oldId, String newId);
+
+    @Modifying
+    @Query(value = "UPDATE visit_visitors SET visitors_id = :newId WHERE visitors_id = :oldId", nativeQuery = true)
+    void updateStaffIdInVisitor(String oldId, String newId);
 }

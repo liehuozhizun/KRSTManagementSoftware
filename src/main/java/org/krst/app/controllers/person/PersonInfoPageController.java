@@ -21,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Person, the Person model that need to be displayed
- * Out : Boolean, false delete operation
+ * Out : Boolean
+ *          true, update Id
+ *          false, delete operation
  *       OR
  *       null, update operation or nothing changed
  */
@@ -168,6 +170,7 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
 
             personRepository.delete(originalPerson);
             originalPerson = personRepository.save(loadValuesIntoPersonModel());
+            dataPassService.setValue(true);
             logger.logInfo(this.getClass().toString(), "更改普通人档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);

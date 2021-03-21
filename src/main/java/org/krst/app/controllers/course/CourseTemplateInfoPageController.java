@@ -80,6 +80,8 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     public void accept() {
         if (isDeleteOperation) {
             courseTemplateRepository.delete(originalCourseTemplate);
+            courseTemplateRepository.updateTemplateIdInCourse(originalCourseTemplate.getId(), null);
+
             logger.logInfo(this.getClass().toString(), "删除课程模板：编号-{}，名称-{}", id.getText(), name.getText());
             dataPassService.setValue(new Pair<>(false, null));
             cacheService.refreshCourseTemplateCache();
@@ -115,6 +117,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
         } else {
             courseTemplateRepository.delete(originalCourseTemplate);
             courseTemplateRepository.updateTemplateIdInCourse(originalCourseTemplate.getId(), id.getText());
+
             originalCourseTemplate = courseTemplateRepository.save(loadValuesIntoCourseTemplateModel());
             refreshBasicInfo(originalCourseTemplate);
             logger.logInfo(this.getClass().toString(), "更改课程模板：编号-{}，名称-{}", id.getText(), name.getText());
