@@ -1,11 +1,11 @@
 Sprint Backlog
-    KRST-19 [FE/BE] MainWindow - Course
 
 In Progress
-    KRST-57 Revise CourseTemplateControlPanel Data Display Y
+    KRST-19 [FE/BE] MainWindow - Course Y
 
 Done
-    KRST-50 [BE] Revise CourseInfoPageController Grade component Y 3/20
+    KRST-50 [BE] Revise CourseTemplateControlPanel Data Display Y 3/20
+    KRST-57 [BE] Revise CourseInfoPageController Grade component Y 3/20
     KRST-41 [BE] Revise StudentInfoPage Grade component Y 3/20
     KRST-49 [FE/BE] Add GradeInfoPage w/ Controller Y 3/20
     KRST-38 [FE/BE] Add Grade Page w/ Controller Y 3/20

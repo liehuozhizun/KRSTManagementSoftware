@@ -36,6 +36,8 @@ public class CourseTemplateControlPanelController {
             courseTemplates.getItems().setAll(cacheService.getCourseTemplates());
 
         number.setText(String.valueOf(courseTemplates.getItems().size()));
+
+        courseTemplates.getItems().addAll(cacheService.getCourseTemplates());
         courseTemplates.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         courseTemplates.setRowFactory( tv -> {
             TableRow<CourseTemplate> row = new TableRow<>();
