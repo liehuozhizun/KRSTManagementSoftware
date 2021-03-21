@@ -38,6 +38,13 @@ public class LoginService {
         return passwordMatch ? Status.SUCCESS : Status.ERROR;
     }
 
+    public Status unlimitedVerify(String password) {
+        Login login = adminRepository.findAll().get(0);
+
+        boolean passwordMatch = password.equals(login.getPassword());
+        return passwordMatch ? Status.SUCCESS : Status.ERROR;
+    }
+
     public void changePassword(@NotNull String newPassword) {
         Login login = adminRepository.findAll().get(0);
         login.setPassword(newPassword);
