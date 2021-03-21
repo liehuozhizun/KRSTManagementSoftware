@@ -94,7 +94,11 @@ public class MainWindowController {
         ((Stage)basePane.getScene().getWindow()).close();
     }
     public void database_destroy() {
-
+        KRSTManagementSoftware.openWindow(DatabaseReset.class);
+        Boolean result = (Boolean) dataPassService.getValue();
+        if (result != null && result) {
+            system_exit();
+        }
     }
     public void database_import() {
 
@@ -593,6 +597,7 @@ public class MainWindowController {
     @FXML private TableColumn<Course, LocalDate> courses_startDate, courses_endDate;
 
     private void course_initialize() {
+        _courseReady = true;
         courses.getItems().setAll(courseRepository.findAll());
         course_courseTemplate.getItems().setAll(cacheService.getCourseTemplates());
         course_courseTemplate.setConverter(new StringConverter<CourseTemplate>() {

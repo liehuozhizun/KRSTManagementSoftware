@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="362.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.DatabaseResetController">
+   <children>
+      <Text fill="RED" layoutX="121.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="重置数据库">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="43.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请注意：重置数据库将导致所有数据丢失！" />
+      <Text layoutX="87.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入密码验证操作" />
+      <Text layoutX="39.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="密码" />
+      <PasswordField fx:id="password" layoutX="88.0" layoutY="178.0" prefHeight="31.0" prefWidth="157.0" />
+      <Button fx:id="verification" layoutX="256.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#verify" prefHeight="32.0" prefWidth="77.0" text="验证" />
+      <Button fx:id="accept" disable="true" layoutX="69.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#reset" prefHeight="40.0" prefWidth="94.0" text="确认重置" textFill="RED" />
+      <Button layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="40.0" prefWidth="94.0" text="取消" />
+      <Text fx:id="prompt" visible="false" layoutX="69.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="重置数据库将关闭主程序，请自行重启" />
+   </children>
+</Pane>
