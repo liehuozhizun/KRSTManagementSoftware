@@ -110,7 +110,7 @@ public class MainWindowController {
         KRSTManagementSoftware.openWindow(Remainder.class);
     }
     public void other_log(){
-
+        KRSTManagementSoftware.openWindow(LogInfoPage.class);
     }
 
     // ----------------- Student Panel  -----------------

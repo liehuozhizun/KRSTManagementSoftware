@@ -1,12 +1,12 @@
 Sprint Backlog
     release-1.0 RELEASE_VERSION_1.0
-    KRST-62 [BE] Fix Relationship displays wrong data issue
 
 In Progress
-    KRST-60 [FE/BE] View logs Y
+    KRST-62 [BE] Fix Relationship displays wrong data issue Y
 
 Done
-    KRST-52 [FE/BE] Add ResetDatabase Page w/ Controller Y 3/
+    KRST-60 [FE/BE] View logs Y 3/21
+    KRST-52 [FE/BE] Add ResetDatabase Page w/ Controller Y 3/21
     KRST-61 [BE] Fix id change mapping issue Y 3/20
     KRST-59 [BE] Fix Course_id & CourseTemplate_id mapping Y 3/20
     KRST-58 [FE] Revise PatronSaintControlPanel listview size and RemainderService enhancement Y 3/20

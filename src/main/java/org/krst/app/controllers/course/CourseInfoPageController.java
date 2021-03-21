@@ -147,7 +147,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Student item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -173,7 +173,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Student item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -195,7 +195,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Student item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -217,7 +217,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
                     @Override
                     protected void updateItem(Student item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || item == null) {
                             this.setText(null);
                             this.setGraphic(null);
                         } else {
@@ -230,7 +230,6 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
         teacherComments_comment.setCellValueFactory(new PropertyValueFactory<>("teacherFeedback"));
         teacherComments.setRowFactory(defaultRowFactory());
     }
-
 
     private void refreshPartialData(Grade oldGrade, Grade newGrade, TableView<Grade> tableView, Function<Grade, String> getter) {
         int itemIndex = tableView.getItems().indexOf(oldGrade);
