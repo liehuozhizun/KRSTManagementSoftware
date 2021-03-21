@@ -37,6 +37,7 @@ public class PatronSaintDateControlPanelController {
 
         number.setText(String.valueOf(table.getItems().size()));
 
+        table.getItems().setAll(patronSaintDateRepository.findAll());
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setRowFactory( tv -> {
             TableRow<PatronSaintDate> row = new TableRow<>();

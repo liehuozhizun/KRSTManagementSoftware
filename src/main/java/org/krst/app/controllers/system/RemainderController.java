@@ -49,7 +49,7 @@ public class RemainderController  {
     @FXML
     public void initialize() {
         refreshedTime.setText(CommonUtils.getCurrentTime());
-
+        remainderService.refresh();
         Map<RemainderDateType, List<Remainder>> remainders = remainderService.getRemainder();
         today.getItems().addAll(remainders.get(RemainderDateType.TODAY));
         oneDay.getItems().addAll(remainders.get(RemainderDateType.ONE_DAY));
