@@ -16,6 +16,8 @@ import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.course.AddCourse;
+import org.krst.app.views.course.CourseInfoPage;
 import org.krst.app.views.course.CourseTemplateControlPanel;
 import org.krst.app.views.person.AddPerson;
 import org.krst.app.views.person.PersonInfoPage;
@@ -31,12 +33,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 
 import java.time.LocalDate;
+import java.util.function.Function;
 
 @FXMLController
 public class MainWindowController {
     @FXML private BorderPane basePane;
-    @FXML private SplitPane course;
-    @FXML private SplitPane other;
 
     @Autowired private DataPassService dataPassService;
     @Autowired private StudentRepository studentRepository;
@@ -58,10 +59,12 @@ public class MainWindowController {
     private boolean _personReady = false;
     public void showStudent() {
         student.toFront();
+        student_refresh();
     }
     public void showTeacher() {
         teacher.toFront();
         if (!_teacherReady) teacher_initialize();
+        else teacher_refresh();
     }
     public void showStaff() {
         staff.toFront();
@@ -73,6 +76,8 @@ public class MainWindowController {
     }
     public void showCourse() {
         course.toFront();
+        if (!_courseReady) course_initialize();
+        else course_refresh();
     }
     public void showOther() {
         other.toFront();
@@ -150,9 +155,7 @@ public class MainWindowController {
             });
             return row ;
         });
-        students.getItems().addListener((ListChangeListener<Student>) c -> {
-            student_searchNumber.setText(String.valueOf(students.getItems().size()));
-        });
+        students.getItems().addListener((ListChangeListener<Student>) c -> student_searchNumber.setText(String.valueOf(students.getItems().size())));
         students_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         students_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         students_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
@@ -216,6 +219,9 @@ public class MainWindowController {
         students_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
         students_address.setCellValueFactory(new PropertyValueFactory<>("address"));
     }
+    private void student_refresh() {
+        student_attribute.getItems().setAll(cacheService.getAttributes());
+    }
     public void student_search() {
         student_searchNumberPrompt.setVisible(true);
         student_searchNumber.setVisible(true);
@@ -234,8 +240,7 @@ public class MainWindowController {
         student_id.clear();
         student_name.clear();
         student_gender.setValue(null);
-        student_attribute.setValue(null);
-        student_attribute.getItems().setAll(cacheService.getAttributes());
+        student_attribute.getSelectionModel().clearSelection();
     }
     public void student_addStudent() {
         KRSTManagementSoftware.openWindow(AddStudent.class);
@@ -293,9 +298,7 @@ public class MainWindowController {
             });
             return row ;
         });
-        teachers.getItems().addListener((ListChangeListener<Teacher>) c -> {
-            teacher_searchNumber.setText(String.valueOf(teachers.getItems().size()));
-        });
+        teachers.getItems().addListener((ListChangeListener<Teacher>) c -> teacher_searchNumber.setText(String.valueOf(teachers.getItems().size())));
         teachers_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         teachers_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         teachers_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
@@ -359,6 +362,9 @@ public class MainWindowController {
         teachers_altPhone.setCellValueFactory(new PropertyValueFactory<>("altPhone"));
         teachers_address.setCellValueFactory(new PropertyValueFactory<>("address"));
     }
+    private void teacher_refresh() {
+        teacher_attribute.getItems().setAll(cacheService.getAttributes());
+    }
     public void teacher_search() {
         teacher_searchNumberPrompt.setVisible(true);
         teacher_searchNumber.setVisible(true);
@@ -377,8 +383,7 @@ public class MainWindowController {
         teacher_id.clear();
         teacher_name.clear();
         teacher_gender.setValue(null);
-        teacher_attribute.setValue(null);
-        teacher_attribute.getItems().setAll(cacheService.getAttributes());
+        teacher_attribute.getSelectionModel().clearSelection();
     }
     public void teacher_addTeacher() {
         KRSTManagementSoftware.openWindow(AddTeacher.class);
@@ -421,9 +426,7 @@ public class MainWindowController {
             });
             return row ;
         });
-        staffs.getItems().addListener((ListChangeListener<Staff>) c -> {
-            staff_searchNumber.setText(String.valueOf(staffs.getItems().size()));
-        });
+        staffs.getItems().addListener((ListChangeListener<Staff>) c -> staff_searchNumber.setText(String.valueOf(staffs.getItems().size())));
         staffs_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         staffs_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         staffs_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
@@ -514,9 +517,7 @@ public class MainWindowController {
             });
             return row ;
         });
-        persons.getItems().addListener((ListChangeListener<Person>) c -> {
-            person_searchNumber.setText(String.valueOf(persons.getItems().size()));
-        });
+        persons.getItems().addListener((ListChangeListener<Person>) c -> person_searchNumber.setText(String.valueOf(persons.getItems().size())));
         persons_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         persons_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         persons_baptismalName.setCellValueFactory(new PropertyValueFactory<>("baptismalName"));
@@ -572,7 +573,118 @@ public class MainWindowController {
         }
     }
 
+    // ----------------- Course Panel  -----------------
+    @FXML private SplitPane course;
+    @FXML private TextField course_id, course_className;
+    @FXML private Text course_totalNumber, course_searchNumberPrompt, course_searchNumber;
+    @FXML private ComboBox<CourseTemplate> course_courseTemplate;
+    @FXML private TableView<Course> courses;
+    @FXML private TableColumn<Course, String> courses_id, courses_className, courses_location;
+    @FXML private TableColumn<Course, CourseTemplate> courses_name, courses_topic;
+    @FXML private TableColumn<Course, Teacher> courses_primaryTeacher, courses_secondaryTeacher;
+    @FXML private TableColumn<Course, LocalDate> courses_startDate, courses_endDate;
+
+    private void course_initialize() {
+        courses.getItems().setAll(courseRepository.findAll());
+        course_courseTemplate.getItems().setAll(cacheService.getCourseTemplates());
+        course_courseTemplate.setConverter(new StringConverter<CourseTemplate>() {
+            @Override
+            public String toString(CourseTemplate courseTemplate) {
+                return courseTemplate == null ? null : courseTemplate.getIdAndName();
+            }
+
+            @Override
+            public CourseTemplate fromString(String string) {
+                return string == null ? null : course_courseTemplate.getItems().stream().filter(ct ->
+                        ct.getIdAndName().equals(string) || ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+        course_totalNumber.setText(String.valueOf(courses.getItems().size()));
+        courses.setRowFactory(tv -> {
+            TableRow<Course> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Course course = row.getItem();
+                    dataPassService.setValue(course);
+                    KRSTManagementSoftware.openWindow(CourseInfoPage.class);
+                    Boolean returnedData = (Boolean) dataPassService.getValue();
+                    if (returnedData != null && !returnedData) {
+                        courses.getItems().remove(row.getIndex());
+                        course_totalNumber.setText(String.valueOf(Integer.parseInt(course_totalNumber.getText()) - 1));
+                    } else {
+                        courses.getItems().set(row.getIndex(), courseRepository.findById(row.getItem().getId()).orElse(null));
+                    }
+                }
+            });
+            return row ;
+        });
+        courses.getItems().addListener((ListChangeListener<Course>) c -> course_searchNumber.setText(String.valueOf(courses.getItems().size())));
+        courses_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        courses_className.setCellValueFactory(new PropertyValueFactory<>("className"));
+        courses_location.setCellValueFactory(new PropertyValueFactory<>("location"));
+        courses_startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        courses_endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        courses_name.setCellValueFactory(new PropertyValueFactory<>("courseTemplate"));
+        courses_name.setCellFactory(courseCallback(CourseTemplate::getName));
+        courses_topic.setCellValueFactory(new PropertyValueFactory<>("courseTemplate"));
+        courses_topic.setCellFactory(courseCallback(CourseTemplate::getTopic));
+        courses_primaryTeacher.setCellValueFactory(new PropertyValueFactory<>("primaryTeacher"));
+        courses_primaryTeacher.setCellFactory(courseCallback(Teacher::getNameAndId));
+        courses_secondaryTeacher.setCellValueFactory(new PropertyValueFactory<>("secondaryTeacher"));
+        courses_secondaryTeacher.setCellFactory(courseCallback(Teacher::getNameAndId));
+    }
+    private <T> Callback<TableColumn<Course, T>, TableCell<Course, T>> courseCallback(Function<T, String> getter) {
+        return new Callback<TableColumn<Course, T>, TableCell<Course, T>>() {
+            @Override
+            public TableCell<Course, T> call(TableColumn<Course, T> param) {
+                return new TableCell<Course, T>() {
+                    @Override
+                    protected void updateItem(T t, boolean empty) {
+                        super.updateItem(t, empty);
+                        if (empty || t == null) {
+                            this.setText(null);
+                            this.setGraphic(null);
+                        } else {
+                            this.setText(getter.apply(t));
+                        }
+                    }
+                };
+            }
+        };
+    }
+
+    private void course_refresh() {
+        course_courseTemplate.getItems().setAll(cacheService.getCourseTemplates());
+    }
+    public void course_search() {
+        course_searchNumberPrompt.setVisible(true);
+        course_searchNumber.setVisible(true);
+
+        Course courseExample = new Course();
+        courseExample.setId(course_id.getText().isEmpty() ? null : course_id.getText());
+        courseExample.setClassName(course_className.getText().isEmpty() ? null : course_className.getText());
+        courseExample.setCourseTemplate(course_courseTemplate.getValue());
+        courses.getItems().setAll(courseRepository.findAll(Example.of(courseExample)));
+    }
+    public void course_clear() {
+        courses.getItems().setAll(courseRepository.findAll());
+        course_searchNumberPrompt.setVisible(false);
+        course_searchNumber.setVisible(false);
+        course_id.clear();
+        course_className.clear();
+        course_courseTemplate.getSelectionModel().clearSelection();
+    }
+    public void course_addCourse() {
+        KRSTManagementSoftware.openWindow(AddCourse.class);
+        Course savedCourse = (Course) dataPassService.getValue();
+        if (savedCourse != null) {
+            courses.getItems().add(savedCourse);
+            course_totalNumber.setText(String.valueOf(Integer.parseInt(course_totalNumber.getText()) + 1));
+        }
+    }
+
     // ----------------- Other Panel  -----------------
+    @FXML private SplitPane other;
     public void other_courseTemplate() {
         KRSTManagementSoftware.openWindow(CourseTemplateControlPanel.class);
     }

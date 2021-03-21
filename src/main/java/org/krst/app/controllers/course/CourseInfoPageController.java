@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 
 /*
  * IN  : Course, data model needs to be displayed
- * OUT : none
+ * OUT : Boolean, false delete operation
+ *       OR
+ *       null, update operation or nothing changed
  */
 @FXMLController
 public class CourseInfoPageController implements InfoPageControllerTemplate {
@@ -321,6 +323,7 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
     public void accept(){
         if (isDeleteOperation) {
             courseRepository.delete(originalCourse);
+            dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除课程信息：编号-{}，授课班级-{}", id.getText(), className.getText());
             close();
             return;
