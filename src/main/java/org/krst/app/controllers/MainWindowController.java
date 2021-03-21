@@ -145,11 +145,13 @@ public class MainWindowController {
                     dataPassService.setValue(student);
                     KRSTManagementSoftware.openWindow(StudentInfoPage.class);
                     Boolean returnedData = (Boolean) dataPassService.getValue();
-                    if (returnedData != null && !returnedData) {
+                    if (returnedData == null) {
+                        students.getItems().set(row.getIndex(), studentRepository.findById(row.getItem().getId()).orElse(null));
+                    } else if (returnedData) {
+                        student_clear();
+                    } else {
                         students.getItems().remove(row.getIndex());
                         student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) - 1));
-                    } else {
-                        students.getItems().set(row.getIndex(), studentRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -288,11 +290,13 @@ public class MainWindowController {
                     dataPassService.setValue(teacher);
                     KRSTManagementSoftware.openWindow(TeacherInfoPage.class);
                     Boolean returnedData = (Boolean) dataPassService.getValue();
-                    if (returnedData != null && !returnedData) {
+                    if (returnedData == null) {
+                        teachers.getItems().set(row.getIndex(), teacherRepository.findById(row.getItem().getId()).orElse(null));
+                    } else if (returnedData) {
+                        teacher_clear();
+                    } else {
                         teachers.getItems().remove(row.getIndex());
                         teacher_totalNumber.setText(String.valueOf(Integer.parseInt(teacher_totalNumber.getText()) - 1));
-                    } else {
-                        teachers.getItems().set(row.getIndex(), teacherRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -416,11 +420,13 @@ public class MainWindowController {
                     dataPassService.setValue(staff);
                     KRSTManagementSoftware.openWindow(StaffInfoPage.class);
                     Boolean returnedData = (Boolean) dataPassService.getValue();
-                    if (returnedData != null && !returnedData) {
+                    if (returnedData == null) {
+                        staffs.getItems().set(row.getIndex(), staffRepository.findById(row.getItem().getId()).orElse(null));
+                    } else if (returnedData) {
+                        staff_clear();
+                    } else {
                         staffs.getItems().remove(row.getIndex());
                         staff_totalNumber.setText(String.valueOf(Integer.parseInt(staff_totalNumber.getText()) - 1));
-                    } else {
-                        staffs.getItems().set(row.getIndex(), staffRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -507,11 +513,13 @@ public class MainWindowController {
                     dataPassService.setValue(person);
                     KRSTManagementSoftware.openWindow(PersonInfoPage.class);
                     Boolean returnedData = (Boolean) dataPassService.getValue();
-                    if (returnedData != null && !returnedData) {
+                    if (returnedData == null) {
+                        persons.getItems().set(row.getIndex(), personRepository.findById(row.getItem().getId()).orElse(null));
+                    }else if (returnedData) {
+                        person_clear();
+                    } else {
                         persons.getItems().remove(row.getIndex());
                         person_totalNumber.setText(String.valueOf(Integer.parseInt(person_totalNumber.getText()) - 1));
-                    } else {
-                        persons.getItems().set(row.getIndex(), personRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });
@@ -608,11 +616,13 @@ public class MainWindowController {
                     dataPassService.setValue(course);
                     KRSTManagementSoftware.openWindow(CourseInfoPage.class);
                     Boolean returnedData = (Boolean) dataPassService.getValue();
-                    if (returnedData != null && !returnedData) {
+                    if (returnedData == null) {
+                        courses.getItems().set(row.getIndex(), courseRepository.findById(row.getItem().getId()).orElse(null));
+                    } else if (returnedData) {
+                        course_clear();
+                    } else {
                         courses.getItems().remove(row.getIndex());
                         course_totalNumber.setText(String.valueOf(Integer.parseInt(course_totalNumber.getText()) - 1));
-                    } else {
-                        courses.getItems().set(row.getIndex(), courseRepository.findById(row.getItem().getId()).orElse(null));
                     }
                 }
             });

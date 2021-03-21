@@ -27,7 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Staff, the Staff model that need to be displayed
- * Out : Boolean, false delete operation
+ * Out : Boolean
+ *          true, update Id
+ *          false, delete operation
  *       OR
  *       null, update operation or nothing changed
  */
@@ -283,7 +285,11 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             staffRepository.delete(originalStaff);
-            dataPassService.setValue(new Pair<>(false, null));
+            staffRepository.updateStaffIdInStudent(originalStaff.getId(), null);
+            staffRepository.updateStaffIdInTeacher(originalStaff.getId(), null);
+            staffRepository.updateStaffIdInVisitor(originalStaff.getId(), null);
+
+            dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             close();
             return;
@@ -303,7 +309,6 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
                 relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
 
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
-            dataPassService.setValue(new Pair<>(true, originalStaff));
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);
@@ -320,8 +325,12 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             relationshipService.updateIdAndName(originalStaff.getRelationships(), originalStaff.getId(), id.getText(), name.getText());
 
             staffRepository.delete(originalStaff);
+            staffRepository.updateStaffIdInStudent(originalStaff.getId(), id.getText());
+            staffRepository.updateStaffIdInTeacher(originalStaff.getId(), id.getText());
+            staffRepository.updateStaffIdInVisitor(originalStaff.getId(), id.getText());
+
             originalStaff = staffRepository.save(loadValuesIntoStaffModel());
-            dataPassService.setValue(new Pair<>(true, originalStaff));
+            dataPassService.setValue(true);
             logger.logInfo(this.getClass().toString(), "更改员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);
             setButtonMode(false);

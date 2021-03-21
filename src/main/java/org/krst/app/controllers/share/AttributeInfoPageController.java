@@ -81,26 +81,53 @@ public class AttributeInfoPageController implements InfoPageControllerTemplate {
     }
 
     public void accept() {
-        attributeRepository.delete(originalAttribute);
         if (isDeleteOperation) {
+            attributeRepository.delete(originalAttribute);
+            attributeRepository.updateAttributeInStudent(originalAttribute.getAttribute(), null);
+            attributeRepository.updateAttributeInTeacher(originalAttribute.getAttribute(), null);
+
             dataPassService.setValue(new Pair<>(false, null));
             close();
+            return;
+        }
+
+        if (attribute.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("新建所属堂区失败");
+            alert.setHeaderText("失败原因：所属堂区名称缺失");
+            alert.setContentText("解决方法：请添加所属堂区名称");
+            alert.showAndWait();
+            return;
+        }
+
+        if (originalAttribute.getAttribute().equals(attribute.getText())) {
+            originalAttribute = attributeRepository.save(loadValuesIntoAttributeModel());
+
+            refreshBasicInfo(originalAttribute);
+            cacheService.refreshAttributeCache();
+            dataPassService.setValue(new Pair<>(true, originalAttribute));
+            setEditableMode(false);
+            setButtonMode(false);
+            return;
+        }
+
+        if (attributeRepository.existsById(attribute.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("新建所属堂区失败");
+            alert.setHeaderText("失败原因：所属堂区已存在");
+            alert.setContentText("解决方法：更换所属堂区");
+            alert.showAndWait();
         } else {
-            if (attributeRepository.existsById(attribute.getText())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("新建所属堂区失败");
-                alert.setHeaderText("失败原因：所属堂区已存在");
-                alert.setContentText("解决方法：更换所属堂区");
-                alert.showAndWait();
-                attributeRepository.save(originalAttribute);
-            } else {
-                originalAttribute = attributeRepository.save(loadValuesIntoAttributeModel());
-                setEditableMode(false);
-                setButtonMode(false);
-                refreshBasicInfo(originalAttribute);
-                cacheService.refreshAttributeCache();
-                dataPassService.setValue(new Pair<>(true, originalAttribute));
-            }
+            attributeRepository.delete(originalAttribute);
+            attributeRepository.updateAttributeInStudent(originalAttribute.getAttribute(), attribute.getText());
+            attributeRepository.updateAttributeInTeacher(originalAttribute.getAttribute(), attribute.getText());
+
+            originalAttribute = attributeRepository.save(loadValuesIntoAttributeModel());
+            refreshBasicInfo(originalAttribute);
+            cacheService.refreshAttributeCache();
+            dataPassService.setValue(new Pair<>(true, originalAttribute));
+            setEditableMode(false);
+            setButtonMode(false);
         }
     }
 

@@ -29,7 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * In  : Student, the Student model that need to be displayed
- * Out : Boolean, false delete operation
+ * Out : Boolean
+ *          true, update Id
+ *          false, delete operation
  *       OR
  *       null, update operation or nothing changed
  */
@@ -379,6 +381,8 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
     public void accept(){
         if (isDeleteOperation) {
             studentRepository.delete(originalStudent);
+            studentRepository.updateStudentIdInGrade(originalStudent.getId(), null);
+
             dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             close();
@@ -415,7 +419,10 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
             relationshipService.updateIdAndName(originalStudent.getRelationships(), originalStudent.getId(), id.getText(), name.getText());
 
             studentRepository.delete(originalStudent);
+            studentRepository.updateStudentIdInGrade(originalStudent.getId(), id.getText());
+
             originalStudent = studentRepository.save(loadValuesIntoStaffModel());
+            dataPassService.setValue(true);
             refreshBasicInfo(originalStudent);
             logger.logInfo(this.getClass().toString(), "更改学生档案：编号-{}，姓名-{}", id.getText(), name.getText());
             setEditableMode(false);

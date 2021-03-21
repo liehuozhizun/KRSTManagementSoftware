@@ -29,4 +29,16 @@ public interface TeacherRepository extends JpaRepository<Teacher, String> {
 
     @Query(value = "SELECT relationship FROM teacher_relationships WHERE teacher_id = :AId AND type = :BType AND id = :BId LIMIT 1", nativeQuery = true)
     String getRelationship(String AId, String BId, Integer BType);
+
+    @Modifying
+    @Query(value = "UPDATE course SET primary_teacher_id = :newId WHERE primary_teacher_id = :oldId", nativeQuery = true)
+    void updatePrimaryTeacherIdInCourse(String oldId, String newId);
+
+    @Modifying
+    @Query(value = "UPDATE course SET secondary_teacher_id = :newId WHERE secondary_teacher_id = :oldId", nativeQuery = true)
+    void updateSecondaryTeacherIdInCourse(String oldId, String newId);
+
+    @Modifying
+    @Query(value = "UPDATE course_template_teachers SET teachers_id = :newId WHERE teachers_id = :oldId", nativeQuery = true)
+    void updateTeacherIdInCourseTemplate(String oldId, String newId);
 }
