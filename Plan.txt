@@ -4,9 +4,10 @@ Sprint Backlog
     KRST-52 [BE] Reset Database
 
 In Progress
-    KRST-59 [BE] Fix Course_id & CourseTemplate_id mapping Y
+    KRST-61 [BE] Fix id change mapping issue Y
 
 Done
+    KRST-59 [BE] Fix Course_id & CourseTemplate_id mapping Y 3/20
     KRST-58 [FE] Revise PatronSaintControlPanel listview size and RemainderService enhancement Y 3/20
     KRST-19 [FE/BE] MainWindow - Course Y 3/20
     KRST-50 [BE] Revise CourseTemplateControlPanel Data Display Y 3/20

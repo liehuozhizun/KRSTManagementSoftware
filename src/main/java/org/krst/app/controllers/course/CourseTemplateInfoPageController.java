@@ -114,6 +114,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
             alert.show();
         } else {
             courseTemplateRepository.delete(originalCourseTemplate);
+            courseTemplateRepository.updateTemplateIdInCourse(originalCourseTemplate.getId(), id.getText());
             originalCourseTemplate = courseTemplateRepository.save(loadValuesIntoCourseTemplateModel());
             refreshBasicInfo(originalCourseTemplate);
             logger.logInfo(this.getClass().toString(), "更改课程模板：编号-{}，名称-{}", id.getText(), name.getText());
