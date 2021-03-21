@@ -40,6 +40,15 @@ public class AddCourseTemplateController extends ControllerTemplate {
     }
 
     public void approve() {
+        if (id.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("更改课程模板失败");
+            alert.setHeaderText("失败原因：未填入课程模板编号");
+            alert.setContentText("解决方法：请输入课程模板编号");
+            alert.show();
+            return;
+        }
+
         if (courseTemplateRepository.existsById(id.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("新建课程模板失败");

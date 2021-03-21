@@ -12,9 +12,13 @@ import org.krst.app.controllers.InfoPageControllerTemplate;
 import org.krst.app.domains.CourseTemplate;
 import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.CourseTemplateRepository;
+import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.List;
 
 /*
  * In  : CourseTemplate, data model needs to be displayed
@@ -36,6 +40,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     @FXML private Button change, accept, delete, cancel, close;
 
     @Autowired private CourseTemplateRepository courseTemplateRepository;
+    @Autowired private TeacherRepository teacherRepository;
     @Autowired private CacheService cacheService;
     @Autowired private DataPassService dataPassService;
     @Autowired private Logger logger;
@@ -52,6 +57,8 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
 
         refreshBasicInfo(originalCourseTemplate);
         setUpSelectorAndList(teacherSelector, teachers);
+        setEditableMode(false);
+        setButtonMode(false);
     }
 
     private void refreshBasicInfo(CourseTemplate courseTemplate) {
@@ -59,6 +66,9 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
         name.setText(courseTemplate.getName());
         topic.setText(courseTemplate.getTopic());
         teachers.getItems().setAll(courseTemplate.getTeachers());
+        List<Teacher> teacherList = teacherRepository.findAll();
+        teacherList.removeAll(courseTemplate.getTeachers());
+        teacherSelector.getItems().setAll(teacherList);
     }
 
     public void change() {
@@ -115,7 +125,11 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     }
 
     private CourseTemplate loadValuesIntoCourseTemplateModel() {
-        return new CourseTemplate(id.getText(), name.getText(), topic.getText(), originalCourseTemplate.getTeachers());
+        originalCourseTemplate.setId(id.getText());
+        originalCourseTemplate.setName(name.getText());
+        originalCourseTemplate.setTopic(topic.getText());
+        originalCourseTemplate.setTeachers(new HashSet<>(teachers.getItems()));
+        return originalCourseTemplate;
     }
 
     public void delete() {
@@ -138,7 +152,7 @@ public class CourseTemplateInfoPageController extends ControllerTemplate impleme
     @Override
     public void setEditableMode(boolean state) {
         setTextEditableMode(state, id, name, topic);
-        teachers.setMouseTransparent(state);
+        teachers.setMouseTransparent(!state);
         prompt.setVisible(state);
         teacherSelector.setVisible(state);
     }
