@@ -78,8 +78,8 @@
             <columns>
                 <TableColumn fx:id="relationship_relation" prefWidth="75.0" text="关系"/>
                 <TableColumn fx:id="relationship_name" prefWidth="75.0" text="姓名"/>
-                <TableColumn fx:id="relationship_type" prefWidth="75.0" text="类型"/>
-                <TableColumn fx:id="relationship_id" prefWidth="75.0" text="编号"/>
+                <TableColumn fx:id="relationship_type" prefWidth="75.0" text="人物类型"/>
+                <TableColumn fx:id="relationship_id" prefWidth="75.0" text="人物编号"/>
             </columns>
         </TableView>
     </AnchorPane>

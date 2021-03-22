@@ -1,10 +1,11 @@
 Sprint Backlog
-    release-1.0 RELEASE_VERSION_1.0
+
 
 In Progress
-    KRST-62 [BE] Fix Relationship displays wrong data issue Y
+    release-1.0 RELEASE_VERSION_1.0
 
 Done
+    KRST-62 [BE] Fix Relationship displays wrong data issue Y 3/21
     KRST-60 [FE/BE] View logs Y 3/21
     KRST-52 [FE/BE] Add ResetDatabase Page w/ Controller Y 3/21
     KRST-61 [BE] Fix id change mapping issue Y 3/20
@@ -82,4 +83,3 @@ Backlog
     KRST-61 [BE] Printable Grade Information
 
 BUG
-    [可能] 更改某一人的Id，这个操作可能不会反映在有mapping的其他数据类中。需要测试，如存在问题，需要在每次更改id时，更新整个数据库所有关联数据。
