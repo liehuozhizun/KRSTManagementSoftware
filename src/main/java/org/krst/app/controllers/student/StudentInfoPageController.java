@@ -231,7 +231,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                     Relation tempRelation = row.getItem();
                     RelationPassModel relationPassModel = new RelationPassModel(
-                            Relation.Type.STAFF,
+                            Relation.Type.STUDENT,
                             originalStudent.getId(),
                             originalStudent.getName(),
                             tempRelation.getType(),
@@ -305,7 +305,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
         });
         grade_score.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-        relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relation"));
+        relationship_relation.setCellValueFactory(new PropertyValueFactory<>("relationship"));
         relationship_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         relationship_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         relationship_type.setCellFactory(new Callback<TableColumn<Relation, Relation.Type>, TableCell<Relation, Relation.Type>>() {

@@ -67,5 +67,5 @@
     <TextField fx:id="BName" layoutX="289.0" layoutY="180.0" prefHeight="31.0" prefWidth="119.0"/>
     <Line endX="150.0" layoutX="230.0" layoutY="237.0" startX="-150.0" strokeDashOffset="4.0"/>
     <Text fx:id="deletePromptText" fill="RED" layoutX="86.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          text="注意：此操作将删除双方之间的全部关系" textAlignment="CENTER" underline="true"/>
+          text="注意：此操作将删除双方之间的关系" textAlignment="CENTER" underline="true"/>
 </Pane>

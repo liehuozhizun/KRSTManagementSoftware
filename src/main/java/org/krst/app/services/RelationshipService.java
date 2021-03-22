@@ -35,13 +35,13 @@ public class RelationshipService {
     public void addRelationship(Relation.Type curType, String curId, String id, String name, String relationship, Relation.Type type) {
         switch (curType) {
             case STUDENT:
-                studentRepository.addRelationship(curId, id, name, relationship, type.ordinal());
+                studentRepository.addRelationship(curId, id, name, relationship, type.ordinal()); break;
             case TEACHER:
-                teacherRepository.addRelationship(curId, id, name, relationship, type.ordinal());
+                teacherRepository.addRelationship(curId, id, name, relationship, type.ordinal()); break;
             case STAFF:
-                staffRepository.addRelationship(curId, id, name, relationship, type.ordinal());
+                staffRepository.addRelationship(curId, id, name, relationship, type.ordinal()); break;
             case PERSON:
-                personRepository.addRelationship(curId, id, name, relationship, type.ordinal());
+                personRepository.addRelationship(curId, id, name, relationship, type.ordinal()); break;
         }
     }
 
@@ -58,24 +58,24 @@ public class RelationshipService {
     public void updateRelationship(Relation.Type AType, String AId, Relation.Type BType, String BId, String relationshipA2B, String relationshipB2A) {
         switch (AType) {
             case STUDENT:
-                studentRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
+                studentRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal()); break;
             case TEACHER:
-                teacherRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
+                teacherRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal()); break;
             case STAFF:
-                staffRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
+                staffRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal()); break;
             case PERSON:
-                personRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal());
+                personRepository.updateRelationship(AId, BId, relationshipB2A, BType.ordinal()); break;
         }
 
         switch (BType) {
             case STUDENT:
-                studentRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
+                studentRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal()); break;
             case TEACHER:
-                teacherRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
+                teacherRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal()); break;
             case STAFF:
-                staffRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
+                staffRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal()); break;
             case PERSON:
-                personRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal());
+                personRepository.updateRelationship(BId, AId, relationshipA2B, AType.ordinal()); break;
         }
     }
 
@@ -91,13 +91,13 @@ public class RelationshipService {
         relationship.forEach(relation -> {
             switch (relation.getType()) {
                 case STUDENT:
-                    studentRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
+                    studentRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal()); break;
                 case TEACHER:
-                    teacherRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
+                    teacherRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal()); break;
                 case STAFF:
-                    staffRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
+                    staffRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal()); break;
                 case PERSON:
-                    personRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal());
+                    personRepository.updateRelationshipIdAndName(relation.getId(), oldId, newId, newName, relation.getType().ordinal()); break;
             }
         });
     }
@@ -113,14 +113,14 @@ public class RelationshipService {
     public void removeRelationship(Relation.Type AType, String AId, String BId, Relation.Type BType) {
         switch (AType) {
             case STUDENT:
-                studentRepository.removeRelationship(AId, BId, BType.ordinal());
+                studentRepository.removeRelationship(AId, BId, BType.ordinal()); break;
             case TEACHER:
-                teacherRepository.removeRelationship(AId, BId, BType.ordinal());
+                teacherRepository.removeRelationship(AId, BId, BType.ordinal()); break;
             case STAFF:
                 staffRepository.removeRelationship(AId, BId, BType.ordinal());
-                cacheService.refreshStaffCache();
+                cacheService.refreshStaffCache(); break;
             case PERSON:
-                personRepository.removeRelationship(AId, BId, BType.ordinal());
+                personRepository.removeRelationship(AId, BId, BType.ordinal()); break;
         }
     }
 

@@ -14,6 +14,7 @@ import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.domains.*;
 import org.krst.app.configurations.Logger;
 import org.krst.app.controllers.InfoPageControllerTemplate;
+import org.krst.app.models.RelationPassModel;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.repositories.VisitRepository;
 import org.krst.app.services.CacheService;
@@ -21,10 +22,7 @@ import org.krst.app.services.DataPassService;
 import org.krst.app.services.RelationshipService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.Constants;
-import org.krst.app.views.share.AddAttribute;
-import org.krst.app.views.share.AddRelationship;
-import org.krst.app.views.share.AddVisit;
-import org.krst.app.views.share.VisitInfoPage;
+import org.krst.app.views.share.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
@@ -197,6 +195,39 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
                     }
                 };
             }
+        });
+        relationship.setRowFactory( tv -> {
+            TableRow<Relation> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Relation tempRelation = row.getItem();
+                    RelationPassModel relationPassModel = new RelationPassModel(
+                            Relation.Type.TEACHER,
+                            originalTeacher.getId(),
+                            originalTeacher.getName(),
+                            tempRelation.getType(),
+                            tempRelation.getId(),
+                            tempRelation.getName(),
+                            tempRelation.getRelationship()
+                    );
+                    dataPassService.setValue(relationPassModel);
+                    KRSTManagementSoftware.openWindow(RelationshipInfoPage.class);
+                    Pair<Boolean, String> returnedData = (Pair<Boolean, String>) dataPassService.getValue();
+                    if (returnedData != null) {
+                        if (returnedData.getKey()) {
+                            originalTeacher.getRelationships().remove(row.getItem());
+                            Relation temp = row.getItem();
+                            temp.setRelationship(returnedData.getValue());
+                            relationship.getItems().set(row.getIndex(), temp);
+                            originalTeacher.getRelationships().add(row.getItem());
+                        } else {
+                            originalTeacher.getRelationships().remove(row.getItem());
+                            relationship.getItems().remove(row.getItem());
+                        }
+                    }
+                }
+            });
+            return row ;
         });
     }
 
