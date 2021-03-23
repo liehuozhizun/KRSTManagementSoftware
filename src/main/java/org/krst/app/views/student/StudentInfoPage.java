@@ -4,7 +4,7 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import org.springframework.context.annotation.Scope;
 
-@FXMLView(title = "学生档案")
+@FXMLView(title = "学生档案", value = "StudentInfoPage.fxml")
 @Scope("prototype")
 public class StudentInfoPage extends AbstractFxmlView {
 
