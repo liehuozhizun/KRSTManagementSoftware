@@ -1,6 +1,5 @@
 package org.krst.app.services;
 
-import org.jetbrains.annotations.NotNull;
 import org.krst.app.domains.Login;
 import org.krst.app.models.Status;
 import org.krst.app.repositories.AdminRepository;
@@ -20,7 +19,7 @@ public class LoginService {
         return remainingRetryTimes;
     }
 
-    public Status verify(@NotNull String password) {
+    public Status verify(String password) {
         Login login = adminRepository.findAll().get(0);
         if (login.getRetryRemainingTimes() <= 0) {
             return Status.CONSTRAINT_VIOLATION;
@@ -45,7 +44,7 @@ public class LoginService {
         return passwordMatch ? Status.SUCCESS : Status.ERROR;
     }
 
-    public void changePassword(@NotNull String newPassword) {
+    public void changePassword(String newPassword) {
         Login login = adminRepository.findAll().get(0);
         login.setPassword(newPassword);
         login.setRetryRemainingTimes(Constants.MOST_RETRY_LOGIN_TIMES);

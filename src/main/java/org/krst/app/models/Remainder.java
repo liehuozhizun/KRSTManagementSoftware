@@ -2,7 +2,6 @@ package org.krst.app.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 import org.krst.app.utils.RemainderEventType;
 
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ public class Remainder implements Comparable {
     private String message;
 
     @Override
-    public int compareTo(@NotNull Object o) {
+    public int compareTo(Object o) {
         return this.date.compareTo(((Remainder)o).getDate());
     }
 }
