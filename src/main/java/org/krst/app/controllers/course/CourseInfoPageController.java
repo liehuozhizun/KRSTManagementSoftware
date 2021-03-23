@@ -92,11 +92,14 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
             name.setText(newValue.getName());
             topic.setText(newValue.getTopic());
             primaryTeacher.getSelectionModel().clearSelection();
-            if (newValue.getTeachers() != null)
-                primaryTeacher.getItems().setAll(newValue.getTeachers());
             secondaryTeacher.getSelectionModel().clearSelection();
-            if (newValue.getTeachers() != null)
+            if (newValue.getTeachers() != null) {
+                primaryTeacher.getItems().setAll(newValue.getTeachers());
                 secondaryTeacher.getItems().setAll(newValue.getTeachers());
+            } else {
+                primaryTeacher.getItems().clear();
+                secondaryTeacher.getItems().clear();
+            }
         });
         courseTemplate.setConverter(new StringConverter<CourseTemplate>() {
             @Override
@@ -404,8 +407,8 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
         accept.setVisible(state);
         accept.setStyle(isDeleteOperation ? "-fx-text-fill: red" : "-fx-text-fill: black");
         delete.setVisible(!state);
-        prompt1.setVisible(isDeleteOperation && !state);
-        prompt2.setVisible(isDeleteOperation && !state);
+        prompt1.setVisible(isDeleteOperation && state);
+        prompt2.setVisible(isDeleteOperation && state);
         cancel.setVisible(state);
         close.setVisible(!state);
     }

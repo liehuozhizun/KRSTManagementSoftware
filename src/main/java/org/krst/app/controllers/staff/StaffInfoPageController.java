@@ -288,6 +288,7 @@ public class StaffInfoPageController implements InfoPageControllerTemplate {
             staffRepository.updateStaffIdInStudent(originalStaff.getId(), null);
             staffRepository.updateStaffIdInTeacher(originalStaff.getId(), null);
             staffRepository.updateStaffIdInVisitor(originalStaff.getId(), null);
+            relationshipService.removeRelationship(Relation.Type.STAFF, originalStaff.getId());
 
             dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除员工档案：编号-{}，姓名-{}", id.getText(), name.getText());
