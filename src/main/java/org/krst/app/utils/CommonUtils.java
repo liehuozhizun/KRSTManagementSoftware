@@ -26,11 +26,11 @@ public class CommonUtils {
         alert.showAndWait();
     }
 
-    public static void alertFeatureNotReady(String operation) {
+    public static void alertFeatureNotReady() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("功能尚未开放");
-        alert.setHeaderText("请求的功能尚未开放：" + operation);
-        alert.setContentText("很抱歉，您所请求的操作/功能尚未开发完成，敬请期待！");
+        alert.setHeaderText("请求的功能尚未开放");
+        alert.setContentText("很抱歉，此操作/功能尚未开发完成，敬请期待！");
         alert.showAndWait();
     }
 }
