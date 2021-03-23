@@ -5,6 +5,7 @@ In Progress
     release-1.0 RELEASE_VERSION_1.0
 
 Done
+    KRST-64 [BE] Add value (relative path) to @FXMLView annotation Y 3/23
     KRST-63 [BE] Fix RelationshipService relation mapping issue Y 3/22
     KRST-62 [BE] Fix Relationship displays wrong data issue Y 3/21
     KRST-60 [FE/BE] View logs Y 3/21

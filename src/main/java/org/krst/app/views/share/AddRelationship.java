@@ -4,7 +4,7 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import org.springframework.context.annotation.Scope;
 
-@FXMLView(title = "新增亲属关系")
+@FXMLView(title = "新增亲属关系", value = "AddRelationship.fxml")
 @Scope("prototype")
 public class AddRelationship extends AbstractFxmlView {
 }

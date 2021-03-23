@@ -4,7 +4,7 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import org.springframework.context.annotation.Scope;
 
-@FXMLView(title = "新增圣人纪念日")
+@FXMLView(title = "新增圣人纪念日", value = "AddPatronSaintDate.fxml")
 @Scope("prototype")
 public class AddPatronSaintDate extends AbstractFxmlView {
 }
