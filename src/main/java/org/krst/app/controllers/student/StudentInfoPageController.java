@@ -382,6 +382,7 @@ public class StudentInfoPageController implements InfoPageControllerTemplate {
         if (isDeleteOperation) {
             studentRepository.delete(originalStudent);
             studentRepository.updateStudentIdInGrade(originalStudent.getId(), null);
+            relationshipService.removeRelationship(Relation.Type.STUDENT, originalStudent.getId());
 
             dataPassService.setValue(false);
             logger.logInfo(this.getClass().toString(), "删除学生档案：编号-{}，姓名-{}", id.getText(), name.getText());

@@ -125,6 +125,37 @@ public class RelationshipService {
     }
 
     /*
+     * Remove relationship info from all tables other than
+     * Input  : String, id
+     *          Relation.Type, type
+     * Output : none
+     */
+    public void removeRelationship(Relation.Type type, String id) {
+        switch (type) {
+            case STUDENT:
+                teacherRepository.removeRelationship(id, type.ordinal());
+                staffRepository.removeRelationship(id, type.ordinal());
+                personRepository.removeRelationship(id, type.ordinal());
+                break;
+            case TEACHER:
+                studentRepository.removeRelationship(id, type.ordinal());
+                staffRepository.removeRelationship(id, type.ordinal());
+                personRepository.removeRelationship(id, type.ordinal());
+                break;
+            case STAFF:
+                studentRepository.removeRelationship(id, type.ordinal());
+                teacherRepository.removeRelationship(id, type.ordinal());
+                personRepository.removeRelationship(id, type.ordinal());
+                break;
+            case PERSON:
+                studentRepository.removeRelationship(id, type.ordinal());
+                teacherRepository.removeRelationship(id, type.ordinal());
+                staffRepository.removeRelationship(id, type.ordinal());
+                break;
+        }
+    }
+
+    /*
      * Remove relationship info
      * Input  : Relation.Type, type of the relative
      * Output : List<? extends InformationOperations>, all possible relatives of the type

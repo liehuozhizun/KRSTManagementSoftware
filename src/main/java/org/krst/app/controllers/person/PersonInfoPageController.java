@@ -168,6 +168,7 @@ public class PersonInfoPageController implements InfoPageControllerTemplate {
     public void accept() {
         if (isDeleteOperation) {
             personRepository.delete(originalPerson);
+            relationshipService.removeRelationship(Relation.Type.PERSON, originalPerson.getId());
             dataPassService.setValue(false);
             logger.logInfo(getClass().toString(), "删除普通人档案，编号：{}，姓名：{}", id.getText(), name.getText());
             close();

@@ -27,6 +27,10 @@ public interface TeacherRepository extends JpaRepository<Teacher, String> {
     @Query(value = "DELETE FROM teacher_relationships WHERE teacher_id = :tecId AND type =:type AND id = :id", nativeQuery = true)
     void removeRelationship(String tecId, String id, Integer type);
 
+    @Modifying
+    @Query(value = "DELETE FROM teacher_relationships WHERE id = :id AND type = :type", nativeQuery = true)
+    void removeRelationship(String id, Integer type);
+
     @Query(value = "SELECT relationship FROM teacher_relationships WHERE teacher_id = :AId AND type = :BType AND id = :BId LIMIT 1", nativeQuery = true)
     String getRelationship(String AId, String BId, Integer BType);
 
@@ -41,4 +45,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, String> {
     @Modifying
     @Query(value = "UPDATE course_template_teachers SET teachers_id = :newId WHERE teachers_id = :oldId", nativeQuery = true)
     void updateTeacherIdInCourseTemplate(String oldId, String newId);
+
+    @Modifying
+    @Query(value = "DELETE FROM course_template_teachers WHERE teachers_id = :id", nativeQuery = true)
+    void deleteTeacherIdFromCourseTemplate(String id);
 }

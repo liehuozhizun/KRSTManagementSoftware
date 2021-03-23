@@ -283,7 +283,8 @@ public class TeacherInfoPageController implements InfoPageControllerTemplate {
             teacherRepository.delete(originalTeacher);
             teacherRepository.updatePrimaryTeacherIdInCourse(originalTeacher.getId(), null);
             teacherRepository.updateSecondaryTeacherIdInCourse(originalTeacher.getId(), null);
-            teacherRepository.updateTeacherIdInCourseTemplate(originalTeacher.getId(), null);
+            teacherRepository.deleteTeacherIdFromCourseTemplate(originalTeacher.getId());
+            relationshipService.removeRelationship(Relation.Type.TEACHER, originalTeacher.getId());
 
             dataPassService.setValue(false);
             logger.logInfo(getClass().toString(), "删除教师档案，编号：{}，姓名：{}", id.getText(), name.getText());
