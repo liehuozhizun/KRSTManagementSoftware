@@ -2,9 +2,10 @@ Sprint Backlog
 
 
 In Progress
-    release-1.0 RELEASE_VERSION_1.0
+
 
 Done
+    KRST-66 [FE/BE] Add AlertFeatureNotReady Y 3/23
     KRST-65 [BE] Revise pom dependencies Y 3/23
     KRST-64 [BE] Add value (relative path) to @FXMLView annotation Y 3/23
     KRST-63 [BE] Fix RelationshipService relation mapping issue Y 3/22
