@@ -5,13 +5,18 @@
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.LoginController">
-   <PasswordField fx:id="textField_password" layoutX="144.0" layoutY="103.0" onKeyPressed="#pressEnterEvent" />
-   <Text layoutX="35.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入密码" />
-   <Text layoutX="110.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="科瑞斯特管理软件" textAlignment="CENTER">
-      <font>
-         <Font name="System Bold" size="21.0" />
-      </font>
-   </Text>
-   <Button layoutX="166.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#login" text="登录" />
-   <Text layoutX="340.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V 1.0" />
+   <children>
+      <PasswordField fx:id="textField_password" layoutX="144.0" layoutY="103.0" onKeyPressed="#pressEnterEvent" />
+      <Text layoutX="35.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入密码" />
+      <Text layoutX="110.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="科瑞斯特管理软件" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
+      <Button layoutX="156.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="39.0" prefWidth="75.0" text="登录">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Text fx:id="version" layoutX="231.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="版本 &lt;...&gt;" textAlignment="RIGHT" wrappingWidth="150.2880859375" />
+   </children>
 </Pane>

@@ -65,6 +65,7 @@
                      <MenuItem mnemonicParsing="false" onAction="#database_destroy" text="数据销毁" />
                      <MenuItem mnemonicParsing="false" onAction="#database_import" text="数据导入" />
                      <MenuItem mnemonicParsing="false" onAction="#database_export" text="数据导出" />
+                     <MenuItem mnemonicParsing="false" onAction="#database_openLocation" text="打开数据库位置" />
                  </items>
               </Menu>
               <Menu mnemonicParsing="false" text="其他">

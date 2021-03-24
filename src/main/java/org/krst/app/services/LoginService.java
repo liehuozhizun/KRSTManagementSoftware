@@ -19,6 +19,14 @@ public class LoginService {
         return remainingRetryTimes;
     }
 
+    public Status checkLoginExists() {
+        switch ((int) adminRepository.count()) {
+            case 0: return Status.DATA_NOT_FOUND;
+            case 1: return Status.SUCCESS;
+            default: return Status.ERROR;
+        }
+    }
+
     public Status verify(String password) {
         Login login = adminRepository.findAll().get(0);
         if (login.getRetryRemainingTimes() <= 0) {

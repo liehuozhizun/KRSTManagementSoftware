@@ -4,6 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -15,6 +16,7 @@ import org.krst.app.domains.*;
 import org.krst.app.repositories.*;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
+import org.krst.app.services.DatabaseService;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.views.course.AddCourse;
 import org.krst.app.views.course.CourseInfoPage;
@@ -45,6 +47,7 @@ public class MainWindowController {
     @Autowired private StaffRepository staffRepository;
     @Autowired private PersonRepository personRepository;
     @Autowired private CourseRepository courseRepository;
+    @Autowired private DatabaseService databaseService;
     @Autowired private CacheService cacheService;
 
     @FXML public void initialize() {
@@ -101,10 +104,13 @@ public class MainWindowController {
         }
     }
     public void database_import() {
-
+        CommonUtils.alertFeatureNotReady();
     }
     public void database_export() {
-
+        CommonUtils.alertFeatureNotReady();
+    }
+    public void database_openLocation() {
+        databaseService.openDatabaseLocationFolder();
     }
     public void other_remainder() {
         KRSTManagementSoftware.openWindow(Remainder.class);
