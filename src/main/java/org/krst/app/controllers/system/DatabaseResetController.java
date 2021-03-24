@@ -36,6 +36,7 @@ public class DatabaseResetController {
     @Autowired private StudentRepository studentRepository;
     @Autowired private TeacherRepository teacherRepository;
     @Autowired private VisitRepository visitRepository;
+    @Autowired private LogRepository logRepository;
 
     public void verify() {
         if (Status.SUCCESS.equals(loginService.unlimitedVerify(password.getText()))) {
@@ -59,6 +60,7 @@ public class DatabaseResetController {
         patronSaintDateRepository.deleteAll();
         staffRepository.deleteAll();
         visitRepository.deleteAll();
+        logRepository.deleteAll();
 
         dataPassService.setValue(true);
         close();
