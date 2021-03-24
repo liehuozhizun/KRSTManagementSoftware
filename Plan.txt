@@ -5,7 +5,8 @@ In Progress
 
 
 Done
-    KRST-67 [FE/BE] Add DatabaseService, database check, and database info in SystemInfoPage
+    KRST-68 [FE/BE] Fix location field name in AddCourse Y 3/23
+    KRST-67 [FE/BE] Add DatabaseService, database check, and database info in SystemInfoPage Y 3/23
     KRST-66 [FE/BE] Add AlertFeatureNotReady Y 3/23
     KRST-65 [BE] Revise pom dependencies Y 3/23
     KRST-64 [BE] Add value (relative path) to @FXMLView annotation Y 3/23
