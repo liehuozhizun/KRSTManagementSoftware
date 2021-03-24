@@ -12,6 +12,7 @@ import org.krst.app.domains.Teacher;
 import org.krst.app.repositories.CourseTemplateRepository;
 import org.krst.app.repositories.TeacherRepository;
 import org.krst.app.services.CacheService;
+import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -31,6 +32,7 @@ public class AddCourseTemplateController extends ControllerTemplate {
 
     @Autowired private TeacherRepository teacherRepository;
     @Autowired private CourseTemplateRepository courseTemplateRepository;
+    @Autowired private DataPassService dataPassService;
     @Autowired private CacheService cacheService;
     @Autowired private Logger logger;
 
@@ -64,7 +66,8 @@ public class AddCourseTemplateController extends ControllerTemplate {
                 topic.getText(),
                 new HashSet<>(teachers.getItems()));
 
-        courseTemplateRepository.save(courseTemplate);
+        courseTemplate = courseTemplateRepository.save(courseTemplate);
+        dataPassService.setValue(courseTemplate);
         cacheService.refreshCourseTemplateCache();
         logger.logInfo(this.getClass().toString(), "新建课程模板，编号-{}，名称-{}", id.getText(), name.getText());
         close();
