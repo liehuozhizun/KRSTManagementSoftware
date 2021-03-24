@@ -11,7 +11,7 @@
 
     <groupId>org.krst</groupId>
     <artifactId>krst-management-software</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>RELEASE-1.0</version>
     <name>KRST Management Software</name>
     <description>Designed and developed for KRST center. Private Use Only.</description>
 
