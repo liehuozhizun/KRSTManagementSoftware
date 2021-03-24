@@ -3,20 +3,20 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0"
-      prefWidth="361.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Text layoutX="145.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="版本信息">
-        <font>
-          <Font size="18.0"/>
-        </font>
-    </Text>
-    <Text layoutX="50.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="软件版本"/>
-    <Text layoutX="51.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JVM版本"/>
-    <Text layoutX="50.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据库所在位置"/>
-    <Text layoutX="50.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据库大小"/>
-    <Text layoutX="193.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="v1.0"/>
-    <Text layoutX="192.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JDK 1.8"/>
-    <Text layoutX="192.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;"/>
-    <Text layoutX="192.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;"/>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.SystemInfoPageController">
+   <children>
+       <Text layoutX="265.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="系统信息">
+           <font>
+             <Font size="18.0" />
+           </font>
+       </Text>
+       <Text layoutX="32.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="软件版本" />
+       <Text layoutX="33.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JVM版本" />
+       <Text layoutX="32.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据库所在位置" />
+       <Text layoutX="32.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据库大小" />
+       <Text fx:id="version" layoutX="175.0" layoutY="101.0" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;" wrappingWidth="200.0" />
+       <Text fx:id="JVMVersion" layoutX="174.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;" wrappingWidth="200.0" />
+       <Text fx:id="databaseLocation" layoutX="174.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;" wrappingWidth="400.0" />
+       <Text fx:id="databaseSize" layoutX="174.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;...&gt;" wrappingWidth="200.0" />
+   </children>
 </Pane>
