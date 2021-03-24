@@ -1,9 +1,9 @@
 In Progress
-    KRST-72 [BE] Fix AddCourse courseTemplate display bug and teacher display/selection bug and NullPointerException issue
     KRST-73 [FE/BE] Fix additional window popped up after ResetPassword
     KRST-74 [BE] Fix newly added Grade doesn't reflect offer/comments immediately bug
 
 Done
+    KRST-72 [BE] Fix AddCourse courseTemplate display bug and teacher display/selection bug and NullPointerException issue 2/24
     KRST-71 [BE] Fix adding CourseTemplate doesn't reflect in CourseTemplateControlPanel immediately 2/24
     KRST-70 [FE] Fix Remainder TableView to match date width 2/24
     KRST-69 [FE] Replace "所属教区" to "所属堂区" 2/24
