@@ -22,7 +22,7 @@ public class AddCourseController {
     @FXML private TextField id;
     @FXML private DatePicker startDate;
     @FXML private DatePicker endDate;
-    @FXML private TextField location;
+    @FXML private TextField location1;
     @FXML private TextField className;
     @FXML private ComboBox<CourseTemplate> courseTemplate;
     @FXML private TextField name;
@@ -65,7 +65,7 @@ public class AddCourseController {
     }
 
     private Course loadValuesIntoCourseModel() {
-        return new Course(id.getText(), startDate.getValue(), endDate.getValue(), location.getText(), className.getText(),
+        return new Course(id.getText(), startDate.getValue(), endDate.getValue(), location1.getText(), className.getText(),
                 courseTemplate.getValue(), primaryTeacher.getValue(), secondaryTeacher.getValue(), null);
     }
 
