@@ -1,6 +1,5 @@
 package org.krst.app.services;
 
-import org.jetbrains.annotations.NotNull;
 import org.krst.app.domains.Login;
 import org.krst.app.models.Status;
 import org.krst.app.repositories.AdminRepository;
@@ -20,7 +19,15 @@ public class LoginService {
         return remainingRetryTimes;
     }
 
-    public Status verify(@NotNull String password) {
+    public Status checkLoginExists() {
+        switch ((int) adminRepository.count()) {
+            case 0: return Status.DATA_NOT_FOUND;
+            case 1: return Status.SUCCESS;
+            default: return Status.ERROR;
+        }
+    }
+
+    public Status verify(String password) {
         Login login = adminRepository.findAll().get(0);
         if (login.getRetryRemainingTimes() <= 0) {
             return Status.CONSTRAINT_VIOLATION;
@@ -28,8 +35,8 @@ public class LoginService {
 
         boolean passwordMatch = password.equals(login.getPassword());
         if (passwordMatch) {
-            login.setRetryRemainingTimes(3);
-            remainingRetryTimes = 3;
+            login.setRetryRemainingTimes(Constants.MOST_RETRY_LOGIN_TIMES);
+            remainingRetryTimes = Constants.MOST_RETRY_LOGIN_TIMES;
         } else {
             login.setRetryRemainingTimes(login.getRetryRemainingTimes() - 1);
             remainingRetryTimes = login.getRetryRemainingTimes();
@@ -38,7 +45,14 @@ public class LoginService {
         return passwordMatch ? Status.SUCCESS : Status.ERROR;
     }
 
-    public void changePassword(@NotNull String newPassword) {
+    public Status unlimitedVerify(String password) {
+        Login login = adminRepository.findAll().get(0);
+
+        boolean passwordMatch = password.equals(login.getPassword());
+        return passwordMatch ? Status.SUCCESS : Status.ERROR;
+    }
+
+    public void changePassword(String newPassword) {
         Login login = adminRepository.findAll().get(0);
         login.setPassword(newPassword);
         login.setRetryRemainingTimes(Constants.MOST_RETRY_LOGIN_TIMES);

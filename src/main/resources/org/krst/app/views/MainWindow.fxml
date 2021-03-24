@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="basePane" maxHeight="785.0" maxWidth="1250.0" minHeight="785.0" minWidth="1250.0" prefHeight="785.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.MainWindowController">
+   <left>
+       <VBox maxHeight="750.0" maxWidth="150.0" minHeight="750.0" minWidth="150.0" prefHeight="750.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+          <children>
+              <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showStudent" prefHeight="100.0" prefWidth="150.0" text="学生信息">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+              <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showTeacher" prefHeight="100.0" prefWidth="150.0" text="教师信息">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+              <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showStaff" prefHeight="100.0" prefWidth="150.0" text="员工信息">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+            <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showPerson" prefHeight="100.0" prefWidth="150.0" text="普通人信息">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+              <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showCourse" prefHeight="100.0" prefWidth="150.0" text="课程信息">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+              <Button maxHeight="100.0" maxWidth="150.0" minHeight="100.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#showOther" prefHeight="100.0" prefWidth="150.0" text="其他">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+          </children>
+       </VBox>
+   </left>
+   <top>
+       <MenuBar maxHeight="35" maxWidth="1250.0" minHeight="35" minWidth="1250.0" prefHeight="35.0" prefWidth="1250.0" BorderPane.alignment="CENTER">
+           <opaqueInsets>
+               <Insets />
+           </opaqueInsets>
+           <BorderPane.margin>
+               <Insets />
+           </BorderPane.margin>
+          <menus>
+              <Menu mnemonicParsing="false" text="系统">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#system_changePassword" text="更改密码" />
+                     <MenuItem mnemonicParsing="false" onAction="#system_info" text="版本及系统信息" />
+                     <MenuItem mnemonicParsing="false" onAction="#system_exit" text="退出程序" />
+                 </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="数据库">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#database_destroy" text="数据销毁" />
+                     <MenuItem mnemonicParsing="false" onAction="#database_import" text="数据导入" />
+                     <MenuItem mnemonicParsing="false" onAction="#database_export" text="数据导出" />
+                     <MenuItem mnemonicParsing="false" onAction="#database_openLocation" text="打开数据库位置" />
+                 </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="其他">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#other_remainder" text="日期提醒" />
+                     <MenuItem mnemonicParsing="false" onAction="#other_log" text="基础日志" />
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+   </top>
+   <center>
+       <Pane maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" prefHeight="750.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+          <children>
+              <SplitPane fx:id="teacher" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                 <items>
+                  <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="90.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师编号" />
+                        <Text layoutX="90.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师姓名" />
+                        <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
+                        <Text layoutX="416.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属堂区" />
+                        <TextField fx:id="teacher_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="teacher_name" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="teacher_attribute" editable="true" layoutX="502.0" layoutY="129.0" prefHeight="31.0" prefWidth="189.0" promptText="选择或输入堂区名称" />
+                        <ComboBox fx:id="teacher_gender" layoutX="502.0" layoutY="88.0" prefHeight="31.0" prefWidth="89.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="男" />
+                                 <String fx:value="女" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#teacher_addTeacher" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="teachers" layoutY="46.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                           <columns>
+                              <TableColumn fx:id="teachers_id" prefWidth="75.0" text="教师编号" />
+                              <TableColumn fx:id="teachers_name" prefWidth="100.0" text="姓名" />
+                              <TableColumn fx:id="teachers_baptismalName" prefWidth="100.0" text="圣名" />
+                              <TableColumn fx:id="teachers_gender" prefWidth="50.0" text="性别" />
+                              <TableColumn fx:id="teachers_birthday" minWidth="0.0" prefWidth="100.0" text="出生日期" />
+                              <TableColumn fx:id="teachers_age" prefWidth="50.0" text="年龄" />
+                              <TableColumn fx:id="teachers_attribute" prefWidth="190.0" text="所属堂区" />
+                              <TableColumn fx:id="teachers_leader" prefWidth="100.0" text="负责人" />
+                              <TableColumn fx:id="teachers_phone" prefWidth="100.0" text="联系方式" />
+                              <TableColumn fx:id="teachers_altPhone" prefWidth="100.0" text="其他联系方式" />
+                              <TableColumn fx:id="teachers_address" prefWidth="115.0" text="地址" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="23.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教师总人数：" />
+                        <Text fx:id="teacher_totalNumber" layoutX="113.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="teacher_searchNumberPrompt" layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询人数：" visible="false" />
+                        <Text fx:id="teacher_searchNumber" layoutX="291.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+                 </items>
+              </SplitPane>
+              <SplitPane fx:id="staff" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                  <items>
+                  <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="90.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工编号" />
+                        <Text layoutX="90.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工姓名" />
+                        <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
+                        <Text layoutX="446.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="职务" />
+                        <TextField fx:id="staff_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="staff_name" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="staff_gender" layoutX="502.0" layoutY="88.0" prefHeight="31.0" prefWidth="89.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="男" />
+                                 <String fx:value="女" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <TextField fx:id="staff_title" layoutX="502.0" layoutY="129.0" />
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#staff_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#staff_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#staff_addStaff" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="staffs" layoutY="45.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                           <columns>
+                              <TableColumn fx:id="staffs_id" prefWidth="75.0" text="员工编号" />
+                              <TableColumn fx:id="staffs_name" prefWidth="100.0" text="姓名" />
+                              <TableColumn fx:id="staffs_baptismalName" prefWidth="100.0" text="圣名" />
+                              <TableColumn fx:id="staffs_gender" prefWidth="50.0" text="性别" />
+                              <TableColumn fx:id="staffs_birthday" minWidth="0.0" prefWidth="100.0" text="出生日期" />
+                              <TableColumn fx:id="staffs_age" prefWidth="50.0" text="年龄" />
+                              <TableColumn fx:id="staffs_title" prefWidth="150.0" text="工作职务" />
+                              <TableColumn fx:id="staffs_responsibility" minWidth="0.0" prefWidth="215.0" text="工作内容" />
+                              <TableColumn fx:id="staffs_phone" prefWidth="120.0" text="联系方式" />
+                              <TableColumn fx:id="staffs_altPhone" prefWidth="120.0" text="其他联系方式" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="23.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="员工总人数：" />
+                        <Text fx:id="staff_totalNumber" layoutX="113.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="staff_searchNumberPrompt" layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询人数：" visible="false" />
+                        <Text fx:id="staff_searchNumber" layoutX="291.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+                  </items>
+              </SplitPane>
+              <SplitPane fx:id="other" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+               <items>
+                  <Pane maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" prefHeight="750.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="454.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="其他控制面板信息">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="268.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#other_courseTemplate" prefHeight="92.0" prefWidth="213.0" text="课程模板">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="600.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#other_attribute" prefHeight="92.0" prefWidth="213.0" text="所属堂区">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="268.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#other_patronSaintDate" prefHeight="92.0" prefWidth="213.0" text="圣人日期">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="600.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#other_remainder" prefHeight="92.0" prefWidth="213.0" text="日期提醒">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </items>
+              </SplitPane>
+              <SplitPane fx:id="person" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+               <items>
+                  <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="75.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="普通人编号" />
+                        <Text layoutX="75.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="普通人姓名" />
+                        <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
+                        <TextField fx:id="person_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="person_name" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="person_gender" layoutX="502.0" layoutY="88.0" prefHeight="31.0" prefWidth="89.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="男" />
+                                 <String fx:value="女" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#person_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#person_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#person_addPerson" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="persons" layoutY="45.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                           <columns>
+                              <TableColumn fx:id="persons_id" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="员工编号" />
+                              <TableColumn fx:id="persons_name" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="姓名" />
+                              <TableColumn fx:id="persons_baptismalName" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="圣名" />
+                              <TableColumn fx:id="persons_gender" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="性别" />
+                              <TableColumn fx:id="persons_birthday" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="出生日期" />
+                              <TableColumn fx:id="persons_age" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="年龄" />
+                              <TableColumn fx:id="persons_phone" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="联系方式" />
+                              <TableColumn fx:id="persons_altPhone" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="其他联系方式" />
+                              <TableColumn fx:id="persons_job" maxWidth="365.0" minWidth="365.0" prefWidth="365.0" text="工作" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="普通人总人数：" />
+                        <Text fx:id="person_totalNumber" layoutX="127.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="person_searchNumberPrompt" layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询人数：" visible="false" />
+                        <Text fx:id="person_searchNumber" layoutX="291.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+              <SplitPane fx:id="course" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                  <items>
+                  <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                     <children>
+                        <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="75.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程编号" />
+                        <Text layoutX="75.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="班级名称" />
+                        <Text layoutX="418.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程模板" />
+                        <TextField fx:id="course_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="course_className" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="course_courseTemplate" layoutX="499.0" layoutY="89.0" prefHeight="31.0" prefWidth="187.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="男" />
+                                 <String fx:value="女" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#course_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#course_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#course_addCourse" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="courses" layoutY="45.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="courses_id" maxWidth="80.0" minWidth="80.0" resizable="false" text="课程编号" />
+                              <TableColumn fx:id="courses_className" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" text="授课班级" />
+                              <TableColumn fx:id="courses_location" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="地点" />
+                              <TableColumn fx:id="courses_startDate" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="开始日期" />
+                              <TableColumn fx:id="courses_endDate" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="结束日期" />
+                              <TableColumn fx:id="courses_name" maxWidth="195.0" minWidth="195.0" prefWidth="195.0" text="课程模板名称" />
+                              <TableColumn fx:id="courses_topic" maxWidth="195.0" minWidth="195.0" prefWidth="195.0" text="课程模板主题" />
+                              <TableColumn fx:id="courses_primaryTeacher" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="主课教师" />
+                              <TableColumn fx:id="courses_secondaryTeacher" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="副课教师" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="11.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程总数：" />
+                        <Text fx:id="course_totalNumber" layoutX="94.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="course_searchNumberPrompt" layoutX="195.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果：" visible="false" />
+                        <Text fx:id="course_searchNumber" layoutX="270.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+                  </items>
+              </SplitPane>
+              <SplitPane fx:id="student" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+                  <items>
+                      <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
+                          <children>
+                              <Text layoutX="506.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="搜索引擎">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Text layoutX="90.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生编号" />
+                        <Text layoutX="90.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生姓名" />
+                        <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性别" />
+                        <Text layoutX="416.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属堂区" />
+                        <TextField fx:id="student_id" layoutX="169.0" layoutY="89.0" />
+                        <TextField fx:id="student_name" layoutX="169.0" layoutY="129.0" />
+                        <ComboBox fx:id="student_attribute" editable="true" layoutX="502.0" layoutY="129.0" prefHeight="31.0" prefWidth="189.0" promptText="选择或输入堂区名称" />
+                        <ComboBox fx:id="student_gender" layoutX="502.0" layoutY="88.0" prefHeight="31.0" prefWidth="89.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="男" />
+                                    <String fx:value="女" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Button layoutX="757.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#student_search" prefHeight="31.0" prefWidth="65.0" text="搜索" />
+                        <Button layoutX="836.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#student_clear" prefHeight="31.0" prefWidth="63.0" text="清空" />
+                        <Button layoutX="912.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#student_addStudent" prefHeight="31.0" prefWidth="105.0" text="+ 新建档案" />
+                        <Text layoutX="755.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数据使用精确查询，没有必填项目" />
+                        <Text layoutX="755.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请尽量提供详细信息即可" />
+                          </children>
+                      </AnchorPane>
+                  <AnchorPane maxHeight="550.0" maxWidth="1100.0" minHeight="550.0" minWidth="1100.0" prefHeight="550.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="students" layoutY="45.0" maxHeight="465.0" maxWidth="1100.0" minHeight="465.0" minWidth="1100.0" prefHeight="465.0" prefWidth="1100.0" SplitPane.resizableWithParent="false">
+                          <columns>
+                            <TableColumn fx:id="students_id" prefWidth="75.0" text="学生编号" />
+                              <TableColumn fx:id="students_name" prefWidth="100.0" text="姓名" />
+                              <TableColumn fx:id="students_baptismalName" prefWidth="100.0" text="圣名" />
+                              <TableColumn fx:id="students_gender" prefWidth="50.0" text="性别" />
+                              <TableColumn fx:id="students_birthday" minWidth="0.0" prefWidth="100.0" text="出生日期" />
+                              <TableColumn fx:id="students_age" prefWidth="50.0" text="年龄" />
+                              <TableColumn fx:id="students_attribute" prefWidth="190.0" text="所属堂区" />
+                              <TableColumn fx:id="students_leader" prefWidth="100.0" text="负责人" />
+                              <TableColumn fx:id="students_phone" prefWidth="100.0" text="联系方式" />
+                              <TableColumn fx:id="students_altPhone" prefWidth="100.0" text="其他联系方式" />
+                              <TableColumn fx:id="students_address" prefWidth="115.0" text="地址" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="514.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询结果">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="23.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="学生总人数：" />
+                        <Text fx:id="student_totalNumber" layoutX="113.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="student_searchNumberPrompt" layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="查询人数：" visible="false" />
+                        <Text fx:id="student_searchNumber" layoutX="291.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                     </children>
+                  </AnchorPane>
+                  </items>
+              </SplitPane>
+          </children>
+       </Pane>
+   </center>
+</BorderPane>

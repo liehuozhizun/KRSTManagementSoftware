@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="489.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.person.AddPersonController">
+    <Text layoutX="201.0" layoutY="42.0" text="新建普通人档案">
+        <font>
+            <Font name="System Bold" size="20.0"/>
+        </font>
+    </Text>
+    <Text layoutX="22.0" layoutY="85.0" text="普通人编号"/>
+    <Text layoutX="22.0" layoutY="125.0" text="普通人姓名"/>
+    <Text layoutX="68.0" layoutY="163.0" text="圣名"/>
+    <Text layoutX="319.0" layoutY="163.0" text="性别"/>
+    <Text layoutX="38.0" layoutY="202.0" text="出生日期"/>
+    <Text layoutX="68.0" layoutY="241.0" text="电话"/>
+    <Text layoutX="289.0" layoutY="241.0" text="备用电话"/>
+    <Text layoutX="68.0" layoutY="279.0" text="地址"/>
+    <Text layoutX="68.0" layoutY="368.0" text="工作"/>
+    <TextField fx:id="id" layoutX="111.0" layoutY="64.0" prefHeight="31.0" prefWidth="150.0"/>
+    <TextField fx:id="name" layoutX="111.0" layoutY="103.0" prefHeight="31.0" prefWidth="150.0"/>
+    <TextField fx:id="baptismalName" layoutX="111.0" layoutY="142.0" prefHeight="31.0" prefWidth="150.0"/>
+    <RadioButton fx:id="gender_male" layoutX="360.0" layoutY="147.0" mnemonicParsing="false" selected="true" text="男">
+        <toggleGroup>
+            <ToggleGroup fx:id="gender"/>
+        </toggleGroup>
+    </RadioButton>
+    <RadioButton layoutX="432.0" layoutY="147.0" mnemonicParsing="false" text="女" toggleGroup="$gender"/>
+    <DatePicker fx:id="birthday" layoutX="111.0" layoutY="181.0" prefHeight="31.0" prefWidth="150.0"/>
+    <CheckBox fx:id="isGregorianCalendar" layoutX="290.0" layoutY="186.0" mnemonicParsing="false" text="农历"/>
+    <TextField fx:id="phone" layoutX="111.0" layoutY="220.0" prefHeight="31.0" prefWidth="150.0"/>
+    <TextField fx:id="altPhone" layoutX="360.0" layoutY="220.0" prefHeight="31.0" prefWidth="150.0"/>
+    <TextArea fx:id="address" layoutX="111.0" layoutY="259.0" prefHeight="76.0" prefWidth="399.0"/>
+    <TextArea fx:id="job" layoutX="111.0" layoutY="346.0" prefHeight="76.0" prefWidth="399.0"/>
+    <Button layoutX="157.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#accept"
+            prefHeight="37.0" prefWidth="69.0" text="确认"/>
+    <Button layoutX="317.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#close"
+            prefHeight="37.0" prefWidth="69.0" text="取消"/>
+</Pane>

@@ -7,18 +7,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Internship {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Internship implements Cloneable {
     private LocalDate startDate;
     private LocalDate endDate;
     private String purpose;
     private String summary;
     private String comment;
+
+    @Override
+    public Internship clone() {
+        try {
+            return (Internship) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }

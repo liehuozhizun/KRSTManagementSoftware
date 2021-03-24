@@ -4,32 +4,26 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import org.krst.app.KRSTManagementSoftware;
+import javafx.stage.Stage;
 import org.krst.app.domains.Attribute;
-import org.krst.app.models.Status;
 import org.krst.app.repositories.AttributeRepository;
 import org.krst.app.services.CacheService;
-import org.krst.app.utils.CommonUtils;
+import org.krst.app.services.DataPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/*
+ * In   : None
+ * Out  : Attribute, new created Attribute if successfully created
+ * Note : new created Attribute will be stored in CacheService
+ */
 @FXMLController
 public class AddAttributeController {
 
-    @FXML
-    private TextField attribute;
-    @FXML
-    private TextField leader;
-    @FXML
-    private TextField leaderPhone;
-    @FXML
-    private TextField altLeader;
-    @FXML
-    private TextField altLeaderPhone;
+    @FXML private TextField attribute, leader, leaderPhone, altLeader, altLeaderPhone;
 
-    @Autowired
-    private AttributeRepository attributeRepository;
-    @Autowired
-    private CacheService cacheService;
+    @Autowired private AttributeRepository attributeRepository;
+    @Autowired private CacheService cacheService;
+    @Autowired private DataPassService dataPassService;
 
     public void approve() {
         if (attributeRepository.existsById(attribute.getText())) {
@@ -39,18 +33,21 @@ public class AddAttributeController {
             alert.setContentText("解决方法：更换所属堂区");
             alert.showAndWait();
         } else {
-            attributeRepository.save(new Attribute(
+            Attribute attr = new Attribute(
                     attribute.getText(),
                     leader.getText(),
                     leaderPhone.getText(),
                     altLeader.getText(),
-                    altLeaderPhone.getText()));
-            cacheService.refreshAttributeCache();
-            KRSTManagementSoftware.closeWindow();
+                    altLeaderPhone.getText());
+            if (!attr.equals(new Attribute())) {
+                dataPassService.setValue(attributeRepository.save(attr));
+                cacheService.refreshAttributeCache();
+            }
+            close();
         }
     }
 
-    public void cancel() {
-        KRSTManagementSoftware.closeWindow();
+    public void close() {
+        ((Stage)attribute.getScene().getWindow()).close();
     }
 }

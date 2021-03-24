@@ -6,17 +6,23 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Evaluation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer year;
+public class Evaluation implements Cloneable {
+    private String year;
     private String title;
     private String responsibility;
     private String comment;
+
+    @Override
+    public Evaluation clone() {
+        try {
+            return (Evaluation) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 }

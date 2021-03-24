@@ -11,13 +11,14 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
 
 public abstract class AbstractJavaFxApplicationSupportExtension extends AbstractJavaFxApplicationSupport {
 
     private static Logger logger;
 
-    private static LinkedList<Stage> stages = new LinkedList<>();
+    public static void openWindow(final Class<? extends AbstractFxmlView> window) {
+        openWindow(window, true);
+    }
 
     public static void openWindow(final Class<? extends AbstractFxmlView> window, boolean OpenAndWait) {
         initContext();
@@ -34,6 +35,7 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         }
 
         newStage.setScene(newScene);
+        newStage.setResizable(false);
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.initOwner(getStage());
 
@@ -57,9 +59,9 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         }
         newStage.initStyle(defaultStyle);
 
+        newStage.centerOnScreen();
         if (OpenAndWait) {
             newStage.showAndWait();
-            stages.add(newStage);
         } else {
             newStage.show();
         }
@@ -69,10 +71,16 @@ public abstract class AbstractJavaFxApplicationSupportExtension extends Abstract
         showView(window);
     }
 
-    public static void closeWindow() {
-        if (stages.isEmpty()) return;
-        stages.getLast().close();
-        stages.removeLast();
+    public static void resizeWindow(double height, double width) {
+        getStage().setResizable(false);
+        getStage().setHeight(height);
+        getStage().setWidth(width);
+        getStage().centerOnScreen();
+    }
+
+    public static void resizeWindow(double height, double width, String title) {
+        resizeWindow(height, width);
+        getStage().setTitle(title);
     }
 
     private static ConfigurableApplicationContext context = null;

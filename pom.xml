@@ -11,10 +11,9 @@
 
     <groupId>org.krst</groupId>
     <artifactId>krst-management-software</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>RELEASE-1.1</version>
     <name>KRST Management Software</name>
     <description>Designed and developed for KRST center. Private Use Only.</description>
-
 
     <properties>
         <java.version>1.8</java.version>
@@ -53,7 +52,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.32.3.2</version>
+            <version>3.34.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.gwenn</groupId>
@@ -66,12 +65,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>
@@ -147,5 +140,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>oss-sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

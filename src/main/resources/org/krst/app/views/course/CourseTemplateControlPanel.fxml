@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.course.CourseTemplateControlPanelController">
+   <children>
+       <Text layoutX="288.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程模板控制面板">
+           <font>
+               <Font size="18.0" />
+           </font>
+       </Text>
+       <Text layoutX="40.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程模板数量" />
+       <Text layoutX="514.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="可双击查看课程模板详情" />
+       <TableView fx:id="courseTemplates" layoutX="40.0" layoutY="108.0" prefHeight="379.0" prefWidth="639.0">
+           <columns>
+               <TableColumn fx:id="id" prefWidth="149.0" text="模板编号" />
+               <TableColumn fx:id="name" minWidth="0.0" prefWidth="233.0" text="名称" />
+               <TableColumn fx:id="topic" prefWidth="255.0" text="主题" />
+           </columns>
+       </TableView>
+       <Button layoutX="569.0" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#addCourseTemplate" text="新建课程模板" />
+      <Text fx:id="number" layoutX="154.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   </children>
+</Pane>

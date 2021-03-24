@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.system.LogInfoPageController">
+   <children>
+      <Text layoutX="539.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="日志查看">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="1045.0" layoutY="704.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="38.0" prefWidth="72.0" text="关闭" />
+      <Button fx:id="btn_previous" disable="true" layoutX="483.0" layoutY="704.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="38.0" prefWidth="72.0" text="前一页" />
+      <Button fx:id="btn_next" disable="true" layoutX="595.0" layoutY="704.0" mnemonicParsing="false" onMouseClicked="#next" prefHeight="38.0" prefWidth="72.0" text="后一页" />
+      <TableView fx:id="logs" layoutX="21.0" layoutY="60.0" prefHeight="632.0" prefWidth="1096.0">
+        <columns>
+          <TableColumn fx:id="logs_id" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="编号" />
+          <TableColumn fx:id="logs_type" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="种类" />
+            <TableColumn fx:id="logs_time" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="时间" />
+            <TableColumn fx:id="logs_message" maxWidth="800.0" minWidth="200.0" prefWidth="370.0" text="信息" />
+            <TableColumn fx:id="logs_path" maxWidth="800.0" minWidth="200.0" prefWidth="460.0" text="路径" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

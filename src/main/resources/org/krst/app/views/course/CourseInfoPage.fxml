@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.5, 0.5" prefHeight="772.0" prefWidth="1268.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.course.CourseInfoPageController">
+   <items>
+      <AnchorPane minWidth="-Infinity" prefWidth="550.0">
+         <children>
+            <Text layoutX="239.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程详情">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="22.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程编号" />
+            <Text layoutX="22.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="开始日期" />
+            <Text layoutX="291.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="结束日期" />
+            <Text layoutX="22.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="授课地址" />
+            <Text layoutX="22.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="授课班级" />
+            <Text layoutX="22.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程模板" />
+            <Text layoutX="22.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="模板名称" />
+            <Text layoutX="52.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="主题" />
+            <Text layoutX="22.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="主课教师" />
+            <Text layoutX="291.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="副课教师" />
+            <TextField fx:id="id" layoutX="108.0" layoutY="79.0" prefHeight="31.0" prefWidth="150.0" />
+            <DatePicker fx:id="startDate" layoutX="108.0" layoutY="119.0" prefHeight="31.0" prefWidth="150.0" />
+            <DatePicker fx:id="endDate" layoutX="376.0" layoutY="119.0" prefWidth="150.0" />
+            <TextField fx:id="location1" layoutX="108.0" layoutY="160.0" prefHeight="31.0" prefWidth="420.0" />
+            <TextField fx:id="className" layoutX="108.0" layoutY="202.0" prefHeight="31.0" prefWidth="420.0" />
+            <ComboBox fx:id="courseTemplate" layoutX="108.0" layoutY="243.0" prefHeight="31.0" prefWidth="420.0" promptText="请选择课程模板" />
+            <ComboBox fx:id="secondaryTeacher" layoutX="377.0" layoutY="411.0" prefWidth="150.0" visibleRowCount="5" />
+            <TextArea fx:id="topic" layoutX="108.0" layoutY="324.0" mouseTransparent="true" prefHeight="76.0" prefWidth="420.0">
+               <effect>
+                  <ColorAdjust brightness="-0.01" />
+               </effect>
+            </TextArea>
+            <ComboBox fx:id="primaryTeacher" layoutX="108.0" layoutY="411.0" prefWidth="150.0" visibleRowCount="5" />
+            <TextField fx:id="name" layoutX="108.0" layoutY="283.0" mouseTransparent="true" prefHeight="31.0" prefWidth="420.0">
+               <effect>
+                  <ColorAdjust brightness="-0.01" />
+               </effect>
+            </TextField>
+            <Line endX="225.0" layoutX="275.0" layoutY="463.0" opacity="0.68" startX="-225.0" strokeDashOffset="5.0" strokeMiterLimit="0.75" style="-fx-stroke-dash-array: 10;" />
+            <Button fx:id="close" layoutX="376.0" layoutY="487.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="38.0" prefWidth="67.0" text="退出" />
+            <Button fx:id="cancel" layoutX="308.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="69.0" text="取消" visible="false" />
+            <Button fx:id="delete" layoutX="242.0" layoutY="487.0" mnemonicParsing="false" onMouseClicked="#delete" prefHeight="38.0" prefWidth="67.0" text="删除" />
+            <Button fx:id="accept" layoutX="174.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#accept" prefHeight="37.0" prefWidth="69.0" text="确定" visible="false" />
+            <Button fx:id="change" layoutX="108.0" layoutY="487.0" mnemonicParsing="false" onMouseClicked="#change" prefHeight="38.0" prefWidth="67.0" text="更改" />
+            <Text layoutX="374.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程参与人数：" />
+            <Text fx:id="number" layoutX="485.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text layoutX="44.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" text="使用说明：" />
+            <Text layoutX="82.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程赠与，对课程评价及对教师评价都包含在成绩信息中。" />
+            <Text layoutX="82.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="如需要修改，请双击进行更改" />
+            <Text fx:id="prompt1" fill="RED" layoutX="103.0" layoutY="549.0" strokeType="OUTSIDE" strokeWidth="0.0" text="警告：该删除操作将清除所有内容！" />
+            <Text fx:id="prompt2" fill="RED" layoutX="136.0" layoutY="572.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="包括所有成绩，赠予及评价" />
+         </children>
+      </AnchorPane>
+      <AnchorPane minWidth="-Infinity" prefHeight="739.0" prefWidth="350.0">
+         <children>
+            <Text layoutX="20.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="成绩信息">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="236.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#addGrade" text="新增成绩单" />
+            <TableView fx:id="grades" layoutX="20.0" layoutY="59.0" prefHeight="691.0" prefWidth="311.0">
+               <columns>
+                  <TableColumn fx:id="grades_id" prefWidth="92.0" text="成绩单编号" />
+                  <TableColumn fx:id="grades_name" prefWidth="132.0" text="学生姓名 [编号]" />
+                  <TableColumn fx:id="grades_score" prefWidth="86.0" text="成绩" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0">
+         <children>
+            <Text layoutX="20.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="课程赠予">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="20.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="对课程评价">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="20.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="对教师评价">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TableView fx:id="offers" layoutX="20.0" layoutY="60.0" prefHeight="194.0" prefWidth="311.0">
+               <columns>
+                  <TableColumn fx:id="offers_name" prefWidth="119.0" text="学生姓名 [编号]" />
+                  <TableColumn fx:id="offers_offer" prefWidth="191.0" text="赠予" />
+               </columns>
+            </TableView>
+            <TableView fx:id="courseComments" layoutX="20.0" layoutY="309.0" prefHeight="194.0" prefWidth="311.0">
+               <columns>
+                  <TableColumn fx:id="courseComments_name" prefWidth="119.0" text="学生姓名 [编号]" />
+                  <TableColumn fx:id="courseComments_comment" prefWidth="191.0" text="对课程评价" />
+               </columns>
+            </TableView>
+            <TableView fx:id="teacherComments" layoutX="20.0" layoutY="553.0" prefHeight="194.0" prefWidth="311.0">
+               <columns>
+                  <TableColumn fx:id="teacherComments_name" prefWidth="119.0" text="学生姓名 [编号]" />
+                  <TableColumn fx:id="teacherComments_comment" prefWidth="191.0" text="对教师评价" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </items>
+</SplitPane>

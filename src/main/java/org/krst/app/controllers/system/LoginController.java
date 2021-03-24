@@ -2,28 +2,45 @@ package org.krst.app.controllers.system;
 
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.krst.app.KRSTManagementSoftware;
 import org.krst.app.models.Status;
 import org.krst.app.configurations.Logger;
 import org.krst.app.services.LoginService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.views.MainWindow;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 @FXMLController
 public class LoginController {
+    @FXML private Text version;
+    @FXML private PasswordField textField_password;
 
-    @Autowired
-    private LoginService loginService;
-    @Autowired
-    private Logger logger;
+    @Autowired private LoginService loginService;
+    @Autowired private Logger logger;
 
-    @FXML
-    private PasswordField textField_password;
+    @Value("${krst.version}")
+    private String versionNumber;
+
+    @FXML public void initialize() {
+        Status status = loginService.checkLoginExists();
+        if (status == Status.DATA_NOT_FOUND) {
+            logger.logFetal(this.getClass().toString(), "默认登陆用户不存在");
+            CommonUtils.alertSystemError("默认登录用户不存在");
+            close();
+        } else if (status == Status.ERROR) {
+            logger.logFetal(this.getClass().toString(), "默认登录用户存在多个");
+            CommonUtils.alertSystemError("默认登录用户存在多个");
+            close();
+        }
+        version.setText("版本 " + versionNumber);
+    }
 
     public void pressEnterEvent(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -32,7 +49,6 @@ public class LoginController {
     }
 
     public void login() {
-        logger.logInfo(getClass().toString(), "USER LOGIN");
         String password = textField_password.getText();
         if (password == null || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -46,7 +62,8 @@ public class LoginController {
         switch (status) {
             case SUCCESS:
                 try {
-                    KRSTManagementSoftware.switchScene(FXMLLoader.load(getClass().getResource("/views/database/ChangePassword.fxml")));
+                    logger.logInfo(getClass().toString(), "用户成功登录");
+                    KRSTManagementSoftware.switchScene(MainWindow.class);
                 } catch (Exception e) {
                     logger.logFetal(getClass().toString(), e.getMessage());
                     CommonUtils.alertSystemError(e.getMessage());
@@ -68,5 +85,9 @@ public class LoginController {
                 alert.showAndWait();
                 break;
         }
+    }
+
+    private void close() {
+        ((Stage)version.getScene().getWindow()).close();
     }
 }

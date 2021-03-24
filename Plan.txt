@@ -1,0 +1,100 @@
+In Progress
+
+
+Done
+
+Done(prior to RELEASE-1.1)
+    KRST-76 [BE] DatabaseReset should include log clear 2/25
+    KRST-75 RELEASE-1.1
+    KRST-74 [BE] Fix newly added Grade doesn't reflect offer/comments immediately bug 2/24
+    KRST-73 [FE/BE] Fix additional window popped up after ResetPassword 2/24
+    KRST-72 [BE] Fix AddCourse courseTemplate display bug and teacher display/selection bug and NullPointerException issue 2/24
+    KRST-71 [BE] Fix adding CourseTemplate doesn't reflect in CourseTemplateControlPanel immediately 2/24
+    KRST-70 [FE] Fix Remainder TableView to match date width 2/24
+    KRST-69 [FE] Replace "所属教区" to "所属堂区" 2/24
+
+Done(prior to RELEASE-1.0)
+    KRST-68 [FE/BE] Fix location field name in AddCourse Y 3/23
+    KRST-67 [FE/BE] Add DatabaseService, database check, and database info in SystemInfoPage Y 3/23
+    KRST-66 [FE/BE] Add AlertFeatureNotReady Y 3/23
+    KRST-65 [BE] Revise pom dependencies Y 3/23
+    KRST-64 [BE] Add value (relative path) to @FXMLView annotation Y 3/23
+    KRST-63 [BE] Fix RelationshipService relation mapping issue Y 3/22
+    KRST-62 [BE] Fix Relationship displays wrong data issue Y 3/21
+    KRST-60 [FE/BE] View logs Y 3/21
+    KRST-52 [FE/BE] Add ResetDatabase Page w/ Controller Y 3/21
+    KRST-61 [BE] Fix id change mapping issue Y 3/20
+    KRST-59 [BE] Fix Course_id & CourseTemplate_id mapping Y 3/20
+    KRST-58 [FE] Revise PatronSaintControlPanel listview size and RemainderService enhancement Y 3/20
+    KRST-19 [FE/BE] MainWindow - Course Y 3/20
+    KRST-50 [BE] Revise CourseTemplateControlPanel Data Display Y 3/20
+    KRST-57 [BE] Revise CourseInfoPageController Grade component Y 3/20
+    KRST-41 [BE] Revise StudentInfoPage Grade component Y 3/20
+    KRST-49 [FE/BE] Add GradeInfoPage w/ Controller Y 3/20
+    KRST-38 [FE/BE] Add Grade Page w/ Controller Y 3/20
+    KRST-56 [FE/BE] MainWindow - Person Y 3/7
+    KRST-55 [BE] Revise Relationship service Y 3/7
+    KRST-54 [BE] Revise Remainder service Y 3/7
+    KRST-21 [FE/BE] MainWindow - Other Y 3/6
+    KRST-20 [FE/BE] MainWindow - Staff Y 3/6
+    KRST-18 [FE/BE] MainWindow - Teacher Y 3/6
+    KRST-17 [FE/BE] MainWindow - Student Y 3/3
+    KRST-16 [FE/BE] MainWindow - System Y 2/22
+    KRST-46 [FE/BE] Main window - base Y 2/10
+    KRST-22 [FE/BE] Course Info Page w/ Controller Y 2/5
+    KRST-37 [FE/BE] Add Course Page w/ Controller Y 2/5
+    KRST-47 [BE/FE] CourseTemplateControlPanel and CourseTemplateInfoPage w/ Controller Y 2/5
+    KRST-48 [BE/FE] AddPatronSaintDate and PatronSaintDateInfoPage w/ Controller Y 2/4
+    KRST-45 [BE/FE] PatronSaintDateControlPanel Y 2/4
+    KRST-44 [BE/FE] AttributeControlPanel Y 2/4
+    KRST-43 {BE/FE] Person Info Page w/ Controller Y 2/4
+    KRST-42 [BE/FE] Add Person Page w/ Controller Y 2/3
+    KRST-2 [FE/BE] StudentInfoPage w/ Controller C Y 2/3
+    KRST-3 [FE/BE] Teacher Info Page w/ Controller Z Y 2/1
+    KRST-34 [BE] Adjust StaffInfoPageController and Test RelationshipService Y 1/31
+    KRST-24 [FE/BE] Relationship Info Page w/ Controller Y 1/30
+    KRST-25 [FE/BE] Add Relationship Page w/ Controller Y 1/29
+    KRST-29 [BE] RelationService Y 1/28
+    KRST-33 [BE/FE] Attribute Info Page w/ Controller Y 1/11
+    KRST-32 [BE/FE] Evaluation Info Page w/ Controller Y 1/10
+    KRST-31 [BE/FE] Internship Info Page w/ Controller Y 1/8
+    KRST-35 [BE/FE] Visit Info Page w/ Controller Y 1/8
+    KRST-30 [BE] Revise Student/Teacher model, add editable mode effect Y 1/7
+    KRST-23 [FE/BE] Staff Info Page w/ Controller Y 1/5
+    KRST-27 [BE] Revise Relationship mapping and relative logics Y 1/4
+    KRST-1 [BE] Logics between ComboBox and ListView Z Y 1/2
+    KRST-5 [BE] Revise Remainder Pop up window Y 1/2
+    KRST-14 [BE] Bugfix RemainderController Y 1/2
+    KRST-15 [BE] Revise AddTeacherController Y 1/2
+    KRST-6 [BE] Revise AddCourseTemplateController Y 1/2
+    KRST-13 [BE] Revise AddStudentController Y 1/2
+    KRST-12 [BE] Revise AddStaffController Y 1/1
+    KRST-10 [BE] Revise AddVisitController Y 1/1
+    KRST-9 [BE] Revise AddInternshipController Y 1/1
+    KRST-8 [BE] Revise AddAttributeController Y 1/1
+    KRST-7 [BE] Revise ChangePasswordController Y 12/31
+    KRST-11 [BE] Revise AddEvaluationController Y 12/31
+    KRST-40 [BE] Fix bug in Logger and Login regarding logging format Y 12/31
+    KRST-4 [BE] Add Test engine Y
+    [BE] Log repository
+    [BE] Remainder service
+    [FE] Main window - login
+    [FE] System Change Password Page
+    [BE] Cache service
+    [FE] Student Add Page
+    [FE] Teacher Add Page
+    [FE] Course Template Add Page
+    [FE] Staff Add Page
+    [BE] Remainder Service : 一周内的提醒都显示，而不是只显示整7天
+    [FE] Remainder Page : 设置TableView的customized display
+
+Backlog
+    KRST-26 [BE] Remove AbstractJavaFxApplicationSupportExtension's closeWindow() & stageList. Adjust method openWindow()
+    KRST-28 [BE] Improve all @Scope("prototype") views
+    KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
+    KRST-51 [BE] Database Lock & Unlock tools
+    KRST-52 [BE] Database Import & Export
+    KRST-53 [BE] Printable Course Information
+    KRST-61 [BE] Printable Grade Information
+
+BUG

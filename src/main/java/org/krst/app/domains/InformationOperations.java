@@ -1,6 +1,7 @@
-package org.krst.app.domains.operations;
+package org.krst.app.domains;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public interface InformationOperations {
     String getId();
@@ -12,4 +13,9 @@ public interface InformationOperations {
     LocalDate getConfirmationDate();
     LocalDate getMarriageDate();
     LocalDate getDeathDate();
+    Set<Relation> getRelationships();
+
+    default String getNameAndId() {
+        return getName() + " [" + getId() + "]";
+    }
 }

@@ -4,23 +4,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.krst.app.controllers.share.AddVisitController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0"
+      prefWidth="533.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.AddVisitController">
    <Label layoutX="213.0" layoutY="23.0" text="新建探访记录">
       <font>
-         <Font name="System Bold" size="18.0" />
+         <Font name="System Bold" size="18.0"/>
       </font>
    </Label>
-   <Label layoutX="43.0" layoutY="77.0" text="探访日期" />
-   <Label layoutX="43.0" layoutY="122.0" text="探访人员" />
-   <Label layoutX="73.0" layoutY="246.0" text="内容" />
-   <Label layoutX="73.0" layoutY="333.0" text="总结" />
-   <Label layoutX="73.0" layoutY="420.0" text="备注" />
-   <DatePicker fx:id="date" layoutX="127.0" layoutY="72.0" />
-   <ComboBox fx:id="visitor" layoutX="361.0" layoutY="117.0" prefHeight="31.0" prefWidth="131.0" promptText="选择人员" />
-   <ListView fx:id="visitors" layoutX="128.0" layoutY="116.0" prefHeight="100.0" prefWidth="217.0" />
-   <TextArea fx:id="content" layoutX="128.0" layoutY="239.0" prefHeight="72.0" prefWidth="364.0" />
-   <TextArea fx:id="summary" layoutX="128.0" layoutY="325.0" prefHeight="72.0" prefWidth="364.0" />
-   <TextArea fx:id="comment" layoutX="128.0" layoutY="412.0" prefHeight="72.0" prefWidth="364.0" />
-   <Button fx:id="approve" layoutX="156.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#approve" prefHeight="37.0" prefWidth="60.0" text="确认" />
-   <Button fx:id="cancel" layoutX="317.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="37.0" prefWidth="60.0" text="取消" />
+   <Label layoutX="43.0" layoutY="77.0" text="探访日期"/>
+   <Label layoutX="43.0" layoutY="122.0" text="探访人员"/>
+   <Label layoutX="73.0" layoutY="246.0" text="内容"/>
+   <Label layoutX="73.0" layoutY="333.0" text="总结"/>
+   <Label layoutX="73.0" layoutY="420.0" text="备注"/>
+   <DatePicker fx:id="date" layoutX="127.0" layoutY="72.0"/>
+   <ComboBox fx:id="visitor" layoutX="361.0" layoutY="117.0" prefHeight="31.0" prefWidth="131.0" promptText="选择人员"/>
+   <ListView fx:id="visitors" layoutX="128.0" layoutY="116.0" prefHeight="100.0" prefWidth="217.0"/>
+   <TextArea fx:id="content" layoutX="128.0" layoutY="239.0" prefHeight="72.0" prefWidth="364.0"/>
+   <TextArea fx:id="summary" layoutX="128.0" layoutY="325.0" prefHeight="72.0" prefWidth="364.0"/>
+   <TextArea fx:id="comment" layoutX="128.0" layoutY="412.0" prefHeight="72.0" prefWidth="364.0"/>
+   <Button fx:id="approve" layoutX="156.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#approve"
+           prefHeight="37.0" prefWidth="60.0" text="确认"/>
+   <Button fx:id="close" layoutX="317.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#close"
+           prefHeight="37.0" prefWidth="60.0" text="取消"/>
 </Pane>

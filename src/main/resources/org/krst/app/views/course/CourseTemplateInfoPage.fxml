@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="531.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.krst.app.controllers.course.CourseTemplateInfoPageController">
+   <ListView fx:id="teachers" layoutX="148.0" layoutY="322.0" prefHeight="138.0" prefWidth="175.0"/>
+   <Label layoutX="72.0" layoutY="329.0" text="任课教师"/>
+   <TextField fx:id="id" layoutX="148.0" layoutY="70.0" prefHeight="31.0" prefWidth="318.0"/>
+   <TextArea fx:id="topic" layoutX="148.0" layoutY="159.0" prefHeight="149.0" prefWidth="318.0"/>
+   <TextField fx:id="name" layoutX="148.0" layoutY="114.0" prefHeight="31.0" prefWidth="318.0"/>
+   <Label layoutX="42.0" layoutY="75.0" text="课程模板编号"/>
+   <Label layoutX="72.0" layoutY="119.0" text="课程名称"/>
+   <ComboBox fx:id="teacherSelector" layoutX="335.0" layoutY="360.0" prefHeight="31.0" prefWidth="143.0"
+             promptText="选择授课教师"/>
+   <Label layoutX="72.0" layoutY="164.0" text="课程主题"/>
+   <Label layoutX="205.0" layoutY="24.0" text="课程模板详情">
+      <font>
+         <Font name="System Bold" size="18.0"/>
+      </font>
+   </Label>
+   <Text fx:id="prompt" layoutX="335.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="双击取消已添加教师"/>
+   <Button fx:id="close" layoutX="359.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#close"
+           prefHeight="38.0" prefWidth="67.0" text="退出"/>
+   <Button fx:id="cancel" layoutX="291.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#cancel"
+           prefHeight="37.0" prefWidth="69.0" text="取消" visible="false"/>
+   <Button fx:id="delete" layoutX="225.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#delete"
+           prefHeight="38.0" prefWidth="67.0" text="删除"/>
+   <Button fx:id="accept" layoutX="157.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#accept"
+           prefHeight="37.0" prefWidth="69.0" text="确定" visible="false"/>
+   <Button fx:id="change" layoutX="91.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#change"
+           prefHeight="38.0" prefWidth="67.0" text="更改"/>
+</AnchorPane>
