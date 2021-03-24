@@ -55,12 +55,12 @@
             <DatePicker fx:id="marriageDate" editable="false" layoutX="103.0" layoutY="254.0" prefHeight="31.0" prefWidth="150.0" />
             <DatePicker fx:id="deathDate" editable="false" layoutX="362.0" layoutY="253.0" prefHeight="31.0" prefWidth="150.0" />
             <Line endX="225.0" layoutX="275.0" layoutY="301.0" opacity="0.68" startX="-225.0" strokeDashOffset="5.0" strokeMiterLimit="0.75" style="-fx-stroke-dash-array: 10;" />
-            <Label layoutX="29.0" layoutY="322.0" text="所属教区" />
+            <Label layoutX="29.0" layoutY="322.0" text="所属堂区" />
             <Label layoutX="44.0" layoutY="362.0" text="负责人" />
             <Label layoutX="278.0" layoutY="362.0" text="负责人电话" />
             <Label layoutX="29.0" layoutY="402.0" text="第二负责" />
             <Label layoutX="292.0" layoutY="402.0" text="第二电话" />
-            <ComboBox fx:id="attribute" cache="true" editable="true" layoutX="104.0" layoutY="317.0" prefHeight="31.0" prefWidth="178.0" promptText="可输入教区名查询" />
+            <ComboBox fx:id="attribute" cache="true" editable="true" layoutX="104.0" layoutY="317.0" prefHeight="31.0" prefWidth="178.0" promptText="可输入堂区名查询" />
             <TextField fx:id="leader" editable="false" layoutX="104.0" layoutY="357.0" prefHeight="31.0" prefWidth="150.0">
                <effect>
                   <ColorAdjust brightness="-0.01" />

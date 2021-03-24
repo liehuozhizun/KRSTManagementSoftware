@@ -234,7 +234,7 @@
                   </Pane>
                </items>
               </SplitPane>
-            <SplitPane fx:id="person" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
+              <SplitPane fx:id="person" dividerPositions="0.5" maxHeight="750.0" maxWidth="1100.0" minHeight="750.0" minWidth="1100.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1100.0">
                <items>
                   <AnchorPane maxHeight="200.0" maxWidth="1100.0" minHeight="200.0" minWidth="1100.0" prefHeight="200.0" prefWidth="1100.0">
                      <children>
