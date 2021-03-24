@@ -4,6 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.krst.app.configurations.Logger;
 import org.krst.app.domains.Course;
 import org.krst.app.domains.CourseTemplate;
@@ -37,19 +38,73 @@ public class AddCourseController {
 
     @FXML public void initialize() {
         courseTemplate.getItems().setAll(cacheService.getCourseTemplates());
+        initDefaultComponents();
+    }
+
+    private void initDefaultComponents() {
         courseTemplate.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) return;
 
             name.setText(newValue.getName());
             topic.setText(newValue.getTopic());
             primaryTeacher.getSelectionModel().clearSelection();
-            primaryTeacher.getItems().setAll(newValue.getTeachers());
             secondaryTeacher.getSelectionModel().clearSelection();
-            secondaryTeacher.getItems().setAll(oldValue.getTeachers());
+            if (newValue.getTeachers() != null) {
+                primaryTeacher.getItems().setAll(newValue.getTeachers());
+                secondaryTeacher.getItems().setAll(newValue.getTeachers());
+            } else {
+                primaryTeacher.getItems().clear();
+                secondaryTeacher.getItems().clear();
+            }
+        });
+        courseTemplate.setConverter(new StringConverter<CourseTemplate>() {
+            @Override
+            public String toString(CourseTemplate courseTemplate1) {
+                return courseTemplate1 == null ? null : courseTemplate1.getIdAndName();
+            }
+
+            @Override
+            public CourseTemplate fromString(String string) {
+                return string == null ? null : courseTemplate.getItems().stream().filter(ct -> ct.getIdAndName().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+        primaryTeacher.setConverter(new StringConverter<Teacher>() {
+            @Override
+            public String toString(Teacher teacher) {
+                return teacher == null ? null : teacher.getNameAndId();
+            }
+
+            @Override
+            public Teacher fromString(String string) {
+                return string == null ? null : primaryTeacher.getItems().stream().filter(ct -> ct.getNameAndId().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+        secondaryTeacher.setConverter(new StringConverter<Teacher>() {
+            @Override
+            public String toString(Teacher teacher) {
+                return teacher == null ? null : teacher.getNameAndId();
+            }
+
+            @Override
+            public Teacher fromString(String string) {
+                return string == null ? null : secondaryTeacher.getItems().stream().filter(ct -> ct.getNameAndId().equals(string) ||
+                        ct.getId().equals(string) || ct.getName().equals(string)).findFirst().orElse(null);
+            }
         });
     }
 
     public void accept() {
+        if (id.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("新建课程失败");
+            alert.setHeaderText("失败原因：未填写课程编号");
+            alert.setContentText("解决方法：请填入课程编号");
+            alert.showAndWait();
+            return;
+        }
+
         if (courseRepository.existsById(id.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("新建课程失败");
