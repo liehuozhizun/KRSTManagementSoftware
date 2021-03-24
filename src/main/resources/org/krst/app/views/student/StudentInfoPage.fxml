@@ -56,7 +56,7 @@
               <DatePicker fx:id="marriageDate" layoutX="101.0" layoutY="262.0" prefHeight="31.0" prefWidth="151.0" />
               <DatePicker fx:id="deathDate" layoutX="360.0" layoutY="262.0" prefHeight="31.0" prefWidth="151.0" />
               <Line endX="225.0" layoutX="259.0" layoutY="309.0" opacity="0.68" startX="-225.0" strokeDashOffset="5.0" strokeMiterLimit="0.75" style="-fx-stroke-dash-array: 10;" />
-              <ComboBox fx:id="attribute" editable="true" layoutX="101.0" layoutY="325.0" prefHeight="31.0" prefWidth="178.0" promptText="可输入教区名查询" />
+              <ComboBox fx:id="attribute" editable="true" layoutX="101.0" layoutY="325.0" prefHeight="31.0" prefWidth="178.0" promptText="可输入堂区名查询" />
               <TextField fx:id="leader" editable="false" layoutX="101.0" layoutY="364.0" prefHeight="31.0" prefWidth="151.0">
                <effect>
                   <ColorAdjust brightness="-0.01" />
@@ -77,7 +77,7 @@
                   <ColorAdjust brightness="-0.01" />
                </effect>
             </TextField>
-              <Text layoutX="22.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属教区" />
+              <Text layoutX="22.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属堂区" />
               <Text layoutX="36.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责人" />
               <Text layoutX="269.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责人电话" />
               <Text layoutX="22.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="第二负责" />

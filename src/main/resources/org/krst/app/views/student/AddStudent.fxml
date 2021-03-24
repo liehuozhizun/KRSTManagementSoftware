@@ -22,7 +22,7 @@
    <Label layoutX="326.0" layoutY="230.0" text="坚振日期"/>
    <Label layoutX="34.0" layoutY="271.0" text="结婚日期"/>
    <Label layoutX="326.0" layoutY="271.0" text="死亡日期"/>
-   <Label layoutX="32.0" layoutY="311.0" text="所属教区"/>
+   <Label layoutX="32.0" layoutY="311.0" text="所属堂区"/>
    <Label layoutX="46.0" layoutY="352.0" text="负责人"/>
    <Label layoutX="313.0" layoutY="352.0" text="负责人电话"/>
    <Label layoutX="15.0" layoutY="393.0" text="第二负责人"/>

@@ -7,12 +7,12 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0"
       prefWidth="416.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.krst.app.controllers.share.AttributeInfoPageController">
-   <Text layoutX="155.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属教区记录">
+   <Text layoutX="155.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所属堂区记录">
       <font>
          <Font size="18.0"/>
       </font>
    </Text>
-   <Text layoutX="97.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="教区"/>
+   <Text layoutX="97.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="堂区"/>
    <Text layoutX="84.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="负责人"/>
    <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="联系方式"/>
    <Text layoutX="55.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="第二负责人"/>
