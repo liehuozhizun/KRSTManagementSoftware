@@ -131,7 +131,6 @@ public class AddStudentController {
         student.setTalent(talent.getText());
         student.setEducation(education.getText());
         student.setStaff(staff.getValue());
-        System.out.println(staff.getValue());
         Student savedStudent = studentRepository.save(student);
         logger.logInfo(getClass().toString(), "新建学生档案，编号：{}，姓名：{}", id.getText(), name.getText());
         close();

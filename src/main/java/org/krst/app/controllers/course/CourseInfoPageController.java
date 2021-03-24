@@ -315,6 +315,9 @@ public class CourseInfoPageController implements InfoPageControllerTemplate {
         Grade tempGrade = (Grade) dataPassService.getValue();
         if (tempGrade != null) {
             grades.getItems().add(tempGrade);
+            if (tempGrade.getOffer() != null && !tempGrade.getOffer().isEmpty()) offers.getItems().add(tempGrade);
+            if (tempGrade.getTeacherFeedback() != null && !tempGrade.getTeacherFeedback().isEmpty()) teacherComments.getItems().add(tempGrade);
+            if (tempGrade.getCourseFeedback() != null && !tempGrade.getCourseFeedback().isEmpty()) courseComments.getItems().add(tempGrade);
         }
     }
 

@@ -1,7 +1,8 @@
 In Progress
-    KRST-74 [BE] Fix newly added Grade doesn't reflect offer/comments immediately bug
+
 
 Done
+    KRST-74 [BE] Fix newly added Grade doesn't reflect offer/comments immediately bug 2/24
     KRST-73 [FE/BE] Fix additional window popped up after ResetPassword 2/24
     KRST-72 [BE] Fix AddCourse courseTemplate display bug and teacher display/selection bug and NullPointerException issue 2/24
     KRST-71 [BE] Fix adding CourseTemplate doesn't reflect in CourseTemplateControlPanel immediately 2/24
