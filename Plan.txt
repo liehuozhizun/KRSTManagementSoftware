@@ -2,6 +2,8 @@ In Progress
 
 
 Done
+
+Done(prior to RELEASE-1.1)
     KRST-76 [BE] DatabaseReset should include log clear 2/25
     KRST-75 RELEASE-1.1
     KRST-74 [BE] Fix newly added Grade doesn't reflect offer/comments immediately bug 2/24
