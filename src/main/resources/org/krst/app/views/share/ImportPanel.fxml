@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0"
+      prefWidth="521.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.krst.app.controllers.share.ImportPanelController">
+   <Text layoutX="169.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="导入数据控制面板">
+      <font>
+         <Font size="23.0"/>
+      </font>
+   </Text>
+   <Text layoutX="190.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="导入前请先获得模板文件，并向其中添加数据"/>
+   <Text layoutX="189.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请导入添加数据的模板文件"/>
+   <Button layoutX="59.0" layoutY="142.0" mnemonicParsing="false" onMouseClicked="#getTemplate" prefHeight="48.0"
+           prefWidth="106.0" text="获取模板"/>
+   <Button layoutX="59.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#selectTemplate" prefHeight="48.0"
+           prefWidth="106.0" text="导入数据"/>
+   <ProgressBar fx:id="progressBar" layoutX="60.0" layoutY="321.0" prefHeight="23.0" prefWidth="300.0" progress="0.0"/>
+   <Button fx:id="startBtn" disable="true" layoutX="391.0" layoutY="313.0" mnemonicParsing="false"
+           onMouseClicked="#start" prefHeight="39.0" prefWidth="80.0" text="开始导入"/>
+   <Button layoutX="221.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="39.0"
+           prefWidth="80.0" text="关闭"/>
+   <Text layoutX="189.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="注意：请勿更改表头信息"/>
+   <Text fx:id="progress" layoutX="198.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0"
+         textAlignment="RIGHT"/>
+   <Text layoutX="225.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%"/>
+   <Text layoutX="190.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="您已选择该文件："/>
+   <Text fx:id="selectedFileName" layoutX="310.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="无-尚未选择"
+         underline="true"/>
+   <Text layoutX="189.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="您选择执行的操作是："/>
+   <Text fx:id="operationName" layoutX="339.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" text="操作名称"/>
+</Pane>

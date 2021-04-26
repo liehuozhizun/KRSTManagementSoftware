@@ -1,7 +1,15 @@
-In Progress
+Backlog
+    KRST-53 [BE] Export Printable Course with Student Information
+    KRST-78 [BE] Export Printable Course with Grade Information
+    KRST-79 [BE] Import Course
+    KRST-81 [BE] Import Student Into Course
+    KRST-82 [BE] Export Student Record
 
+In Progress
+    KRST-80 [BE] Import Student List Info
 
 Done
+    KRST-77 [BE] Import & Export Base Components 4/25
 
 Done(prior to RELEASE-1.1)
     KRST-76 [BE] DatabaseReset should include log clear 2/25
@@ -93,8 +101,5 @@ Backlog
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
     KRST-51 [BE] Database Lock & Unlock tools
-    KRST-52 [BE] Database Import & Export
-    KRST-53 [BE] Printable Course Information
-    KRST-61 [BE] Printable Grade Information
 
 BUG
