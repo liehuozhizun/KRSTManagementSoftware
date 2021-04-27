@@ -1,14 +1,15 @@
 Backlog
     KRST-53 [BE] Export Printable Course with Student Information
     KRST-78 [BE] Export Printable Course with Grade Information
-    KRST-79 [BE] Import Course
-    KRST-81 [BE] Import Student Into Course
-    KRST-82 [BE] Export Student Record
+    KRST-79 [BE] Import Teacher List Info
+    KRST-81 [BE] Import Students Into Course
+    KRST-83 [BE] Import Person List Info
 
 In Progress
-    KRST-80 [BE] Import Student List Info
+    KRST-82 [BE] Export Student List Info
 
 Done
+    KRST-80 [BE] Import Student List Info 4/26
     KRST-77 [BE] Import & Export Base Components 4/25
 
 Done(prior to RELEASE-1.1)

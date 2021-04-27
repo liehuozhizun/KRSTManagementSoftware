@@ -24,12 +24,13 @@
    <Button layoutX="221.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="39.0"
            prefWidth="80.0" text="关闭"/>
    <Text layoutX="189.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="注意：请勿更改表头信息"/>
-   <Text fx:id="progress" layoutX="198.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0"
-         textAlignment="RIGHT"/>
+   <Text fx:id="progress" layoutX="178.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100"
+         textAlignment="RIGHT" wrappingWidth="42.0859375"/>
    <Text layoutX="225.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%"/>
    <Text layoutX="190.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="您已选择该文件："/>
-   <Text fx:id="selectedFileName" layoutX="310.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="无-尚未选择"
+   <Text fx:id="selectedFileName" layoutX="191.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="无-尚未选择"
          underline="true"/>
    <Text layoutX="189.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="您选择执行的操作是："/>
-   <Text fx:id="operationName" layoutX="339.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" text="操作名称"/>
+   <Text fx:id="operationName" layoutX="339.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="操作名称"
+         underline="true"/>
 </Pane>

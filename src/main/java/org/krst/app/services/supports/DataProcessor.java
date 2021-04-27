@@ -10,9 +10,12 @@ import org.krst.app.utils.ImportExportOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Service
 public class DataProcessor {
@@ -23,9 +26,9 @@ public class DataProcessor {
     public Function<Row, ImportExportFailure> getImportProcessor(ImportExportOperation operation) {
         switch (operation) {
             case IMPORT_STUDENT_TEMPLATE:
-                return studentDataProcessor::process;
+                return studentDataProcessor;
         }
-        return null;
+        return (x -> null);
     }
 
     public TriConsumer<Row, Object, CellStyle> getExportProcessor(ImportExportOperation operation) {
@@ -33,14 +36,22 @@ public class DataProcessor {
             case IMPORT_STUDENT_TEMPLATE:
                 return studentDataProcessor;
         }
-        return null;
+        return ((x,y,z) -> {});
     }
 
-    public List getData(ImportExportOperation operation) {
+    public Supplier<List> getData(ImportExportOperation operation) {
         switch (operation) {
             case EXPORT_ALL_STUDENT_INFO:
-                return studentRepository.findAll();
+                return studentDataProcessor;
         }
-        return new ArrayList();
+        return (() -> new ArrayList());
+    }
+
+    public BiConsumer<File, File> setMetaData(ImportExportOperation operation) {
+        switch (operation) {
+            case IMPORT_STUDENT_TEMPLATE:
+                return studentDataProcessor;
+        }
+        return ((x,y) -> {});
     }
 }

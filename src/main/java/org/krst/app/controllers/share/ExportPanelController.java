@@ -59,7 +59,6 @@ public class ExportPanelController {
         } catch (Exception e) {
             CommonUtils.alertSystemError("导出数据失败，失败原因：" + e.getMessage());
         }
-        startBtn.setDisable(false);
     }
 
     public void close() {

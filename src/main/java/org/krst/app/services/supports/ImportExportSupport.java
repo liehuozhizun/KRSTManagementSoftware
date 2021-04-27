@@ -41,9 +41,9 @@ public class ImportExportSupport {
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheetAt(0);
         int lastRowNumber = sheet.getLastRowNum();
-        for (int rowIdx = 1; rowIdx < lastRowNumber; rowIdx++) {
+        for (int rowIdx = 1; rowIdx <= lastRowNumber; rowIdx++) {
             failures.add(processor.apply(sheet.getRow(rowIdx)));
-            int p = rowIdx / lastRowNumber;
+            int p = rowIdx / lastRowNumber * 100;
             progressBar.setProgress(p);
             progress.setText(Integer.toString(p));
         }
@@ -63,16 +63,18 @@ public class ImportExportSupport {
 
         TriConsumer<Row, Object, CellStyle> processor = dataProcessor.getExportProcessor(operation);
         AtomicInteger rowIdx = new AtomicInteger(2);
-        List list = dataProcessor.getData(operation);
+        List list = dataProcessor.getData(operation).get();
         int totalNumber = list.size();
         list.forEach(x -> {
             processor.accept(sheet.createRow(rowIdx.getAndIncrement()), x, cellStyle);
-            int p = rowIdx.get() / totalNumber;
+            int p = rowIdx.get() / totalNumber * 100;
             progressBar.setProgress(p);
             progress.setText(Integer.toString(p));
         });
 
-        workbook.write(new FileOutputStream(file));
+        FileOutputStream outputStream = new FileOutputStream(file);
+        workbook.write(outputStream);
+        outputStream.close();
         workbook.close();
         template.close();
 
