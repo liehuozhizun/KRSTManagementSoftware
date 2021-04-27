@@ -19,6 +19,10 @@ public class Attribute implements Cloneable {
     private String altLeader;
     private String altLeaderPhone;
 
+    public Attribute(String attribute) {
+        this.attribute = attribute;
+    }
+
     @Override
     public Attribute clone() {
         try {

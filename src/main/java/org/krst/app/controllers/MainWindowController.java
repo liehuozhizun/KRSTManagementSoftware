@@ -18,12 +18,14 @@ import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.DatabaseService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.utils.ImportExportOperation;
 import org.krst.app.views.course.AddCourse;
 import org.krst.app.views.course.CourseInfoPage;
 import org.krst.app.views.course.CourseTemplateControlPanel;
 import org.krst.app.views.person.AddPerson;
 import org.krst.app.views.person.PersonInfoPage;
 import org.krst.app.views.share.AttributeControlPanel;
+import org.krst.app.views.share.ImportPanel;
 import org.krst.app.views.staff.AddStaff;
 import org.krst.app.views.staff.StaffInfoPage;
 import org.krst.app.views.student.AddStudent;
@@ -261,6 +263,11 @@ public class MainWindowController {
             students.getItems().add(savedStudent);
             student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) + 1));
         }
+    }
+    public void student_import() {
+        dataPassService.setValue(ImportExportOperation.IMPORT_STUDENT_TEMPLATE);
+        KRSTManagementSoftware.openWindow(ImportPanel.class);
+        student_clear();
     }
 
     // ----------------- Teacher Panel  -----------------

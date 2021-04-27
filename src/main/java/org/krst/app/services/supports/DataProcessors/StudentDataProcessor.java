@@ -1,5 +1,6 @@
 package org.krst.app.services.supports.DataProcessors;
 
+import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.krst.app.domains.Attribute;
@@ -7,56 +8,84 @@ import org.krst.app.domains.Staff;
 import org.krst.app.domains.Student;
 import org.krst.app.models.ImportExportFailure;
 import org.krst.app.repositories.StudentRepository;
+import org.krst.app.services.CacheService;
+import org.krst.app.services.supports.ExcelSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
-public class StudentDataProcessor implements TriConsumer<Row, Object, CellStyle> {
-    @Autowired StudentRepository studentRepository;
+public class StudentDataProcessor extends AbstractDataProcessor implements
+        Function<Row, ImportExportFailure>,
+        TriConsumer<Row, Object, CellStyle>,
+        Supplier<List>,
+        BiConsumer<File, File>
+{
+    @Autowired private CacheService cacheService;
+    @Autowired private ExcelSupport excelSupport;
+    @Autowired private StudentRepository studentRepository;
 
-    private final DateTimeFormatter dateTimeFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    @Override
+    public List<Student> get() {
+        return studentRepository.findAll();
+    }
 
-    public ImportExportFailure process(Row row) {
-        String id = row.getCell(0).getStringCellValue();
+    @Override
+    public ImportExportFailure apply(Row row) {
+        String id = getCellStringValue(row, 0);
         if (id.isEmpty())
             return new ImportExportFailure(
                     row.getRowNum(),
-                    row.getCell(0).getStringCellValue(),
-                    row.getCell(1).getStringCellValue(),
+                    getCellStringValue(row, 0),
+                    getCellStringValue(row, 1),
                     "编号为空");
         if (studentRepository.existsById(id))
             return new ImportExportFailure(
                     row.getRowNum(),
-                    row.getCell(0).getStringCellValue(),
-                    row.getCell(1).getStringCellValue(),
+                    getCellStringValue(row, 0),
+                    getCellStringValue(row, 1),
                     "此编号已被使用"
             );
 
-        Student student = new Student(
-                id,
-                row.getCell(1).getStringCellValue(),
-                row.getCell(2).getStringCellValue(),
-                row.getCell(3).getStringCellValue(),
-                LocalDate.parse(row.getCell(4).getStringCellValue(), dateTimeFormatter),
-                "是".equals(row.getCell(5).getStringCellValue()),
-                LocalDate.parse(row.getCell(6).getStringCellValue(), dateTimeFormatter),
-                LocalDate.parse(row.getCell(7).getStringCellValue(), dateTimeFormatter),
-                LocalDate.parse(row.getCell(8).getStringCellValue(), dateTimeFormatter),
-                LocalDate.parse(row.getCell(9).getStringCellValue(), dateTimeFormatter),
-                new Attribute(row.getCell(10).getStringCellValue(),null,null,null,null),
-                row.getCell(11).getStringCellValue(),
-                row.getCell(12).getStringCellValue(),
-                row.getCell(13).getStringCellValue(),
-                row.getCell(14).getStringCellValue(),
-                row.getCell(15).getStringCellValue(),
-                row.getCell(16).getStringCellValue(),
-                row.getCell(17).getStringCellValue(),
-                new Staff(row.getCell(18).getStringCellValue()),
-                null,null,null,null
-                );
+        Student student;
+        try {
+            student = new Student(
+                    id,
+                    getCellStringValue(row, 1),
+                    getCellStringValue(row, 2),
+                    getCellStringValue(row, 3),
+                    getCellDateValue(row, 4),
+                    row.getCell(5) == null || "是".equals(getCellStringValue(row, 5)),
+                    getCellDateValue(row, 6),
+                    getCellDateValue(row, 7),
+                    getCellDateValue(row, 8),
+                    getCellDateValue(row, 9),
+                    row.getCell(10) == null ? null : new Attribute(getCellStringValue(row, 10)),
+                    getCellStringValue(row, 11),
+                    getCellStringValue(row, 12),
+                    getCellStringValue(row, 13),
+                    getCellStringValue(row, 14),
+                    getCellStringValue(row, 15),
+                    getCellStringValue(row, 16),
+                    getCellStringValue(row, 17),
+                    row.getCell(18) == null ? null : new Staff(row.getCell(18).getStringCellValue()),
+                    null, null, null, null
+            );
+        } catch (Exception e) {
+            return new ImportExportFailure(
+                    row.getRowNum(),
+                    getCellStringValue(row, 0),
+                    getCellStringValue(row, 1),
+                    e.getMessage());
+        }
 
         studentRepository.save(student);
         return null;
@@ -65,5 +94,14 @@ public class StudentDataProcessor implements TriConsumer<Row, Object, CellStyle>
     @Override
     public void accept(Row cells, Object obj, CellStyle cellStyle) {
 
+    }
+
+    @SneakyThrows
+    @Override
+    public void accept(File src, File dst) {
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("所属堂区", cacheService.getAttributes().stream().map(Attribute::getAttribute).collect(Collectors.toList()));
+        map.put("负责员工", cacheService.getStaffs().stream().map(Staff::getNameAndId).collect(Collectors.toList()));
+        excelSupport.setMetaData(src, dst, map);
     }
 }

@@ -4,6 +4,7 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.krst.app.services.DataPassService;
@@ -58,9 +59,12 @@ public class ImportPanelController {
     }
 
     public void start() {
+        startBtn.setDisable(true);
+        progressBar.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
         try {
             importSupport.importFile(importedFile, operation, progressBar, progress);
         } catch (Exception e) {
+            selectedFileName.setText("无-请重新选择文件");
             CommonUtils.alertSystemError("导入数据失败，失败原因：" + e.getMessage());
         }
     }
