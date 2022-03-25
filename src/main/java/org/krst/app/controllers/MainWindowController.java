@@ -53,7 +53,7 @@ public class MainWindowController {
     @Autowired private CacheService cacheService;
 
     @FXML public void initialize() {
-        KRSTManagementSoftware.resizeWindow(785.0, 1250.0, "科瑞斯特管理软件");
+        KRSTManagementSoftware.resizeWindow(785.0, 1250.0, "使徒之家");
         student_initialize();
     }
 
