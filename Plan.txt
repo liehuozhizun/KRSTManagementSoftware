@@ -1,5 +1,4 @@
 BUG
-    KRST-85 [FE] AddCourseTemplate: Not found all teachers in the selector
 
 Backlog
     KRST-53 [BE] Export Printable Course with Student Information
@@ -12,6 +11,7 @@ In Progress
     KRST-82 [BE] Export Student List Info
 
 Done
+    KRST-85 [FE] AddCourseTemplate: Not found all teachers in the selector
     KRST-86 [BE] Change teacherId will cause NPE
     KRST-84 [FE] Rename app name to "使徒之家"
     KRST-80 [BE] Import Student List Info 4/26
