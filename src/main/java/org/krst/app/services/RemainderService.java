@@ -5,6 +5,7 @@ import org.krst.app.domains.InformationOperations;
 import org.krst.app.models.Remainder;
 import org.krst.app.repositories.*;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.utils.LunarCalendarUtil;
 import org.krst.app.utils.RemainderDateType;
 import org.krst.app.utils.RemainderEventType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,8 +115,10 @@ public class RemainderService {
 
         private void compareDifferentDatesInPersonDomain(InformationOperations info) {
             RemainderDateType type;
-            if (info.getIsGregorianCalendar() == null || info.getIsGregorianCalendar())
+            if (info.getIsGregorianCalendar() == null)
                 type = RemainderDateType.NONE;
+            else if (info.getIsGregorianCalendar())
+                type = calculateDifferenceInDays(LunarCalendarUtil.lunarToSolar(info.getBirthday()));
             else
                 type = calculateDifferenceInDays(info.getBirthday());
             if (type != RemainderDateType.NONE) {

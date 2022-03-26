@@ -6,11 +6,13 @@ Backlog
     KRST-79 [BE] Import Teacher List Info
     KRST-81 [BE] Import Students Into Course
     KRST-83 [BE] Import Person List Info
+    KRST-87 [FE/BE] Export log file
 
 In Progress
     KRST-82 [BE] Export Student List Info
 
 Done
+    KRST-89 [BE] Adjust Remainder to support GregorianCalendar
     KRST-85 [FE] AddCourseTemplate: Not found all teachers in the selector
     KRST-86 [BE] Change teacherId will cause NPE
     KRST-84 [FE] Rename app name to "使徒之家"
