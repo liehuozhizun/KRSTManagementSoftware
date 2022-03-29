@@ -1,7 +1,21 @@
-In Progress
+BUG
 
+Backlog
+    KRST-53 [BE] Export Printable Course with Student Information
+    KRST-78 [BE] Export Printable Course with Grade Information
+    KRST-79 [BE] Import Teacher List Info
+    KRST-81 [BE] Import Students Into Course
+    KRST-83 [BE] Import Person List Info
+    KRST-87 [FE/BE] Export log file
 
 Done
+    KRST-82 [BE] Export Student List Info
+    KRST-89 [BE] Adjust Remainder to support GregorianCalendar
+    KRST-85 [FE] AddCourseTemplate: Not found all teachers in the selector
+    KRST-86 [BE] Change teacherId will cause NPE
+    KRST-84 [FE] Rename app name to "使徒之家"
+    KRST-80 [BE] Import Student List Info 4/26
+    KRST-77 [BE] Import & Export Base Components 4/25
 
 Done(prior to RELEASE-1.1)
     KRST-76 [BE] DatabaseReset should include log clear 2/25
@@ -93,8 +107,3 @@ Backlog
     KRST-28 [BE] Improve all @Scope("prototype") views
     KRST-36 [BE] Feature: Add database reorganize feature: sort all field data in certain order
     KRST-51 [BE] Database Lock & Unlock tools
-    KRST-52 [BE] Database Import & Export
-    KRST-53 [BE] Printable Course Information
-    KRST-61 [BE] Printable Grade Information
-
-BUG

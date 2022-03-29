@@ -11,7 +11,7 @@
 
     <groupId>org.krst</groupId>
     <artifactId>krst-management-software</artifactId>
-    <version>RELEASE-1.1</version>
+    <version>RELEASE-1.3</version>
     <name>KRST Management Software</name>
     <description>Designed and developed for KRST center. Private Use Only.</description>
 
@@ -66,7 +66,28 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
 
+        <!-- Excel Manipulation -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -103,7 +124,7 @@
                         <id>copy-dependencies</id>
                         <phase>package</phase>
                         <configuration>
-                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteReleases>true</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>

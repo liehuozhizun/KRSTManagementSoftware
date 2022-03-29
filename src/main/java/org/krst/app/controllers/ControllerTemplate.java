@@ -16,7 +16,6 @@ import org.krst.app.domains.InformationOperations;
 public abstract class ControllerTemplate {
 
     private boolean flag = false;
-    private int idx = -1;
     private String promptText = "选择人员";
 
     @Deprecated
@@ -25,20 +24,15 @@ public abstract class ControllerTemplate {
     }
 
     protected <T extends InformationOperations> void setUpSelectorAndList(ComboBox<T> selector, ListView<T> listView) {
-        selector.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if (!flag && newValue != null) {
-                listView.getItems().add(selector.getValue());
-                idx = selector.getSelectionModel().getSelectedIndex();
-            }
-            flag = !flag;
-        });
-
-        selector.setOnMousePressed(event -> {
-            if (idx != -1) {
+        selector.setOnAction(event -> {
+            T obj = selector.getSelectionModel().getSelectedItem();
+            if (!flag) {
                 flag = true;
-                selector.getItems().remove(idx);
-                idx = -1;
+                listView.getItems().add(obj);
+                selector.getItems().remove(obj);
+                selector.getSelectionModel().clearSelection();
             }
+            flag = false;
         });
 
         selector.setConverter(new StringConverter<T>() {
@@ -77,6 +71,7 @@ public abstract class ControllerTemplate {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
+                            setText(null);
                         } else {
                             setText(((InformationOperations)item).getNameAndId());
                         }

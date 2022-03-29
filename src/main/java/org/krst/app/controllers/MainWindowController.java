@@ -18,12 +18,16 @@ import org.krst.app.services.CacheService;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.DatabaseService;
 import org.krst.app.utils.CommonUtils;
+import org.krst.app.utils.ImportExportOperation;
 import org.krst.app.views.course.AddCourse;
 import org.krst.app.views.course.CourseInfoPage;
 import org.krst.app.views.course.CourseTemplateControlPanel;
 import org.krst.app.views.person.AddPerson;
 import org.krst.app.views.person.PersonInfoPage;
 import org.krst.app.views.share.AttributeControlPanel;
+import org.krst.app.views.share.ExportPanel;
+import org.krst.app.views.share.ImportExportSelectionPanel;
+import org.krst.app.views.share.ImportPanel;
 import org.krst.app.views.staff.AddStaff;
 import org.krst.app.views.staff.StaffInfoPage;
 import org.krst.app.views.student.AddStudent;
@@ -38,7 +42,7 @@ import java.time.LocalDate;
 import java.util.function.Function;
 
 @FXMLController
-public class MainWindowController {
+public class MainWindowController implements MainWindowRefresher {
     @FXML private BorderPane basePane;
 
     @Autowired private DataPassService dataPassService;
@@ -51,7 +55,7 @@ public class MainWindowController {
     @Autowired private CacheService cacheService;
 
     @FXML public void initialize() {
-        KRSTManagementSoftware.resizeWindow(785.0, 1250.0, "科瑞斯特管理软件");
+        KRSTManagementSoftware.resizeWindow(785.0, 1250.0, "使徒之家");
         student_initialize();
     }
 
@@ -104,10 +108,18 @@ public class MainWindowController {
         }
     }
     public void database_import() {
-        CommonUtils.alertFeatureNotReady();
+        dataPassService.setValue(true);
+        KRSTManagementSoftware.openWindow(ImportExportSelectionPanel.class);
+        if (dataPassService.isReady()) {
+            KRSTManagementSoftware.openWindow(ImportPanel.class);
+        }
     }
     public void database_export() {
-        CommonUtils.alertFeatureNotReady();
+        dataPassService.setValue(false);
+        KRSTManagementSoftware.openWindow(ImportExportSelectionPanel.class);
+        if (dataPassService.isReady()) {
+            KRSTManagementSoftware.openWindow(ExportPanel.class);
+        }
     }
     public void database_openLocation() {
         databaseService.openDatabaseLocationFolder();
@@ -261,6 +273,11 @@ public class MainWindowController {
             students.getItems().add(savedStudent);
             student_totalNumber.setText(String.valueOf(Integer.parseInt(student_totalNumber.getText()) + 1));
         }
+    }
+    public void student_import() {
+        dataPassService.setValue(ImportExportOperation.IMPORT_STUDENT_TEMPLATE);
+        KRSTManagementSoftware.openWindow(ImportPanel.class);
+        student_clear();
     }
 
     // ----------------- Teacher Panel  -----------------

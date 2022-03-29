@@ -88,6 +88,7 @@ public class RelationshipService {
      * Output : none
      */
     public void updateIdAndName(Set<Relation> relationship, String oldId, String newId, String newName) {
+        if (relationship == null) return;
         relationship.forEach(relation -> {
             switch (relation.getType()) {
                 case STUDENT:

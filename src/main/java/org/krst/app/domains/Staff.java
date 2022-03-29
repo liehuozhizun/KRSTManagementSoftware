@@ -43,4 +43,8 @@ public class Staff implements InformationOperations {
     private Set<Evaluation> evaluations; // 员工评定
     @ElementCollection
     private Set<Relation> relationships; // 亲属关系 <关系, 姓名, 人员类型, 人员id>
+
+    public Staff(String id) {
+        this.id = id;
+    }
 }
