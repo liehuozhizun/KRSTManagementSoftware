@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,7 +9,7 @@
    <children>
       <PasswordField fx:id="textField_password" layoutX="144.0" layoutY="103.0" onKeyPressed="#pressEnterEvent" />
       <Text layoutX="35.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入密码" />
-      <Text layoutX="110.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="使徒之家" textAlignment="CENTER">
+      <Text layoutX="152.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="使徒之家" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
