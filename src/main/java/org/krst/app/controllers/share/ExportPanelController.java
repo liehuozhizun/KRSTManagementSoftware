@@ -7,6 +7,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.krst.app.configurations.Logger;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.supports.ImportExportSupport;
 import org.krst.app.services.supports.TemplateFileSupport;
@@ -17,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 
 /*
- * In  : ExportExportOperation, the operation will be executed in this window
+ * In  : ImportExportOperation, the operation will be executed in this window
  * Out : None
  */
 @FXMLController
@@ -28,6 +30,7 @@ public class ExportPanelController {
     @FXML private Text selectedPath;
     @FXML private Text operationName;
 
+    @Autowired private Logger logger;
     @Autowired private DataPassService dataPassService;
     @Autowired private ImportExportSupport exportSupport;
     @Autowired private TemplateFileSupport templateFileSupport;
@@ -43,7 +46,7 @@ public class ExportPanelController {
     public void selectPath() {
         File dstDirectory = templateFileSupport.chooseDirectory(progress.getScene().getWindow());
         if (dstDirectory != null) {
-            dstFile = templateFileSupport.getNewFile(dstDirectory, operation);
+            dstFile = templateFileSupport.validateDirectoryForNewFileCreation(dstDirectory, operation);
             if (dstFile != null) {
                 startBtn.setDisable(false);
                 selectedPath.setText(dstDirectory.getPath());
@@ -57,7 +60,9 @@ public class ExportPanelController {
         try {
             exportSupport.exportFile(dstFile, operation, progressBar, progress);
         } catch (Exception e) {
-            CommonUtils.alertSystemError("导出数据失败，失败原因：" + e.getMessage());
+            CommonUtils.alertFeatureError("导出数据", e.getMessage());
+            logger.logError(this.getClass().toString(), "导出数据失败，失败原因：{}, StackTrace: {}", e.getMessage(), ExceptionUtils.getStackTrace(e));
+            templateFileSupport.deleteTemplateFile(dstFile);
         }
     }
 

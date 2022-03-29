@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.krst.app.configurations.Logger;
 import org.krst.app.utils.CommonUtils;
 import org.krst.app.utils.ImportExportOperation;
@@ -61,7 +62,7 @@ public class TemplateFileSupport {
         try {
             dataProcessor.setMetaData(operation).accept(src, dst);
         } catch (Exception e) {
-            logger.logError(this.getClass().toString(), "Failed to add meta-data to template file: src={}, dst={}, e-{}", src.getPath(), dst.getName(), e.getMessage());
+            logger.logError(this.getClass().toString(), "Failed to add meta-data to template file: src={}, dst={}, e-{}, StackTrace-{}", src.getPath(), dst.getName(), e.getMessage(), ExceptionUtils.getStackTrace(e));
             CommonUtils.alertSystemError("执行复制模板文件错误: 无法添加辅助数据" + e.getMessage());
             return;
         }
@@ -91,16 +92,23 @@ public class TemplateFileSupport {
         return importExportOperation.verifyFile(verificationCodes.get(0));
     }
 
-    public File getNewFile(File directory, ImportExportOperation operation) {
+    public File validateDirectoryForNewFileCreation(File directory, ImportExportOperation operation) {
         File dstFile = new File(directory.getPath() + operation.getPath());
-        try {
-            if (dstFile.createNewFile()) return dstFile;
-        } catch (Exception e) {
-            CommonUtils.alertSystemError("无法创建文件：" + operation.getFileName() +
-                    "\n请查看是否有同名文件存在，或重新选择路径！\n" +
-                    "错误原因：" + e.getMessage());
+        if (dstFile.exists()) {
+            CommonUtils.alertFeatureError("无法创建文件：" + operation.getFileName() +
+                            "\n请查看是否有同名文件存在，或重新选择路径！",
+                    "同名文件已存在，无法创建新文件");
+            logger.logError(this.getClass().toString(), "无法创建文件：{}, 错误原因：同名文件已存在，无法创建新文件", operation.getFileName());
+            return null;
         }
+        return dstFile;
+    }
 
-        return null;
+    public void deleteTemplateFile(File fileToBeDeleted) {
+        if (fileToBeDeleted.delete()) {
+            logger.logInfo(this.getClass().toString(), "成功删除模板文件：{}", fileToBeDeleted.getName());
+        } else {
+            logger.logInfo(this.getClass().toString(), "未成功删除模板文件：{}", fileToBeDeleted.getName());
+        }
     }
 }

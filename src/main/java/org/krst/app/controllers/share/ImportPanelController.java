@@ -7,6 +7,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.krst.app.configurations.Logger;
+import org.krst.app.controllers.MainWindowRefresher;
 import org.krst.app.services.DataPassService;
 import org.krst.app.services.supports.ImportExportSupport;
 import org.krst.app.services.supports.TemplateFileSupport;
@@ -28,9 +31,11 @@ public class ImportPanelController {
     @FXML private Text selectedFileName;
     @FXML private Text operationName;
 
+    @Autowired private Logger logger;
     @Autowired private DataPassService dataPassService;
     @Autowired private ImportExportSupport importSupport;
     @Autowired private TemplateFileSupport templateFileSupport;
+    @Autowired private MainWindowRefresher mainWindowRefresher;
 
     private ImportExportOperation operation;
     private File importedFile;
@@ -66,6 +71,13 @@ public class ImportPanelController {
         } catch (Exception e) {
             selectedFileName.setText("无-请重新选择文件");
             CommonUtils.alertSystemError("导入数据失败，失败原因：" + e.getMessage());
+            logger.logError(this.getClass().toString(), "导入数据失败，失败原因：{}， StackTrace：{}", e.getMessage(), ExceptionUtils.getStackTrace(e));
+        }
+
+        // refresh MainWindow records
+        switch (operation) {
+            case IMPORT_STUDENT_TEMPLATE:
+                mainWindowRefresher.student_clear();
         }
     }
 

@@ -3,7 +3,6 @@ package org.krst.app.services.supports;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.krst.app.models.ImportExportFailure;
-import org.krst.app.repositories.StudentRepository;
 import org.krst.app.services.supports.DataProcessors.StudentDataProcessor;
 import org.krst.app.services.supports.DataProcessors.TriConsumer;
 import org.krst.app.utils.ImportExportOperation;
@@ -21,7 +20,6 @@ import java.util.function.Supplier;
 public class DataProcessor {
 
     @Autowired private StudentDataProcessor studentDataProcessor;
-    @Autowired private StudentRepository studentRepository;
 
     public Function<Row, ImportExportFailure> getImportProcessor(ImportExportOperation operation) {
         switch (operation) {
@@ -33,7 +31,7 @@ public class DataProcessor {
 
     public TriConsumer<Row, Object, CellStyle> getExportProcessor(ImportExportOperation operation) {
         switch (operation) {
-            case IMPORT_STUDENT_TEMPLATE:
+            case EXPORT_ALL_STUDENT_INFO:
                 return studentDataProcessor;
         }
         return ((x,y,z) -> {});

@@ -8,10 +8,8 @@ Backlog
     KRST-83 [BE] Import Person List Info
     KRST-87 [FE/BE] Export log file
 
-In Progress
-    KRST-82 [BE] Export Student List Info
-
 Done
+    KRST-82 [BE] Export Student List Info
     KRST-89 [BE] Adjust Remainder to support GregorianCalendar
     KRST-85 [FE] AddCourseTemplate: Not found all teachers in the selector
     KRST-86 [BE] Change teacherId will cause NPE

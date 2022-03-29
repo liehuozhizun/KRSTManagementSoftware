@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 @Component
 public class Logger {
@@ -20,7 +21,7 @@ public class Logger {
         StringBuilder msg = new StringBuilder(message);
         Arrays.stream(args).forEach(arg -> {
             int idx = msg.indexOf(placeholder);
-            msg.replace(idx, idx + placeholderLength, arg);
+            msg.replace(idx, idx + placeholderLength, Objects.isNull(arg) ? "NullPointerException" : arg);
         });
         return msg.toString();
     }
