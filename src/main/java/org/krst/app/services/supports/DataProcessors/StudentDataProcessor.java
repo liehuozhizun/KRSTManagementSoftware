@@ -10,6 +10,7 @@ import org.krst.app.models.ImportExportFailure;
 import org.krst.app.repositories.StudentRepository;
 import org.krst.app.services.CacheService;
 import org.krst.app.services.supports.ExcelSupport;
+import org.krst.app.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,8 +93,29 @@ public class StudentDataProcessor extends AbstractDataProcessor implements
     }
 
     @Override
-    public void accept(Row cells, Object obj, CellStyle cellStyle) {
-
+    public void accept(Row row, Object obj, CellStyle cellStyle) {
+        int cellIdx = 0;
+        Student student = (Student) obj;
+        setCellValue(row, cellIdx, student.getId());
+        setCellValue(row, ++cellIdx, student.getName());
+        setCellValue(row, ++cellIdx, student.getBaptismalName());
+        setCellValue(row, ++cellIdx, student.getGender());
+        setCellValue(row, ++cellIdx, student.getBirthday());
+        setCellValue(row, ++cellIdx, student.getIsGregorianCalendar());
+        setCellValue(row, ++cellIdx, student.getBirthday() == null ? null : student.getBirthday().until(CommonUtils.getCurrentZonedTime().toLocalDate()).getYears());
+        setCellValue(row, ++cellIdx, student.getBaptismalDate());
+        setCellValue(row, ++cellIdx, student.getConfirmationDate());
+        setCellValue(row, ++cellIdx, student.getMarriageDate());
+        setCellValue(row, ++cellIdx, student.getDeathDate());
+        setCellValue(row, ++cellIdx, student.getAttribute() == null ? null : student.getAttribute().getAttribute());
+        setCellValue(row, ++cellIdx, student.getPhone());
+        setCellValue(row, ++cellIdx, student.getAltPhone());
+        setCellValue(row, ++cellIdx, student.getAddress());
+        setCellValue(row, ++cellIdx, student.getExperience());
+        setCellValue(row, ++cellIdx, student.getTalent());
+        setCellValue(row, ++cellIdx, student.getResource());
+        setCellValue(row, ++cellIdx, student.getEducation());
+        setCellValue(row, ++cellIdx, student.getStaff() == null ? null : student.getStaff().getName());
     }
 
     @SneakyThrows

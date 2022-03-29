@@ -18,4 +18,7 @@ public class DataPassService {
         ready = true;
     }
 
+    public boolean isReady() {
+        return ready;
+    }
 }

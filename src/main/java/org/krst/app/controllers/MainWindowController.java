@@ -25,6 +25,8 @@ import org.krst.app.views.course.CourseTemplateControlPanel;
 import org.krst.app.views.person.AddPerson;
 import org.krst.app.views.person.PersonInfoPage;
 import org.krst.app.views.share.AttributeControlPanel;
+import org.krst.app.views.share.ExportPanel;
+import org.krst.app.views.share.ImportExportSelectionPanel;
 import org.krst.app.views.share.ImportPanel;
 import org.krst.app.views.staff.AddStaff;
 import org.krst.app.views.staff.StaffInfoPage;
@@ -40,7 +42,7 @@ import java.time.LocalDate;
 import java.util.function.Function;
 
 @FXMLController
-public class MainWindowController {
+public class MainWindowController implements MainWindowRefresher {
     @FXML private BorderPane basePane;
 
     @Autowired private DataPassService dataPassService;
@@ -106,10 +108,18 @@ public class MainWindowController {
         }
     }
     public void database_import() {
-        CommonUtils.alertFeatureNotReady();
+        dataPassService.setValue(true);
+        KRSTManagementSoftware.openWindow(ImportExportSelectionPanel.class);
+        if (dataPassService.isReady()) {
+            KRSTManagementSoftware.openWindow(ImportPanel.class);
+        }
     }
     public void database_export() {
-        CommonUtils.alertFeatureNotReady();
+        dataPassService.setValue(false);
+        KRSTManagementSoftware.openWindow(ImportExportSelectionPanel.class);
+        if (dataPassService.isReady()) {
+            KRSTManagementSoftware.openWindow(ExportPanel.class);
+        }
     }
     public void database_openLocation() {
         databaseService.openDatabaseLocationFolder();

@@ -33,4 +33,12 @@ public class CommonUtils {
         alert.setContentText("很抱歉，此操作/功能尚未开发完成，敬请期待！");
         alert.showAndWait();
     }
+
+    public static void alertFeatureError(String operationName, String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("操作错误");
+        alert.setHeaderText("您正在请求的操作出现错误：" + operationName);
+        alert.setContentText("错误原因：" + errorMessage);
+        alert.showAndWait();
+    }
 }
